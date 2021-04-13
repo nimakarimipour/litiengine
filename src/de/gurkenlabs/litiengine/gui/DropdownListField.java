@@ -1,5 +1,9 @@
 package de.gurkenlabs.litiengine.gui;
 
+import javax.annotation.Nullable;
+
+import de.gurkenlabs.litiengine.Initializer;
+
 import java.awt.event.KeyEvent;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -74,6 +78,7 @@ public class DropdownListField extends GuiComponent {
     return this.getContentList().getSelectionRow();
   }
 
+  @Nullable
   public Object getSelectedObject() {
     if (this.getContentArray().length == 0) {
       return null;
@@ -135,10 +140,12 @@ public class DropdownListField extends GuiComponent {
     this.arrowKeyNavigation = arrowKeyNavigation;
   }
 
+  @Initializer
   public void setButtonSprite(final Spritesheet buttonSprite) {
     this.buttonSprite = buttonSprite;
   }
 
+  @Initializer
   public void setEntrySprite(final Spritesheet entrySprite) {
     this.entrySprite = entrySprite;
   }
@@ -167,6 +174,7 @@ public class DropdownListField extends GuiComponent {
   /**
    * Toggle drop down.
    */
+  @Initializer
   public void toggleDropDown() {
     if (this.isDroppedDown()) {
       this.getContentList().suspend();

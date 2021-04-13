@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.environment.tilemap;
 
+import javax.annotation.Nullable;
+
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Polygon;
@@ -8,9 +10,6 @@ import java.awt.Shape;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
-/**
- * A class containing various standard map orientations.
- */
 public class MapOrientations {
   /**
    * <p>
@@ -105,7 +104,7 @@ public class MapOrientations {
       return this.getShape(x, y, map).getBounds2D();
     }
 
-    @Override
+    @Override@Nullable
     public Rectangle2D getBounds(Point tile, IMap map) {
       return tile == null ? null : this.getBounds(tile.x, tile.y, map);
     }

@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.entities;
 
+import javax.annotation.Nullable;
+
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.List;
@@ -130,6 +132,7 @@ public interface IEntity{
    * @see IEntity#perform(String)
    * @see IEntity#actions()
    */
+  @Nullable
   EntityAction register(String name, Runnable action);
 
   void detachControllers();
@@ -151,6 +154,7 @@ public interface IEntity{
    * 
    * @return The name of this entity.
    */
+  @Nullable
   String getName();
 
   RenderType getRenderType();
@@ -179,6 +183,7 @@ public interface IEntity{
 
   double getY();
 
+  @Nullable
   String sendMessage(Object sender, String message);
 
   void setHeight(double height);

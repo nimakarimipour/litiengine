@@ -1,5 +1,9 @@
 package de.gurkenlabs.litiengine.entities;
 
+import javax.annotation.Nullable;
+
+import de.gurkenlabs.litiengine.Initializer;
+
 import java.awt.geom.Point2D;
 import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
@@ -19,9 +23,6 @@ import de.gurkenlabs.litiengine.physics.IMovementController;
 import de.gurkenlabs.litiengine.physics.MovementController;
 import de.gurkenlabs.litiengine.tweening.TweenType;
 
-/**
- * TODO: Add idle event
- */
 @MovementInfo
 @TmxType(MapObjectType.CREATURE)
 public class Creature extends CombatEntity implements IMobileEntity {
@@ -37,7 +38,7 @@ public class Creature extends CombatEntity implements IMobileEntity {
   @TmxProperty(name = MapObjectProperty.MOVEMENT_TURNONMOVE)
   private boolean turnOnMove;
 
-  @TmxProperty(name = MapObjectProperty.MOVEMENT_VELOCITY)
+  @TmxProperty(name = MapObjectProperty.MOVEMENT_VELOCITY)@Nullable
   private Attribute<Float> velocity;
 
   @TmxProperty(name = MapObjectProperty.SPRITESHEETNAME)
@@ -60,7 +61,7 @@ public class Creature extends CombatEntity implements IMobileEntity {
    * 
    * @see CreatureAnimationController#getSpriteName(Creature, de.gurkenlabs.litiengine.graphics.CreatureAnimationState)
    */
-  public Creature(String spritesheetName) {
+  public Creature(@Nullable String spritesheetName) {
     super();
     final MovementInfo movementInfo = this.getClass().getAnnotation(MovementInfo.class);
     if (movementInfo != null) {
@@ -203,6 +204,7 @@ public class Creature extends CombatEntity implements IMobileEntity {
     this.turnOnMove = turn;
   }
 
+  @Initializer
   public void setSpritesheetName(String spritesheetName) {
     if (this.spritesheetName != null && this.spritesheetName.equals(spritesheetName)) {
       return;

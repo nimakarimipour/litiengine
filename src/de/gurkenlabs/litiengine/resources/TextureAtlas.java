@@ -1,5 +1,9 @@
 package de.gurkenlabs.litiengine.resources;
 
+import javax.annotation.Nullable;
+
+import de.gurkenlabs.litiengine.Initializer;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -32,12 +36,14 @@ public class TextureAtlas {
   @XmlElement(name = "sprite")
   private List<Sprite> sprites;
 
+  @Nullable
   private String absoluteImagePath;
 
   TextureAtlas() {
     // keep for serialization
   }
 
+  @Nullable
   public static TextureAtlas read(String textureAtlasFile) {
     try {
       TextureAtlas atlas = XmlUtilities.read(TextureAtlas.class, Resources.getLocation(textureAtlasFile));
@@ -54,7 +60,7 @@ public class TextureAtlas {
     }
   }
 
-  @XmlTransient
+  @XmlTransient@Nullable
   public String getAbsoluteImagePath() {
     return this.absoluteImagePath;
   }
@@ -69,7 +75,7 @@ public class TextureAtlas {
     return this.height;
   }
 
-  @XmlTransient
+  @XmlTransient@Initializer
   public List<Sprite> getSprites() {
     if (this.sprites == null) {
       this.sprites = new ArrayList<>();
@@ -78,6 +84,7 @@ public class TextureAtlas {
     return this.sprites;
   }
 
+  @Nullable
   public Sprite getSprite(String name) {
     if (name == null || name.isEmpty()) {
       return null;
@@ -86,6 +93,7 @@ public class TextureAtlas {
     return this.getSprites().stream().filter(x -> x.getName().equals(name)).findFirst().orElse(null);
   }
 
+  @Initializer
   public void setImagePath(String imagePath) {
     this.rawImagePath = imagePath;
   }
@@ -168,11 +176,12 @@ public class TextureAtlas {
       return this.offsetY;
     }
 
-    @XmlTransient
+    @XmlTransient@Initializer
     public boolean isRotated() {
       return this.rotated != null && this.rotated;
     }
 
+    @Initializer
     public void setName(String name) {
       this.name = name;
     }

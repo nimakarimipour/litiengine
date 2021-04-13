@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine;
 
+import javax.annotation.Nullable;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.logging.Level;
@@ -11,18 +13,6 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import de.gurkenlabs.litiengine.environment.tilemap.xml.CustomPropertyProvider;
 
-/**
- * The {@code GameInfo} class contains basic information about a LITIENGINE game.
- * The information can be accessed via {@code Game.getInfo()} and the infrastructure also internally uses this information
- * e.g. to setup the main window of the Game by providing an appropriate title.
- * <p>
- * It should be the first thing that you do in you application entry point to setup or load this information.
- * Note that it's possible to keep this information in an XML file and load it up by calling {@code Game.setInfo(String)}.
- * </p>
- * 
- * @see Game#info()
- * @see Game#setInfo(String)
- */
 @XmlRootElement(name = "gameinfo")
 public class GameInfo extends CustomPropertyProvider {
   private static final Logger log = Logger.getLogger(GameInfo.class.getName());
@@ -45,7 +35,7 @@ public class GameInfo extends CustomPropertyProvider {
   @XmlElement
   private String company;
 
-  @XmlElement
+  @XmlElement@Nullable
   private String publisher;
 
   @XmlElement(name = "developer")
@@ -103,7 +93,7 @@ public class GameInfo extends CustomPropertyProvider {
    * @see URL
    * @see #getWebsite()
    */
-  @XmlTransient
+  @XmlTransient@Nullable
   public URL getWebsiteURL() {
     if (this.getWebsite() == null || this.getWebsite().isEmpty()) {
       return null;
@@ -142,7 +132,7 @@ public class GameInfo extends CustomPropertyProvider {
    * 
    * @return The game's publisher.
    */
-  @XmlTransient
+  @XmlTransient@Nullable
   public String getPublisher() {
     return this.publisher;
   }

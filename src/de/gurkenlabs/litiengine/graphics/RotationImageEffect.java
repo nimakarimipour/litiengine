@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.graphics;
 
+import javax.annotation.Nullable;
+
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
@@ -22,7 +24,7 @@ public class RotationImageEffect extends ImageEffect {
     this.angle = angle;
   }
 
-  @Override
+  @Override@Nullable
   public BufferedImage apply(final BufferedImage image) {
     if (image == null) {
       return null;

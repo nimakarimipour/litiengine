@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.entities.behavior;
 
+import de.gurkenlabs.litiengine.Initializer;
+
 import java.awt.Point;
 import java.awt.Rectangle;
 
@@ -102,6 +104,7 @@ public class AStarNode {
     this.penalty = penalty;
   }
 
+  @Initializer
   public void setPredecessor(final AStarNode predecessor) {
     this.predecessor = predecessor;
   }

@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.gui;
 
+import de.gurkenlabs.litiengine.Initializer;
+
 import java.awt.geom.Point2D;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -81,10 +83,12 @@ public abstract class Slider extends GuiComponent {
     this.getChangeConsumer().add(c);
   }
 
+  @Initializer
   public void setButtonSpritesheet(Spritesheet buttonSprite) {
     this.buttonSprite = buttonSprite;
   }
 
+  @Initializer
   public void setSliderSpritesheet(Spritesheet sliderSprite) {
     this.sliderSprite = sliderSprite;
   }
@@ -105,6 +109,7 @@ public abstract class Slider extends GuiComponent {
 
   public abstract void setValueRelativeToMousePosition();
 
+  @Initializer
   protected void setButton1(final ImageComponent button1) {
     this.button1 = button1;
     this.button1.onClicked(e -> {
@@ -114,6 +119,7 @@ public abstract class Slider extends GuiComponent {
     this.getComponents().add(this.getButton1());
   }
 
+  @Initializer
   protected void setButton2(final ImageComponent button2) {
     this.button2 = button2;
     this.button2.onClicked(e -> {
@@ -125,6 +131,7 @@ public abstract class Slider extends GuiComponent {
 
   }
 
+  @Initializer
   protected void setSliderComponent(final ImageComponent slider) {
     this.sliderComponent = slider;
     this.sliderComponent.onMousePressed(e -> this.isDragging = true);

@@ -1,5 +1,9 @@
 package de.gurkenlabs.litiengine.gui;
 
+import javax.annotation.Nullable;
+
+import de.gurkenlabs.litiengine.Initializer;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -15,9 +19,6 @@ import de.gurkenlabs.litiengine.graphics.ShapeRenderer;
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.input.Input;
 
-/**
- * The Class ListField.
- */
 public class ListField extends GuiComponent {
   private boolean arrowKeyNavigation;
   private Spritesheet buttonSprite;
@@ -33,6 +34,7 @@ public class ListField extends GuiComponent {
   private int verticalLowerBound = 0;
   private int horizontalLowerBound = 0;
 
+  @Nullable
   private ImageComponent selectedComponent;
 
   private int selectionColumn = -1;
@@ -211,10 +213,12 @@ public class ListField extends GuiComponent {
     return this.shownColumns;
   }
 
+  @Nullable
   public ImageComponent getSelectedComponent() {
     return this.selectedComponent;
   }
 
+  @Nullable
   public Object getSelectedObject() {
     if (this.getSelectedComponent() == null) {
       return null;
@@ -259,6 +263,7 @@ public class ListField extends GuiComponent {
     this.getChangeConsumer().add(c);
   }
 
+  @Initializer
   public void refresh() {
     for (int column = 0; column < this.getNumberOfShownColumns(); column++) {
       for (int row = 0; row < this.getNumberOfShownRows(); row++) {
@@ -322,11 +327,13 @@ public class ListField extends GuiComponent {
     this.arrowKeyNavigation = arrowKeyNavigation;
   }
 
+  @Initializer
   public void setButtonSprite(final Spritesheet buttonSprite) {
     this.buttonSprite = buttonSprite;
     this.initContentList();
   }
 
+  @Initializer
   public void setEntrySprite(final Spritesheet entrySprite) {
     this.entrySprite = entrySprite;
     this.initContentList();

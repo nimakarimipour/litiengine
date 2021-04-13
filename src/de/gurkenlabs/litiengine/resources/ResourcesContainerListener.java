@@ -1,19 +1,7 @@
 package de.gurkenlabs.litiengine.resources;
 
-/**
- * This listener provides callbacks to observe {@code ResourcesContainer} instances.
- *
- * @param <T>
- *          The type of the resource that is managed by the container.
- * 
- * @see ResourcesContainer
- * @see Images
- * @see Fonts
- * @see Maps
- * @see Sounds
- * @see Spritesheets
- * 
- */
+import javax.annotation.Nullable;
+
 public interface ResourcesContainerListener<T> extends ResourcesContainerClearedListener {
 
   /**
@@ -25,7 +13,7 @@ public interface ResourcesContainerListener<T> extends ResourcesContainerCleared
    *          The added resource.
    * @see ResourcesContainer#add(String, Object)
    */
-  default void added(String resourceName, T resource) {
+  default void added(String resourceName, @Nullable T resource) {
   }
 
   /**

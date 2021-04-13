@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.gui;
 
+import de.gurkenlabs.litiengine.Initializer;
+
 import java.awt.Color;
 import java.util.Objects;
 
@@ -20,6 +22,7 @@ public class SpeechBubbleAppearance extends Appearance {
     super(foreColor, backColor);
   }
 
+  @Initializer
   public SpeechBubbleAppearance(Color foreColor, Color backColor, Color borderColor) {
     super(foreColor, backColor);
     this.borderColor = borderColor;

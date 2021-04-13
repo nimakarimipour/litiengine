@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.gui;
 
+import de.gurkenlabs.litiengine.Initializer;
+
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -110,6 +112,7 @@ public class TextFieldComponent extends ImageComponent {
     }
   }
 
+  @Initializer
   public void setFormat(final String format) {
     this.format = format;
   }

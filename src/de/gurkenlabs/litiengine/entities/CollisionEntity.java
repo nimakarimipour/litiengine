@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.entities;
 
+import de.gurkenlabs.litiengine.Initializer;
+
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.Collection;
@@ -258,6 +260,7 @@ public abstract class CollisionEntity extends Entity implements ICollisionEntity
     }
   }
 
+  @Initializer
   protected void refreshCollisionBox() {
     this.collisionBox = this.getCollisionBox(this.getLocation());
   }

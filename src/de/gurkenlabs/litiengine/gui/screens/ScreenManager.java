@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.gui.screens;
 
+import javax.annotation.Nullable;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -11,20 +13,6 @@ import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.GameWindow;
 import de.gurkenlabs.litiengine.graphics.RenderComponent;
 
-/**
- * The {@code ScreenManager} holds instances of all available screens and handles whenever a different {@code Screen} should be shown to the
- * player. It provides the
- * currently active Screen for the Game’s {@code RenderComponent} which calls the {@code Screen.render(Graphics2D)} method on every tick of
- * the {@code RenderLoop}.
- * Overwriting this method provides the ability to define a customized render pipeline that suits the need of a particular Screen implementation. With
- * the GameScreen, the LITIENGINE provides a simple default Screen implementation that renders the current {@code Environment} and all its
- * {@code GuiComponents}.
- * 
- * @see Screen
- * @see RenderComponent
- * @see GameScreen
- * @see Screen#render(java.awt.Graphics2D)
- */
 public final class ScreenManager {
   private static final Logger log = Logger.getLogger(ScreenManager.class.getName());
   private static final int DEFAULT_CHANGE_COOLDOWN = 200;
@@ -33,6 +21,7 @@ public final class ScreenManager {
 
   private final List<Screen> screens;
 
+  @Nullable
   private Screen currentScreen;
 
   private int changeCooldown = DEFAULT_CHANGE_COOLDOWN;
@@ -113,7 +102,7 @@ public final class ScreenManager {
    * @param screen
    *          The screen to be displayed.
    */
-  public void display(final Screen screen) {
+  public void display(@Nullable final Screen screen) {
     if (Game.hasStarted() && Game.time().since(this.lastScreenChange) < this.getChangeCooldown()) {
       log.log(Level.INFO, "Skipping displaying of screen {0} because screen changing is currently on cooldown.", screen != null ? screen.getName() : "");
       return;
@@ -173,6 +162,7 @@ public final class ScreenManager {
    *          The name of the screen.
    * @return The
    */
+  @Nullable
   public Screen get(String screenName) {
     Optional<Screen> opt = this.screens.stream().filter(element -> element.getName().equalsIgnoreCase(screenName)).findFirst();
     return opt.orElse(null);
@@ -197,6 +187,7 @@ public final class ScreenManager {
    * @see GameWindow#getRenderComponent()
    * @see RenderComponent#render()
    */
+  @Nullable
   public Screen current() {
     return this.currentScreen;
   }

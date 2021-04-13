@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.resources;
 
+import javax.annotation.Nullable;
+
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.io.IOException;
@@ -14,6 +16,7 @@ public final class Fonts extends ResourcesContainer<Font> {
   Fonts() {
   }
 
+  @Nullable
   public Font get(String name, float size) {
     Font font = this.get(name);
     if (font == null) {
@@ -23,6 +26,7 @@ public final class Fonts extends ResourcesContainer<Font> {
     return font.deriveFont(size);
   }
 
+  @Nullable
   public Font get(String name, int style) {
     Font font = this.get(name);
     if (font == null) {
@@ -32,6 +36,7 @@ public final class Fonts extends ResourcesContainer<Font> {
     return font.deriveFont(style);
   }
 
+  @Nullable
   public Font get(String name, int style, float size) {
     Font font = this.get(name);
     if (font == null) {
@@ -52,7 +57,7 @@ public final class Fonts extends ResourcesContainer<Font> {
    * @see Font#createFont(int, java.io.File)
    * @see Font#getFont(String)
    */
-  @Override
+  @Override@Nullable
   protected Font load(URL resourceName) {
     try (final InputStream fontStream = Resources.get(resourceName)) {
       if (fontStream == null) {

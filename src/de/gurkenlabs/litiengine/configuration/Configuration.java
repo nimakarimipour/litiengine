@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.configuration;
 
+import javax.annotation.Nullable;
+
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -61,6 +63,7 @@ public class Configuration {
    *          The class that provides the generic type for this method.
    * @return The configuration group of the specified type or null if none can be found.
    */
+  @Nullable
   public <T extends ConfigurationGroup> T getConfigurationGroup(final Class<T> groupClass) {
     for (final ConfigurationGroup group : this.getConfigurationGroups()) {
       if (group.getClass().equals(groupClass)) {
@@ -71,6 +74,7 @@ public class Configuration {
     return null;
   }
 
+  @Nullable
   public ConfigurationGroup getConfigurationGroup(final String prefix) {
     for (final ConfigurationGroup group : this.getConfigurationGroups()) {
 

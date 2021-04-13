@@ -1,5 +1,9 @@
 package de.gurkenlabs.litiengine.environment;
 
+import javax.annotation.Nullable;
+
+import de.gurkenlabs.litiengine.Initializer;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -9,17 +13,17 @@ import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.entities.IEntity;
 import de.gurkenlabs.litiengine.entities.Spawnpoint;
 
-/**
- * TODO: Implement spawn event/listener
- * TODO: Implement additional constructors to enhance the API
- */
 public abstract class EntitySpawner<T extends IEntity> implements IEntitySpawner<T> {
   private int amount;
   private int interval;
   private long lastSpawnWave;
   private int spawnDelay;
   private SpawnMode spawnMode;
+
+  @Nullable
   private List<Spawnpoint> spawnpoints;
+
+  @Nullable
   private Function<IEntitySpawner<T>, List<Spawnpoint>> customSpawnpoints;
 
   public EntitySpawner(final int interval, final int amount) {
@@ -54,6 +58,7 @@ public abstract class EntitySpawner<T extends IEntity> implements IEntitySpawner
    * @param spawnMode
    *          the spawning behaviour
    */
+  @Initializer
   public EntitySpawner(final List<Spawnpoint> spawnpoints, final int interval, final int amount, SpawnMode spawnMode) {
     this.interval = interval;
     this.spawnDelay = 1000;
@@ -62,6 +67,7 @@ public abstract class EntitySpawner<T extends IEntity> implements IEntitySpawner
     this.spawnMode = spawnMode;
   }
 
+  @Initializer
   public EntitySpawner(final int amount, Function<IEntitySpawner<T>, List<Spawnpoint>> spawnpointCallback) {
     Objects.nonNull(spawnpointCallback);
 

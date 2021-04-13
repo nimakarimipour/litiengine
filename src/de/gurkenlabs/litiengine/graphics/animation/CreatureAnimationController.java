@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.graphics.animation;
 
+import javax.annotation.Nullable;
+
 import java.awt.image.BufferedImage;
 import java.util.Optional;
 
@@ -12,30 +14,10 @@ import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.util.Imaging;
 
-/**
- * This {@link AnimationController} implementation provides animation rules that
- * use naming conventions to provide {@link Animation}s for {@link Creature}
- * implementations.
- * 
- * The spritesheet images need to be named according to the following
- * conventions in order to be automatically used by this controller:
- * <ul>
- * <li>{@link #getSpritePrefix()}-idle-{DIRECTION}.{EXTENSION}</li>
- * <li>{@link #getSpritePrefix()}-walk-{DIRECTION}.{EXTENSION}</li>
- * </ul>
- * Where {DIRECTION} refers to a value of the {@link Direction} enum and
- * {@link #getSpritePrefix()} refers to the current sprite prefix of the entity.
- * {EXTENSION} refers to a value of the
- * {@link de.gurkenlabs.litiengine.resources.ImageFormat} enum.
- * 
- * @param <T>
- *          The type of the creature for which animations are managed by this controller.
- * @see de.gurkenlabs.litiengine.entities.Creature
- * @see de.gurkenlabs.litiengine.Direction
- * @see de.gurkenlabs.litiengine.entities.IEntity#getName()
- */
 public class CreatureAnimationController<T extends Creature> extends EntityAnimationController<T> {
   private String[] customDeathAnimations;
+
+  @Nullable
   private String randomDeathSprite;
 
   /**
@@ -150,6 +132,7 @@ public class CreatureAnimationController<T extends Creature> extends EntityAnima
    * 
    * @return The name of the current animation that should be played
    */
+  @Nullable
   protected String getCurrentAnimationName() {
     if (this.getEntity().isDead()) {
       return this.getDeathAnimationName();
@@ -172,6 +155,7 @@ public class CreatureAnimationController<T extends Creature> extends EntityAnima
     return this.getIdleSpriteName(this.getEntity().getFacingDirection());
   }
 
+  @Nullable
   private String getDeathAnimationName() {
     if (this.customDeathAnimations.length > 0) {
       if (this.randomDeathSprite != null) {
@@ -272,6 +256,7 @@ public class CreatureAnimationController<T extends Creature> extends EntityAnima
     return getFallbackSpriteName(state, dir);
   }
 
+  @Nullable
   private String getFallbackSpriteName(CreatureAnimationState state, Direction dir) {
     String fallbackStateName = this.getSpriteName(state.getOpposite(), dir);
     if (this.hasAnimation(fallbackStateName)) {

@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.entities;
 
+import javax.annotation.Nullable;
+
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import java.util.Collection;
@@ -39,6 +41,7 @@ public class CombatEntity extends CollisionEntity implements ICombatEntity {
   @TmxProperty(name = MapObjectProperty.COMBAT_HITPOINTS)
   private int initialHitpoints;
 
+  @Nullable
   private ICombatEntity target;
   private long lastHit;
 
@@ -134,7 +137,7 @@ public class CombatEntity extends CollisionEntity implements ICombatEntity {
     return new Ellipse2D.Double(this.getX(), this.getY(), this.getWidth(), this.getHeight());
   }
 
-  @Override
+  @Override@Nullable
   public ICombatEntity getTarget() {
     return this.target;
   }
@@ -171,7 +174,7 @@ public class CombatEntity extends CollisionEntity implements ICombatEntity {
   }
 
   @Override
-  public void hit(final int damage, final Ability ability) {
+  public void hit(final int damage, @Nullable final Ability ability) {
     if (this.isDead()) {
       return;
     }

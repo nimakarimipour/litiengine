@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.environment;
 
+import javax.annotation.Nullable;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -24,6 +26,7 @@ public final class CustomMapObjectLoader extends MapObjectLoader {
     this.invoke = invocation;
   }
 
+  @Nullable
   static ConstructorInvocation findConstructor(Class<? extends IEntity> entityType) {
     ConstructorInvocation inv = null;
 

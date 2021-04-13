@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.physics;
 
+import javax.annotation.Nullable;
+
 import java.awt.geom.Point2D;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -125,7 +127,7 @@ public class MovementController<T extends IMobileEntity> implements IMovementCon
     this.moveEntity(dx, dy);
   }
 
-  @Override
+  @Override@Nullable
   public Force getForce(String identifier) {
     if (identifier == null || identifier.isEmpty()) {
       return null;

@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.resources;
 
+import javax.annotation.Nullable;
+
 import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
@@ -26,25 +28,6 @@ import de.gurkenlabs.litiengine.graphics.emitters.xml.EmitterLoader;
 import de.gurkenlabs.litiengine.sound.Sound;
 import de.gurkenlabs.litiengine.util.TimeUtilities;
 
-/**
- * This class is the engines entry point for accessing any kind of resources. A resource is any non-executable data that is deployed with your game.
- * The {@code Resources} class provides access to types of {@code ResourcesContainers} and is used by different (loading) mechanisms to make
- * resources available during runtime.
- * <p>
- * The LITIENGINE supports a variety of different resource types, including:
- * </p>
- * 
- * <ul>
- * <li>images</li>
- * <li>fonts</li>
- * <li>maps</li>
- * <li>(localizable) strings</li>
- * <li>spritesheets</li>
- * <li>sounds</li>
- * </ul>
- * 
- * @see ResourcesContainer
- */
 public final class Resources {
   private static final Logger log = Logger.getLogger(Resources.class.getName());
   private static Fonts fonts = new Fonts();
@@ -240,6 +223,7 @@ public final class Resources {
    * @return The contents of the specified file as {@code InputStream}.
    * @see Resources
    */
+  @Nullable
   public static InputStream get(String file) {
     return get(getLocation(file));
   }
@@ -252,6 +236,7 @@ public final class Resources {
    * @return The contents of the specified file as {@code InputStream}.
    * @see Resources
    */
+  @Nullable
   public static InputStream get(URL file) {
     InputStream stream = getResource(file);
     if (stream == null) {
@@ -269,6 +254,7 @@ public final class Resources {
    *          The path to the file.
    * @return The contents of the specified file as {@code String}
    */
+  @Nullable
   public static String read(String file) {
     return read(file, StandardCharsets.UTF_8);
   }
@@ -282,6 +268,7 @@ public final class Resources {
    *          The charset that is used to read the String from the file.
    * @return The contents of the specified file as {@code String}
    */
+  @Nullable
   public static String read(String file, Charset charset) {
     final URL location = getLocation(file);
     if (location == null) {
@@ -299,6 +286,7 @@ public final class Resources {
    *          The path to the file.
    * @return The contents of the specified file as {@code String}
    */
+  @Nullable
   public static String read(URL file) {
     return read(file, StandardCharsets.UTF_8);
   }
@@ -312,6 +300,7 @@ public final class Resources {
    *          The charset that is used to read the String from the file.
    * @return The contents of the specified file as {@code String}
    */
+  @Nullable
   public static String read(URL file, Charset charset) {
     try (Scanner scanner = new Scanner(file.openStream(), charset.toString())) {
       scanner.useDelimiter("\\A");
@@ -350,6 +339,7 @@ public final class Resources {
     }
   }
 
+  @Nullable
   private static InputStream getResource(final URL file) {
     try {
       return file.openStream();

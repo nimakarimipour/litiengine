@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.entities;
 
+import javax.annotation.Nullable;
+
 import java.awt.Shape;
 import java.util.List;
 
@@ -32,6 +34,7 @@ public interface ICombatEntity extends ICollisionEntity {
 
   Shape getHitBox();
 
+  @Nullable
   ICombatEntity getTarget();
 
   int getTeam();

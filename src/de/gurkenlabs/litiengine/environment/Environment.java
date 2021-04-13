@@ -1,5 +1,9 @@
 package de.gurkenlabs.litiengine.environment;
 
+import javax.annotation.Nullable;
+
+import de.gurkenlabs.litiengine.Initializer;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
@@ -101,10 +105,15 @@ public final class Environment implements IRenderable {
   private final Collection<MapArea> mapAreas = ConcurrentHashMap.newKeySet();
   private final Collection<Trigger> triggers = ConcurrentHashMap.newKeySet();
 
+  @Nullable
   private AmbientLight ambientLight;
+
+  @Nullable
   private StaticShadowLayer staticShadowLayer;
   private boolean loaded;
   private boolean initialized;
+
+  @Nullable
   private IMap map;
 
   private int gravity;
@@ -130,6 +139,7 @@ public final class Environment implements IRenderable {
    * @param map
    *          The map that defines this environment.
    */
+  @Initializer
   public Environment(final IMap map) {
     this();
     this.map = map;
@@ -389,6 +399,7 @@ public final class Environment implements IRenderable {
    * @see #getAmbientLight()
    * @see ColorLayer#updateSection(Rectangle2D)
    */
+  @Initializer
   public void updateLighting(Rectangle2D section) {
     if (this.staticShadowLayer != null) {
       this.staticShadowLayer.updateSection(section);
@@ -619,6 +630,7 @@ public final class Environment implements IRenderable {
    *          The map ID of the entity.
    * @return The entity with the specified map ID or null if no entity could be found.
    */
+  @Nullable
   public IEntity get(final int mapId) {
     return this.allEntities.get(mapId);
   }
@@ -657,6 +669,7 @@ public final class Environment implements IRenderable {
    *          The map ID of the entity.
    * @return The strongly typed entity with the specified map ID or null if no entity could be found or if the defined type doesn't match.
    */
+  @Nullable
   public <T extends IEntity> T get(Class<T> clss, int mapId) {
     IEntity ent = this.get(mapId);
     if (ent == null || !clss.isInstance(ent)) {
@@ -673,6 +686,7 @@ public final class Environment implements IRenderable {
    *          The name of the entity.
    * @return The entity with the specified name or null if no entity could be found or if the defined type doesn't match.
    */
+  @Nullable
   public IEntity get(final String name) {
     if (name == null || name.isEmpty()) {
       return null;
@@ -698,6 +712,7 @@ public final class Environment implements IRenderable {
    *          The name of the entity.
    * @return The strongly typed entity with the specified name or null if no entity could be found or if the defined type doesn't match.
    */
+  @Nullable
   public <T extends IEntity> T get(Class<T> clss, String name) {
     IEntity ent = this.get(name);
     if (ent == null || !clss.isInstance(ent)) {
@@ -764,6 +779,7 @@ public final class Environment implements IRenderable {
    * 
    * @see #getStaticShadowLayer()
    */
+  @Nullable
   public AmbientLight getAmbientLight() {
     return this.ambientLight;
   }
@@ -2063,6 +2079,7 @@ public final class Environment implements IRenderable {
    *          The entity that attempts to interacts with triggers.
    * @return The trigger that the source entity was able to interact with or null.
    */
+  @Nullable
   public Trigger interact(ICollisionEntity source) {
     return this.interact(source, null);
   }
@@ -2079,7 +2096,8 @@ public final class Environment implements IRenderable {
    * 
    * @see Trigger#canTrigger(ICollisionEntity)
    */
-  public Trigger interact(ICollisionEntity source, Predicate<Trigger> condition) {
+  @Nullable
+  public Trigger interact(ICollisionEntity source, @Nullable Predicate<Trigger> condition) {
     for (final Trigger trigger : this.triggers) {
       if (trigger.canTrigger(source) && (condition == null || condition.test(trigger))) {
         boolean result = trigger.interact(source);

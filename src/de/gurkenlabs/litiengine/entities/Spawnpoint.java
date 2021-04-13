@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.entities;
 
+import de.gurkenlabs.litiengine.Initializer;
+
 import java.awt.geom.Point2D;
 import java.util.Collection;
 import java.util.EventListener;
@@ -170,6 +172,7 @@ public class Spawnpoint extends Entity {
     return direction;
   }
 
+  @Initializer
   public void setDirection(Direction direction) {
     this.direction = direction;
   }
@@ -178,6 +181,7 @@ public class Spawnpoint extends Entity {
     return spawnInfo;
   }
 
+  @Initializer
   public void setSpawnInfo(String spawnInfo) {
     this.spawnInfo = spawnInfo;
   }
@@ -186,6 +190,7 @@ public class Spawnpoint extends Entity {
     return this.spawnPivotType;
   }
 
+  @Initializer
   public void setSpawnPivotType(EntityPivotType spawnPivotType) {
     this.spawnPivotType = spawnPivotType;
   }

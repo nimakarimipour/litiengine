@@ -1,14 +1,13 @@
 package de.gurkenlabs.litiengine.physics;
 
+import javax.annotation.Nullable;
+
 import java.util.List;
 import java.util.function.Predicate;
 
 import de.gurkenlabs.litiengine.entities.IEntityController;
 import de.gurkenlabs.litiengine.entities.IMobileEntity;
 
-/**
- * The Interface IMovementController is used for moving entities by applying forces to them.
- */
 public interface IMovementController extends IEntityController {
 
   /**
@@ -70,6 +69,7 @@ public interface IMovementController extends IEntityController {
    */
   List<Force> getActiveForces();
   
+  @Nullable
   Force getForce(String identifier);
 
   double getMoveAngle();

@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.entities;
 
+import javax.annotation.Nullable;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -18,9 +20,6 @@ import de.gurkenlabs.litiengine.environment.tilemap.TmxType;
 import de.gurkenlabs.litiengine.graphics.RenderType;
 import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
 
-/**
- * TODO: Triggers should be able to call entity actions (similar to the current message approach)
- */
 @CollisionInfo(collision = false)
 @EntityInfo(renderType = RenderType.OVERLAY)
 @TmxType(MapObjectType.TRIGGER)
@@ -80,7 +79,7 @@ public class Trigger extends CollisionEntity implements IUpdateable {
    * @param message
    *          The message that gets sent by this trigger upon activation.
    */
-  public Trigger(final TriggerActivation activation, final String name, final String message) {
+  public Trigger(final TriggerActivation activation, @Nullable final String name, final String message) {
     this(activation, name, message, false);
   }
 
@@ -114,7 +113,7 @@ public class Trigger extends CollisionEntity implements IUpdateable {
    * @param isOneTime
    *          A flag, indicating whether this instance can only be triggered once.
    */
-  public Trigger(final TriggerActivation activation, final String name, final String message, final boolean isOneTime) {
+  public Trigger(final TriggerActivation activation, @Nullable final String name, final String message, final boolean isOneTime) {
     this(activation, message, isOneTime);
     this.setName(name);
   }

@@ -1,5 +1,9 @@
 package de.gurkenlabs.litiengine.entities;
 
+import javax.annotation.Nullable;
+
+import de.gurkenlabs.litiengine.Initializer;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Paint;
@@ -214,7 +218,7 @@ public class LightSource extends Entity implements IRenderable {
     this.updateAmbientLayers();
   }
 
-  @Override
+  @Override@Nullable
   public String sendMessage(final Object sender, final String message) {
     if (message == null || message.isEmpty()) {
       return null;
@@ -376,6 +380,7 @@ public class LightSource extends Entity implements IRenderable {
     }
   }
 
+  @Initializer
   private void updateShape() {
     switch (this.getLightShapeType()) {
     case ELLIPSE:

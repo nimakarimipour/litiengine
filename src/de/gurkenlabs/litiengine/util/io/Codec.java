@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.util.io;
 
+import javax.annotation.Nullable;
+
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -100,6 +102,7 @@ public final class Codec {
     return (short) (smallNumber * Math.pow(10, precision) - Short.MAX_VALUE);
   }
 
+  @Nullable
   public static BufferedImage decodeImage(final String imageString) {
     if (imageString == null) {
       return null;
@@ -119,10 +122,12 @@ public final class Codec {
     return Imaging.toCompatibleImage(image);
   }
 
+  @Nullable
   public static String encode(final BufferedImage image) {
     return encode(image, ImageFormat.PNG);
   }
 
+  @Nullable
   public static String encode(final BufferedImage image, ImageFormat imageFormat) {
     if (image == null) {
       return null;
@@ -158,7 +163,7 @@ public final class Codec {
    * 
    * @see Base64
    */
-  public static byte[] decode(String base64) {
+  public static byte[] decode(@Nullable String base64) {
     return Base64.getDecoder().decode(base64);
   }
 }

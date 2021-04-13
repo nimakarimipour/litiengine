@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.util.io;
 
+import javax.annotation.Nullable;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Objects;
@@ -9,11 +11,6 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-/**
- * This class allows for absolute and relative URLs to be unmarshalled as Java URL objects.
- * 
- * @see XmlJavaTypeAdapter
- */
 public class URLAdapter extends XmlAdapter<String, URL> {
   private URL base;
 
@@ -38,8 +35,8 @@ public class URLAdapter extends XmlAdapter<String, URL> {
     this.base = base;
   }
 
-  @Override
-  public URL unmarshal(String v) throws MalformedURLException {
+  @Override@Nullable
+  public URL unmarshal(@Nullable String v) throws MalformedURLException {
     if (v == null) {
       return null;
     }
@@ -51,7 +48,7 @@ public class URLAdapter extends XmlAdapter<String, URL> {
   }
 
   // TODO make a unit test for this
-  @Override
+  @Override@Nullable
   public String marshal(URL v) {
     if (v == null) {
       return null;

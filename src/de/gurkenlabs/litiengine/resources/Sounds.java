@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.resources;
 
+import javax.annotation.Nullable;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,6 +31,7 @@ public final class Sounds extends ResourcesContainer<Sound> {
    * 
    * @see Codec#decode(String)
    */
+  @Nullable
   public Sound load(final SoundResource resource) {
     byte[] data = Codec.decode(resource.getData());
     ByteArrayInputStream input = new ByteArrayInputStream(data);
@@ -51,7 +54,7 @@ public final class Sounds extends ResourcesContainer<Sound> {
    *          The path of the file to be loaded.(Can be relative or absolute)
    * @return The loaded Sound from the specified path.
    */
-  @Override
+  @Override@Nullable
   protected Sound load(URL resourceName) throws Exception {
     try (final InputStream is = Resources.get(resourceName)) {
       if (is == null) {

@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.environment;
 
+import javax.annotation.Nullable;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -96,6 +98,7 @@ public class PropMapObjectLoader extends MapObjectLoader {
     return new Prop(spriteSheet);
   }
 
+  @Nullable
   private static Prop createCustomProp(Class<? extends Prop> customProp, String spriteSheet) {
     try {
       return customProp.getConstructor(String.class).newInstance(spriteSheet);

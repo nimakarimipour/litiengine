@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.entities.behavior;
 
+import de.gurkenlabs.litiengine.Initializer;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -15,6 +17,7 @@ public class StateMachine implements IUpdateable {
     return this.currentState;
   }
 
+  @Initializer
   public void setState(final State newState) {
     if (this.currentState != null) {
       this.currentState.exit();

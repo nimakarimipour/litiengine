@@ -1,5 +1,9 @@
 package de.gurkenlabs.litiengine.gui;
 
+import javax.annotation.Nullable;
+
+import de.gurkenlabs.litiengine.Initializer;
+
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -22,15 +26,18 @@ public class ImageComponent extends GuiComponent {
   public static final int BACKGROUND_PRESSED_INDEX = 2;
   public static final int BACKGROUND_DISABLED_INDEX = 3;
 
+  @Nullable
   private BufferedImage baseImage;
   private BufferedImage scaledImage;
 
+  @Nullable
   private Spritesheet spritesheet;
 
   private ImageScaleMode imageScaleMode = ImageScaleMode.NORMAL;
   private Align imageAlign = Align.CENTER;
   private Valign imageValign = Valign.MIDDLE;
 
+  @Initializer
   public ImageComponent(final double x, final double y, final Image image) {
     super(x, y, image.getWidth(null), image.getHeight(null));
     this.baseImage = (BufferedImage) image;
@@ -54,8 +61,9 @@ public class ImageComponent extends GuiComponent {
     this.setImage(image);
   }
 
+  @Initializer
   public ImageComponent(final double x, final double y, final double width, final double height, final Spritesheet spritesheet, final String text,
-      final Image image) {
+      @Nullable final Image image) {
     this(x, y, width, height, text);
     this.spritesheet = spritesheet;
     this.setImageAlign(Align.LEFT);
@@ -65,6 +73,7 @@ public class ImageComponent extends GuiComponent {
     }
   }
 
+  @Nullable
   public Image getBackground() {
     if (this.getSpritesheet() == null) {
       return null;
@@ -126,6 +135,7 @@ public class ImageComponent extends GuiComponent {
     Resources.images().add(cacheKey, this.scaledImage);
   }
 
+  @Initializer@Nullable
   public BufferedImage getImage() {
     if (this.scaledImage == null) {
       return this.baseImage;
@@ -197,6 +207,7 @@ public class ImageComponent extends GuiComponent {
     this.rescaleImage();
   }
 
+  @Nullable
   protected Spritesheet getSpritesheet() {
     return this.spritesheet;
   }

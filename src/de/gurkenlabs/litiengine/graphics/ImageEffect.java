@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.graphics;
 
+import javax.annotation.Nullable;
+
 import java.awt.image.BufferedImage;
 
 import de.gurkenlabs.litiengine.Game;
@@ -58,5 +60,6 @@ public abstract class ImageEffect implements ITimeToLive, Comparable<ImageEffect
     return Integer.compare(this.getPriority(), other.getPriority());
   }
 
+  @Nullable
   public abstract BufferedImage apply(BufferedImage image);
 }

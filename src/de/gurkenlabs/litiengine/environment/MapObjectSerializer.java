@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.environment;
 
+import javax.annotation.Nullable;
+
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.logging.Level;
@@ -79,6 +81,7 @@ public final class MapObjectSerializer {
     }
   }
 
+  @Nullable
   private static String getPropertyValue(Field field, Object value) {
     if (field.getType().equals(Float.class) || field.getType().equals(Double.class)) {
       try {

@@ -1,13 +1,11 @@
 package de.gurkenlabs.litiengine.tweening;
 
+import de.gurkenlabs.litiengine.Initializer;
+
 import java.util.Arrays;
 
 import de.gurkenlabs.litiengine.Game;
 
-/**
- * A Tween is an interpolation between start values and target values over a given time period. It modifies the start values by applying an easing
- * function ({@code TweenEquation}) each tick.
- */
 public class Tween {
   private int duration;
   private TweenEquation equation;
@@ -54,6 +52,7 @@ public class Tween {
    *          the {@code TweenEquation} applied to the tween values.
    * @return the Tween instance.
    */
+  @Initializer
   public Tween ease(final TweenEquation easeEquation) {
     this.equation = easeEquation;
     return this;

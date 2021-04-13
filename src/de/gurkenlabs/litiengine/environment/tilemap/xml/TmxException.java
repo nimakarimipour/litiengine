@@ -1,10 +1,9 @@
 package de.gurkenlabs.litiengine.environment.tilemap.xml;
 
+import javax.annotation.Nullable;
+
 import java.io.IOException;
 
-/**
- * Thrown to indicate that something has gone wrong with the processing of a TMX file.
- */
 public class TmxException extends IOException {
 
   private static final long serialVersionUID = -2404149074008693966L;
@@ -16,7 +15,7 @@ public class TmxException extends IOException {
     super(message);
   }
 
-  public TmxException(String message, Throwable cause) {
+  public TmxException(@Nullable String message, Throwable cause) {
     super(message, cause);
   }
 

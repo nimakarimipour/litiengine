@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.resources;
 
+import javax.annotation.Nullable;
+
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -103,7 +105,7 @@ public final class Maps extends ResourcesContainer<IMap> {
     return new MapGenerator(map);
   }
 
-  @Override
+  @Override@Nullable
   protected IMap load(URL resourceName) throws IOException, URISyntaxException {
     TmxMap map;
     try {
@@ -119,7 +121,7 @@ public final class Maps extends ResourcesContainer<IMap> {
     return map;
   }
 
-  @Override
+  @Override@Nullable
   protected String getAlias(String resourceName, IMap resource) {
     if (resource == null || resource.getName() == null || resource.getName().isEmpty() || resource.getName().equalsIgnoreCase(resourceName)) {
       return null;
@@ -175,6 +177,7 @@ public final class Maps extends ResourcesContainer<IMap> {
      *          The callback that defines which tile gid will be assigned at the specified x, y grid coordinates.
      * @return The newly added tile layer.
      */
+    @Nullable
     public ITileLayer addTileLayer(RenderType renderType, IntBinaryOperator tileCallback) {
       List<Tile> tiles = new ArrayList<>();
       for (int y = 0; y < this.map.getHeight(); y++) {
@@ -262,7 +265,7 @@ public final class Maps extends ResourcesContainer<IMap> {
      *          The mapObject to be added to the specified {@code MapObjectLayer}.
      * @return The added map object.
      */
-    public IMapObject add(IMapObjectLayer layer, IMapObject mapObject) {
+    public IMapObject add(@Nullable IMapObjectLayer layer, IMapObject mapObject) {
       layer.addMapObject(mapObject);
       return mapObject;
     }

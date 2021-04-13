@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.environment.tilemap.xml;
 
+import javax.annotation.Nullable;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.net.URL;
@@ -24,9 +26,10 @@ public class MapObjectLayer extends Layer implements IMapObjectLayer {
   @XmlElement(name = "object")
   private ArrayList<MapObject> objects = new ArrayList<>();
 
-  @XmlAttribute
+  @XmlAttribute@Nullable
   private String color;
 
+  @Nullable
   private transient Color decodedColor;
 
   private transient List<IMapObject> mapObjects = new CopyOnWriteArrayList<>();
@@ -109,7 +112,7 @@ public class MapObjectLayer extends Layer implements IMapObjectLayer {
     }
   }
 
-  @Override
+  @Override@Nullable
   public Color getColor() {
     if (this.color == null || this.color.isEmpty()) {
       return null;

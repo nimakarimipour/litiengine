@@ -1,5 +1,9 @@
 package de.gurkenlabs.litiengine.environment.tilemap.xml;
 
+import javax.annotation.Nullable;
+
+import de.gurkenlabs.litiengine.Initializer;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.font.TextAttribute;
@@ -21,38 +25,38 @@ public class Text implements IMapObjectText {
   @XmlAttribute
   private Integer pixelsize;
 
-  @XmlAttribute
+  @XmlAttribute@Nullable
   private Integer wrap;
 
   @XmlAttribute
-  @XmlJavaTypeAdapter(ColorAdapter.class)
+  @XmlJavaTypeAdapter(ColorAdapter.class)@Nullable
   private Color color;
 
-  @XmlAttribute
+  @XmlAttribute@Nullable
   private Integer bold;
 
-  @XmlAttribute
+  @XmlAttribute@Nullable
   private Integer italic;
 
-  @XmlAttribute
+  @XmlAttribute@Nullable
   private Integer underline;
 
-  @XmlAttribute
+  @XmlAttribute@Nullable
   private Integer strikeout;
 
-  @XmlAttribute
+  @XmlAttribute@Nullable
   private Integer kerning;
 
-  @XmlAttribute
+  @XmlAttribute@Nullable
   private Align halign;
 
-  @XmlAttribute
+  @XmlAttribute@Nullable
   private Valign valign;
 
-  @XmlValue
+  @XmlValue@Nullable
   private String text;
 
-  @Override
+  @Override@Nullable
   public String getText() {
     return this.text;
   }
@@ -70,10 +74,12 @@ public class Text implements IMapObjectText {
     return new Font(properties);
   }
 
+  @Initializer
   public String getFontName() {
     return this.fontfamily != null ? this.fontfamily : Font.SANS_SERIF;
   }
 
+  @Initializer
   public int getPixelSize() {
     return this.pixelsize != null ? this.pixelsize : 16;
   }
@@ -113,12 +119,12 @@ public class Text implements IMapObjectText {
     return this.kerning == null || this.kerning != 0;
   }
 
-  @Override
+  @Override@Nullable
   public Align getAlign() {
     return this.halign;
   }
 
-  @Override
+  @Override@Nullable
   public Valign getValign() {
     return this.valign;
   }

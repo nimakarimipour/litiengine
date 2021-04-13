@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.resources;
 
+import javax.annotation.Nullable;
+
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -90,10 +92,11 @@ public final class Spritesheets {
     return getCustomKeyFrameDurations(sprite.getName());
   }
 
-  public Spritesheet load(final BufferedImage image, final String path, final int spriteWidth, final int spriteHeight) {
+  public Spritesheet load(@Nullable final BufferedImage image, final String path, final int spriteWidth, final int spriteHeight) {
     return new Spritesheet(image, path, spriteWidth, spriteHeight);
   }
 
+  @Nullable
   public Spritesheet load(final ITileset tileset) {
     if (tileset == null || tileset.getImage() == null) {
       return null;
@@ -106,6 +109,7 @@ public final class Spritesheets {
     return new Spritesheet(Resources.images().get(tileset.getImage().getAbsoluteSourcePath(), true), tileset.getImage().getSource(), tileset.getTileDimension().width, tileset.getTileDimension().height);
   }
 
+  @Nullable
   public Spritesheet load(final SpritesheetResource info) {
     Spritesheet sprite = null;
     if (info.getImage() == null || info.getImage().isEmpty()) {

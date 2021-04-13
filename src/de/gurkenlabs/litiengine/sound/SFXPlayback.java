@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.sound;
 
+import javax.annotation.Nullable;
+
 import java.awt.geom.Point2D;
 import java.util.function.Supplier;
 
@@ -8,11 +10,10 @@ import javax.sound.sampled.LineUnavailableException;
 
 import de.gurkenlabs.litiengine.Game;
 
-/**
- * A {@code SoundPlayback} implementation for the playback of sound effects.
- */
 public class SFXPlayback extends SoundPlayback {
   private Sound sound;
+
+  @Nullable
   private FloatControl panControl;
   private Supplier<Point2D> source;
   private int range;

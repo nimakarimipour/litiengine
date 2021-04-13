@@ -1,23 +1,26 @@
 package de.gurkenlabs.litiengine.entities;
 
+import javax.annotation.Nullable;
+
+import de.gurkenlabs.litiengine.Initializer;
+
 import de.gurkenlabs.litiengine.graphics.animation.IEntityAnimationController;
 
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * This class holds all controllers for the entities in the game. It is used as
- * a single hub to access and manage all the controllers.
- */
 public final class EntityControllers {
   private Map<Class<? extends IEntityController>, IEntityController> controllers;
+
+  @Nullable
   private IEntityAnimationController animationController;
 
   EntityControllers() {
     this.controllers = new ConcurrentHashMap<>();
   }
 
+  @Initializer
   public IEntityAnimationController getAnimationController() {
     if (this.animationController == null) {
       this.animationController = this.getController(IEntityAnimationController.class);
@@ -81,7 +84,7 @@ public final class EntityControllers {
     }
   }
 
-  @SuppressWarnings("unchecked")
+  @SuppressWarnings("unchecked")@Nullable
   private <T extends IEntityController> T getExplicitController(Class<T> clss) {
     // if there's an exact match, return it
     if (this.controllers.containsKey(clss)) {

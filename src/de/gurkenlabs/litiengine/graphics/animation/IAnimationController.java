@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.graphics.animation;
 
+import javax.annotation.Nullable;
+
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.Collection;
@@ -84,6 +86,7 @@ public interface IAnimationController extends IUpdateable {
    * @see #getDefault()
    * @see #hasAnimation(String)
    */
+  @Nullable
   public Animation get(String animationName);
 
   /**
@@ -115,6 +118,7 @@ public interface IAnimationController extends IUpdateable {
    * @see #get(String)
    * @see #setDefault(Animation)
    */
+  @Nullable
   public Animation getDefault();
 
   /**
@@ -192,6 +196,7 @@ public interface IAnimationController extends IUpdateable {
    * @see Animation#getCurrentKeyFrame()
    * @see #isEnabled()
    */
+  @Nullable
   public BufferedImage getCurrentImage();
 
   /**
@@ -215,6 +220,7 @@ public interface IAnimationController extends IUpdateable {
    * @see Animation#getCurrentKeyFrame()
    * @see #isEnabled()
    */
+  @Nullable
   public BufferedImage getCurrentImage(int width, int height);
 
   /**

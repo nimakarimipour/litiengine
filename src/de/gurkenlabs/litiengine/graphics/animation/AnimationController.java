@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.graphics.animation;
 
+import javax.annotation.Nullable;
+
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -20,10 +22,15 @@ import de.gurkenlabs.litiengine.util.Imaging;
 
 public class AnimationController implements IAnimationController {
   private static final int MAX_IMAGE_EFFECTS = 20;
+
+  @Nullable
   private AffineTransform affineTransform;
   private final Map<String, Animation> animations;
+
+  @Nullable
   private Animation currentAnimation;
 
+  @Nullable
   private Animation defaultAnimation;
   private boolean enabled;
   private final List<ImageEffect> imageEffects;
@@ -156,7 +163,7 @@ public class AnimationController implements IAnimationController {
     Game.loop().detach(this);
   }
 
-  @Override
+  @Override@Nullable
   public Animation get(final String animationName) {
     if (animationName == null || animationName.isEmpty()) {
       return null;
@@ -165,7 +172,7 @@ public class AnimationController implements IAnimationController {
     return this.animations.getOrDefault(animationName, null);
   }
 
-  @Override
+  @Override@Nullable
   public AffineTransform getAffineTransform() {
     return this.affineTransform;
   }
@@ -180,7 +187,7 @@ public class AnimationController implements IAnimationController {
     return this.currentAnimation;
   }
 
-  @Override
+  @Override@Nullable
   public BufferedImage getCurrentImage() {
     if (!this.isEnabled()) {
       return null;
@@ -205,7 +212,7 @@ public class AnimationController implements IAnimationController {
     return sprite;
   }
 
-  @Override
+  @Override@Nullable
   public BufferedImage getCurrentImage(final int width, final int height) {
     if (this.getCurrentImage() == null) {
       return null;
@@ -220,7 +227,7 @@ public class AnimationController implements IAnimationController {
     return Imaging.scale(this.getCurrentImage(), width, height);
   }
 
-  @Override
+  @Override@Nullable
   public Animation getDefault() {
     if (this.defaultAnimation != null) {
       return this.defaultAnimation;
@@ -319,7 +326,7 @@ public class AnimationController implements IAnimationController {
   }
 
   @Override
-  public void setDefault(final Animation defaultAnimation) {
+  public void setDefault(@Nullable final Animation defaultAnimation) {
     if (this.defaultAnimation != null) {
       this.animations.remove(this.defaultAnimation.getName());
       if (this.currentAnimation != null && this.currentAnimation.equals(this.defaultAnimation)) {

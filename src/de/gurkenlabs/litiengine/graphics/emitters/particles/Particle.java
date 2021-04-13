@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.graphics.emitters.particles;
 
+import javax.annotation.Nullable;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
@@ -22,6 +24,8 @@ public abstract class Particle implements ITimeToLive {
   private float deltaAngle;
 
   private Collision collisionType;
+
+  @Nullable
   private Color color;
   private float deltaHeight;
   private float deltaWidth;

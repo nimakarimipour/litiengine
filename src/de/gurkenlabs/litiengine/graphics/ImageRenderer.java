@@ -1,24 +1,19 @@
 package de.gurkenlabs.litiengine.graphics;
 
+import javax.annotation.Nullable;
+
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 
-/**
- * This static implementation renders an {@code Image} to a given {@code Graphics2D} object at the specified screen coordinates.
- * This class be very useful when composing a GUI that contains images which are rendered at a certain location on the screen.
- * 
- * @see Image
- * @see Graphics2D
- */
 public final class ImageRenderer {
 
   private ImageRenderer() {
     throw new UnsupportedOperationException();
   }
 
-  public static void render(final Graphics2D g, final Image image, final double x, final double y) {
+  public static void render(final Graphics2D g, @Nullable final Image image, final double x, final double y) {
     if (image == null) {
       return;
     }
@@ -27,7 +22,7 @@ public final class ImageRenderer {
     g.drawImage(image, t, null);
   }
 
-  public static void render(final Graphics2D g, final Image image, final Point2D renderLocation) {
+  public static void render(final Graphics2D g, @Nullable final Image image, final Point2D renderLocation) {
     render(g, image, renderLocation.getX(), renderLocation.getY());
   }
 
@@ -46,7 +41,7 @@ public final class ImageRenderer {
    * @param angle
    *          The angle by which the image will be rotated.
    */
-  public static void renderRotated(final Graphics2D g, final Image image, final double x, final double y, final double angle) {
+  public static void renderRotated(final Graphics2D g, @Nullable final Image image, final double x, final double y, final double angle) {
     if (image == null) {
       return;
     }
@@ -64,7 +59,7 @@ public final class ImageRenderer {
     g.drawImage(image, t, null);
   }
 
-  public static void renderRotated(final Graphics2D g, final Image image, final Point2D renderLocation, final double angle) {
+  public static void renderRotated(final Graphics2D g, @Nullable final Image image, final Point2D renderLocation, final double angle) {
     renderRotated(g, image, renderLocation.getX(), renderLocation.getY(), angle);
   }
 

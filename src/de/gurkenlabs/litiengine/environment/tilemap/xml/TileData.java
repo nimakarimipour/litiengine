@@ -1,5 +1,9 @@
 package de.gurkenlabs.litiengine.environment.tilemap.xml;
 
+import javax.annotation.Nullable;
+
+import de.gurkenlabs.litiengine.Initializer;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -71,7 +75,7 @@ public class TileData {
   @XmlTransient
   private List<TileChunk> chunks;
 
-  @XmlTransient
+  @XmlTransient@Nullable
   private List<Tile> tiles;
 
   @XmlTransient
@@ -99,6 +103,7 @@ public class TileData {
     // keep for serialization
   }
 
+  @Initializer
   public TileData(List<Tile> tiles, int width, int height, String encoding, String compression) throws TmxException {
     if (!Encoding.isValid(encoding)) {
       throw new TmxException("Invalid tile data encoding '" + encoding + "'. Supported encodings are " + Encoding.CSV + " and " + Encoding.BASE64 + ".");
@@ -138,6 +143,7 @@ public class TileData {
     this.compression = compression;
   }
 
+  @Initializer
   public void setValue(String value) {
     this.value = value;
     if (this.rawValue == null) {
@@ -170,6 +176,7 @@ public class TileData {
     return this.tiles;
   }
 
+  @Nullable
   public static String encode(TileData data) throws IOException {
     if (data.getEncoding() == null) {
       return null;
@@ -405,6 +412,7 @@ public class TileData {
   /**
    * For infinite maps, the size of a tile layer depends on the {@code TileChunks} it contains.
    */
+  @Initializer
   private void updateDimensionsByTileData() {
     int minX = 0;
     int maxX = 0;

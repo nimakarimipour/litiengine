@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.graphics.emitters.xml;
 
+import de.gurkenlabs.litiengine.Initializer;
+
 import java.awt.Color;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -428,6 +430,7 @@ public class EmitterData implements Serializable, Resource {
     this.requiredQuality = minQuality;
   }
 
+  @Initializer
   public void setColor(final Color color) {
     final List<String> tmpList = new ArrayList<>();
     tmpList.add(ColorHelper.encode(color));
@@ -454,6 +457,7 @@ public class EmitterData implements Serializable, Resource {
     this.deltaWidth = deltaWidth;
   }
 
+  @Initializer
   public void initDefaults() {
     this.width = DEFAULT_WIDTH;
     this.height = DEFAULT_HEIGHT;
@@ -608,6 +612,7 @@ public class EmitterData implements Serializable, Resource {
     this.spritesheet = spritesheet.getName();
   }
 
+  @Initializer
   public void setText(final String text) {
     final List<String> tmpList = new ArrayList<>();
     tmpList.add(text);

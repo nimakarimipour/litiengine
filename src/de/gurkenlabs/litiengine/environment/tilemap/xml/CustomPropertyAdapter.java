@@ -1,5 +1,9 @@
 package de.gurkenlabs.litiengine.environment.tilemap.xml;
 
+import javax.annotation.Nullable;
+
+import de.gurkenlabs.litiengine.Initializer;
+
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -47,20 +51,25 @@ public class CustomPropertyAdapter extends XmlAdapter<CustomPropertyAdapter.Prop
 
   @XmlAccessorType(XmlAccessType.FIELD)
   static class Property implements Comparable<Property> {
-    @XmlAttribute
+    @XmlAttribute@Nullable
     String name;
-    @XmlAttribute
+
+    @XmlAttribute@Nullable
     String type;
-    @XmlAttribute
+
+    @XmlAttribute@Nullable
     String value;
-    @XmlValue
+
+    @XmlValue@Nullable
     String contents;
-    @XmlTransient
+
+    @XmlTransient@Nullable
     URL location;
 
     Property() {
     }
 
+    @Initializer
     Property(String name, String type) {
       this.name = name;
       this.type = type == null || !PropertyType.isValid(type) ? PropertyType.STRING : type;
@@ -76,7 +85,7 @@ public class CustomPropertyAdapter extends XmlAdapter<CustomPropertyAdapter.Prop
       }
     }
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings("unused")@Initializer
     private void beforeMarshal(Marshaller m) throws URISyntaxException {
       if (this.type.equals(PropertyType.STRING)) {
         this.type = null;
@@ -106,12 +115,13 @@ public class CustomPropertyAdapter extends XmlAdapter<CustomPropertyAdapter.Prop
 
   @XmlAccessorType(XmlAccessType.FIELD)
   static class PropertyList {
-    @XmlElement(name = "property")
+    @XmlElement(name = "property")@Nullable
     List<Property> properties;
 
     PropertyList() {
     }
 
+    @Initializer
     PropertyList(List<Property> properties) {
       this.properties = properties;
     }
@@ -130,7 +140,7 @@ public class CustomPropertyAdapter extends XmlAdapter<CustomPropertyAdapter.Prop
     return map;
   }
 
-  @Override
+  @Override@Nullable
   public PropertyList marshal(Map<String, ICustomProperty> v) {
     if (v.isEmpty()) {
       return null;

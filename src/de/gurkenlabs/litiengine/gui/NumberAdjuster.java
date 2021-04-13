@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.gui;
 
+import de.gurkenlabs.litiengine.Initializer;
+
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -76,6 +78,7 @@ public class NumberAdjuster extends TextFieldComponent {
     });
   }
 
+  @Initializer
   public void setCurrentValue(final BigDecimal newValue) {
     if (newValue.compareTo(this.getUpperBound()) > 0) {
       this.currentValue = this.getUpperBound();

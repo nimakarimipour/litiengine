@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.util;
 
+import javax.annotation.Nullable;
+
 import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -71,6 +73,7 @@ public final class ColorHelper {
     return decode(colorHexString, false);
   }
 
+  @Nullable
   public static Color decode(String colorHexString, boolean solid) {
     if (colorHexString == null || colorHexString.isEmpty()) {
       return null;
@@ -135,6 +138,7 @@ public final class ColorHelper {
     return new Color(premultiply(color.getRed(), color.getAlpha()), premultiply(color.getGreen(), color.getAlpha()), premultiply(color.getBlue(), color.getAlpha()));
   }
 
+  @Nullable
   private static Color decodeWellformedHexString(String hexString) {
     try {
       return Color.decode(hexString);
@@ -149,6 +153,7 @@ public final class ColorHelper {
     return (int) Math.round(value * Math.pow(alpha / 255.0, 1 / 2.2));
   }
 
+  @Nullable
   private static Color decodeHexStringWithAlpha(String hexString, boolean solid) {
     String alpha = hexString.substring(1, 3);
 

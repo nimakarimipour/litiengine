@@ -1,5 +1,9 @@
 package de.gurkenlabs.litiengine.graphics.animation;
 
+import javax.annotation.Nullable;
+
+import de.gurkenlabs.litiengine.Initializer;
+
 import java.awt.geom.AffineTransform;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -15,6 +19,8 @@ import de.gurkenlabs.litiengine.resources.Resources;
 public class EntityAnimationController<T extends IEntity> extends AnimationController implements IEntityAnimationController<T> {
   private final List<AnimationRule<T>> animationRules = new CopyOnWriteArrayList<>();
   private final T entity;
+
+  @Nullable
   private String spritePrefix;
   private boolean autoScaling;
 
@@ -51,6 +57,7 @@ public class EntityAnimationController<T extends IEntity> extends AnimationContr
    * @see #getDefault()
    * @see #getAll()
    */
+  @Initializer
   public EntityAnimationController(final T entity, final Animation defaultAnimation, final Animation... animations) {
     super(defaultAnimation, animations);
     this.entity = entity;
@@ -150,6 +157,7 @@ public class EntityAnimationController<T extends IEntity> extends AnimationContr
     }
   }
 
+  @Nullable
   protected String getSpritePrefix() {
     return this.spritePrefix;
   }

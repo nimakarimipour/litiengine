@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.graphics.emitters.particles;
 
+import de.gurkenlabs.litiengine.Initializer;
+
 import de.gurkenlabs.litiengine.graphics.TextRenderer;
 import java.awt.Color;
 import java.awt.Font;
@@ -57,6 +59,7 @@ public class TextParticle extends Particle {
     g.setRenderingHints(originalHints);
   }
 
+  @Initializer
   public void setFont(final Font font) {
     this.font = font;
   }

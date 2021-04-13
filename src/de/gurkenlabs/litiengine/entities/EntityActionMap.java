@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.entities;
 
+import javax.annotation.Nullable;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
@@ -12,6 +14,7 @@ public final class EntityActionMap {
     this.actions = new ConcurrentHashMap<>();
   }
 
+  @Nullable
   public EntityAction register(String name, Runnable action) {
     if (name == null || name.isEmpty() || action == null) {
       return null;

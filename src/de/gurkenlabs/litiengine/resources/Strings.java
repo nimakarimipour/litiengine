@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.resources;
 
+import javax.annotation.Nullable;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,6 +37,7 @@ public final class Strings {
     this.charset = charset;
   }
 
+  @Nullable
   public String get(final String key) {
     if (key == null) {
       return null;
@@ -43,6 +46,7 @@ public final class Strings {
     return this.getFrom(DEFAULT_BUNDLE, key);
   }
 
+  @Nullable
   public String get(final String key, Object... args) {
     if (key == null) {
       return null;
@@ -51,6 +55,7 @@ public final class Strings {
     return this.getFrom(DEFAULT_BUNDLE, key, args);
   }
 
+  @Nullable
   public String getFrom(final String bundleName, final String key, Object... args) {
     if (bundleName == null || key == null) {
       return null;

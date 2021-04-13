@@ -1,5 +1,9 @@
 package de.gurkenlabs.litiengine.gui;
 
+import javax.annotation.Nullable;
+
+import de.gurkenlabs.litiengine.Initializer;
+
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Paint;
@@ -31,6 +35,7 @@ public class Appearance {
     this.setTransparentBackground(true);
   }
 
+  @Initializer
   public Appearance(Color foreColor, Color backColor) {
     this();
     this.foreColor = foreColor;
@@ -74,6 +79,7 @@ public class Appearance {
     return this.backgroundColor2;
   }
 
+  @Nullable
   public Paint getBackgroundPaint(double width, double height) {
     if (this.isTransparentBackground()) {
       return null;
@@ -121,15 +127,18 @@ public class Appearance {
     this.fireOnChangeEvent();
   }
 
+  @Initializer
   public void setBackgroundColor2(Color backColor2) {
     this.backgroundColor2 = backColor2;
     this.fireOnChangeEvent();
   }
 
+  @Initializer
   public void setBorderColor(Color color) {
     this.borderColor = color;
   }
 
+  @Initializer
   public void setBorderStyle(Stroke style) {
     this.borderStyle = style;
   }

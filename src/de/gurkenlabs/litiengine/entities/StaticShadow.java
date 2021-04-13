@@ -1,5 +1,9 @@
 package de.gurkenlabs.litiengine.entities;
 
+import javax.annotation.Nullable;
+
+import de.gurkenlabs.litiengine.Initializer;
+
 import java.awt.Color;
 import java.awt.geom.Area;
 import java.awt.geom.Path2D;
@@ -23,6 +27,8 @@ public class StaticShadow extends MapArea {
   private int shadowOffset;
 
   private final CollisionBox origin;
+
+  @Nullable
   private Area area;
 
   /**
@@ -33,6 +39,7 @@ public class StaticShadow extends MapArea {
    * @param offset
    *          The offset for the shadow.
    */
+  @Initializer
   public StaticShadow(StaticShadowType shadowType, int offset) {
     this.shadowType = shadowType;
     this.shadowOffset = offset;
@@ -107,7 +114,7 @@ public class StaticShadow extends MapArea {
    * @param shadowType
    *          The type of the static shadow.
    */
-  public StaticShadow(int id, String name, double x, double y, float width, float height, StaticShadowType shadowType) {
+  public StaticShadow(int id, @Nullable String name, double x, double y, float width, float height, StaticShadowType shadowType) {
     super(id, name, x, y, width, height);
     this.setShadowType(shadowType);
     this.origin = null;
@@ -188,6 +195,7 @@ public class StaticShadow extends MapArea {
     return this.getArea().getBounds2D();
   }
 
+  @Nullable
   public Area getArea() {
     if (this.getShadowType() == StaticShadowType.NONE) {
       return null;

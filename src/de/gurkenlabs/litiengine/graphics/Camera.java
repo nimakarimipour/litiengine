@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.graphics;
 
+import javax.annotation.Nullable;
+
 import java.awt.Dimension;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
@@ -41,6 +43,7 @@ public class Camera implements ICamera {
 
   private long zoomTick;
 
+  @Nullable
   private Point2D targetFocus;
   private int panTime = 0;
 
@@ -132,7 +135,7 @@ public class Camera implements ICamera {
   }
 
   @Override
-  public void setFocus(final Point2D focus) {
+  public void setFocus(@Nullable final Point2D focus) {
     this.focus = this.clampToMap(focus);
 
     // dunno why but without the factor of 0.01 sometimes everything starts to

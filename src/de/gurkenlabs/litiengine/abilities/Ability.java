@@ -1,5 +1,9 @@
 package de.gurkenlabs.litiengine.abilities;
 
+import javax.annotation.Nullable;
+
+import de.gurkenlabs.litiengine.Initializer;
+
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -113,6 +117,7 @@ public abstract class Ability implements IRenderable {
    * @return An {@link AbilityExecution} object that wraps all information about
    *         this execution of the ability.
    */
+  @Nullable
   public AbilityExecution cast() {
     if (!this.canCast()) {
       return null;
@@ -202,6 +207,7 @@ public abstract class Ability implements IRenderable {
     this.castType = castType;
   }
 
+  @Initializer
   void setCurrentExecution(AbilityExecution ae) {
     this.currentExecution = ae;
   }

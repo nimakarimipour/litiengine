@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.util.geom;
 
+import javax.annotation.Nullable;
+
 import java.awt.Dimension;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
@@ -205,6 +207,7 @@ public class GeometricUtilities {
    *          the line b
    * @return the intersection point
    */
+  @Nullable
   public static Point2D getIntersectionPoint(final Line2D lineA, final Line2D lineB) {
 
     final double x1 = lineA.getX1();
@@ -241,6 +244,7 @@ public class GeometricUtilities {
    *          the rectangle
    * @return the point2 d
    */
+  @Nullable
   public static Point2D getIntersectionPoint(final Line2D line, final Rectangle2D rectangle) {
     final List<Point2D> intersectionPoints = getIntersectionPoints(line, rectangle);
     for (final Point2D p : intersectionPoints) {
@@ -358,10 +362,12 @@ public class GeometricUtilities {
     return new Ellipse2D.Double(center.getX() - radius, center.getY() - radius, radius * 2, radius * 2);
   }
 
+  @Nullable
   public static Point2D getAveragePosition(Collection<Point2D> points) {
     return getAveragePosition(points.toArray(new Point2D[points.size()]));
   }
 
+  @Nullable
   public static Point2D getAveragePosition(Point2D... points) {
     if (points.length == 0) {
       return null;
@@ -586,6 +592,7 @@ public class GeometricUtilities {
     return transform.createTransformedShape(shape);
   }
 
+  @Nullable
   public static Dimension2D scaleWithRatio(final double width, final double height, final int max) {
     if (width == 0 || height == 0) {
       return null;

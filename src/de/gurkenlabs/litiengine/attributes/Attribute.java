@@ -1,26 +1,11 @@
 package de.gurkenlabs.litiengine.attributes;
 
+import javax.annotation.Nullable;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * An attribute is a numerical representation of a property that can be adjusted using {@link AttributeModifier}s.
- * <p>
- * It typically doesn't adjust the raw base value (unless explicitly requested) and instead adjusts the value by registered
- * modifications. This is e.g. useful when a property might only be changed for a certain period of time or we need to know the original
- * value of a property.
- * </p>
- * 
- * <p>
- * <i>
- * An example use-case are player stats that might be affected throughout the game (e.g. via certain skills, upgrades or level-ups).
- * </i>
- * </p>
- *
- * @param <T>
- *          The type of the attribute value.
- */
 public class Attribute<T extends Number> {
 
   private final List<AttributeModifier<T>> modifiers;
@@ -153,7 +138,7 @@ public class Attribute<T extends Number> {
     return currentValue;
   }
 
-  @Override
+  @Override@Nullable
   public String toString() {
     return this.get() == null ? null : this.get().toString();
   }

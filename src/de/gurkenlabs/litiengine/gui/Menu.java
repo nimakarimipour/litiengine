@@ -1,14 +1,13 @@
 package de.gurkenlabs.litiengine.gui;
 
+import javax.annotation.Nullable;
+
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.IntConsumer;
 
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 
-/**
- * The Class Menu.
- */
 public class Menu extends ImageComponentList {
 
   private int currentSelection;
@@ -20,7 +19,7 @@ public class Menu extends ImageComponentList {
     this(x, y, width, height, null, items);
   }
 
-  public Menu(final double x, final double y, final double width, final double height, final Spritesheet background, final String... items) {
+  public Menu(final double x, final double y, final double width, final double height, @Nullable final Spritesheet background, final String... items) {
     super(x, y, width, height, items.length, 1, null, background);
     this.items = items;
     this.selectionChangeConsumers = new CopyOnWriteArrayList<>();

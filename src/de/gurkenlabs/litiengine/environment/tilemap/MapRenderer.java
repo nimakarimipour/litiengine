@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.environment.tilemap;
 
+import javax.annotation.Nullable;
+
 import java.awt.AlphaComposite;
 import java.awt.Composite;
 import java.awt.Graphics2D;
@@ -75,7 +77,7 @@ public class MapRenderer {
     renderLayers(g, map, map, viewport, env, renderTypes, 1f);
   }
 
-  private static void renderLayers(final Graphics2D g, final IMap map, ILayerList layers, final Rectangle2D viewport, Environment env, RenderType[] renderTypes, float opacity) {
+  private static void renderLayers(final Graphics2D g, final IMap map, ILayerList layers, final Rectangle2D viewport, @Nullable Environment env, RenderType[] renderTypes, float opacity) {
     final List<ILayer> renderLayers = layers.getRenderLayers();
     for (final ILayer layer : renderLayers) {
       if (layer == null || !shouldBeRendered(g, map, layer, renderTypes)) {

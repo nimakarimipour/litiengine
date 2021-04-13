@@ -1,5 +1,9 @@
 package de.gurkenlabs.litiengine.environment.tilemap.xml;
 
+import javax.annotation.Nullable;
+
+import de.gurkenlabs.litiengine.Initializer;
+
 import java.awt.Point;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
@@ -25,7 +29,7 @@ public class Tile extends CustomPropertyProvider implements ITile {
   protected static final int FLIPPED_DIAGONALLY_FLAG = 0x20000000;
   private static final AffineTransform TX_DIAGONAL_FLIP = new AffineTransform(0.0, 1.0, 1.0, 0.0, 0.0, 0.0);
 
-  @XmlAttribute
+  @XmlAttribute@Nullable
   private Integer gid;
 
   private transient Point tileCoordinate;
@@ -49,6 +53,7 @@ public class Tile extends CustomPropertyProvider implements ITile {
    * @param original
    *         The original tile from which the values will be copied to this new instance.
    */
+  @Initializer
   public Tile(Tile original) {
     this.flipped = original.isFlipped();
     this.flippedDiagonally = original.isFlippedDiagonally();
@@ -90,7 +95,7 @@ public class Tile extends CustomPropertyProvider implements ITile {
   }
 
   @Override
-  public void setProperties(java.util.Map<String, ICustomProperty> props) {
+  public void setProperties(@Nullable java.util.Map<String, ICustomProperty> props) {
     if (this.getTilesetEntry() == null) {
       super.setProperties(props);
     } else {
@@ -118,7 +123,7 @@ public class Tile extends CustomPropertyProvider implements ITile {
     return this.flipped;
   }
 
-  @Override
+  @Override@Nullable
   public BufferedImage getImage() {
     if (this.tilesetEntry == null) { // happens if the tile is empty
       return null;

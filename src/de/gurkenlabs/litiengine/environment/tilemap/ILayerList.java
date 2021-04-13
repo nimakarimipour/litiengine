@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.environment.tilemap;
 
+import javax.annotation.Nullable;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -57,6 +59,7 @@ public interface ILayerList extends ICustomPropertyProvider {
    *          the map object being searched
    * @return the map object layer containing the map object
    */
+  @Nullable
   public default IMapObjectLayer getMapObjectLayer(IMapObject mapObject) {
     for (IMapObjectLayer layer : this.getMapObjectLayers()) {
       Optional<IMapObject> found = layer.getMapObjects().stream().filter(x -> x.getId() == mapObject.getId()).findFirst();
@@ -68,11 +71,13 @@ public interface ILayerList extends ICustomPropertyProvider {
     return null;
   }
 
+  @Nullable
   public default IMapObjectLayer getMapObjectLayer(String layerName) {
     Optional<IMapObjectLayer> layer = this.getMapObjectLayers().stream().filter(x -> x.getName().equals(layerName)).findFirst();
     return layer.orElse(null);
   }
 
+  @Nullable
   public default IMapObjectLayer getMapObjectLayer(int layerId) {
     Optional<IMapObjectLayer> layer = this.getMapObjectLayers().stream().filter(x -> x.getId() == layerId).findFirst();
     return layer.orElse(null);
@@ -172,6 +177,7 @@ public interface ILayerList extends ICustomPropertyProvider {
    *          the map id of the desired {@code IMapObject}
    * @return the {@code IMapObject} with the given ID
    */
+  @Nullable
   public default IMapObject getMapObject(int mapId) {
     if (this.getMapObjectLayers() == null) {
       return null;

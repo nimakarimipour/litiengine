@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.gui;
 
+import de.gurkenlabs.litiengine.Initializer;
+
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -26,10 +28,6 @@ import de.gurkenlabs.litiengine.sound.Sound;
 import de.gurkenlabs.litiengine.tweening.TweenType;
 import de.gurkenlabs.litiengine.tweening.Tweenable;
 
-/**
- * The abstract Class GuiComponent provides all properties and methods needed for screens, built-in, and custom GUI components such as buttons,
- * sliders, etc... It includes mouse event handling, different hovering states and appearances, and texts to be rendered.
- */
 public abstract class GuiComponent implements MouseListener, MouseMotionListener, MouseWheelListener, IRenderable, Tweenable {
 
   protected static final Font ICON_FONT;
@@ -838,6 +836,7 @@ public abstract class GuiComponent implements MouseListener, MouseMotionListener
    *
    * @param font the new font
    */
+  @Initializer
   public void setFont(final Font font) {
     this.font = font;
   }
@@ -886,6 +885,7 @@ public abstract class GuiComponent implements MouseListener, MouseMotionListener
    *
    * @param hoverSound the new hover sound
    */
+  @Initializer
   public void setHoverSound(final Sound hoverSound) {
     this.hoverSound = hoverSound;
   }
@@ -915,6 +915,7 @@ public abstract class GuiComponent implements MouseListener, MouseMotionListener
    *
    * @param name the new name
    */
+  @Initializer
   public void setName(final String name) {
     this.name = name;
   }
@@ -933,6 +934,7 @@ public abstract class GuiComponent implements MouseListener, MouseMotionListener
    *
    * @param tag the new tag
    */
+  @Initializer
   public void setTag(final Object tag) {
     this.tag = tag;
   }
@@ -942,6 +944,7 @@ public abstract class GuiComponent implements MouseListener, MouseMotionListener
    *
    * @param text the new text
    */
+  @Initializer
   public void setText(final String text) {
     this.text = text;
     for (final Consumer<String> cons : this.textChangedConsumer) {
@@ -1006,6 +1009,7 @@ public abstract class GuiComponent implements MouseListener, MouseMotionListener
    *
    * @param textShadowColor the new text shadow color
    */
+  @Initializer
   public void setTextShadowColor(final Color textShadowColor) {
     this.textShadowColor = textShadowColor;
   }

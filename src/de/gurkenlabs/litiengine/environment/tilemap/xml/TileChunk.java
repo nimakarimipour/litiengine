@@ -1,13 +1,12 @@
 package de.gurkenlabs.litiengine.environment.tilemap.xml;
 
+import javax.annotation.Nullable;
+
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlValue;
 
-/**
- * This class represents a chunk of tiles in an infinite map.
- */
 @XmlRootElement(name = "chunk")
 public class TileChunk implements Comparable<TileChunk> {
   @XmlAttribute
@@ -22,7 +21,7 @@ public class TileChunk implements Comparable<TileChunk> {
   @XmlAttribute
   private int height;
 
-  @XmlValue
+  @XmlValue@Nullable
   private String value;
 
   @XmlTransient

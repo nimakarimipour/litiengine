@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.graphics;
 
+import de.gurkenlabs.litiengine.Initializer;
+
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -94,6 +96,7 @@ public class RenderComponent extends Canvas {
     }
   }
 
+  @Initializer
   public void render() {
     final long currentMillis = System.currentTimeMillis();
     if (currentMillis - this.lastFpsTime >= 1000) {

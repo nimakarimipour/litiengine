@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.resources;
 
+import javax.annotation.Nullable;
+
 import java.net.URL;
 
 import javax.xml.bind.JAXBException;
@@ -31,7 +33,7 @@ public class Blueprints extends ResourcesContainer<Blueprint> {
     return blueprint;
   }
   
-  @Override
+  @Override@Nullable
   protected String getAlias(String resourceName, Blueprint resource) {
     if (resource == null || resource.getName() == null || resource.getName().isEmpty() || resource.getName().equalsIgnoreCase(resourceName)) {
       return null;

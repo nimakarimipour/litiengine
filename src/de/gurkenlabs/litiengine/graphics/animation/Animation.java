@@ -1,5 +1,9 @@
 package de.gurkenlabs.litiengine.graphics.animation;
 
+import javax.annotation.Nullable;
+
+import de.gurkenlabs.litiengine.Initializer;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -12,13 +16,6 @@ import de.gurkenlabs.litiengine.IUpdateable;
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.resources.Resources;
 
-/**
- * The {@code Animation} class keeps track of the current keyframe which is used to animate a visual element.
- * It iterates over all defined keyframes with respect to their duration and provides information
- * for the related {@code AnimationController} which keyframe should currently be rendered.
- * 
- * @see IAnimationController#getCurrent()
- */
 public class Animation implements IUpdateable, ILaunchable {
   private final List<KeyFrameListener> listeners;
   /**
@@ -31,8 +28,11 @@ public class Animation implements IUpdateable, ILaunchable {
   private final String name;
   private Spritesheet spritesheet;
 
+  @Nullable
   private KeyFrame currentFrame;
   private long lastFrameUpdate;
+
+  @Nullable
   private KeyFrame firstFrame;
   private int frameDuration = DEFAULT_FRAME_DURATION;
 
@@ -308,6 +308,7 @@ public class Animation implements IUpdateable, ILaunchable {
   /**
    * Restarts this animation at its first frame.
    */
+  @Initializer
   public void restart() {
     this.currentFrame = this.firstFrame;
     this.lastFrameUpdate = Game.loop().getTicks();
@@ -348,6 +349,7 @@ public class Animation implements IUpdateable, ILaunchable {
     this.lastFrameUpdate = Game.loop().getTicks();
   }
 
+  @Nullable
   KeyFrame getCurrentKeyFrame() {
     return this.currentFrame;
   }

@@ -1,5 +1,9 @@
 package de.gurkenlabs.litiengine.entities;
 
+import javax.annotation.Nullable;
+
+import de.gurkenlabs.litiengine.Initializer;
+
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.lang.reflect.InvocationTargetException;
@@ -40,17 +44,20 @@ public abstract class Entity implements IEntity, EntityRenderListener, Tweenable
   private final EntityActionMap actions = new EntityActionMap();
   private final ICustomPropertyProvider properties = new CustomPropertyProvider();
 
+  @Nullable
   private Environment environment;
   private boolean loaded;
 
   private double angle;
 
+  @Nullable
   private Rectangle2D boundingBox;
 
   private int mapId;
 
   private Point2D mapLocation;
 
+  @Nullable
   private String name;
 
   private double width;
@@ -91,12 +98,13 @@ public abstract class Entity implements IEntity, EntityRenderListener, Tweenable
     this.mapId = mapId;
   }
 
+  @Initializer
   protected Entity(String name) {
     this();
     this.name = name;
   }
 
-  protected Entity(int mapId, String name) {
+  protected Entity(int mapId, @Nullable String name) {
     this(mapId);
     this.name = name;
   }
@@ -241,7 +249,7 @@ public abstract class Entity implements IEntity, EntityRenderListener, Tweenable
     return this.mapId;
   }
 
-  @Override
+  @Override@Nullable
   public String getName() {
     return this.name;
   }
@@ -299,12 +307,12 @@ public abstract class Entity implements IEntity, EntityRenderListener, Tweenable
     this.actions.get(actionName).perform();
   }
 
-  @Override
+  @Override@Nullable
   public EntityAction register(String name, Runnable action) {
     return this.actions.register(name, action);
   }
 
-  @Override
+  @Override@Nullable
   public String sendMessage(final Object sender, final String message) {
     EntityMessageEvent event = this.fireMessageReceived(sender, ANY_MESSAGE, message, null);
     this.fireMessageReceived(sender, message, message, event);
@@ -347,7 +355,7 @@ public abstract class Entity implements IEntity, EntityRenderListener, Tweenable
   }
 
   @Override
-  public void setName(final String name) {
+  public void setName(@Nullable final String name) {
     this.name = name;
   }
 

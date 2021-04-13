@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.environment.tilemap;
 
+import javax.annotation.Nullable;
+
 public enum MapObjectType {
   AREA, COLLISIONBOX, EMITTER, LIGHTSOURCE, PROP, CREATURE, SOUNDSOURCE, SPAWNPOINT, TRIGGER, STATICSHADOW;
 
@@ -13,6 +15,7 @@ public enum MapObjectType {
     return values()[n];
   }
 
+  @Nullable
   public static MapObjectType get(final String mapObjectType) {
     if (mapObjectType == null || mapObjectType.isEmpty()) {
       return null;

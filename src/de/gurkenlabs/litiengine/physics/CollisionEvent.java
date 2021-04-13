@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.physics;
 
+import javax.annotation.Nullable;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.EventObject;
@@ -12,7 +14,7 @@ public class CollisionEvent extends EventObject {
   
   private final transient List<ICollisionEntity> involved;
 
-  public CollisionEvent(ICollisionEntity source, ICollisionEntity... involved) {
+  public CollisionEvent(ICollisionEntity source, @Nullable ICollisionEntity... involved) {
     super(source);
     this.involved = Collections.unmodifiableList(Arrays.asList(involved));
   }

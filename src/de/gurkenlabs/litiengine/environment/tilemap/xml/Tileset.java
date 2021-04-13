@@ -1,5 +1,9 @@
 package de.gurkenlabs.litiengine.environment.tilemap.xml;
 
+import javax.annotation.Nullable;
+
+import de.gurkenlabs.litiengine.Initializer;
+
 import java.awt.Dimension;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -45,52 +49,54 @@ public class Tileset extends CustomPropertyProvider implements ITileset {
   @XmlElement
   private MapImage image;
 
-  @XmlAttribute
+  @XmlAttribute@Nullable
   private Integer margin;
 
   @XmlAttribute
   private String name;
 
-  @XmlAttribute
+  @XmlAttribute@Nullable
   private Integer tilewidth;
 
-  @XmlAttribute
+  @XmlAttribute@Nullable
   private Integer tileheight;
 
   @XmlElement(name = "tileoffset")
   private TileOffset tileoffset;
 
-  @XmlAttribute
+  @XmlAttribute@Nullable
   private Integer tilecount;
 
-  @XmlAttribute
+  @XmlAttribute@Nullable
   private Integer columns;
 
-  @XmlAttribute
+  @XmlAttribute@Nullable
   private Integer spacing;
 
   @XmlAttribute
   private String source;
 
   @XmlElementWrapper(name = "terraintypes")
-  @XmlElement(name = "terrain")
+  @XmlElement(name = "terrain")@Nullable
   private List<Terrain> terrainTypes = null;
 
-  @XmlElement(name = "tile")
+  @XmlElement(name = "tile")@Nullable
   private List<TilesetEntry> tiles = null;
 
   @XmlTransient
   private List<TilesetEntry> allTiles;
 
-  @XmlTransient
+  @XmlTransient@Nullable
   protected Tileset sourceTileset;
 
+  @Nullable
   private transient Spritesheet spriteSheet;
 
   public Tileset() {
     Resources.images().addClearedListener(() -> this.spriteSheet = null);
   }
 
+  @Initializer
   public Tileset(Tileset source) {
     this.source = source.getName() + "." + FILE_EXTENSION;
     this.sourceTileset = source;
@@ -159,7 +165,7 @@ public class Tileset extends CustomPropertyProvider implements ITileset {
   }
 
   @Override
-  @XmlTransient
+  @XmlTransient@Nullable
   public Spritesheet getSpritesheet() {
     if (this.spriteSheet == null && this.getImage() != null) {
       this.spriteSheet = Resources.spritesheets().get(this.getImage().getSource());

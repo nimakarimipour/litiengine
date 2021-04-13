@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.environment.tilemap;
 
+import javax.annotation.Nullable;
+
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 
@@ -12,6 +14,7 @@ public interface ITile extends ICustomPropertyProvider {
    */
   public int getGridId();
 
+  @Nullable
   public BufferedImage getImage();
 
   /**

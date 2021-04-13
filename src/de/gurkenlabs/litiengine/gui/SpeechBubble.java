@@ -1,5 +1,9 @@
 package de.gurkenlabs.litiengine.gui;
 
+import javax.annotation.Nullable;
+
+import de.gurkenlabs.litiengine.Initializer;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -44,6 +48,8 @@ public class SpeechBubble implements IUpdateable, IRenderable {
 
   private Font font;
   private BufferedImage bubble;
+
+  @Nullable
   private String currentText;
 
   private int textIndex;
@@ -52,10 +58,14 @@ public class SpeechBubble implements IUpdateable, IRenderable {
   private long lastCharPoll;
   private long lastTextDisplay;
   private float textBoxWidth;
+
+  @Nullable
   private Sound typeSound;
+
+  @Nullable
   private Point2D entityCenter;
 
-  private SpeechBubble(final IEntity entity, final String text, SpeechBubbleAppearance appearance, Font font) {
+  private SpeechBubble(final IEntity entity, final String text, @Nullable SpeechBubbleAppearance appearance, Font font) {
     if (appearance == null) {
       this.appearance = DEFAULT_APPEARANCE;
     } else {
@@ -81,6 +91,7 @@ public class SpeechBubble implements IUpdateable, IRenderable {
     activeSpeechBubbles.put(entity, this);
   }
 
+  @Initializer
   private SpeechBubble(final IEntity entity, final String text, final Sound typeSound, SpeechBubbleAppearance appearance, Font font) {
     this(entity, text, appearance, font);
     this.typeSound = typeSound;
@@ -159,6 +170,7 @@ public class SpeechBubble implements IUpdateable, IRenderable {
     }
   }
 
+  @Initializer
   public void setFont(Font font) {
     this.font = font;
   }

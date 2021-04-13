@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.util.io;
 
+import javax.annotation.Nullable;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -99,6 +101,7 @@ public final class XmlUtilities {
     return cls.cast(um.unmarshal(path));
   }
 
+  @Nullable
   public static File save(Object object, String fileName) {
     if (fileName == null || fileName.isEmpty()) {
       return null;
@@ -132,6 +135,7 @@ public final class XmlUtilities {
     return newFile;
   }
 
+  @Nullable
   public static File save(Object object, String fileName, String extension) {
     String fileNameWithExtension = fileName;
     if (!fileNameWithExtension.endsWith("." + extension)) {

@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.input;
 
+import javax.annotation.Nullable;
+
 import java.awt.AWTException;
 import java.awt.Point;
 import java.awt.Robot;
@@ -21,9 +23,6 @@ import de.gurkenlabs.litiengine.IUpdateable;
 import de.gurkenlabs.litiengine.environment.tilemap.MapUtilities;
 import de.gurkenlabs.litiengine.util.MathUtilities;
 
-/**
- * This implementation provides information about the mouse input in the LITIENGINE.
- */
 public final class Mouse implements MouseListener, MouseMotionListener, MouseWheelListener, IMouse, IUpdateable {
   private static final Logger log = Logger.getLogger(Mouse.class.getName());
 
@@ -50,6 +49,7 @@ public final class Mouse implements MouseListener, MouseMotionListener, MouseWhe
   private Point2D lastLocation;
   private Point2D location;
 
+  @Nullable
   private MouseEvent updateLocation;
   private boolean updatingLocation;
 

@@ -1,5 +1,9 @@
 package de.gurkenlabs.litiengine.environment.tilemap.xml;
 
+import javax.annotation.Nullable;
+
+import de.gurkenlabs.litiengine.Initializer;
+
 import java.awt.Dimension;
 import java.awt.Point;
 
@@ -21,25 +25,26 @@ public abstract class Layer extends CustomPropertyProvider implements ILayer {
   @XmlAttribute
   private String name;
 
-  @XmlAttribute
+  @XmlAttribute@Nullable
   private Integer width;
 
-  @XmlAttribute
+  @XmlAttribute@Nullable
   private Integer height;
 
-  @XmlAttribute
+  @XmlAttribute@Nullable
   private Float opacity;
 
   @XmlAttribute
-  @XmlJavaTypeAdapter(BooleanIntegerAdapter.class)
+  @XmlJavaTypeAdapter(BooleanIntegerAdapter.class)@Nullable
   private Boolean visible;
 
-  @XmlAttribute
+  @XmlAttribute@Nullable
   private Integer offsetx;
 
-  @XmlAttribute
+  @XmlAttribute@Nullable
   private Integer offsety;
 
+  @Nullable
   private transient TmxMap parentMap;
   private transient RenderType renderType;
   private transient boolean renderTypeLoaded;
@@ -54,6 +59,7 @@ public abstract class Layer extends CustomPropertyProvider implements ILayer {
    * @param layerToBeCopied
    *          the layer we want to copy
    */
+  @Initializer
   public Layer(Layer layerToBeCopied) {
     super(layerToBeCopied);
     this.setWidth(layerToBeCopied.getWidth());
@@ -208,7 +214,8 @@ public abstract class Layer extends CustomPropertyProvider implements ILayer {
     this.visible = visible;
   }
 
-  protected void setMap(TmxMap map) {
+  @Initializer
+  protected void setMap(@Nullable TmxMap map) {
     this.parentMap = map;
   }
 

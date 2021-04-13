@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.graphics.animation;
 
+import javax.annotation.Nullable;
+
 import java.awt.image.BufferedImage;
 import java.util.Optional;
 
@@ -73,7 +75,7 @@ public class PropAnimationController<T extends Prop> extends EntityAnimationCont
     return sb.toString();
   }
 
-  @Override
+  @Override@Nullable
   public BufferedImage getCurrentImage() {
     final Animation animation = this.getCurrent();
     if (animation == null || animation.getSpritesheet() == null) {
@@ -140,6 +142,7 @@ public class PropAnimationController<T extends Prop> extends EntityAnimationCont
     return new Animation(state.spriteString(), spritesheet, true, true, Resources.spritesheets().getCustomKeyFrameDurations(spritesheet.getName()));
   }
 
+  @Nullable
   private static Spritesheet findSpriteSheet(final Prop prop, final PropState state) {
     if (prop == null || prop.getSpritesheetName() == null || prop.getSpritesheetName().isEmpty()) {
       return null;

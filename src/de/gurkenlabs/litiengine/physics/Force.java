@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.physics;
 
+import de.gurkenlabs.litiengine.Initializer;
+
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 
@@ -101,6 +103,7 @@ public class Force {
     this.strength = strength;
   }
 
+  @Initializer
   public void setIdentifier(String identifier) {
     this.identifier = identifier;
   }

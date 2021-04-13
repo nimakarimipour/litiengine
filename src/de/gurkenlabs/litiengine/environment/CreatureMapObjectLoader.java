@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.environment;
 
+import javax.annotation.Nullable;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -103,6 +105,7 @@ public class CreatureMapObjectLoader extends MapObjectLoader {
     return new Creature(spriteSheet);
   }
 
+  @Nullable
   private static Creature createCustomCreature(Class<? extends Creature> customCreature, String spriteSheet) {
     try {
       return customCreature.getConstructor(String.class).newInstance(spriteSheet);

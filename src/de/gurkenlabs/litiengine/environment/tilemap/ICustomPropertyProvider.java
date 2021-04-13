@@ -1,14 +1,13 @@
 package de.gurkenlabs.litiengine.environment.tilemap;
 
+import javax.annotation.Nullable;
+
 import java.awt.Color;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-/**
- * The Interface ICustomPropertyProvider is providing methods to get and set custom properties.
- */
 public interface ICustomPropertyProvider {
   /**
    * Checks if a custom property with the given name is present.
@@ -19,6 +18,7 @@ public interface ICustomPropertyProvider {
    */
   public boolean hasCustomProperty(String propertyName);
 
+  @Nullable
   public String getTypeOfProperty(String propertyName);
 
   public void setTypeOfProperty(String propertyName, String type);
@@ -49,7 +49,7 @@ public interface ICustomPropertyProvider {
    *          the fallback value in case the property value is null.
    * @return the string value of the custom property, if present. Otherwise, the provided default value is returned.
    */
-  public String getStringValue(String propertyName, String defaultValue);
+  public String getStringValue(String propertyName, @Nullable String defaultValue);
 
   /**
    * Gets a list of strings stored in a single comma-separated property.
@@ -327,7 +327,7 @@ public interface ICustomPropertyProvider {
    * @param value
    *          the new value
    */
-  public void setValue(String propertyName, String value);
+  public void setValue(String propertyName, @Nullable String value);
 
   /**
    * Sets the value for the custom property with the given name to the given boolean.
@@ -434,5 +434,5 @@ public interface ICustomPropertyProvider {
    * @param props
    *          the new list of properties
    */
-  public void setProperties(Map<String, ICustomProperty> props);
+  public void setProperties(@Nullable Map<String, ICustomProperty> props);
 }

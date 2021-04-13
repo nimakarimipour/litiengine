@@ -1,5 +1,9 @@
 package de.gurkenlabs.litiengine.entities.behavior;
 
+import javax.annotation.Nullable;
+
+import de.gurkenlabs.litiengine.Initializer;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Path2D;
@@ -27,6 +31,8 @@ public class EntityNavigator implements IUpdateable, IRenderable {
   private final PathFinder pathFinder;
 
   private int currentSegment;
+
+  @Nullable
   private Path path;
   private float acceptableError;
 
@@ -65,6 +71,7 @@ public class EntityNavigator implements IUpdateable, IRenderable {
     return this.entity;
   }
 
+  @Nullable
   public Path getPath() {
     return this.path;
   }
@@ -77,6 +84,7 @@ public class EntityNavigator implements IUpdateable, IRenderable {
     return this.acceptableError;
   }
 
+  @Initializer
   public boolean isNavigating() {
     return this.path != null;
   }

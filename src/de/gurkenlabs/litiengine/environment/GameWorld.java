@@ -1,5 +1,9 @@
 package de.gurkenlabs.litiengine.environment;
 
+import javax.annotation.Nullable;
+
+import de.gurkenlabs.litiengine.Initializer;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -16,26 +20,6 @@ import de.gurkenlabs.litiengine.graphics.Camera;
 import de.gurkenlabs.litiengine.graphics.ICamera;
 import de.gurkenlabs.litiengine.resources.Resources;
 
-/**
- * The {@code GameWorld} class is a global environment manager that contains all {@code Environments}
- * and provides the currently active {@code Environment} and {@code Camera}.<br>
- * <p>
- * The {@code GameWorld} returns the same instance for a particular map/mapName until the
- * {@code GameWorld.reset(String)} method is called.
- * </p>
- * 
- * Moreover, it provides the possibility to attach game logic via {@code EnvironmentListeners} to different events of the
- * {@code Envrionment's} life cycle (e.g. loaded, initialized, ...).<br>
- * <i>This is typically used to provide some per-level logic or to trigger
- * general loading behavior.</i>
- * 
- * @see Environment
- * @see Camera
- * @see GameWorld#environment()
- * @see GameWorld#camera()
- * @see GameWorld#reset(String)
- *
- */
 public final class GameWorld implements IUpdateable {
   private final List<EnvironmentListener> listeners = new CopyOnWriteArrayList<>();
   private final List<EnvironmentLoadedListener> loadedListeners = new CopyOnWriteArrayList<>();
@@ -48,6 +32,7 @@ public final class GameWorld implements IUpdateable {
 
   private final Map<String, Environment> environments = new ConcurrentHashMap<>();
 
+  @Nullable
   private Environment environment;
   private ICamera camera;
   private int gravity;
@@ -365,6 +350,7 @@ public final class GameWorld implements IUpdateable {
    * 
    * @see GameWorld#environment()
    */
+  @Initializer
   public void loadEnvironment(final Environment env) {
     Lock lock = Game.loop().getLock();
     lock.lock();
@@ -482,6 +468,7 @@ public final class GameWorld implements IUpdateable {
    * @see GameWorld#getEnvironment(String)
    * @see GameWorld#reset(IMap)
    */
+  @Nullable
   public Environment reset(String mapName) {
     if (mapName == null || mapName.isEmpty()) {
       return null;
@@ -505,6 +492,7 @@ public final class GameWorld implements IUpdateable {
    * @see GameWorld#getEnvironment(String)
    * @see GameWorld#reset(IMap)
    */
+  @Nullable
   public Environment reset(IMap map) {
     if (map == null) {
       return null;
@@ -538,6 +526,7 @@ public final class GameWorld implements IUpdateable {
    * @param cam
    *          The new camera to be set.
    */
+  @Initializer
   public void setCamera(final ICamera cam) {
     if (this.camera() != null) {
       Game.loop().detach(camera);
@@ -590,6 +579,7 @@ public final class GameWorld implements IUpdateable {
     listeners.get(mapIdentifier).remove(listener);
   }
 
+  @Nullable
   private static String getMapName(Environment env) {
     if (env.getMap() != null && env.getMap().getName() != null) {
       return env.getMap().getName().toLowerCase();

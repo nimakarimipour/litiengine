@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.environment.tilemap.xml;
 
+import javax.annotation.Nullable;
+
 import java.awt.Color;
 import java.net.URL;
 import java.util.ArrayList;
@@ -48,7 +50,7 @@ public class CustomPropertyProvider implements ICustomPropertyProvider {
     return this.getProperties().containsKey(propertyName);
   }
 
-  @Override
+  @Override@Nullable
   public String getTypeOfProperty(String propertyName) {
     ICustomProperty property = this.getProperty(propertyName);
     if (property == null) {
@@ -80,7 +82,7 @@ public class CustomPropertyProvider implements ICustomPropertyProvider {
   }
 
   @Override
-  public String getStringValue(String propertyName, String defaultValue) {
+  public String getStringValue(String propertyName, @Nullable String defaultValue) {
     ICustomProperty property = this.getProperty(propertyName);
     if (property == null) {
       return defaultValue;
@@ -254,7 +256,7 @@ public class CustomPropertyProvider implements ICustomPropertyProvider {
   }
 
   @Override
-  public void setValue(String propertyName, String value) {
+  public void setValue(String propertyName, @Nullable String value) {
     if (value != null) {
       ICustomProperty property = createPropertyIfAbsent(propertyName);
       property.setType("string");
@@ -328,7 +330,7 @@ public class CustomPropertyProvider implements ICustomPropertyProvider {
   }
 
   @Override
-  public void setProperties(Map<String, ICustomProperty> props) {
+  public void setProperties(@Nullable Map<String, ICustomProperty> props) {
     this.getProperties().clear();
     if (props != null) {
       this.getProperties().putAll(props);

@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.environment.tilemap.xml;
 
+import javax.annotation.Nullable;
+
 import java.awt.Color;
 import java.net.URL;
 
@@ -16,7 +18,7 @@ public class ImageLayer extends Layer implements IImageLayer {
   private MapImage image;
 
   @XmlAttribute
-  @XmlJavaTypeAdapter(ColorAdapter.class)
+  @XmlJavaTypeAdapter(ColorAdapter.class)@Nullable
   private Color trans;
 
   @Override
@@ -24,7 +26,7 @@ public class ImageLayer extends Layer implements IImageLayer {
     return this.image;
   }
 
-  @Override
+  @Override@Nullable
   public Color getTransparentColor() {
     return this.trans;
   }

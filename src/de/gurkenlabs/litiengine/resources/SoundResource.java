@@ -1,5 +1,9 @@
 package de.gurkenlabs.litiengine.resources;
 
+import javax.annotation.Nullable;
+
+import de.gurkenlabs.litiengine.Initializer;
+
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -13,7 +17,7 @@ import de.gurkenlabs.litiengine.util.io.Codec;
 
 @XmlRootElement(name = "sound")
 public class SoundResource extends NamedResource {
-  @XmlElement(name = "data")
+  @XmlElement(name = "data")@Nullable
   private String data;
 
   @XmlElement(name = "format")
@@ -23,6 +27,7 @@ public class SoundResource extends NamedResource {
     // keep for xml serialization
   }
 
+  @Initializer
   public SoundResource(Sound sound, SoundFormat format) {
     this.setName(sound.getName());
     this.data = Codec.encode(sound.getRawData());
@@ -33,7 +38,7 @@ public class SoundResource extends NamedResource {
     this(new Sound(data, name), format);
   }
 
-  @XmlTransient
+  @XmlTransient@Nullable
   public String getData() {
     return this.data;
   }

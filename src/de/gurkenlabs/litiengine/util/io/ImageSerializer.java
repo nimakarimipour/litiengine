@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.util.io;
 
+import javax.annotation.Nullable;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -23,6 +25,7 @@ public final class ImageSerializer {
     throw new UnsupportedOperationException();
   }
 
+  @Nullable
   public static BufferedImage loadImage(final String fileName) {
     final File file = new File(fileName);
     if (!file.exists()) {

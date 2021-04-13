@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.environment.tilemap;
 
+import javax.annotation.Nullable;
+
 import java.awt.Dimension;
 import java.util.List;
 
@@ -22,6 +24,7 @@ public interface ITileset extends ICustomPropertyProvider, Resource {
    */
   public IMapImage getImage();
 
+  @Nullable
   public Spritesheet getSpritesheet();
 
   public int getMargin();

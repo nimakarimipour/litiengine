@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.environment.tilemap;
 
+import javax.annotation.Nullable;
+
 import java.awt.Color;
 
 public interface IImageLayer extends ICustomPropertyProvider, ILayer {
@@ -16,5 +18,6 @@ public interface IImageLayer extends ICustomPropertyProvider, ILayer {
    *
    * @return the transparent color
    */
+  @Nullable
   public Color getTransparentColor();
 }

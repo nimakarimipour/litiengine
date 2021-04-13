@@ -1,6 +1,10 @@
 
 package de.gurkenlabs.litiengine.environment.tilemap.xml;
 
+import javax.annotation.Nullable;
+
+import de.gurkenlabs.litiengine.Initializer;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Rectangle;
@@ -129,6 +133,7 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
     // keep for serialization
   }
 
+  @Initializer
   public TmxMap(IMapOrientation orientation) {
     this.mapOrientation = orientation;
     this.renderorder = RenderOrder.RIGHT_DOWN;
@@ -215,7 +220,7 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
     return this.tilesets;
   }
 
-  @Override
+  @Override@Nullable
   public ITilesetEntry getTilesetEntry(int gid) {
     for (ITileset tileset : this.getTilesets()) {
       if (tileset.containsTile(gid)) {
@@ -290,6 +295,7 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
     return this.staggerindex;
   }
 
+  @Initializer
   public void setPath(final URL path) {
     this.path = path;
   }
@@ -380,7 +386,7 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
     this.renderorder = renderorder;
   }
 
-  @XmlTransient
+  @XmlTransient@Initializer
   public void setTiledVersion(String tiledversion) {
     this.tiledversion = tiledversion;
   }
@@ -395,17 +401,17 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
     this.tilewidth = tilewidth;
   }
 
-  @XmlTransient
+  @XmlTransient@Initializer
   public void setHexSideLength(int hexSideLength) {
     this.hexsidelength = hexSideLength;
   }
 
-  @XmlTransient
+  @XmlTransient@Initializer
   public void setStaggerAxis(StaggerAxis staggerAxis) {
     this.staggeraxis = staggerAxis;
   }
 
-  @XmlTransient
+  @XmlTransient@Initializer
   public void setStaggerIndex(StaggerIndex staggerIndex) {
     this.staggerindex = staggerIndex;
   }
@@ -479,7 +485,7 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
     return this.chunkOffsetY;
   }
 
-  @SuppressWarnings("unused")
+  @SuppressWarnings("unused")@Initializer
   private void afterUnmarshal(Unmarshaller u, Object parent) throws TmxException {
     this.checkVersion();
 

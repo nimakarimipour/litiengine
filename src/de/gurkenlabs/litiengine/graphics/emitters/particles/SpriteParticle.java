@@ -1,5 +1,9 @@
 package de.gurkenlabs.litiengine.graphics.emitters.particles;
 
+import javax.annotation.Nullable;
+
+import de.gurkenlabs.litiengine.Initializer;
+
 import java.awt.AlphaComposite;
 import java.awt.Composite;
 import java.awt.Graphics2D;
@@ -15,6 +19,8 @@ public class SpriteParticle extends Particle {
   private AnimationController animation;
   private boolean animateSprite;
   private boolean loopSprite;
+
+  @Nullable
   private BufferedImage currentImage;
   private Spritesheet spritesheet;
 
@@ -72,6 +78,7 @@ public class SpriteParticle extends Particle {
     return loopSprite;
   }
 
+  @Initializer
   public void setLoopSprite(boolean loopSprite) {
     this.loopSprite = loopSprite;
     this.animation.getDefault().setLooping(loopSprite);

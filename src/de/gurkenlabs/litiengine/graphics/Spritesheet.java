@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.graphics;
 
+import javax.annotation.Nullable;
+
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.awt.image.RasterFormatException;
@@ -122,14 +124,17 @@ public final class Spritesheet implements Comparable<Spritesheet> {
     return this.rows;
   }
 
+  @Nullable
   public BufferedImage getRandomSprite() {
     return Game.random().choose(this.sprites);
   }
 
+  @Nullable
   public BufferedImage getSprite(final int index) {
     return this.getSprite(index, 0, 0);
   }
 
+  @Nullable
   public BufferedImage getSprite(final int index, final int margin, final int spacing) {
     if (this.emptySprites.contains(index) || this.sprites.length == 0) {
       return null;

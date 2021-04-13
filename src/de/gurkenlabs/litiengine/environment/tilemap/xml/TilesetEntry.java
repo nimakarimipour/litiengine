@@ -1,5 +1,9 @@
 package de.gurkenlabs.litiengine.environment.tilemap.xml;
 
+import javax.annotation.Nullable;
+
+import de.gurkenlabs.litiengine.Initializer;
+
 import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.Arrays;
@@ -26,7 +30,7 @@ public class TilesetEntry extends CustomPropertyProvider implements ITilesetEntr
 
   private transient ITerrain[] terrains;
 
-  @XmlAttribute
+  @XmlAttribute@Nullable
   private Integer id;
 
   @XmlAttribute
@@ -35,7 +39,7 @@ public class TilesetEntry extends CustomPropertyProvider implements ITilesetEntr
   @XmlElement
   private TileAnimation animation;
 
-  @XmlElement
+  @XmlElement@Nullable
   private MapImage image;
 
   @XmlAttribute
@@ -58,6 +62,7 @@ public class TilesetEntry extends CustomPropertyProvider implements ITilesetEntr
    * @param id
    *          The identifier of this instance.
    */
+  @Initializer
   public TilesetEntry(Tileset tileset, int id) {
     this.tileset = tileset;
     this.id = id;
@@ -113,10 +118,12 @@ public class TilesetEntry extends CustomPropertyProvider implements ITilesetEntr
     return this.collisionData;
   }
 
+  @Initializer
   protected void setTerrains(ITerrain[] terrains) {
     this.terrains = terrains;
   }
 
+  @Initializer
   protected int[] getTerrainIds() {
     int[] terrainIds = new int[] { Terrain.NONE, Terrain.NONE, Terrain.NONE, Terrain.NONE };
     if (this.terrain == null || this.terrain.isEmpty()) {

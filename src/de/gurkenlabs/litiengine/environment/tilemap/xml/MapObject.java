@@ -1,5 +1,9 @@
 package de.gurkenlabs.litiengine.environment.tilemap.xml;
 
+import javax.annotation.Nullable;
+
+import de.gurkenlabs.litiengine.Initializer;
+
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
@@ -23,10 +27,10 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
   @XmlAttribute
   private int id;
 
-  @XmlAttribute
+  @XmlAttribute@Nullable
   private Integer gid;
 
-  @XmlAttribute
+  @XmlAttribute@Nullable
   private String name;
 
   @XmlAttribute
@@ -51,21 +55,22 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
   @XmlTransient
   private ITilesetEntry tile;
 
-  @XmlElement(name = "polyline")
+  @XmlElement(name = "polyline")@Nullable
   private PolyShape polyline;
 
-  @XmlElement(name = "polygon")
+  @XmlElement(name = "polygon")@Nullable
   private PolyShape polygon;
 
-  @XmlElement
+  @XmlElement@Nullable
   private String point;
 
-  @XmlElement
+  @XmlElement@Nullable
   private String ellipse;
 
   @XmlElement
   private Text text;
 
+  @Nullable
   private transient MapObjectLayer layer;
 
   /**
@@ -80,6 +85,7 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
    * @param type
    *          The type of this map object.
    */
+  @Initializer
   public MapObject(String type) {
     this.type = type;
   }
@@ -93,6 +99,7 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
    * @param original
    *          the MapObject we want to copy
    */
+  @Initializer
   public MapObject(MapObject original) {
     super(original);
     this.setName(original.getName());
@@ -205,17 +212,17 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
     return this.type;
   }
 
-  @Override
+  @Override@Nullable
   public IPolyShape getPolyline() {
     return this.polyline;
   }
 
-  @Override
+  @Override@Nullable
   public IPolyShape getPolygon() {
     return this.polygon;
   }
 
-  @Override
+  @Override@Nullable
   public Ellipse2D getEllipse() {
     if (!this.isEllipse()) {
       return null;
@@ -249,7 +256,7 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
 
   @Override
   @XmlTransient
-  public void setName(String name) {
+  public void setName(@Nullable String name) {
     if (name != null && name.isEmpty()) {
       this.name = null;
       return;
@@ -417,7 +424,8 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
     }
   }
 
-  protected void setLayer(MapObjectLayer layer) {
+  @Initializer
+  protected void setLayer(@Nullable MapObjectLayer layer) {
     this.layer = layer;
   }
 

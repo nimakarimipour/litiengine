@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.entities.behavior;
 
+import javax.annotation.Nullable;
+
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
 import java.awt.geom.Path2D;
@@ -26,6 +28,7 @@ public abstract class PathFinder {
    *          the goal
    * @return the path
    */
+  @Nullable
   public abstract Path findPath(IMobileEntity start, Point2D target);
 
   protected Path findDirectPath(final Point2D start, final Point2D target) {

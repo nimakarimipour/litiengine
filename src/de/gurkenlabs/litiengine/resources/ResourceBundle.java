@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.resources;
 
+import javax.annotation.Nullable;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -79,10 +81,12 @@ public class ResourceBundle implements Serializable {
     this.sounds = new ArrayList<>();
   }
 
+  @Nullable
   public static ResourceBundle load(String file) {
     return load(Resources.getLocation(file));
   }
 
+  @Nullable
   public static ResourceBundle load(final URL file) {
     try {
       ResourceBundle gameFile = getResourceBundle(file);

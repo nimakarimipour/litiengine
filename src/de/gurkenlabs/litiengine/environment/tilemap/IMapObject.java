@@ -1,16 +1,13 @@
 package de.gurkenlabs.litiengine.environment.tilemap;
 
+import javax.annotation.Nullable;
+
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
 import de.gurkenlabs.litiengine.resources.Resource;
 
-/**
- * This interface represents an instance on a map that can define various things
- * for an engine. e.g. it can be used to define static collision boxes or other
- * special regions on the map.
- */
 public interface IMapObject extends ICustomPropertyProvider, Resource {
 
   /**
@@ -45,10 +42,12 @@ public interface IMapObject extends ICustomPropertyProvider, Resource {
 
   public String getType();
 
+  @Nullable
   public IPolyShape getPolyline();
 
   public IPolyShape getPolygon();
 
+  @Nullable
   public Ellipse2D getEllipse();
 
   public IMapObjectText getText();

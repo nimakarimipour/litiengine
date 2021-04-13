@@ -1,5 +1,7 @@
 package de.gurkenlabs.litiengine.entities.behavior;
 
+import javax.annotation.Nullable;
+
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.geom.GeneralPath;
@@ -32,7 +34,7 @@ public class AStarPathFinder extends PathFinder {
     this(map.getSizeInPixels(), map.getTileSize().width);
   }
 
-  @Override
+  @Override@Nullable
   public Path findPath(final IMobileEntity entity, final Point2D target) {
     // if there is no collision between the start and the target return a direct
     // path
@@ -74,6 +76,7 @@ public class AStarPathFinder extends PathFinder {
     return this.grid;
   }
 
+  @Nullable
   private Path findAStarPath(AStarNode startNode, AStarNode targetNode) {
     final List<AStarNode> opened = new ArrayList<>();
     final List<AStarNode> closed = new ArrayList<>();
