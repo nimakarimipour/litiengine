@@ -1,7 +1,11 @@
 package de.gurkenlabs.litiengine.environment.tilemap;
 
-public interface ITerrain extends ICustomPropertyProvider {
-  public String getName();
+import javax.annotation.Nullable;
 
-  public int getTile();
+public interface ITerrain extends ICustomPropertyProvider {
+
+    @Nullable()
+    public String getName();
+
+    public int getTile();
 }

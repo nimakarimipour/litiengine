@@ -1,29 +1,34 @@
 package de.gurkenlabs.litiengine.entities;
 
+import de.gurkenlabs.litiengine.Initializer;
+
 public class EntityAction {
-  private final String name;
-  private final Runnable action;
 
-  private String description;
+    private final String name;
 
-  EntityAction(String name, Runnable action) {
-    this.name = name;
-    this.action = action;
-  }
+    private final Runnable action;
 
-  public String getDescription() {
-    return this.description;
-  }
+    private String description;
 
-  public String getName() {
-    return this.name;
-  }
+    EntityAction(String name, Runnable action) {
+        this.name = name;
+        this.action = action;
+    }
 
-  public void perform() {
-    this.action.run();
-  }
+    public String getDescription() {
+        return this.description;
+    }
 
-  public void setDescription(String description) {
-    this.description = description;
-  }
+    public String getName() {
+        return this.name;
+    }
+
+    public void perform() {
+        this.action.run();
+    }
+
+    @Initializer()
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }
