@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.resources.Resources;
+import javax.annotation.Nullable;
 
 public class Configuration {
   private static final Logger log = Logger.getLogger(Configuration.class.getName());
@@ -61,6 +62,7 @@ public class Configuration {
    *          The class that provides the generic type for this method.
    * @return The configuration group of the specified type or null if none can be found.
    */
+  @Nullable
   public <T extends ConfigurationGroup> T getConfigurationGroup(final Class<T> groupClass) {
     for (final ConfigurationGroup group : this.getConfigurationGroups()) {
       if (group.getClass().equals(groupClass)) {
@@ -71,6 +73,7 @@ public class Configuration {
     return null;
   }
 
+  @Nullable
   public ConfigurationGroup getConfigurationGroup(final String prefix) {
     for (final ConfigurationGroup group : this.getConfigurationGroups()) {
 

@@ -13,6 +13,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.IMapObjectLayer;
 import de.gurkenlabs.litiengine.graphics.RenderEngine;
 import de.gurkenlabs.litiengine.graphics.RenderType;
 import de.gurkenlabs.litiengine.graphics.animation.IEntityAnimationController;
+import javax.annotation.Nullable;
 
 public interface IEntity{
   void onMessage(EntityMessageListener listener);
@@ -130,6 +131,7 @@ public interface IEntity{
    * @see IEntity#perform(String)
    * @see IEntity#actions()
    */
+  @Nullable
   EntityAction register(String name, Runnable action);
 
   void detachControllers();
@@ -151,6 +153,7 @@ public interface IEntity{
    * 
    * @return The name of this entity.
    */
+  @Nullable
   String getName();
 
   RenderType getRenderType();
@@ -179,6 +182,7 @@ public interface IEntity{
 
   double getY();
 
+  @Nullable
   String sendMessage(Object sender, String message);
 
   void setHeight(double height);

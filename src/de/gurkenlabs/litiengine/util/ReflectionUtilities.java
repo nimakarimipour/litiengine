@@ -16,6 +16,7 @@ import java.util.EventListener;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.Nullable;
 
 public final class ReflectionUtilities {
   private static final Logger log = Logger.getLogger(ReflectionUtilities.class.getName());
@@ -24,10 +25,12 @@ public final class ReflectionUtilities {
     throw new UnsupportedOperationException();
   }
 
+  @Nullable
   public static <T> Field getField(Class<T> cls, final String fieldName) {
     return getField(cls, fieldName, true);
   }
 
+  @Nullable
   public static <T> Field getField(Class<T> cls, final String fieldName, boolean recursive) {
     for (final Field field : cls.getDeclaredFields()) {
       if (field.getName().equalsIgnoreCase(fieldName)) {
@@ -47,6 +50,7 @@ public final class ReflectionUtilities {
   }
 
   @SuppressWarnings("unchecked")
+  @Nullable
   public static <V> V getStaticValue(Class<?> cls, String fieldName) {
     Field keyField = ReflectionUtilities.getField(cls, fieldName);
     if (keyField == null) {
@@ -85,6 +89,7 @@ public final class ReflectionUtilities {
    * @param parameterTypes The types of the parameters defined by the method declaration.
    * @return The found method or null if no such method exists.
    */
+  @Nullable
   public static Method getMethod(String name, Class<?> type, Class<?>... parameterTypes) {
     Method method = null;
     try {
@@ -137,6 +142,7 @@ public final class ReflectionUtilities {
     return false;
   }
 
+  @Nullable
   public static <T> Method getSetter(Class<T> cls, final String fieldName) {
     for (final Method method : getSetters(cls)) {
       if (method.getName().equalsIgnoreCase("set" + fieldName)) {

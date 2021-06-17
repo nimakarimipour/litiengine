@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import de.gurkenlabs.litiengine.environment.tilemap.xml.CustomPropertyProvider;
-
+import javax.annotation.Nullable;
 /**
  * The {@code GameInfo} class contains basic information about a LITIENGINE game.
  * The information can be accessed via {@code Game.getInfo()} and the infrastructure also internally uses this information
@@ -23,6 +23,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.xml.CustomPropertyProvider;
  * @see Game#info()
  * @see Game#setInfo(String)
  */
+
 @XmlRootElement(name = "gameinfo")
 public class GameInfo extends CustomPropertyProvider {
   private static final Logger log = Logger.getLogger(GameInfo.class.getName());
@@ -45,7 +46,7 @@ public class GameInfo extends CustomPropertyProvider {
   @XmlElement
   private String company;
 
-  @XmlElement
+  @XmlElement @Nullable
   private String publisher;
 
   @XmlElement(name = "developer")
@@ -103,8 +104,8 @@ public class GameInfo extends CustomPropertyProvider {
    * @see URL
    * @see #getWebsite()
    */
-  @XmlTransient
-  public URL getWebsiteURL() {
+  @XmlTransient @Nullable
+   public URL getWebsiteURL() {
     if (this.getWebsite() == null || this.getWebsite().isEmpty()) {
       return null;
     }
@@ -142,8 +143,8 @@ public class GameInfo extends CustomPropertyProvider {
    * 
    * @return The game's publisher.
    */
-  @XmlTransient
-  public String getPublisher() {
+  @XmlTransient @Nullable
+   public String getPublisher() {
     return this.publisher;
   }
 

@@ -10,6 +10,7 @@ import de.gurkenlabs.litiengine.entities.EntityMovedEvent;
 import de.gurkenlabs.litiengine.entities.IMobileEntity;
 import de.gurkenlabs.litiengine.util.MathUtilities;
 import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
+import javax.annotation.Nullable;
 
 public class MovementController<T extends IMobileEntity> implements IMovementController {
   private final List<Force> activeForces;
@@ -125,8 +126,8 @@ public class MovementController<T extends IMobileEntity> implements IMovementCon
     this.moveEntity(dx, dy);
   }
 
-  @Override
-  public Force getForce(String identifier) {
+  @Override @Nullable
+   public Force getForce(String identifier) {
     if (identifier == null || identifier.isEmpty()) {
       return null;
     }

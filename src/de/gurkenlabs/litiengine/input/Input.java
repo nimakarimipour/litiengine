@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.GameListener;
-
+import javax.annotation.Nullable;
 /**
  * The static {@code Input} class is the LITIENGINE's access point to devices that capture physical player input.
  * It manages input from different devices, i.e. keyboard, mouse or gamepad, and provides a unified API to access this information.
@@ -15,11 +15,15 @@ import de.gurkenlabs.litiengine.GameListener;
  * @see #keyboard()
  * @see #gamepads()
  */
+
 public final class Input {
   private static final Logger log = Logger.getLogger(Input.class.getName());
 
+  @Nullable
   private static GamepadManager gamePadManager;
+  @Nullable
   private static IKeyboard keyboard;
+  @Nullable
   private static IMouse mouse;
 
   private Input() {

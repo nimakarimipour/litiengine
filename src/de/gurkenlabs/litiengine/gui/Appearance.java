@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Consumer;
+import de.gurkenlabs.litiengine.Initializer;
+import javax.annotation.Nullable;
 
 public class Appearance {
   private final List<Consumer<Appearance>> changedConsumer;
@@ -74,6 +76,7 @@ public class Appearance {
     return this.backgroundColor2;
   }
 
+  @Nullable
   public Paint getBackgroundPaint(double width, double height) {
     if (this.isTransparentBackground()) {
       return null;
@@ -121,15 +124,18 @@ public class Appearance {
     this.fireOnChangeEvent();
   }
 
+  @Initializer
   public void setBackgroundColor2(Color backColor2) {
     this.backgroundColor2 = backColor2;
     this.fireOnChangeEvent();
   }
 
+  @Initializer
   public void setBorderColor(Color color) {
     this.borderColor = color;
   }
 
+  @Initializer
   public void setBorderStyle(Stroke style) {
     this.borderStyle = style;
   }

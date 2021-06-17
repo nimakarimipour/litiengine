@@ -40,7 +40,7 @@ import de.gurkenlabs.litiengine.sound.SoundPlayback;
 import de.gurkenlabs.litiengine.tweening.TweenEngine;
 import de.gurkenlabs.litiengine.util.ArrayUtilities;
 import de.gurkenlabs.litiengine.util.io.XmlUtilities;
-
+import javax.annotation.Nullable;
 /***
  * <p>
  * The {@code Game} class is without any doubt one of the classes that you will call a lot when creating a game with the LITIENGINE.
@@ -57,11 +57,12 @@ import de.gurkenlabs.litiengine.util.io.XmlUtilities;
  * </p>
  * <p>
  * Additionally, it provides an interface to hook up event listeners (e.g. {@code GameListener} or {@code EnvironmentLoadedListener}) for
- * the most basic operations of a Game life cycle. 
+ * the most basic operations of a Game life cycle.?
  * </p>
  * 
  * @see GameListener
  */
+
 public final class Game {
   public static final int EXIT_GAME_CLOSED = 0;
   public static final int EXIT_GAME_CRASHED = -1;
@@ -80,11 +81,14 @@ public final class Game {
   private static final GameLog log = new GameLog();
   private static final GameTime gameTime = new GameTime();
   private static final GameRandom random = new GameRandom();
+  @Nullable
   private static GameInfo gameInfo = new GameInfo();
   private static final TweenEngine tweenEngine = new TweenEngine();
 
   private static GameLoop gameLoop;
+  @Nullable
   private static ScreenManager screenManager;
+  @Nullable
   private static GameWindow gameWindow;
 
   private static GameWorld world = new GameWorld();
@@ -202,6 +206,7 @@ public final class Game {
    * @see GameInfo#setName(String)
    * @see GameInfo#setValue(String, String)
    */
+  @Nullable
   public static GameInfo info() {
     return gameInfo;
   }
@@ -404,6 +409,7 @@ public final class Game {
    * @see GameWorld#environment()
    * @see Game#world()
    */
+  @Nullable
   public static ScreenManager screens() {
     return screenManager;
   }
@@ -581,7 +587,7 @@ public final class Game {
    * @see Game#info()
    * @see GameInfo
    */
-  public static void setInfo(final GameInfo info) {
+  public static void setInfo(@Nullable final GameInfo info) {
     gameInfo = info;
   }
 

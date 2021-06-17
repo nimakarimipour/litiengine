@@ -9,6 +9,7 @@ import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import de.gurkenlabs.litiengine.Initializer;
 
 public class TextParticle extends Particle {
   private Font font;
@@ -57,6 +58,7 @@ public class TextParticle extends Particle {
     g.setRenderingHints(originalHints);
   }
 
+  @Initializer
   public void setFont(final Font font) {
     this.font = font;
   }

@@ -8,18 +8,21 @@ import java.util.function.Function;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.entities.IEntity;
 import de.gurkenlabs.litiengine.entities.Spawnpoint;
-
+import javax.annotation.Nullable;
 /**
  * TODO: Implement spawn event/listener
  * TODO: Implement additional constructors to enhance the API
  */
+
 public abstract class EntitySpawner<T extends IEntity> implements IEntitySpawner<T> {
   private int amount;
   private int interval;
   private long lastSpawnWave;
   private int spawnDelay;
   private SpawnMode spawnMode;
+  @Nullable
   private List<Spawnpoint> spawnpoints;
+  @Nullable
   private Function<IEntitySpawner<T>, List<Spawnpoint>> customSpawnpoints;
 
   public EntitySpawner(final int interval, final int amount) {
@@ -98,8 +101,7 @@ public abstract class EntitySpawner<T extends IEntity> implements IEntitySpawner
     return this.spawnMode;
   }
 
-  @Override
-  public List<Spawnpoint> getSpawnPoints() {
+  @Override    public List<Spawnpoint> getSpawnPoints() {
     return this.spawnpoints;
   }
 

@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import javax.annotation.Nullable;
 
 public class GeometricUtilities {
   private static final double RAYCAST_EPSILON = 0.01;
@@ -205,6 +206,7 @@ public class GeometricUtilities {
    *          the line b
    * @return the intersection point
    */
+  @Nullable
   public static Point2D getIntersectionPoint(final Line2D lineA, final Line2D lineB) {
 
     final double x1 = lineA.getX1();
@@ -241,6 +243,7 @@ public class GeometricUtilities {
    *          the rectangle
    * @return the point2 d
    */
+  @Nullable
   public static Point2D getIntersectionPoint(final Line2D line, final Rectangle2D rectangle) {
     final List<Point2D> intersectionPoints = getIntersectionPoints(line, rectangle);
     for (final Point2D p : intersectionPoints) {
@@ -586,6 +589,7 @@ public class GeometricUtilities {
     return transform.createTransformedShape(shape);
   }
 
+  @Nullable
   public static Dimension2D scaleWithRatio(final double width, final double height, final int max) {
     if (width == 0 || height == 0) {
       return null;

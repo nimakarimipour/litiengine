@@ -14,6 +14,8 @@ import de.gurkenlabs.litiengine.Valign;
 import de.gurkenlabs.litiengine.entities.IEntity;
 import de.gurkenlabs.litiengine.graphics.animation.IAnimationController;
 import de.gurkenlabs.litiengine.util.MathUtilities;
+import de.gurkenlabs.litiengine.Initializer;
+import javax.annotation.Nullable;
 
 public class Camera implements ICamera {
   private final Collection<ZoomChangedListener> zoomListeners = ConcurrentHashMap.newKeySet();
@@ -277,6 +279,7 @@ public class Camera implements ICamera {
   }
 
   @Override
+  @Initializer
   public void pan(Point2D focus, int duration) {
     this.targetFocus = this.clampToMap(focus);
     this.panTime = duration;

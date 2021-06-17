@@ -69,6 +69,8 @@ import de.gurkenlabs.litiengine.physics.IMovementController;
 import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.util.TimeUtilities;
 import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
+import de.gurkenlabs.litiengine.Initializer;
+import javax.annotation.Nullable;
 
 public final class Environment implements IRenderable {
   private static final Map<String, IMapObjectLoader> mapObjectLoaders = new ConcurrentHashMap<>();
@@ -101,10 +103,13 @@ public final class Environment implements IRenderable {
   private final Collection<MapArea> mapAreas = ConcurrentHashMap.newKeySet();
   private final Collection<Trigger> triggers = ConcurrentHashMap.newKeySet();
 
+  @Nullable
   private AmbientLight ambientLight;
+  @Nullable
   private StaticShadowLayer staticShadowLayer;
   private boolean loaded;
   private boolean initialized;
+  @Nullable
   private IMap map;
 
   private int gravity;
@@ -389,6 +394,7 @@ public final class Environment implements IRenderable {
    * @see #getAmbientLight()
    * @see ColorLayer#updateSection(Rectangle2D)
    */
+  @Initializer
   public void updateLighting(Rectangle2D section) {
     if (this.staticShadowLayer != null) {
       this.staticShadowLayer.updateSection(section);
@@ -619,6 +625,7 @@ public final class Environment implements IRenderable {
    *          The map ID of the entity.
    * @return The entity with the specified map ID or null if no entity could be found.
    */
+  @Nullable
   public IEntity get(final int mapId) {
     return this.allEntities.get(mapId);
   }
@@ -630,6 +637,7 @@ public final class Environment implements IRenderable {
    *          The map IDs to search for.
    * @return A {@code List} of entities found, in the order given by the parameters.
    */
+  @Nullable
   public List<IEntity> get(final int... mapIds) {
     final List<IEntity> foundEntities = new ArrayList<>();
     if (mapIds == null) {
@@ -657,6 +665,7 @@ public final class Environment implements IRenderable {
    *          The map ID of the entity.
    * @return The strongly typed entity with the specified map ID or null if no entity could be found or if the defined type doesn't match.
    */
+  @Nullable
   public <T extends IEntity> T get(Class<T> clss, int mapId) {
     IEntity ent = this.get(mapId);
     if (ent == null || !clss.isInstance(ent)) {
@@ -673,6 +682,7 @@ public final class Environment implements IRenderable {
    *          The name of the entity.
    * @return The entity with the specified name or null if no entity could be found or if the defined type doesn't match.
    */
+  @Nullable
   public IEntity get(final String name) {
     if (name == null || name.isEmpty()) {
       return null;
@@ -698,6 +708,7 @@ public final class Environment implements IRenderable {
    *          The name of the entity.
    * @return The strongly typed entity with the specified name or null if no entity could be found or if the defined type doesn't match.
    */
+  @Nullable
   public <T extends IEntity> T get(Class<T> clss, String name) {
     IEntity ent = this.get(name);
     if (ent == null || !clss.isInstance(ent)) {
@@ -764,6 +775,7 @@ public final class Environment implements IRenderable {
    * 
    * @see #getStaticShadowLayer()
    */
+  @Nullable
   public AmbientLight getAmbientLight() {
     return this.ambientLight;
   }
@@ -2063,6 +2075,7 @@ public final class Environment implements IRenderable {
    *          The entity that attempts to interacts with triggers.
    * @return The trigger that the source entity was able to interact with or null.
    */
+  @Nullable
   public Trigger interact(ICollisionEntity source) {
     return this.interact(source, null);
   }
@@ -2079,7 +2092,8 @@ public final class Environment implements IRenderable {
    * 
    * @see Trigger#canTrigger(ICollisionEntity)
    */
-  public Trigger interact(ICollisionEntity source, Predicate<Trigger> condition) {
+  @Nullable
+  public Trigger interact(ICollisionEntity source, @Nullable Predicate<Trigger> condition) {
     for (final Trigger trigger : this.triggers) {
       if (trigger.canTrigger(source) && (condition == null || condition.test(trigger))) {
         boolean result = trigger.interact(source);

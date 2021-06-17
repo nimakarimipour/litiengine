@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 import de.gurkenlabs.litiengine.entities.IEntity;
 import de.gurkenlabs.litiengine.environment.tilemap.IMapObject;
+import javax.annotation.Nullable;
 
 public final class CustomMapObjectLoader extends MapObjectLoader {
   private static final Logger log = Logger.getLogger(CustomMapObjectLoader.class.getName());
@@ -24,6 +25,7 @@ public final class CustomMapObjectLoader extends MapObjectLoader {
     this.invoke = invocation;
   }
 
+  @Nullable
   static ConstructorInvocation findConstructor(Class<? extends IEntity> entityType) {
     ConstructorInvocation inv = null;
 

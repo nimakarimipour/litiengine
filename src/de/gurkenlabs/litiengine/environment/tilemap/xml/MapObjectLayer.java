@@ -17,6 +17,8 @@ import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.environment.tilemap.IMapObject;
 import de.gurkenlabs.litiengine.environment.tilemap.IMapObjectLayer;
 import de.gurkenlabs.litiengine.util.ColorHelper;
+import de.gurkenlabs.litiengine.Initializer;
+import javax.annotation.Nullable;
 
 public class MapObjectLayer extends Layer implements IMapObjectLayer {
   public static final String DEFAULT_MAPOBJECTLAYER_NAME = "default";
@@ -27,6 +29,7 @@ public class MapObjectLayer extends Layer implements IMapObjectLayer {
   @XmlAttribute
   private String color;
 
+  @Nullable
   private transient Color decodedColor;
 
   private transient List<IMapObject> mapObjects = new CopyOnWriteArrayList<>();
@@ -109,7 +112,8 @@ public class MapObjectLayer extends Layer implements IMapObjectLayer {
     }
   }
 
-  @Override
+  @Override  @Initializer
+  @Nullable
   public Color getColor() {
     if (this.color == null || this.color.isEmpty()) {
       return null;

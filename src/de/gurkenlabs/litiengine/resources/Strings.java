@@ -18,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import de.gurkenlabs.litiengine.Game;
+import javax.annotation.Nullable;
 
 public final class Strings {
   public static final String DEFAULT_BUNDLE = "strings";
@@ -35,6 +36,7 @@ public final class Strings {
     this.charset = charset;
   }
 
+  @Nullable
   public String get(final String key) {
     if (key == null) {
       return null;

@@ -13,6 +13,7 @@ import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.entities.ICollisionEntity;
 import de.gurkenlabs.litiengine.entities.IMobileEntity;
 import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
+import javax.annotation.Nullable;
 
 public abstract class PathFinder {
   private static final float PATH_MARGIN = 2.0f;
@@ -26,6 +27,7 @@ public abstract class PathFinder {
    *          the goal
    * @return the path
    */
+  @Nullable
   public abstract Path findPath(IMobileEntity start, Point2D target);
 
   protected Path findDirectPath(final Point2D start, final Point2D target) {

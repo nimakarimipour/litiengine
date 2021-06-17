@@ -12,6 +12,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import de.gurkenlabs.litiengine.sound.Sound;
 import de.gurkenlabs.litiengine.util.io.Codec;
 import de.gurkenlabs.litiengine.util.io.FileUtilities;
+import javax.annotation.Nullable;
 
 public final class Sounds extends ResourcesContainer<Sound> {
   private static final Logger log = Logger.getLogger(Sounds.class.getName());
@@ -29,6 +30,7 @@ public final class Sounds extends ResourcesContainer<Sound> {
    * 
    * @see Codec#decode(String)
    */
+  @Nullable
   public Sound load(final SoundResource resource) {
     byte[] data = Codec.decode(resource.getData());
     ByteArrayInputStream input = new ByteArrayInputStream(data);
@@ -52,6 +54,7 @@ public final class Sounds extends ResourcesContainer<Sound> {
    * @return The loaded Sound from the specified path.
    */
   @Override
+  @Nullable
   protected Sound load(URL resourceName) throws Exception {
     try (final InputStream is = Resources.get(resourceName)) {
       if (is == null) {

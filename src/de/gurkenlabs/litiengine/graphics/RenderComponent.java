@@ -24,6 +24,7 @@ import de.gurkenlabs.litiengine.resources.ImageFormat;
 import de.gurkenlabs.litiengine.util.MathUtilities;
 import de.gurkenlabs.litiengine.util.TimeUtilities;
 import de.gurkenlabs.litiengine.util.io.ImageSerializer;
+import de.gurkenlabs.litiengine.Initializer;
 
 @SuppressWarnings("serial")
 public class RenderComponent extends Canvas {
@@ -94,6 +95,7 @@ public class RenderComponent extends Canvas {
     }
   }
 
+  @Initializer
   public void render() {
     final long currentMillis = System.currentTimeMillis();
     if (currentMillis - this.lastFpsTime >= 1000) {

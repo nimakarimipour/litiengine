@@ -4,9 +4,11 @@ import de.gurkenlabs.litiengine.abilities.Ability;
 import de.gurkenlabs.litiengine.entities.ICombatEntity;
 import de.gurkenlabs.litiengine.entities.IMobileEntity;
 import de.gurkenlabs.litiengine.physics.Force;
+import javax.annotation.Nullable;
 
 public abstract class ForceEffect extends Effect {
   private final float strength;
+  @Nullable
   private Force appliedForce;
 
   protected ForceEffect(final Ability ability, final float strength, final EffectTarget... targets) {
@@ -50,6 +52,7 @@ public abstract class ForceEffect extends Effect {
     }
   }
 
+  @Nullable
   protected Force getAppliedForce() {
     return this.appliedForce;
   }

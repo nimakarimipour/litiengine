@@ -11,10 +11,12 @@ import de.gurkenlabs.litiengine.entities.AnimationInfo;
 import de.gurkenlabs.litiengine.entities.IEntity;
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.resources.Resources;
+import javax.annotation.Nullable;
 
 public class EntityAnimationController<T extends IEntity> extends AnimationController implements IEntityAnimationController<T> {
   private final List<AnimationRule<T>> animationRules = new CopyOnWriteArrayList<>();
   private final T entity;
+  @Nullable
   private String spritePrefix;
   private boolean autoScaling;
 
@@ -150,6 +152,7 @@ public class EntityAnimationController<T extends IEntity> extends AnimationContr
     }
   }
 
+  @Nullable
   protected String getSpritePrefix() {
     return this.spritePrefix;
   }

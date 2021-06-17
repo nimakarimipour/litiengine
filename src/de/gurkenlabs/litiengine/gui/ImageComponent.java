@@ -15,6 +15,8 @@ import de.gurkenlabs.litiengine.graphics.ImageRenderer;
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.util.Imaging;
+import de.gurkenlabs.litiengine.Initializer;
+import javax.annotation.Nullable;
 
 public class ImageComponent extends GuiComponent {
   public static final int BACKGROUND_INDEX = 0;
@@ -22,9 +24,11 @@ public class ImageComponent extends GuiComponent {
   public static final int BACKGROUND_PRESSED_INDEX = 2;
   public static final int BACKGROUND_DISABLED_INDEX = 3;
 
+  @Nullable
   private BufferedImage baseImage;
   private BufferedImage scaledImage;
 
+  @Nullable
   private Spritesheet spritesheet;
 
   private ImageScaleMode imageScaleMode = ImageScaleMode.NORMAL;
@@ -55,7 +59,7 @@ public class ImageComponent extends GuiComponent {
   }
 
   public ImageComponent(final double x, final double y, final double width, final double height, final Spritesheet spritesheet, final String text,
-      final Image image) {
+      @Nullable final Image image) {
     this(x, y, width, height, text);
     this.spritesheet = spritesheet;
     this.setImageAlign(Align.LEFT);
@@ -65,6 +69,7 @@ public class ImageComponent extends GuiComponent {
     }
   }
 
+  @Nullable
   public Image getBackground() {
     if (this.getSpritesheet() == null) {
       return null;
@@ -126,6 +131,8 @@ public class ImageComponent extends GuiComponent {
     Resources.images().add(cacheKey, this.scaledImage);
   }
 
+  @Initializer
+  @Nullable
   public BufferedImage getImage() {
     if (this.scaledImage == null) {
       return this.baseImage;
@@ -197,6 +204,7 @@ public class ImageComponent extends GuiComponent {
     this.rescaleImage();
   }
 
+  @Nullable
   protected Spritesheet getSpritesheet() {
     return this.spritesheet;
   }

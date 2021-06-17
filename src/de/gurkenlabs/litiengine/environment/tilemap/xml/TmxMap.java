@@ -39,6 +39,8 @@ import de.gurkenlabs.litiengine.environment.tilemap.RenderOrder;
 import de.gurkenlabs.litiengine.environment.tilemap.StaggerAxis;
 import de.gurkenlabs.litiengine.environment.tilemap.StaggerIndex;
 import de.gurkenlabs.litiengine.util.io.FileUtilities;
+import de.gurkenlabs.litiengine.Initializer;
+import javax.annotation.Nullable;
 
 @XmlRootElement(name = "map")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -216,6 +218,7 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
   }
 
   @Override
+  @Nullable
   public ITilesetEntry getTilesetEntry(int gid) {
     for (ITileset tileset : this.getTilesets()) {
       if (tileset.containsTile(gid)) {
@@ -295,6 +298,7 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
   }
 
   @Override
+  @Initializer
   public void finish(URL location) throws TmxException {
     super.finish(location);
     if (this.name == null) {
@@ -381,6 +385,7 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
   }
 
   @XmlTransient
+  @Initializer
   public void setTiledVersion(String tiledversion) {
     this.tiledversion = tiledversion;
   }
@@ -396,16 +401,19 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
   }
 
   @XmlTransient
+  @Initializer
   public void setHexSideLength(int hexSideLength) {
     this.hexsidelength = hexSideLength;
   }
 
   @XmlTransient
+  @Initializer
   public void setStaggerAxis(StaggerAxis staggerAxis) {
     this.staggeraxis = staggerAxis;
   }
 
   @XmlTransient
+  @Initializer
   public void setStaggerIndex(StaggerIndex staggerIndex) {
     this.staggerindex = staggerIndex;
   }
@@ -480,6 +488,7 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
   }
 
   @SuppressWarnings("unused")
+  @Initializer
   private void afterUnmarshal(Unmarshaller u, Object parent) throws TmxException {
     this.checkVersion();
 

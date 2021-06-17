@@ -12,6 +12,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import de.gurkenlabs.litiengine.environment.tilemap.IMapImage;
+import de.gurkenlabs.litiengine.Initializer;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class MapImage extends CustomPropertyProvider implements IMapImage {
@@ -95,16 +96,19 @@ public class MapImage extends CustomPropertyProvider implements IMapImage {
   }
 
   @Override
+  @Initializer
   public void setTransparentColor(Color color) {
     this.transparentcolor = color;
   }
 
   @Override
+  @Initializer
   public void setSource(String source) {
     this.source = source;
   }
 
   @Override
+  @Initializer
   void finish(URL location) throws TmxException {
     super.finish(location);
     try {

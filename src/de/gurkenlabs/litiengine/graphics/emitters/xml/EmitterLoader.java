@@ -10,6 +10,7 @@ import javax.xml.bind.JAXBException;
 
 import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.util.io.XmlUtilities;
+import javax.annotation.Nullable;
 
 public class EmitterLoader {
   private static final Map<String, EmitterData> loadedEmitters;
@@ -22,6 +23,7 @@ public class EmitterLoader {
     loadedEmitters = new ConcurrentHashMap<>();
   }
 
+  @Nullable
   public static EmitterData load(String emitterXml) {
     if (loadedEmitters.containsKey(emitterXml)) {
       return loadedEmitters.get(emitterXml);
@@ -30,6 +32,7 @@ public class EmitterLoader {
     return load(Resources.getLocation(emitterXml));
   }
 
+  @Nullable
   public static EmitterData load(URL emitterXml) {
     final String name = emitterXml.getFile();
     if (loadedEmitters.containsKey(name)) {
@@ -56,6 +59,7 @@ public class EmitterLoader {
     return emitterData;
   }
 
+  @Nullable
   public static EmitterData get(String name) {
     if (loadedEmitters.containsKey(name)) {
       return loadedEmitters.get(name);

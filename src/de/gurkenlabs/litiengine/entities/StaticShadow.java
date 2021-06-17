@@ -10,6 +10,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.MapObjectProperty;
 import de.gurkenlabs.litiengine.environment.tilemap.TmxProperty;
 import de.gurkenlabs.litiengine.graphics.RenderType;
 import de.gurkenlabs.litiengine.graphics.StaticShadowType;
+import javax.annotation.Nullable;
 
 @EntityInfo(renderType = RenderType.OVERLAY)
 public class StaticShadow extends MapArea {
@@ -23,6 +24,7 @@ public class StaticShadow extends MapArea {
   private int shadowOffset;
 
   private final CollisionBox origin;
+  @Nullable
   private Area area;
 
   /**
@@ -107,7 +109,7 @@ public class StaticShadow extends MapArea {
    * @param shadowType
    *          The type of the static shadow.
    */
-  public StaticShadow(int id, String name, double x, double y, float width, float height, StaticShadowType shadowType) {
+  public StaticShadow(int id, @Nullable String name, double x, double y, float width, float height, StaticShadowType shadowType) {
     super(id, name, x, y, width, height);
     this.setShadowType(shadowType);
     this.origin = null;
@@ -188,6 +190,7 @@ public class StaticShadow extends MapArea {
     return this.getArea().getBounds2D();
   }
 
+  @Nullable
   public Area getArea() {
     if (this.getShadowType() == StaticShadowType.NONE) {
       return null;

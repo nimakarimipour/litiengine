@@ -11,10 +11,11 @@ import de.gurkenlabs.litiengine.resources.Sounds;
 import de.gurkenlabs.litiengine.sound.SFXPlayback;
 import de.gurkenlabs.litiengine.sound.Sound;
 import de.gurkenlabs.litiengine.sound.SoundEngine;
-
+import de.gurkenlabs.litiengine.Initializer;
 /**
  * This is an Entity that can play or loop ambient sound effects within a given range and with a given volume.
  */
+
 @EntityInfo(renderType = RenderType.OVERLAY)
 @CollisionInfo(collision = false, collisionType = Collision.NONE)
 @TmxType(MapObjectType.SOUNDSOURCE)
@@ -148,6 +149,7 @@ public class SoundSource extends Entity {
    * 
    * @return A String containing the sound name.
    */
+  @Initializer
   public String getSoundName() {
     return this.sound.getName();
   }
@@ -199,6 +201,7 @@ public class SoundSource extends Entity {
    * @see SoundEngine#playSound(Sound, IEntity, boolean, int, float)
    * @see SFXPlayback
    */
+  @Initializer
   public void play() {
     this.playback = Game.audio().playSound(this.getSound(), this, this.isLoop(), this.getRange(), this.getVolume());
   }

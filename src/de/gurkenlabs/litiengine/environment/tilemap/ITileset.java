@@ -5,6 +5,7 @@ import java.util.List;
 
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.resources.Resource;
+import javax.annotation.Nullable;
 
 public interface ITileset extends ICustomPropertyProvider, Resource {
 
@@ -22,6 +23,7 @@ public interface ITileset extends ICustomPropertyProvider, Resource {
    */
   public IMapImage getImage();
 
+  @Nullable
   public Spritesheet getSpritesheet();
 
   public int getMargin();

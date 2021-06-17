@@ -12,6 +12,8 @@ import de.gurkenlabs.litiengine.environment.tilemap.ILayer;
 import de.gurkenlabs.litiengine.environment.tilemap.IMap;
 import de.gurkenlabs.litiengine.environment.tilemap.LayerProperty;
 import de.gurkenlabs.litiengine.graphics.RenderType;
+import de.gurkenlabs.litiengine.Initializer;
+import javax.annotation.Nullable;
 
 public abstract class Layer extends CustomPropertyProvider implements ILayer {
 
@@ -21,25 +23,26 @@ public abstract class Layer extends CustomPropertyProvider implements ILayer {
   @XmlAttribute
   private String name;
 
-  @XmlAttribute
+  @XmlAttribute @Nullable
   private Integer width;
 
-  @XmlAttribute
+  @XmlAttribute @Nullable
   private Integer height;
 
-  @XmlAttribute
+  @XmlAttribute @Nullable
   private Float opacity;
 
   @XmlAttribute
   @XmlJavaTypeAdapter(BooleanIntegerAdapter.class)
   private Boolean visible;
 
-  @XmlAttribute
+  @XmlAttribute @Nullable
   private Integer offsetx;
 
-  @XmlAttribute
+  @XmlAttribute @Nullable
   private Integer offsety;
 
+  @Nullable
   private transient TmxMap parentMap;
   private transient RenderType renderType;
   private transient boolean renderTypeLoaded;
@@ -71,6 +74,7 @@ public abstract class Layer extends CustomPropertyProvider implements ILayer {
    * @return the height
    */
   @Override
+  @Initializer
   public int getHeight() {
     if (this.height == null) {
       if (this.parentMap == null) {
@@ -94,6 +98,7 @@ public abstract class Layer extends CustomPropertyProvider implements ILayer {
   }
 
   @Override
+  @Initializer
   public float getOpacity() {
     if (this.opacity == null) {
       return 1.0f;
@@ -146,6 +151,7 @@ public abstract class Layer extends CustomPropertyProvider implements ILayer {
    * @return the width
    */
   @Override
+  @Initializer
   public int getWidth() {
     if (this.width == null) {
       if (this.parentMap == null) {
@@ -158,12 +164,12 @@ public abstract class Layer extends CustomPropertyProvider implements ILayer {
     return this.width;
   }
 
-  @Override
-  public IMap getMap() {
+  @Override    public IMap getMap() {
     return this.parentMap;
   }
 
   @Override
+  @Initializer
   public boolean isVisible() {
     if (this.visible == null) {
       return true;
@@ -174,6 +180,7 @@ public abstract class Layer extends CustomPropertyProvider implements ILayer {
 
   @Override
   @XmlTransient
+@Initializer
   public void setName(String name) {
     this.name = name;
   }
@@ -198,6 +205,7 @@ public abstract class Layer extends CustomPropertyProvider implements ILayer {
 
   @Override
   @XmlTransient
+@Initializer
   public void setRenderType(RenderType renderType) {
     this.renderType = renderType;
   }
@@ -208,7 +216,8 @@ public abstract class Layer extends CustomPropertyProvider implements ILayer {
     this.visible = visible;
   }
 
-  protected void setMap(TmxMap map) {
+  @Initializer
+  protected void setMap(@Nullable TmxMap map) {
     this.parentMap = map;
   }
 

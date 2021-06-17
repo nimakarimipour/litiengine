@@ -9,6 +9,7 @@ import de.gurkenlabs.litiengine.IUpdateable;
 import de.gurkenlabs.litiengine.graphics.ImageEffect;
 import de.gurkenlabs.litiengine.graphics.ImageRenderer;
 import de.gurkenlabs.litiengine.graphics.RenderEngine;
+import javax.annotation.Nullable;
 
 public interface IAnimationController extends IUpdateable {
 
@@ -84,6 +85,7 @@ public interface IAnimationController extends IUpdateable {
    * @see #getDefault()
    * @see #hasAnimation(String)
    */
+  @Nullable
   public Animation get(String animationName);
 
   /**
@@ -115,6 +117,7 @@ public interface IAnimationController extends IUpdateable {
    * @see #get(String)
    * @see #setDefault(Animation)
    */
+  @Nullable
   public Animation getDefault();
 
   /**
@@ -192,6 +195,7 @@ public interface IAnimationController extends IUpdateable {
    * @see Animation#getCurrentKeyFrame()
    * @see #isEnabled()
    */
+  @Nullable
   public BufferedImage getCurrentImage();
 
   /**
@@ -215,6 +219,7 @@ public interface IAnimationController extends IUpdateable {
    * @see Animation#getCurrentKeyFrame()
    * @see #isEnabled()
    */
+  @Nullable
   public BufferedImage getCurrentImage(int width, int height);
 
   /**

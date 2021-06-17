@@ -9,17 +9,22 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import de.gurkenlabs.litiengine.util.io.StreamUtilities;
-
+import de.gurkenlabs.litiengine.Initializer;
 /**
  * This class implements all required functionality to load sounds from the file
  * system and provide a stream that can later on be used for the sound playback.
  */
+import javax.annotation.Nullable;
+import javax.annotation.Nullable;
+
 public final class Sound {
 
+  @Nullable
   private AudioFormat format;
 
   private final String name;
 
+  @Nullable
   private AudioInputStream stream;
 
   private byte[] streamData;
@@ -91,6 +96,7 @@ public final class Sound {
     return this.data;
   }
 
+  @Initializer
   byte[] getStreamData() {
     if (this.streamData == null) {
       return new byte[0];

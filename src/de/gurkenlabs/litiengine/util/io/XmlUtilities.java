@@ -24,6 +24,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.sax.SAXSource;
 import javax.xml.transform.stream.StreamResult;
+import javax.annotation.Nullable;
 
 public final class XmlUtilities {
   private static final Logger log = Logger.getLogger(XmlUtilities.class.getName());
@@ -99,6 +100,7 @@ public final class XmlUtilities {
     return cls.cast(um.unmarshal(path));
   }
 
+  @Nullable
   public static File save(Object object, String fileName) {
     if (fileName == null || fileName.isEmpty()) {
       return null;
@@ -132,6 +134,7 @@ public final class XmlUtilities {
     return newFile;
   }
 
+  @Nullable
   public static File save(Object object, String fileName, String extension) {
     String fileNameWithExtension = fileName;
     if (!fileNameWithExtension.endsWith("." + extension)) {

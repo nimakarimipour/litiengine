@@ -25,6 +25,8 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import de.gurkenlabs.litiengine.util.ArrayUtilities;
 import de.gurkenlabs.litiengine.util.io.Codec;
+import de.gurkenlabs.litiengine.Initializer;
+import javax.annotation.Nullable;
 
 public class TileData {
   private static final Logger log = Logger.getLogger(TileData.class.getName());
@@ -71,7 +73,7 @@ public class TileData {
   @XmlTransient
   private List<TileChunk> chunks;
 
-  @XmlTransient
+  @XmlTransient @Nullable
   private List<Tile> tiles;
 
   @XmlTransient
@@ -138,6 +140,7 @@ public class TileData {
     this.compression = compression;
   }
 
+  @Initializer
   public void setValue(String value) {
     this.value = value;
     if (this.rawValue == null) {
@@ -170,6 +173,7 @@ public class TileData {
     return this.tiles;
   }
 
+  @Nullable
   public static String encode(TileData data) throws IOException {
     if (data.getEncoding() == null) {
       return null;
@@ -405,6 +409,7 @@ public class TileData {
   /**
    * For infinite maps, the size of a tile layer depends on the {@code TileChunks} it contains.
    */
+  @Initializer
   private void updateDimensionsByTileData() {
     int minX = 0;
     int maxX = 0;

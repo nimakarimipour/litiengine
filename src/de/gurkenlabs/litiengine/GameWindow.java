@@ -30,7 +30,7 @@ import de.gurkenlabs.litiengine.configuration.GraphicConfiguration;
 import de.gurkenlabs.litiengine.graphics.MouseCursor;
 import de.gurkenlabs.litiengine.graphics.RenderComponent;
 import de.gurkenlabs.litiengine.gui.screens.Resolution;
-
+import javax.annotation.Nullable;
 /**
  * The {@code GameWindow} class is a wrapper for the game's visual window in which the {@code RenderComponent} lives.<br>
  * It provides the possibility to set a title, provide an icon, configure the cursor or get information about the resolution.
@@ -41,6 +41,7 @@ import de.gurkenlabs.litiengine.gui.screens.Resolution;
  * @see #cursor()
  * @see #setIcon(java.awt.Image)
  */
+
 public final class GameWindow {
   private static final Logger log = Logger.getLogger(GameWindow.class.getName());
   private static final int ICONIFIED_MAX_FPS = 1;
@@ -55,6 +56,7 @@ public final class GameWindow {
   private float resolutionScale = 1;
 
   private Dimension resolution;
+  @Nullable
   private Point screenLocation;
 
   GameWindow() {
@@ -228,6 +230,7 @@ public final class GameWindow {
    * @see Container#getLocationOnScreen
    * 
    */
+  @Initializer
   public Point getLocationOnScreen() {
     if (this.screenLocation != null) {
       return this.screenLocation;
@@ -335,6 +338,7 @@ public final class GameWindow {
    * @see GraphicConfiguration
    * @see RenderComponent
    */
+  @Initializer
   void init() {
     if (Game.isInNoGUIMode()) {
       this.resolution = new Dimension(0, 0);

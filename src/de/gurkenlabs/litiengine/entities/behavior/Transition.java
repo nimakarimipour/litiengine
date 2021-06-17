@@ -1,7 +1,10 @@
 package de.gurkenlabs.litiengine.entities.behavior;
+import javax.annotation.Nullable;
+
 
 public abstract class Transition implements Comparable<Transition> {
   private final int priority;
+  @Nullable
   private State state;
 
   protected Transition(final int priority) {
@@ -18,6 +21,7 @@ public abstract class Transition implements Comparable<Transition> {
     return Integer.compare(this.getPriority(), other.getPriority());
   }
 
+  @Nullable
   public State getNextState() {
     return this.state;
   }

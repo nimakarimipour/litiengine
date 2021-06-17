@@ -24,6 +24,7 @@ import de.gurkenlabs.litiengine.physics.Collision;
 import de.gurkenlabs.litiengine.resources.Resource;
 import de.gurkenlabs.litiengine.util.ColorHelper;
 import de.gurkenlabs.litiengine.util.MathUtilities;
+import de.gurkenlabs.litiengine.Initializer;
 
 @XmlRootElement(name = "emitter")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -428,6 +429,7 @@ public class EmitterData implements Serializable, Resource {
     this.requiredQuality = minQuality;
   }
 
+  @Initializer
   public void setColor(final Color color) {
     final List<String> tmpList = new ArrayList<>();
     tmpList.add(ColorHelper.encode(color));
@@ -454,6 +456,7 @@ public class EmitterData implements Serializable, Resource {
     this.deltaWidth = deltaWidth;
   }
 
+  @Initializer
   public void initDefaults() {
     this.width = DEFAULT_WIDTH;
     this.height = DEFAULT_HEIGHT;
@@ -608,6 +611,7 @@ public class EmitterData implements Serializable, Resource {
     this.spritesheet = spritesheet.getName();
   }
 
+  @Initializer
   public void setText(final String text) {
     final List<String> tmpList = new ArrayList<>();
     tmpList.add(text);

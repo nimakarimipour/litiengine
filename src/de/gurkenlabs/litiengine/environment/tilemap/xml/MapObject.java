@@ -18,15 +18,17 @@ import de.gurkenlabs.litiengine.environment.tilemap.IMapObjectLayer;
 import de.gurkenlabs.litiengine.environment.tilemap.IMapObjectText;
 import de.gurkenlabs.litiengine.environment.tilemap.IPolyShape;
 import de.gurkenlabs.litiengine.environment.tilemap.ITilesetEntry;
+import de.gurkenlabs.litiengine.Initializer;
+import javax.annotation.Nullable;
 
 public class MapObject extends CustomPropertyProvider implements IMapObject {
   @XmlAttribute
   private int id;
 
-  @XmlAttribute
+  @XmlAttribute @Nullable
   private Integer gid;
 
-  @XmlAttribute
+  @XmlAttribute @Nullable
   private String name;
 
   @XmlAttribute
@@ -51,21 +53,22 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
   @XmlTransient
   private ITilesetEntry tile;
 
-  @XmlElement(name = "polyline")
+  @XmlElement(name = "polyline") @Nullable
   private PolyShape polyline;
 
-  @XmlElement(name = "polygon")
+  @XmlElement(name = "polygon") @Nullable
   private PolyShape polygon;
 
-  @XmlElement
+  @XmlElement @Nullable
   private String point;
 
-  @XmlElement
+  @XmlElement @Nullable
   private String ellipse;
 
   @XmlElement
   private Text text;
 
+  @Nullable
   private transient MapObjectLayer layer;
 
   /**
@@ -162,6 +165,7 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
   }
 
   @Override
+  @Initializer
   public int getGridId() {
     if (this.gid == null) {
       return 0;
@@ -190,8 +194,7 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
     return new Point2D.Double(this.getX(), this.getY());
   }
 
-  @Override
-  public String getName() {
+  @Override    public String getName() {
     return this.name;
   }
 
@@ -205,18 +208,18 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
     return this.type;
   }
 
-  @Override
-  public IPolyShape getPolyline() {
+  @Override @Nullable
+   public IPolyShape getPolyline() {
     return this.polyline;
   }
 
-  @Override
-  public IPolyShape getPolygon() {
+  @Override @Nullable
+   public IPolyShape getPolygon() {
     return this.polygon;
   }
 
-  @Override
-  public Ellipse2D getEllipse() {
+  @Override @Nullable
+   public Ellipse2D getEllipse() {
     if (!this.isEllipse()) {
       return null;
     }
@@ -249,7 +252,7 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
 
   @Override
   @XmlTransient
-  public void setName(String name) {
+  public void setName(@Nullable String name) {
     if (name != null && name.isEmpty()) {
       this.name = null;
       return;
@@ -272,6 +275,7 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
 
   @Override
   @XmlTransient
+@Initializer
   public void setX(float x) {
     if (this.isInfiniteMap()) {
       TmxMap map = (TmxMap) this.getLayer().getMap();
@@ -284,6 +288,7 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
 
   @Override
   @XmlTransient
+@Initializer
   public void setY(float y) {
     if (this.isInfiniteMap()) {
       TmxMap map = (TmxMap) this.getLayer().getMap();
@@ -344,12 +349,14 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
 
   @Override
   @XmlTransient
+@Initializer
   public void setPolyline(IPolyShape polyline) {
     this.polyline = (PolyShape) polyline;
   }
 
   @Override
   @XmlTransient
+@Initializer
   public void setPolygon(IPolyShape polygon) {
     this.polygon = (PolyShape) polygon;
   }
@@ -364,8 +371,7 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
     return this.height;
   }
 
-  @Override
-  public IMapObjectLayer getLayer() {
+  @Override    public IMapObjectLayer getLayer() {
     return this.layer;
   }
 
@@ -417,7 +423,8 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
     }
   }
 
-  protected void setLayer(MapObjectLayer layer) {
+  @Initializer
+  protected void setLayer(@Nullable MapObjectLayer layer) {
     this.layer = layer;
   }
 

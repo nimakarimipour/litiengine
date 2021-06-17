@@ -13,6 +13,8 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import de.gurkenlabs.litiengine.Align;
 import de.gurkenlabs.litiengine.Valign;
 import de.gurkenlabs.litiengine.environment.tilemap.IMapObjectText;
+import de.gurkenlabs.litiengine.Initializer;
+import javax.annotation.Nullable;
 
 public class Text implements IMapObjectText {
   @XmlAttribute
@@ -43,16 +45,17 @@ public class Text implements IMapObjectText {
   @XmlAttribute
   private Integer kerning;
 
-  @XmlAttribute
+  @XmlAttribute @Nullable
   private Align halign;
 
-  @XmlAttribute
+  @XmlAttribute @Nullable
   private Valign valign;
 
-  @XmlValue
+  @XmlValue @Nullable
   private String text;
 
   @Override
+  @Nullable
   public String getText() {
     return this.text;
   }
@@ -70,55 +73,66 @@ public class Text implements IMapObjectText {
     return new Font(properties);
   }
 
+  @Initializer
   public String getFontName() {
     return this.fontfamily != null ? this.fontfamily : Font.SANS_SERIF;
   }
 
+  @Initializer
   public int getPixelSize() {
     return this.pixelsize != null ? this.pixelsize : 16;
   }
 
   @Override
+  @Initializer
   public boolean wrap() {
     return this.wrap != null && this.wrap != 0;
   }
 
   @Override
+  @Initializer
   public Color getColor() {
     return this.color != null ? this.color : Color.BLACK;
   }
 
   @Override
+  @Initializer
   public boolean isBold() {
     return this.bold != null && this.bold != 0;
   }
 
   @Override
+  @Initializer
   public boolean isItalic() {
     return this.italic != null && this.italic != 0;
   }
 
   @Override
+  @Initializer
   public boolean isUnderlined() {
     return this.underline != null && this.underline != 0;
   }
 
   @Override
+  @Initializer
   public boolean isStrikeout() {
     return this.strikeout != null && this.strikeout != 0;
   }
 
   @Override
+  @Initializer
   public boolean useKerning() {
     return this.kerning == null || this.kerning != 0;
   }
 
   @Override
+  @Nullable
   public Align getAlign() {
     return this.halign;
   }
 
   @Override
+  @Nullable
   public Valign getValign() {
     return this.valign;
   }

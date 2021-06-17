@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.GameListener;
-
+import javax.annotation.Nullable;
 /**
  * An abstract implementation for all classes that provide a certain type of resources.
  * Basically, it's an in-memory cache of the resources and provides access to manage the resources.
@@ -27,6 +27,7 @@ import de.gurkenlabs.litiengine.GameListener;
  * 
  * @see ResourcesContainerListener
  */
+
 public abstract class ResourcesContainer<T> {
   // use a work-stealing pool to maximize resource load speed while minimizing the number of resources in use
   private static final ExecutorService ASYNC_POOL = Executors.newWorkStealingPool();
@@ -203,7 +204,7 @@ public abstract class ResourcesContainer<T> {
    *          The resource's name.
    * @return The resource with the specified name or null if not found.
    */
-  public T get(String resourceName) {
+  public T get(@Nullable String resourceName) {
     return this.get(this.getIdentifier(resourceName), false);
   }
 
@@ -364,6 +365,7 @@ public abstract class ResourcesContainer<T> {
     return this.tryGet(resourceName);
   }
 
+  @Nullable
   protected abstract T load(URL resourceName) throws Exception;
 
   /**
@@ -375,6 +377,7 @@ public abstract class ResourcesContainer<T> {
    *          The resource.
    * @return An alias for the specified resource.
    */
+  @Nullable
   protected String getAlias(String resourceName, T resource) {
     return null;
   }
@@ -383,6 +386,7 @@ public abstract class ResourcesContainer<T> {
     return this.resources;
   }
 
+  @Nullable
   private T loadResource(String identifier) {
     T newResource;
     try {
@@ -403,7 +407,7 @@ public abstract class ResourcesContainer<T> {
     return newResource;
   }
 
-  private String getIdentifier(String resourceName) {
+  private String getIdentifier(@Nullable String resourceName) {
     return this.aliases.getOrDefault(resourceName, resourceName);
   }
 }

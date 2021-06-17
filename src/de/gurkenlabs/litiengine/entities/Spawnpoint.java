@@ -13,6 +13,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.MapObjectProperty;
 import de.gurkenlabs.litiengine.environment.tilemap.MapObjectType;
 import de.gurkenlabs.litiengine.environment.tilemap.TmxProperty;
 import de.gurkenlabs.litiengine.environment.tilemap.TmxType;
+import de.gurkenlabs.litiengine.Initializer;
 
 @TmxType(MapObjectType.SPAWNPOINT)
 public class Spawnpoint extends Entity {
@@ -170,6 +171,7 @@ public class Spawnpoint extends Entity {
     return direction;
   }
 
+  @Initializer
   public void setDirection(Direction direction) {
     this.direction = direction;
   }
@@ -178,6 +180,7 @@ public class Spawnpoint extends Entity {
     return spawnInfo;
   }
 
+  @Initializer
   public void setSpawnInfo(String spawnInfo) {
     this.spawnInfo = spawnInfo;
   }
@@ -186,6 +189,7 @@ public class Spawnpoint extends Entity {
     return this.spawnPivotType;
   }
 
+  @Initializer
   public void setSpawnPivotType(EntityPivotType spawnPivotType) {
     this.spawnPivotType = spawnPivotType;
   }

@@ -10,11 +10,14 @@ import java.awt.image.BufferedImage;
 import de.gurkenlabs.litiengine.graphics.ImageRenderer;
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.graphics.animation.AnimationController;
+import de.gurkenlabs.litiengine.Initializer;
+import javax.annotation.Nullable;
 
 public class SpriteParticle extends Particle {
   private AnimationController animation;
   private boolean animateSprite;
   private boolean loopSprite;
+  @Nullable
   private BufferedImage currentImage;
   private Spritesheet spritesheet;
 
@@ -72,6 +75,7 @@ public class SpriteParticle extends Particle {
     return loopSprite;
   }
 
+  @Initializer
   public void setLoopSprite(boolean loopSprite) {
     this.loopSprite = loopSprite;
     this.animation.getDefault().setLooping(loopSprite);

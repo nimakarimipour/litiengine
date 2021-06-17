@@ -1,8 +1,10 @@
 package de.gurkenlabs.litiengine.entities;
 
 import java.util.Comparator;
+import javax.annotation.Nullable;
 
 public abstract class RelativeEntityComparator implements Comparator<IEntity> {
+  @Nullable
   private IEntity relativeEntity;
 
   protected RelativeEntityComparator() {
@@ -12,6 +14,7 @@ public abstract class RelativeEntityComparator implements Comparator<IEntity> {
     this.relativeEntity = relativeEntity;
   }
 
+  @Nullable
   public IEntity getRelativeEntity() {
     return this.relativeEntity;
   }

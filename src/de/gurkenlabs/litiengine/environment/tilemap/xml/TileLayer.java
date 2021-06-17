@@ -12,6 +12,8 @@ import javax.xml.bind.annotation.XmlElement;
 import de.gurkenlabs.litiengine.environment.tilemap.ITile;
 import de.gurkenlabs.litiengine.environment.tilemap.ITileLayer;
 import de.gurkenlabs.litiengine.environment.tilemap.ITilesetEntry;
+import de.gurkenlabs.litiengine.Initializer;
+import javax.annotation.Nullable;
 
 public class TileLayer extends Layer implements ITileLayer {
 
@@ -39,14 +41,14 @@ public class TileLayer extends Layer implements ITileLayer {
     this.data = data;
   }
 
-  @Override
-  public ITile getTileByLocation(final Point2D location) {
+  @Override @Nullable
+   public ITile getTileByLocation(final Point2D location) {
     final Optional<ITile> tile = this.getTiles().stream().filter(x -> x.getTileCoordinate().equals(location)).findFirst();
     return tile.isPresent() ? tile.get() : null;
   }
 
-  @Override
-  public ITile getTile(int x, int y) {
+  @Override @Nullable
+   public ITile getTile(int x, int y) {
     this.getTiles();
 
     if (this.tiles == null || this.tiles.length == 0) {
@@ -118,6 +120,7 @@ public class TileLayer extends Layer implements ITileLayer {
   }
 
   @Override
+  @Initializer
   void finish(URL location) throws TmxException {
     super.finish(location);
     this.tileList = new CopyOnWriteArrayList<>(this.getData());

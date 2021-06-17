@@ -15,6 +15,8 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import de.gurkenlabs.litiengine.util.io.FileUtilities;
 import de.gurkenlabs.litiengine.util.io.XmlUtilities;
+import de.gurkenlabs.litiengine.Initializer;
+import javax.annotation.Nullable;
 
 @XmlRootElement(name = "TextureAtlas")
 public class TextureAtlas {
@@ -32,12 +34,14 @@ public class TextureAtlas {
   @XmlElement(name = "sprite")
   private List<Sprite> sprites;
 
+  @Nullable
   private String absoluteImagePath;
 
   TextureAtlas() {
     // keep for serialization
   }
 
+  @Nullable
   public static TextureAtlas read(String textureAtlasFile) {
     try {
       TextureAtlas atlas = XmlUtilities.read(TextureAtlas.class, Resources.getLocation(textureAtlasFile));
@@ -55,6 +59,7 @@ public class TextureAtlas {
   }
 
   @XmlTransient
+  @Nullable
   public String getAbsoluteImagePath() {
     return this.absoluteImagePath;
   }
@@ -70,6 +75,7 @@ public class TextureAtlas {
   }
 
   @XmlTransient
+  @Initializer
   public List<Sprite> getSprites() {
     if (this.sprites == null) {
       this.sprites = new ArrayList<>();
@@ -78,6 +84,7 @@ public class TextureAtlas {
     return this.sprites;
   }
 
+  @Nullable
   public Sprite getSprite(String name) {
     if (name == null || name.isEmpty()) {
       return null;
@@ -86,6 +93,7 @@ public class TextureAtlas {
     return this.getSprites().stream().filter(x -> x.getName().equals(name)).findFirst().orElse(null);
   }
 
+  @Initializer
   public void setImagePath(String imagePath) {
     this.rawImagePath = imagePath;
   }
@@ -169,10 +177,12 @@ public class TextureAtlas {
     }
 
     @XmlTransient
+    @Initializer
     public boolean isRotated() {
       return this.rotated != null && this.rotated;
     }
 
+    @Initializer
     public void setName(String name) {
       this.name = name;
     }

@@ -22,6 +22,8 @@ import de.gurkenlabs.litiengine.entities.Creature;
 import de.gurkenlabs.litiengine.entities.EntityPivot;
 import de.gurkenlabs.litiengine.graphics.IRenderable;
 import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
+import de.gurkenlabs.litiengine.Initializer;
+import javax.annotation.Nullable;
 
 @AbilityInfo
 public abstract class Ability implements IRenderable {
@@ -113,6 +115,7 @@ public abstract class Ability implements IRenderable {
    * @return An {@link AbilityExecution} object that wraps all information about
    *         this execution of the ability.
    */
+  @Nullable
   public AbilityExecution cast() {
     if (!this.canCast()) {
       return null;
@@ -202,6 +205,7 @@ public abstract class Ability implements IRenderable {
     this.castType = castType;
   }
 
+  @Initializer
   void setCurrentExecution(AbilityExecution ae) {
     this.currentExecution = ae;
   }

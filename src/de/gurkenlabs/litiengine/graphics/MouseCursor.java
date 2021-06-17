@@ -16,13 +16,14 @@ import de.gurkenlabs.litiengine.Valign;
 import de.gurkenlabs.litiengine.input.Input;
 import de.gurkenlabs.litiengine.input.Mouse;
 import de.gurkenlabs.litiengine.util.Imaging;
-
+import de.gurkenlabs.litiengine.Initializer;
 /**
  * The visual representation of the {@code Mouse} in the LITIENGINE.<br>
  * It controls the appearance of the rendered cursor and allows to specify offsets from the actual mouse location.
  * 
  * @see Mouse
  */
+
 public final class MouseCursor implements IRenderable {
 
   private static final Cursor DEFAULT_CURSOR = new Cursor(Cursor.DEFAULT_CURSOR);
@@ -99,6 +100,7 @@ public final class MouseCursor implements IRenderable {
     this.set(img, Align.LEFT, Valign.TOP);
   }
 
+  @Initializer
   public void set(final Image img, final int offsetX, final int offsetY) {
     this.image = img;
     this.setOffset(offsetX, offsetY);
@@ -130,6 +132,7 @@ public final class MouseCursor implements IRenderable {
     this.offsetY = cursorOffsetY;
   }
 
+  @Initializer
   public void setTransform(AffineTransform transform) {
     this.transform = transform;
   }

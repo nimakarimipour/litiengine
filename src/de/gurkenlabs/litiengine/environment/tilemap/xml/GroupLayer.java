@@ -14,6 +14,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.IImageLayer;
 import de.gurkenlabs.litiengine.environment.tilemap.ILayer;
 import de.gurkenlabs.litiengine.environment.tilemap.IMapObjectLayer;
 import de.gurkenlabs.litiengine.environment.tilemap.ITileLayer;
+import de.gurkenlabs.litiengine.Initializer;
 
 public class GroupLayer extends Layer implements IGroupLayer {
 
@@ -46,6 +47,7 @@ public class GroupLayer extends Layer implements IGroupLayer {
   }
 
   @Override
+  @Initializer
   public void addLayer(ILayer layer) {
     this.layers.add(layer);
     this.layerAdded(layer);

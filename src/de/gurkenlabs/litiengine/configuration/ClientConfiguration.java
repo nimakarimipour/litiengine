@@ -1,10 +1,11 @@
 package de.gurkenlabs.litiengine.configuration;
 
 import java.util.Locale;
-
+import javax.annotation.Nullable;
 /**
  * The client configuration contains client specific configuration elements.
  */
+
 @ConfigurationGroupInfo(prefix = "cl_")
 public class ClientConfiguration extends ConfigurationGroup {
 

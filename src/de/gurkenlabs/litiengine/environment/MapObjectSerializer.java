@@ -13,6 +13,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.TmxType;
 import de.gurkenlabs.litiengine.environment.tilemap.xml.DecimalFloatAdapter;
 import de.gurkenlabs.litiengine.environment.tilemap.xml.MapObject;
 import de.gurkenlabs.litiengine.util.ArrayUtilities;
+import javax.annotation.Nullable;
 
 public final class MapObjectSerializer {
   private static final Logger log = Logger.getLogger(MapObjectSerializer.class.getName());
@@ -79,6 +80,7 @@ public final class MapObjectSerializer {
     }
   }
 
+  @Nullable
   private static String getPropertyValue(Field field, Object value) {
     if (field.getType().equals(Float.class) || field.getType().equals(Double.class)) {
       try {

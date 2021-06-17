@@ -1,4 +1,6 @@
 package de.gurkenlabs.litiengine.entities;
+import de.gurkenlabs.litiengine.Initializer;
+
 
 public class EntityAction {
   private final String name;
@@ -23,6 +25,7 @@ public class EntityAction {
     this.action.run();
   }
 
+  @Initializer
   public void setDescription(String description) {
     this.description = description;
   }

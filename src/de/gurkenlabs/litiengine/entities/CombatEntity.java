@@ -16,6 +16,8 @@ import de.gurkenlabs.litiengine.attributes.RangeAttribute;
 import de.gurkenlabs.litiengine.environment.tilemap.MapObjectProperty;
 import de.gurkenlabs.litiengine.environment.tilemap.TmxProperty;
 import de.gurkenlabs.litiengine.tweening.TweenType;
+import de.gurkenlabs.litiengine.Initializer;
+import javax.annotation.Nullable;
 
 @CombatInfo
 @CollisionInfo(collision = true)
@@ -171,7 +173,7 @@ public class CombatEntity extends CollisionEntity implements ICombatEntity {
   }
 
   @Override
-  public void hit(final int damage, final Ability ability) {
+  public void hit(final int damage, @Nullable final Ability ability) {
     if (this.isDead()) {
       return;
     }
@@ -274,6 +276,7 @@ public class CombatEntity extends CollisionEntity implements ICombatEntity {
   }
 
   @Override
+  @Initializer
   public void setTarget(final ICombatEntity target) {
     this.target = target;
   }

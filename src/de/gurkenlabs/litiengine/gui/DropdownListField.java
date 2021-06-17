@@ -8,6 +8,8 @@ import java.util.function.IntConsumer;
 import de.gurkenlabs.litiengine.Align;
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.input.Input;
+import de.gurkenlabs.litiengine.Initializer;
+import javax.annotation.Nullable;
 
 public class DropdownListField extends GuiComponent {
   public static final FontIcon ARROW_DOWN = new FontIcon(ICON_FONT, "\uE804");
@@ -74,6 +76,7 @@ public class DropdownListField extends GuiComponent {
     return this.getContentList().getSelectionRow();
   }
 
+  @Nullable
   public Object getSelectedObject() {
     if (this.getContentArray().length == 0) {
       return null;
@@ -95,6 +98,7 @@ public class DropdownListField extends GuiComponent {
   }
 
   @Override
+  @Initializer
   public void prepare() {
     this.contentList = new ListField(this.getX(), this.getY(), this.getWidth(), this.getHeight(), this.getContentArray(), this.numberOfShownElements);
     this.contentList.setButtonSprite(this.buttonSprite);
@@ -135,10 +139,12 @@ public class DropdownListField extends GuiComponent {
     this.arrowKeyNavigation = arrowKeyNavigation;
   }
 
+  @Initializer
   public void setButtonSprite(final Spritesheet buttonSprite) {
     this.buttonSprite = buttonSprite;
   }
 
+  @Initializer
   public void setEntrySprite(final Spritesheet entrySprite) {
     this.entrySprite = entrySprite;
   }

@@ -6,6 +6,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import de.gurkenlabs.litiengine.Initializer;
 
 public class NumberAdjuster extends TextFieldComponent {
   public static final FontIcon ARROW_DOWN = new FontIcon(ICON_FONT, "\uE84A");
@@ -76,6 +77,7 @@ public class NumberAdjuster extends TextFieldComponent {
     });
   }
 
+  @Initializer
   public void setCurrentValue(final BigDecimal newValue) {
     if (newValue.compareTo(this.getUpperBound()) > 0) {
       this.currentValue = this.getUpperBound();

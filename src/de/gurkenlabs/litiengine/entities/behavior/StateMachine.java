@@ -4,6 +4,8 @@ import java.util.Collections;
 import java.util.List;
 
 import de.gurkenlabs.litiengine.IUpdateable;
+import de.gurkenlabs.litiengine.Initializer;
+import javax.annotation.Nullable;
 
 public class StateMachine implements IUpdateable {
   private State currentState;
@@ -15,6 +17,7 @@ public class StateMachine implements IUpdateable {
     return this.currentState;
   }
 
+  @Initializer
   public void setState(final State newState) {
     if (this.currentState != null) {
       this.currentState.exit();

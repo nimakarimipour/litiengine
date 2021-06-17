@@ -2,6 +2,7 @@ package de.gurkenlabs.litiengine.resources;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlTransient;
+import de.gurkenlabs.litiengine.Initializer;
 
 public abstract class NamedResource implements Resource {
   @XmlAttribute
@@ -14,6 +15,7 @@ public abstract class NamedResource implements Resource {
   }
 
   @Override
+  @Initializer
   public void setName(final String n) {
     this.name = n;
   }

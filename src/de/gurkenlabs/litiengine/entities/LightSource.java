@@ -22,6 +22,8 @@ import de.gurkenlabs.litiengine.graphics.IRenderable;
 import de.gurkenlabs.litiengine.graphics.RenderType;
 import de.gurkenlabs.litiengine.graphics.ShapeRenderer;
 import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
+import de.gurkenlabs.litiengine.Initializer;
+import javax.annotation.Nullable;
 
 @EntityInfo(renderType = RenderType.OVERLAY)
 @TmxType(MapObjectType.LIGHTSOURCE)
@@ -214,8 +216,8 @@ public class LightSource extends Entity implements IRenderable {
     this.updateAmbientLayers();
   }
 
-  @Override
-  public String sendMessage(final Object sender, final String message) {
+  @Override @Nullable
+   public String sendMessage(final Object sender, final String message) {
     if (message == null || message.isEmpty()) {
       return null;
     }
@@ -376,6 +378,7 @@ public class LightSource extends Entity implements IRenderable {
     }
   }
 
+  @Initializer
   private void updateShape() {
     switch (this.getLightShapeType()) {
     case ELLIPSE:

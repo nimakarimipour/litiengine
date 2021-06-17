@@ -18,6 +18,8 @@ import de.gurkenlabs.litiengine.environment.tilemap.ITileset;
 import de.gurkenlabs.litiengine.environment.tilemap.ITilesetEntry;
 import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.util.ArrayUtilities;
+import de.gurkenlabs.litiengine.Initializer;
+import javax.annotation.Nullable;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TilesetEntry extends CustomPropertyProvider implements ITilesetEntry {
@@ -26,7 +28,7 @@ public class TilesetEntry extends CustomPropertyProvider implements ITilesetEntr
 
   private transient ITerrain[] terrains;
 
-  @XmlAttribute
+  @XmlAttribute @Nullable
   private Integer id;
 
   @XmlAttribute
@@ -83,6 +85,7 @@ public class TilesetEntry extends CustomPropertyProvider implements ITilesetEntr
   }
 
   @Override
+  @Initializer
   public BufferedImage getImage() {
     if (this.animation == null) {
       return this.getBasicImage();
@@ -91,6 +94,7 @@ public class TilesetEntry extends CustomPropertyProvider implements ITilesetEntr
   }
 
   @Override
+  @Initializer
   public BufferedImage getBasicImage() {
     if (this.image != null) {
       return Resources.images().get(this.image.getAbsoluteSourcePath());
@@ -113,10 +117,12 @@ public class TilesetEntry extends CustomPropertyProvider implements ITilesetEntr
     return this.collisionData;
   }
 
+  @Initializer
   protected void setTerrains(ITerrain[] terrains) {
     this.terrains = terrains;
   }
 
+  @Initializer
   protected int[] getTerrainIds() {
     int[] terrainIds = new int[] { Terrain.NONE, Terrain.NONE, Terrain.NONE, Terrain.NONE };
     if (this.terrain == null || this.terrain.isEmpty()) {
