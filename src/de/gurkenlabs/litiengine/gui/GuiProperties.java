@@ -1,52 +1,56 @@
 package de.gurkenlabs.litiengine.gui;
 
+import javax.annotation.Nullable;
 import java.awt.Color;
 import java.awt.Font;
 
 /**
  * This class contains globally used properties for all the
  * {@link GuiComponent}s that might be added to the game.
- *
  */
 public class GuiProperties {
-  private static Appearance defaultAppearance = new Appearance(new Color(255, 255, 255));
-  private static Appearance defaultAppearanceDisabled = new Appearance(new Color(136, 136, 136));
-  private static Appearance defaultAppearanceHovered = new Appearance(new Color(200, 200, 200));
-  
-  private static Font defaultFont;
 
-  private GuiProperties() {
-  }
+    private static Appearance defaultAppearance = new Appearance(new Color(255, 255, 255));
 
-  public static Appearance getDefaultAppearance() {
-    return defaultAppearance;
-  }
+    private static Appearance defaultAppearanceDisabled = new Appearance(new Color(136, 136, 136));
 
-  public static void setDefaultAppearance(Appearance app) {
-    defaultAppearance = app;
-  }
+    private static Appearance defaultAppearanceHovered = new Appearance(new Color(200, 200, 200));
 
-  public static Appearance getDefaultAppearanceHovered() {
-    return defaultAppearanceHovered;
-  }
+    @Nullable
+    private static Font defaultFont;
 
-  public static Appearance getDefaultAppearanceDisabled() {
-    return defaultAppearanceDisabled;
-  }
+    private GuiProperties() {
+    }
 
-  public static void setDefaultAppearanceDisabled(Appearance app) {
-    defaultAppearanceDisabled = app;
-  }
+    public static Appearance getDefaultAppearance() {
+        return defaultAppearance;
+    }
 
-  public static void setDefaultAppearanceHovered(Appearance app) {
-    defaultAppearanceHovered = app;
-  }
+    public static void setDefaultAppearance(Appearance app) {
+        defaultAppearance = app;
+    }
 
-  public static Font getDefaultFont() {
-    return defaultFont;
-  }
+    public static Appearance getDefaultAppearanceHovered() {
+        return defaultAppearanceHovered;
+    }
 
-  public static void setDefaultFont(Font newFont) {
-    defaultFont = newFont;
-  }
+    public static Appearance getDefaultAppearanceDisabled() {
+        return defaultAppearanceDisabled;
+    }
+
+    public static void setDefaultAppearanceDisabled(Appearance app) {
+        defaultAppearanceDisabled = app;
+    }
+
+    public static void setDefaultAppearanceHovered(Appearance app) {
+        defaultAppearanceHovered = app;
+    }
+
+    public static Font getDefaultFont() {
+        return defaultFont;
+    }
+
+    public static void setDefaultFont(Font newFont) {
+        defaultFont = newFont;
+    }
 }

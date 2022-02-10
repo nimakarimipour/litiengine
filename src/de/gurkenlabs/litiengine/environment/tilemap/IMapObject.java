@@ -1,9 +1,9 @@
 package de.gurkenlabs.litiengine.environment.tilemap;
 
+import javax.annotation.Nullable;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-
 import de.gurkenlabs.litiengine.resources.Resource;
 
 /**
@@ -13,83 +13,84 @@ import de.gurkenlabs.litiengine.resources.Resource;
  */
 public interface IMapObject extends ICustomPropertyProvider, Resource {
 
-  /**
-   * Gets the grid id.
-   *
-   * @return the grid id
-   */
-  public int getGridId();
+    /**
+     * Gets the grid id.
+     *
+     * @return the grid id
+     */
+    public int getGridId();
 
-  public ITilesetEntry getTile();
+    public ITilesetEntry getTile();
 
-  /**
-   * Gets the hit box.
-   *
-   * @return the hit box
-   */
-  public Rectangle2D getBoundingBox();
+    /**
+     * Gets the hit box.
+     *
+     * @return the hit box
+     */
+    public Rectangle2D getBoundingBox();
 
-  /**
-   * Gets the id.
-   *
-   * @return the id
-   */
-  public int getId();
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     */
+    public int getId();
 
-  /**
-   * Gets the location.
-   *
-   * @return the location
-   */
-  public Point2D getLocation();
+    /**
+     * Gets the location.
+     *
+     * @return the location
+     */
+    public Point2D getLocation();
 
-  public String getType();
+    public String getType();
 
-  public IPolyShape getPolyline();
+    public IPolyShape getPolyline();
 
-  public IPolyShape getPolygon();
+    public IPolyShape getPolygon();
 
-  public Ellipse2D getEllipse();
+    @Nullable
+    public Ellipse2D getEllipse();
 
-  public IMapObjectText getText();
+    public IMapObjectText getText();
 
-  public IMapObjectLayer getLayer();
+    public IMapObjectLayer getLayer();
 
-  public void setGridId(int gid);
+    public void setGridId(int gid);
 
-  public void setId(int id);
+    public void setId(int id);
 
-  public void setType(String type);
+    public void setType(String type);
 
-  public void setX(float x);
+    public void setX(float x);
 
-  public void setY(float y);
+    public void setY(float y);
 
-  public void setLocation(Point2D location);
+    public void setLocation(Point2D location);
 
-  public void setLocation(float x, float y);
+    public void setLocation(float x, float y);
 
-  public void setWidth(float width);
+    public void setWidth(float width);
 
-  public void setHeight(float height);
+    public void setHeight(float height);
 
-  public float getX();
+    public float getX();
 
-  public float getY();
+    public float getY();
 
-  public float getWidth();
+    public float getWidth();
 
-  public float getHeight();
+    public float getHeight();
 
-  public boolean isPolyline();
+    public boolean isPolyline();
 
-  public boolean isPolygon();
+    public boolean isPolygon();
 
-  public boolean isPoint();
+    public boolean isPoint();
 
-  public boolean isEllipse();
+    public boolean isEllipse();
 
-  public void setPolyline(IPolyShape polyline);
+    public void setPolyline(IPolyShape polyline);
 
-  public void setPolygon(IPolyShape polygon);
+    public void setPolygon(IPolyShape polygon);
 }

@@ -1,61 +1,62 @@
 package de.gurkenlabs.litiengine.environment.tilemap.xml;
 
+import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.Initializer;
 import java.awt.Color;
 import java.net.URL;
-
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
 import de.gurkenlabs.litiengine.environment.tilemap.IImageLayer;
 import de.gurkenlabs.litiengine.environment.tilemap.IMapImage;
 
 public class ImageLayer extends Layer implements IImageLayer {
 
-  @XmlElement
-  private MapImage image;
+    @XmlElement
+    private MapImage image;
 
-  @XmlAttribute
-  @XmlJavaTypeAdapter(ColorAdapter.class)
-  private Color trans;
+    @XmlAttribute
+    @XmlJavaTypeAdapter(ColorAdapter.class)
+    @Nullable
+    private Color trans;
 
-  @Override
-  public IMapImage getImage() {
-    return this.image;
-  }
-
-  @Override
-  public Color getTransparentColor() {
-    return this.trans;
-  }
-
-  @Override
-  public int getOffsetX() {
-    if (this.isInfiniteMap()) {
-      TmxMap map = (TmxMap) this.getMap();
-      return super.getOffsetX() - map.getChunkOffsetX() * map.getTileWidth();
+    @Override
+    public IMapImage getImage() {
+        return this.image;
     }
 
-    return super.getOffsetX();
-  }
-
-  @Override
-  public int getOffsetY() {
-    if (this.isInfiniteMap()) {
-      TmxMap map = (TmxMap) this.getMap();
-      return super.getOffsetX() - map.getChunkOffsetY() * map.getTileHeight();
+    @Override
+    @Nullable
+    public Color getTransparentColor() {
+        return this.trans;
     }
 
-    return super.getOffsetY();
-  }
+    @Override
+    public int getOffsetX() {
+        if (this.isInfiniteMap()) {
+            TmxMap map = (TmxMap) this.getMap();
+            return super.getOffsetX() - map.getChunkOffsetX() * map.getTileWidth();
+        }
+        return super.getOffsetX();
+    }
 
-  private boolean isInfiniteMap() {
-    return this.getMap() != null && this.getMap().isInfinite() && this.getMap() instanceof TmxMap;
-  }
+    @Override
+    public int getOffsetY() {
+        if (this.isInfiniteMap()) {
+            TmxMap map = (TmxMap) this.getMap();
+            return super.getOffsetX() - map.getChunkOffsetY() * map.getTileHeight();
+        }
+        return super.getOffsetY();
+    }
 
-  @Override
-  void finish(URL location) throws TmxException {
-    super.finish(location);
-    this.image.finish(location);
-  }
+    private boolean isInfiniteMap() {
+        return this.getMap() != null && this.getMap().isInfinite() && this.getMap() instanceof TmxMap;
+    }
+
+    @Override
+    @Initializer
+    void finish(URL location) throws TmxException {
+        super.finish(location);
+        this.image.finish(location);
+    }
 }
