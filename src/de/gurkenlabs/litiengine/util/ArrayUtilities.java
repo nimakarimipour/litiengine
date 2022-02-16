@@ -1,4 +1,5 @@
 package de.gurkenlabs.litiengine.util;
+import javax.annotation.Nullable;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -552,6 +553,7 @@ public final class ArrayUtilities {
 
   // general method for joining an array
   // encapsulated for type safety
+  @Nullable
   private static String joinArray(Object arr, String separator) {
     if (arr == null) {
       return null;
