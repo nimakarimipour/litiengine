@@ -1,4 +1,5 @@
 package de.gurkenlabs.litiengine.gui;
+import javax.annotation.Nullable;
 
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -55,7 +56,7 @@ public class ImageComponent extends GuiComponent {
   }
 
   public ImageComponent(final double x, final double y, final double width, final double height, final Spritesheet spritesheet, final String text,
-      final Image image) {
+      @Nullable final Image image) {
     this(x, y, width, height, text);
     this.spritesheet = spritesheet;
     this.setImageAlign(Align.LEFT);
