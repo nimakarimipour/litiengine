@@ -1,4 +1,5 @@
 package de.gurkenlabs.litiengine.environment.tilemap.xml;
+import javax.annotation.Nullable;
 
 import java.awt.Point;
 import java.awt.geom.Point2D;
@@ -40,6 +41,7 @@ public class TileLayer extends Layer implements ITileLayer {
   }
 
   @Override
+  @Nullable
   public ITile getTileByLocation(final Point2D location) {
     final Optional<ITile> tile = this.getTiles().stream().filter(x -> x.getTileCoordinate().equals(location)).findFirst();
     return tile.isPresent() ? tile.get() : null;
