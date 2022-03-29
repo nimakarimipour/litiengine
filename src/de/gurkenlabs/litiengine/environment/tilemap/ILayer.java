@@ -1,80 +1,82 @@
 package de.gurkenlabs.litiengine.environment.tilemap;
 
+import javax.annotation.Nullable;
 import java.awt.Dimension;
 import java.awt.Point;
-
 import de.gurkenlabs.litiengine.graphics.RenderType;
 
 public interface ILayer extends ICustomPropertyProvider {
 
-  public int getId();
+    public int getId();
 
-  /**
-   * Gets the name.
-   *
-   * @return the name
-   */
-  public String getName();
+    /**
+     * Gets the name.
+     *
+     * @return the name
+     */
+    @Nullable
+    public String getName();
 
-  /**
-   * Gets the opacity.
-   *
-   * @return the opacity
-   */
-  public float getOpacity();
+    /**
+     * Gets the opacity.
+     *
+     * @return the opacity
+     */
+    public float getOpacity();
 
-  /**
-   * Gets both the X and the Y offset of the layer.
-   *
-   * @return a {@link Point} representing the offset
-   */
-  public Point getOffset();
+    /**
+     * Gets both the X and the Y offset of the layer.
+     *
+     * @return a {@link Point} representing the offset
+     */
+    public Point getOffset();
 
-  /**
-   * Gets the horizontal offset of the layer.
-   *
-   * @return the x offset
-   */
-  public int getOffsetX();
+    /**
+     * Gets the horizontal offset of the layer.
+     *
+     * @return the x offset
+     */
+    public int getOffsetX();
 
-  /**
-   * Gets the vertical offset of the layer.
-   *
-   * @return the y offset
-   */
-  public int getOffsetY();
+    /**
+     * Gets the vertical offset of the layer.
+     *
+     * @return the y offset
+     */
+    public int getOffsetY();
 
-  /**
-   * Gets the size in tiles.
-   *
-   * @return the size in tiles
-   */
-  public Dimension getSizeInTiles();
+    /**
+     * Gets the size in tiles.
+     *
+     * @return the size in tiles
+     */
+    public Dimension getSizeInTiles();
 
-  public IMap getMap();
+    public IMap getMap();
 
-  /**
-   * Checks if is visible.
-   *
-   * @return true, if is visible
-   */
-  public boolean isVisible();
+    /**
+     * Checks if is visible.
+     *
+     * @return true, if is visible
+     */
+    public boolean isVisible();
 
-  public void setVisible(boolean visible);
+    public void setVisible(boolean visible);
 
-  public void setName(String name);
+    public void setName(String name);
 
-  public RenderType getRenderType();
+    @Nullable
+    public RenderType getRenderType();
 
-  public int getWidth();
+    public int getWidth();
 
-  public int getHeight();
+    public int getHeight();
 
-  public void setWidth(int newWidth);
+    public void setWidth(int newWidth);
 
-  public void setHeight(int newWidth);
+    public void setHeight(int newWidth);
 
-  public void setOpacity(float opacity);
+    public void setOpacity(float opacity);
 
-  public void setRenderType(RenderType renderType);
+    public void setRenderType(RenderType renderType);
 }
