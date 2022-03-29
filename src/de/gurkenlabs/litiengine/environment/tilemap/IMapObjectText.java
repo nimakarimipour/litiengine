@@ -1,31 +1,35 @@
 package de.gurkenlabs.litiengine.environment.tilemap;
 
+import javax.annotation.Nullable;
 import java.awt.Color;
 import java.awt.Font;
-
 import de.gurkenlabs.litiengine.Align;
 import de.gurkenlabs.litiengine.Valign;
 
 public interface IMapObjectText {
-  public String getText();
 
-  public Font getFont();
+    @Nullable
+    public String getText();
 
-  public boolean wrap();
+    public Font getFont();
 
-  public Color getColor();
+    public boolean wrap();
 
-  public Align getAlign();
+    public Color getColor();
 
-  public Valign getValign();
+    @Nullable
+    public Align getAlign();
 
-  public boolean isBold();
+    @Nullable
+    public Valign getValign();
 
-  public boolean isItalic();
+    public boolean isBold();
 
-  public boolean isUnderlined();
+    public boolean isItalic();
 
-  public boolean isStrikeout();
+    public boolean isUnderlined();
 
-  public boolean useKerning();
+    public boolean isStrikeout();
+
+    public boolean useKerning();
 }
