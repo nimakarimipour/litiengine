@@ -1,30 +1,36 @@
 package de.gurkenlabs.litiengine.entities.behavior;
 
+import javax.annotation.Nullable;
+
 public abstract class Transition implements Comparable<Transition> {
-  private final int priority;
-  private State state;
 
-  protected Transition(final int priority) {
-    this.priority = priority;
-  }
+    private final int priority;
 
-  protected Transition(final int priority, final State state) {
-    this(priority);
-    this.state = state;
-  }
+    @Nullable
+    private State state;
 
-  @Override
-  public int compareTo(final Transition other) {
-    return Integer.compare(this.getPriority(), other.getPriority());
-  }
+    protected Transition(final int priority) {
+        this.priority = priority;
+    }
 
-  public State getNextState() {
-    return this.state;
-  }
+    protected Transition(final int priority, final State state) {
+        this(priority);
+        this.state = state;
+    }
 
-  public int getPriority() {
-    return this.priority;
-  }
+    @Override
+    public int compareTo(final Transition other) {
+        return Integer.compare(this.getPriority(), other.getPriority());
+    }
 
-  protected abstract boolean conditionsFullfilled();
+    @Nullable
+    public State getNextState() {
+        return this.state;
+    }
+
+    public int getPriority() {
+        return this.priority;
+    }
+
+    protected abstract boolean conditionsFullfilled();
 }

@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.entities;
 
+import javax.annotation.Nullable;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.configuration.SoundConfiguration;
 import de.gurkenlabs.litiengine.environment.tilemap.MapObjectType;
@@ -20,214 +21,217 @@ import de.gurkenlabs.litiengine.sound.SoundEngine;
 @TmxType(MapObjectType.SOUNDSOURCE)
 public class SoundSource extends Entity {
 
-  private float volume;
-  private int range;
+    private float volume;
 
-  private boolean loop;
-  private Sound sound;
-  private SFXPlayback playback;
+    private int range;
 
-  /**
-   * An empty constructor that just calls the super constructor of {@link Entity}.
-   */
-  public SoundSource() {
-    super();
-  }
+    private boolean loop;
 
-  /**
-   * Initialize a SoundSource with a Sound.
-   * 
-   * @param sound
-   *          The sound used for playback
-   */
-  public SoundSource(Sound sound) {
-    this.setSound(sound);
-  }
+    private Sound sound;
 
-  /**
-   * Initialize a SoundSource with the name of a sound which will then be fetched from the {@code Resources.sounds()}.
-   * 
-   * @param name
-   *          The name of the sound used for playback
-   * @see Sounds#get(String)
-   */
-  public SoundSource(String name) {
-    this.setSound(name);
-  }
+    @Nullable
+    private SFXPlayback playback;
 
-  /**
-   * Initialize a SoundSource at a certain location.
-   * 
-   * @param x
-   *          The x coordinate
-   * @param y
-   *          The y coordinate
-   */
-  public SoundSource(double x, double y) {
-    this.setX(x);
-    this.setY(y);
-  }
+    /**
+     * An empty constructor that just calls the super constructor of {@link Entity}.
+     */
+    public SoundSource() {
+        super();
+    }
 
-  /**
-   * Initialize a SoundSource at a certain location with a given size.
-   * The size is irrelevant for the sound playback.
-   * 
-   * @param x
-   *          The x coordinate
-   * @param y
-   *          The y coordinate
-   * @param width
-   *          The entity width
-   * @param height
-   *          The entity height
-   */
-  public SoundSource(double x, double y, double width, double height) {
-    this(x, y);
-    this.setWidth(width);
-    this.setHeight(height);
-  }
+    /**
+     * Initialize a SoundSource with a Sound.
+     *
+     * @param sound
+     *          The sound used for playback
+     */
+    public SoundSource(Sound sound) {
+        this.setSound(sound);
+    }
 
-  /**
-   * Get the volume modifier. The volume modifier is multiplied with the global sound volume defined by {@link SoundConfiguration#getSoundVolume()}.
-   * 
-   * @return a float determining how much louder or quieter the sound is played back. 1.0 is the standard playback volume.
-   */
-  public float getVolume() {
-    return volume;
-  }
+    /**
+     * Initialize a SoundSource with the name of a sound which will then be fetched from the {@code Resources.sounds()}.
+     *
+     * @param name
+     *          The name of the sound used for playback
+     * @see Sounds#get(String)
+     */
+    public SoundSource(String name) {
+        this.setSound(name);
+    }
 
-  /**
-   * Set the volume modifier. The volume modifier is multiplied with the global sound volume defined by {@link SoundConfiguration#getSoundVolume()}.
-   * 
-   * @param volume
-   *          a float determining how much louder or quieter the sound is played back. 1.0 is the standard playback volume.
-   */
-  public void setVolume(float volume) {
-    this.volume = volume;
-  }
+    /**
+     * Initialize a SoundSource at a certain location.
+     *
+     * @param x
+     *          The x coordinate
+     * @param y
+     *          The y coordinate
+     */
+    public SoundSource(double x, double y) {
+        this.setX(x);
+        this.setY(y);
+    }
 
-  /**
-   * Boolean determining if the sound is looped or only played back once.
-   * 
-   * @return {@code true}, if the sound is looped when calling {@link #play()}. {@code false}, if it is played back just once.
-   */
-  public boolean isLoop() {
-    return loop;
-  }
+    /**
+     * Initialize a SoundSource at a certain location with a given size.
+     * The size is irrelevant for the sound playback.
+     *
+     * @param x
+     *          The x coordinate
+     * @param y
+     *          The y coordinate
+     * @param width
+     *          The entity width
+     * @param height
+     *          The entity height
+     */
+    public SoundSource(double x, double y, double width, double height) {
+        this(x, y);
+        this.setWidth(width);
+        this.setHeight(height);
+    }
 
-  /**
-   * Toggles looping for the sound playback.
-   * 
-   * @param loop
-   *          {@code true}, if the sound should be looped when calling {@link #play()}. {@code false}, if it should be played back just once.
-   */
-  public void setLoop(boolean loop) {
-    this.loop = loop;
-  }
+    /**
+     * Get the volume modifier. The volume modifier is multiplied with the global sound volume defined by {@link SoundConfiguration#getSoundVolume()}.
+     *
+     * @return a float determining how much louder or quieter the sound is played back. 1.0 is the standard playback volume.
+     */
+    public float getVolume() {
+        return volume;
+    }
 
-  /**
-   * The sound to be played.
-   * 
-   * @return the sound instance used for playback.
-   */
-  public Sound getSound() {
-    return sound;
-  }
+    /**
+     * Set the volume modifier. The volume modifier is multiplied with the global sound volume defined by {@link SoundConfiguration#getSoundVolume()}.
+     *
+     * @param volume
+     *          a float determining how much louder or quieter the sound is played back. 1.0 is the standard playback volume.
+     */
+    public void setVolume(float volume) {
+        this.volume = volume;
+    }
 
-  /**
-   * The playback used for playing the sound.
-   * 
-   * @return the playback instance.
-   */
-  public SFXPlayback getPlayback() {
-    return this.playback;
-  }
+    /**
+     * Boolean determining if the sound is looped or only played back once.
+     *
+     * @return {@code true}, if the sound is looped when calling {@link #play()}. {@code false}, if it is played back just once.
+     */
+    public boolean isLoop() {
+        return loop;
+    }
 
-  /**
-   * The name of the currently set sound.
-   * 
-   * @return A String containing the sound name.
-   */
-  public String getSoundName() {
-    return this.sound.getName();
-  }
+    /**
+     * Toggles looping for the sound playback.
+     *
+     * @param loop
+     *          {@code true}, if the sound should be looped when calling {@link #play()}. {@code false}, if it should be played back just once.
+     */
+    public void setLoop(boolean loop) {
+        this.loop = loop;
+    }
 
-  /**
-   * The range in pixels for which the sound can be heard.
-   * 
-   * @return an {@code int} representing the range in pixels.
-   */
-  public int getRange() {
-    return range;
-  }
+    /**
+     * The sound to be played.
+     *
+     * @return the sound instance used for playback.
+     */
+    public Sound getSound() {
+        return sound;
+    }
 
-  /**
-   * Sets the range in pixels for which the sound can be heard.
-   * 
-   * @param range
-   *          an {@code int} representing the range in pixels.
-   */
-  public void setRange(int range) {
-    this.range = range;
-  }
+    /**
+     * The playback used for playing the sound.
+     *
+     * @return the playback instance.
+     */
+    public SFXPlayback getPlayback() {
+        return this.playback;
+    }
 
-  /**
-   * Sets the sound by fetching a sound resource with a given name.
-   * 
-   * @param name
-   *          The name of the Sound resource.
-   * @see Sounds#get(String)
-   */
-  public void setSound(String name) {
-    this.sound = Resources.sounds().get(name);
-  }
+    /**
+     * The name of the currently set sound.
+     *
+     * @return A String containing the sound name.
+     */
+    public String getSoundName() {
+        return this.sound.getName();
+    }
 
-  /**
-   * Sets the sound to be played.
-   * 
-   * @param sound
-   *          The sound to be played
-   */
-  public void setSound(Sound sound) {
-    this.sound = sound;
-  }
+    /**
+     * The range in pixels for which the sound can be heard.
+     *
+     * @return an {@code int} representing the range in pixels.
+     */
+    public int getRange() {
+        return range;
+    }
 
-  /**
-   * Starts a new playback in the SoundEngine and saves a reference to it in the SoundSource instance. The playback reference can be called with
-   * {@link #getPlayback()}.
-   * 
-   * @see SoundEngine#playSound(Sound, IEntity, boolean, int, float)
-   * @see SFXPlayback
-   */
-  public void play() {
-    this.playback = Game.audio().playSound(this.getSound(), this, this.isLoop(), this.getRange(), this.getVolume());
-  }
+    /**
+     * Sets the range in pixels for which the sound can be heard.
+     *
+     * @param range
+     *          an {@code int} representing the range in pixels.
+     */
+    public void setRange(int range) {
+        this.range = range;
+    }
 
-  /**
-   * Pauses the current playback.
-   * 
-   * @see SFXPlayback#pausePlayback()
-   */
-  public void pause() {
-    this.getPlayback().pausePlayback();
-  }
+    /**
+     * Sets the sound by fetching a sound resource with a given name.
+     *
+     * @param name
+     *          The name of the Sound resource.
+     * @see Sounds#get(String)
+     */
+    public void setSound(String name) {
+        this.sound = Resources.sounds().get(name);
+    }
 
-  /**
-   * Resumes the current playback if it was paused.
-   * 
-   * @see SFXPlayback#resumePlayback()
-   */
-  public void resume() {
-    this.getPlayback().resumePlayback();
-  }
+    /**
+     * Sets the sound to be played.
+     *
+     * @param sound
+     *          The sound to be played
+     */
+    public void setSound(Sound sound) {
+        this.sound = sound;
+    }
 
-  /**
-   * Cancels the current playback.
-   * 
-   * @see SFXPlayback#cancel()
-   */
-  public void stop() {
-    this.getPlayback().cancel();
-  }
+    /**
+     * Starts a new playback in the SoundEngine and saves a reference to it in the SoundSource instance. The playback reference can be called with
+     * {@link #getPlayback()}.
+     *
+     * @see SoundEngine#playSound(Sound, IEntity, boolean, int, float)
+     * @see SFXPlayback
+     */
+    public void play() {
+        this.playback = Game.audio().playSound(this.getSound(), this, this.isLoop(), this.getRange(), this.getVolume());
+    }
 
+    /**
+     * Pauses the current playback.
+     *
+     * @see SFXPlayback#pausePlayback()
+     */
+    public void pause() {
+        this.getPlayback().pausePlayback();
+    }
+
+    /**
+     * Resumes the current playback if it was paused.
+     *
+     * @see SFXPlayback#resumePlayback()
+     */
+    public void resume() {
+        this.getPlayback().resumePlayback();
+    }
+
+    /**
+     * Cancels the current playback.
+     *
+     * @see SFXPlayback#cancel()
+     */
+    public void stop() {
+        this.getPlayback().cancel();
+    }
 }
