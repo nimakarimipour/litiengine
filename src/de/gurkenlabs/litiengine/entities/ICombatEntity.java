@@ -1,60 +1,62 @@
 package de.gurkenlabs.litiengine.entities;
 
+import javax.annotation.Nullable;
 import java.awt.Shape;
 import java.util.List;
-
 import de.gurkenlabs.litiengine.abilities.Ability;
 import de.gurkenlabs.litiengine.abilities.effects.Effect;
 import de.gurkenlabs.litiengine.attributes.RangeAttribute;
 
 public interface ICombatEntity extends ICollisionEntity {
-  void addCombatEntityListener(CombatEntityListener listener);
 
-  void removeCombatEntityListener(CombatEntityListener listener);
+    void addCombatEntityListener(CombatEntityListener listener);
 
-  void onHit(CombatEntityHitListener listener);
+    void removeCombatEntityListener(CombatEntityListener listener);
 
-  void removeListener(CombatEntityHitListener listener);
+    void onHit(CombatEntityHitListener listener);
 
-  void onDeath(CombatEntityDeathListener listener);
+    void removeListener(CombatEntityHitListener listener);
 
-  void removeListener(CombatEntityDeathListener listener);
+    void onDeath(CombatEntityDeathListener listener);
 
-  void onResurrect(CombatEntityResurrectListener listener);
+    void removeListener(CombatEntityDeathListener listener);
 
-  void removeListener(CombatEntityResurrectListener listener);
+    void onResurrect(CombatEntityResurrectListener listener);
 
-  void die();
+    void removeListener(CombatEntityResurrectListener listener);
 
-  List<Effect> getAppliedEffects();
+    void die();
 
-  RangeAttribute<Integer> getHitPoints();
+    List<Effect> getAppliedEffects();
 
-  Shape getHitBox();
+    RangeAttribute<Integer> getHitPoints();
 
-  ICombatEntity getTarget();
+    Shape getHitBox();
 
-  int getTeam();
+    @Nullable
+    ICombatEntity getTarget();
 
-  void hit(int damage);
+    int getTeam();
 
-  void hit(int damage, Ability ability);
+    void hit(int damage);
 
-  boolean isDead();
+    void hit(int damage, Ability ability);
 
-  boolean isFriendly(final ICombatEntity entity);
+    boolean isDead();
 
-  boolean isIndestructible();
+    boolean isFriendly(final ICombatEntity entity);
 
-  boolean isNeutral();
+    boolean isIndestructible();
 
-  void resurrect();
+    boolean isNeutral();
 
-  void setIndestructible(final boolean indestructible);
+    void resurrect();
 
-  void setTarget(final ICombatEntity target);
+    void setIndestructible(final boolean indestructible);
 
-  void setTeam(int team);
+    void setTarget(final ICombatEntity target);
 
-  boolean wasHit(int timeSpan);
+    void setTeam(int team);
+
+    boolean wasHit(int timeSpan);
 }
