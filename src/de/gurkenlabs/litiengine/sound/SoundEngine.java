@@ -14,6 +14,7 @@ import java.util.function.UnaryOperator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.annotation.Nullable;
 import javax.sound.sampled.LineUnavailableException;
 
 import de.gurkenlabs.litiengine.Game;
@@ -51,6 +52,7 @@ public final class SoundEngine implements IUpdateable, ILaunchable {
   private Point2D listenerLocation;
   private UnaryOperator<Point2D> listenerLocationCallback = old -> Game.world().camera().getFocus();
   private int maxDist = DEFAULT_MAX_DISTANCE;
+  @Nullable
   private MusicPlayback music;
   private final Collection<MusicPlayback> allMusic = ConcurrentHashMap.newKeySet();
   private final Collection<SFXPlayback> sounds = ConcurrentHashMap.newKeySet();
@@ -207,6 +209,7 @@ public final class SoundEngine implements IUpdateable, ILaunchable {
    *
    * @return The main music, which could be {@code null}.
    */
+  @Nullable
   public synchronized MusicPlayback getMusic() {
     return music;
   }
