@@ -1,62 +1,66 @@
 package de.gurkenlabs.litiengine.graphics;
 
+import javax.annotation.Nullable;
 import java.awt.image.BufferedImage;
-
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.ITimeToLive;
 
 public abstract class ImageEffect implements ITimeToLive, Comparable<ImageEffect> {
-  private final long aliveTick;
 
-  private String name;
-  private final int ttl;
-  private int priority;
+    private final long aliveTick;
 
-  protected ImageEffect(final String name) {
-    this(0, name);
-  }
+    private String name;
 
-  protected ImageEffect(final int ttl, final String name) {
-    this.ttl = ttl;
-    this.name = name;
-    this.aliveTick = Game.time().now();
-  }
+    private final int ttl;
 
-  @Override
-  public long getAliveTime() {
-    return Game.time().since(this.aliveTick);
-  }
+    private int priority;
 
-  public String getName() {
-    return this.name;
-  }
+    protected ImageEffect(final String name) {
+        this(0, name);
+    }
 
-  @Override
-  public int getTimeToLive() {
-    return this.ttl;
-  }
+    protected ImageEffect(final int ttl, final String name) {
+        this.ttl = ttl;
+        this.name = name;
+        this.aliveTick = Game.time().now();
+    }
 
-  @Override
-  public boolean timeToLiveReached() {
-    return this.getTimeToLive() > 0 && this.getAliveTime() > this.getTimeToLive();
-  }
+    @Override
+    public long getAliveTime() {
+        return Game.time().since(this.aliveTick);
+    }
 
-  public int getPriority() {
-    return priority;
-  }
+    public String getName() {
+        return this.name;
+    }
 
-  public void setPriority(int priority) {
-    this.priority = priority;
-  }
-  
-  public void setName(String name) {
-    this.name = name;
-  }
+    @Override
+    public int getTimeToLive() {
+        return this.ttl;
+    }
 
-  @Override
-  public int compareTo(ImageEffect other) {
-    return Integer.compare(this.getPriority(), other.getPriority());
-  }
+    @Override
+    public boolean timeToLiveReached() {
+        return this.getTimeToLive() > 0 && this.getAliveTime() > this.getTimeToLive();
+    }
 
-  public abstract BufferedImage apply(BufferedImage image);
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public int compareTo(ImageEffect other) {
+        return Integer.compare(this.getPriority(), other.getPriority());
+    }
+
+    @Nullable
+    public abstract BufferedImage apply(BufferedImage image);
 }
