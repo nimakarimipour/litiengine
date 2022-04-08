@@ -1,34 +1,39 @@
 package de.gurkenlabs.litiengine.environment.tilemap;
 
+import javax.annotation.Nullable;
 import java.awt.image.BufferedImage;
 
 public interface ITilesetEntry extends ICustomPropertyProvider {
 
-  public int getId();
+    public int getId();
 
-  public ITerrain[] getTerrain();
+    @Nullable
+    public ITerrain[] getTerrain();
 
-  public ITileAnimation getAnimation();
+    @Nullable
+    public ITileAnimation getAnimation();
 
-  /**
-   * Gets the current image for this tileset entry.
-   * @return The current image for this tileset entry, accounting for animation.
-   */
-  public BufferedImage getImage();
+    /**
+     * Gets the current image for this tileset entry.
+     * @return The current image for this tileset entry, accounting for animation.
+     */
+    public BufferedImage getImage();
 
-  /**
-   * Gets the "standard" image for this tileset entry, without applying any animations.
-   * @return The standard image for this tileset entry
-   */
-  public BufferedImage getBasicImage();
+    /**
+     * Gets the "standard" image for this tileset entry, without applying any animations.
+     * @return The standard image for this tileset entry
+     */
+    public BufferedImage getBasicImage();
 
-  /**
-   * Gets the tileset that this entry belongs to.
-   * @return The tileset for this entry
-   */
-  public ITileset getTileset();
+    /**
+     * Gets the tileset that this entry belongs to.
+     * @return The tileset for this entry
+     */
+    public ITileset getTileset();
 
-  public String getType();
+    @Nullable
+    public String getType();
 
-  public IMapObjectLayer getCollisionInfo();
+    @Nullable
+    public IMapObjectLayer getCollisionInfo();
 }
