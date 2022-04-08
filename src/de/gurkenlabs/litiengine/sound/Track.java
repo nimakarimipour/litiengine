@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.sound;
 
+import javax.annotation.Nullable;
 import javax.sound.sampled.AudioFormat;
 
 /**
@@ -7,9 +8,10 @@ import javax.sound.sampled.AudioFormat;
  * <p>
  * This is useful to further define how music is played in the engine.
  * </p>
- * 
+ *
  * @see SoundEngine#playMusic(Track)
  */
 public interface Track extends Iterable<Sound> {
-  AudioFormat getFormat();
+
+    AudioFormat getFormat();
 }
