@@ -1,7 +1,7 @@
 package de.gurkenlabs.litiengine.physics;
 
+import javax.annotation.Nullable;
 import java.awt.geom.Point2D;
-
 import de.gurkenlabs.litiengine.entities.IEntity;
 
 /**
@@ -9,43 +9,46 @@ import de.gurkenlabs.litiengine.entities.IEntity;
  */
 public class StickyForce extends Force {
 
-  /** The force entiy. */
-  private final IEntity forceEntiy;
+    /**
+     * The force entiy.
+     */
+    @Nullable
+    private final IEntity forceEntiy;
 
-  /***
-   * Instantiates a new sticky force.
-   * 
-   * @param forceEntity
-   *          The entity to who's location this force will be bound
-   * @param strength
-   *          The strength/intensity of this force
-   * @param size
-   *          The size of this force
-   */
-  public StickyForce(final IEntity forceEntity, final float strength, final float size) {
-    super(forceEntity.getCenter(), strength, size);
-    this.forceEntiy = forceEntity;
-  }
-
-  public StickyForce(final Point2D center, final float strength, final float size) {
-    super(center, strength, size);
-    this.forceEntiy = null;
-  }
-
-  /**
-   * Gets the force entiy.
-   *
-   * @return the force entiy
-   */
-  public IEntity getForceEntiy() {
-    return this.forceEntiy;
-  }
-
-  @Override
-  public Point2D getLocation() {
-    if (this.getForceEntiy() != null) {
-      return this.getForceEntiy().getCenter();
+    /**
+     * Instantiates a new sticky force.
+     *
+     * @param forceEntity
+     *          The entity to who's location this force will be bound
+     * @param strength
+     *          The strength/intensity of this force
+     * @param size
+     *          The size of this force
+     */
+    public StickyForce(final IEntity forceEntity, final float strength, final float size) {
+        super(forceEntity.getCenter(), strength, size);
+        this.forceEntiy = forceEntity;
     }
-    return super.getLocation();
-  }
+
+    public StickyForce(final Point2D center, final float strength, final float size) {
+        super(center, strength, size);
+        this.forceEntiy = null;
+    }
+
+    /**
+     * Gets the force entiy.
+     *
+     * @return the force entiy
+     */
+    public IEntity getForceEntiy() {
+        return this.forceEntiy;
+    }
+
+    @Override
+    public Point2D getLocation() {
+        if (this.getForceEntiy() != null) {
+            return this.getForceEntiy().getCenter();
+        }
+        return super.getLocation();
+    }
 }
