@@ -1,9 +1,9 @@
 package de.gurkenlabs.litiengine.entities;
 
+import javax.annotation.Nullable;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.List;
-
 import de.gurkenlabs.litiengine.entities.behavior.IBehaviorController;
 import de.gurkenlabs.litiengine.environment.Environment;
 import de.gurkenlabs.litiengine.environment.GameWorld;
@@ -14,253 +14,257 @@ import de.gurkenlabs.litiengine.graphics.RenderEngine;
 import de.gurkenlabs.litiengine.graphics.RenderType;
 import de.gurkenlabs.litiengine.graphics.animation.IEntityAnimationController;
 
-public interface IEntity{
-  void onMessage(EntityMessageListener listener);
+public interface IEntity {
 
-  void onMessage(String message, EntityMessageListener listener);
+    void onMessage(EntityMessageListener listener);
 
-  void addTransformListener(EntityTransformListener listener);
+    void onMessage(String message, EntityMessageListener listener);
 
-  void addListener(EntityListener listener);
+    void addTransformListener(EntityTransformListener listener);
 
-  void removeListener(EntityMessageListener listener);
+    void addListener(EntityListener listener);
 
-  void removeListener(EntityTransformListener listener);
+    void removeListener(EntityMessageListener listener);
 
-  void removeListener(EntityListener listener);
+    void removeListener(EntityTransformListener listener);
 
-  /**
-   * Adds the specified entity rendered listener to receive events when entities were rendered.
-   * 
-   * @param listener
-   *          The listener to add.
-   */
-  void onRendered(final EntityRenderedListener listener);
+    void removeListener(EntityListener listener);
 
-  /**
-   * Removes the specified entity rendered listener.
-   * 
-   * @param listener
-   *          The listener to remove.
-   */
-  void removeListener(final EntityRenderedListener listener);
+    /**
+     * Adds the specified entity rendered listener to receive events when entities were rendered.
+     *
+     * @param listener
+     *          The listener to add.
+     */
+    void onRendered(final EntityRenderedListener listener);
 
-  /**
-   * Adds the specified entity render listener to receive events and callbacks about the rendering process of entities.
-   * 
-   * @param listener
-   *          The listener to add.
-   */
-  void addEntityRenderListener(final EntityRenderListener listener);
+    /**
+     * Removes the specified entity rendered listener.
+     *
+     * @param listener
+     *          The listener to remove.
+     */
+    void removeListener(final EntityRenderedListener listener);
 
-  /**
-   * Removes the specified entity render listener.
-   * 
-   * @param listener
-   *          The listener to remove.
-   */
-  void removeListener(final EntityRenderListener listener);
+    /**
+     * Adds the specified entity render listener to receive events and callbacks about the rendering process of entities.
+     *
+     * @param listener
+     *          The listener to add.
+     */
+    void addEntityRenderListener(final EntityRenderListener listener);
 
-  double getAngle();
+    /**
+     * Removes the specified entity render listener.
+     *
+     * @param listener
+     *          The listener to remove.
+     */
+    void removeListener(final EntityRenderListener listener);
 
-  /**
-   * Sets the angle (in degrees) in which the entity is directed.
-   *
-   * @param angle
-   *          the new angle in degrees
-   */
-  void setAngle(double angle);
+    double getAngle();
 
-  /**
-   * Gets the entities animation controller.
-   * 
-   * @return The entities animation controller or null if none was registered.
-   * 
-   * @see RenderEngine#renderEntity(java.awt.Graphics2D, IEntity)
-   */
-  IEntityAnimationController<?> animations();
+    /**
+     * Sets the angle (in degrees) in which the entity is directed.
+     *
+     * @param angle
+     *          the new angle in degrees
+     */
+    void setAngle(double angle);
 
-  boolean isVisible();
+    /**
+     * Gets the entities animation controller.
+     *
+     * @return The entities animation controller or null if none was registered.
+     *
+     * @see RenderEngine#renderEntity(java.awt.Graphics2D, IEntity)
+     */
+    @Nullable
+    IEntityAnimationController<?> animations();
 
-  void setVisible(boolean visible);
+    boolean isVisible();
 
-  IBehaviorController behavior();
+    void setVisible(boolean visible);
 
-  void addController(IEntityController controller);
+    IBehaviorController behavior();
 
-  <T extends IEntityController> void setController(Class<T> clss, T controller);
+    void addController(IEntityController controller);
 
-  <T extends IEntityController> T getController(Class<T> clss);
+    <T extends IEntityController> void setController(Class<T> clss, T controller);
 
-  /**
-   * All registered actions of this entity.
-   * 
-   * @return The EntityActionMap that holds all registered EntityActions for this instance.
-   * 
-   * @see EntityActionMap
-   * @see IEntity#register(String, Runnable)
-   */
-  EntityActionMap actions();
+    <T extends IEntityController> T getController(Class<T> clss);
 
-  /**
-   * Performs an {@code EntityAction} that was previously registered for this entity.
-   * <p>
-   * <i>Does nothing in case no action has been registered for the specified {@code actionName}.</i>
-   * </p>
-   * 
-   * @param actionName
-   *          The name of the action to be performed.
-   * 
-   * @see IEntity#actions()
-   * @see IEntity#register(String, Runnable)
-   */
-  void perform(String actionName);
+    /**
+     * All registered actions of this entity.
+     *
+     * @return The EntityActionMap that holds all registered EntityActions for this instance.
+     *
+     * @see EntityActionMap
+     * @see IEntity#register(String, Runnable)
+     */
+    EntityActionMap actions();
 
-  /**
-   * Registers an {@code EntityAction} with the specified name.
-   * It's later possible to execute these actions on the entity by using the {@code Entity.perform(String actionName)} method.
-   * 
-   * @param name
-   *          The name of the action to be registered.
-   * @param action
-   *          The action to be performed by the entity.
-   * 
-   * @return The created EntityAction instance; or null if the name or action parameter were invalid.
-   * 
-   * @see IEntity#perform(String)
-   * @see IEntity#actions()
-   */
-  EntityAction register(String name, Runnable action);
+    /**
+     * Performs an {@code EntityAction} that was previously registered for this entity.
+     * <p>
+     * <i>Does nothing in case no action has been registered for the specified {@code actionName}.</i>
+     * </p>
+     *
+     * @param actionName
+     *          The name of the action to be performed.
+     *
+     * @see IEntity#actions()
+     * @see IEntity#register(String, Runnable)
+     */
+    void perform(String actionName);
 
-  void detachControllers();
+    /**
+     * Registers an {@code EntityAction} with the specified name.
+     * It's later possible to execute these actions on the entity by using the {@code Entity.perform(String actionName)} method.
+     *
+     * @param name
+     *          The name of the action to be registered.
+     * @param action
+     *          The action to be performed by the entity.
+     *
+     * @return The created EntityAction instance; or null if the name or action parameter were invalid.
+     *
+     * @see IEntity#perform(String)
+     * @see IEntity#actions()
+     */
+    @Nullable
+    EntityAction register(String name, Runnable action);
 
-  void attachControllers();
+    void detachControllers();
 
-  Rectangle2D getBoundingBox();
+    void attachControllers();
 
-  Point2D getCenter();
+    Rectangle2D getBoundingBox();
 
-  double getHeight();
+    Point2D getCenter();
 
-  Point2D getLocation();
+    double getHeight();
 
-  int getMapId();
+    Point2D getLocation();
 
-  /***
-   * Gets the name of this entity.
-   * 
-   * @return The name of this entity.
-   */
-  String getName();
+    int getMapId();
 
-  RenderType getRenderType();
+    /**
+     * Gets the name of this entity.
+     *
+     * @return The name of this entity.
+     */
+    String getName();
 
-  /**
-   * Determines whether this entity is being rendered with the layer it's originating from.
-   * This ignores the specified {@code RenderType} and makes the entity dependent upon the visibility of it's layer.
-   * <p>
-   * This can only be used, of course, if the entity is related to a {@code MapObject}.
-   * <br>
-   * This defaults to {@code false} if not explicitly set on the {@code MapObject}.
-   * </p>
-   * 
-   * @return True if the entity should be rendered with the layer of the corresponding map object; otherwise false.
-   * 
-   * @see ILayer#isVisible()
-   * @see IMapObjectLayer#getMapObjects()
-   * @see Environment#getEntitiesByLayer(int)
-   * @see Environment#getEntitiesByLayer(String)
-   */
-  boolean renderWithLayer();
+    RenderType getRenderType();
 
-  double getWidth();
+    /**
+     * Determines whether this entity is being rendered with the layer it's originating from.
+     * This ignores the specified {@code RenderType} and makes the entity dependent upon the visibility of it's layer.
+     * <p>
+     * This can only be used, of course, if the entity is related to a {@code MapObject}.
+     * <br>
+     * This defaults to {@code false} if not explicitly set on the {@code MapObject}.
+     * </p>
+     *
+     * @return True if the entity should be rendered with the layer of the corresponding map object; otherwise false.
+     *
+     * @see ILayer#isVisible()
+     * @see IMapObjectLayer#getMapObjects()
+     * @see Environment#getEntitiesByLayer(int)
+     * @see Environment#getEntitiesByLayer(String)
+     */
+    boolean renderWithLayer();
 
-  double getX();
+    double getWidth();
 
-  double getY();
+    double getX();
 
-  String sendMessage(Object sender, String message);
+    double getY();
 
-  void setHeight(double height);
+    @Nullable
+    String sendMessage(Object sender, String message);
 
-  void setLocation(double x, double y);
+    void setHeight(double height);
 
-  boolean hasTag(String tag);
+    void setLocation(double x, double y);
 
-  List<String> getTags();
+    boolean hasTag(String tag);
 
-  void addTag(String tag);
+    List<String> getTags();
 
-  void removeTag(String tag);
+    void addTag(String tag);
 
-  /**
-   * Sets the map location.
-   *
-   * @param location
-   *          the new map location
-   */
-  void setLocation(Point2D location);
+    void removeTag(String tag);
 
-  /**
-   * Sets an id which should only be filled when an entity gets added due to map
-   * information.
-   *
-   * @param mapId
-   *          The unique map ID for this {@link IEntity}
-   */
-  void setMapId(int mapId);
+    /**
+     * Sets the map location.
+     *
+     * @param location
+     *          the new map location
+     */
+    void setLocation(Point2D location);
 
-  void setName(String name);
+    /**
+     * Sets an id which should only be filled when an entity gets added due to map
+     * information.
+     *
+     * @param mapId
+     *          The unique map ID for this {@link IEntity}
+     */
+    void setMapId(int mapId);
 
-  void setRenderType(RenderType renderType);
+    void setName(String name);
 
-  void setRenderWithLayer(boolean renderWithLayer);
+    void setRenderType(RenderType renderType);
 
-  void setSize(double width, double height);
+    void setRenderWithLayer(boolean renderWithLayer);
 
-  void setWidth(double width);
+    void setSize(double width, double height);
 
-  void setX(double x);
+    void setWidth(double width);
 
-  void setY(double y);
+    void setX(double x);
 
-  ICustomPropertyProvider getProperties();
+    void setY(double y);
 
-  /**
-   * Gets the environment the entity was loaded to or null if it is not loaded.
-   * 
-   * @return The entity's environment.
-   */
-  Environment getEnvironment();
+    ICustomPropertyProvider getProperties();
 
-  /**
-   * This method provides the possibility to implement behavior whenever this entity was added to the environment.
-   * 
-   * @param environment
-   *          The environment that the entity was added to
-   * 
-   * @see IEntity#addListener(EntityListener)
-   */
-  void loaded(Environment environment);
+    /**
+     * Gets the environment the entity was loaded to or null if it is not loaded.
+     *
+     * @return The entity's environment.
+     */
+    Environment getEnvironment();
 
-  /**
-   * This method provides the possibility to implement behavior whenever this entity was removed from the environment.
-   * 
-   * @param environment
-   *          The environment that the entity was removed from
-   * 
-   * @see IEntity#addListener(EntityListener)
-   */
-  void removed(Environment environment);
+    /**
+     * This method provides the possibility to implement behavior whenever this entity was added to the environment.
+     *
+     * @param environment
+     *          The environment that the entity was added to
+     *
+     * @see IEntity#addListener(EntityListener)
+     */
+    void loaded(Environment environment);
 
-  /**
-   * Indicates whether this entity is loaded on the currently active environment.
-   * 
-   * @return True if the entity is loaded on the game's currently active environment; otherwise false.
-   * 
-   * @see GameWorld#environment()
-   * @see IEntity#loaded(Environment)
-   * @see IEntity#removed(Environment)
-   */
-  boolean isLoaded();
+    /**
+     * This method provides the possibility to implement behavior whenever this entity was removed from the environment.
+     *
+     * @param environment
+     *          The environment that the entity was removed from
+     *
+     * @see IEntity#addListener(EntityListener)
+     */
+    void removed(Environment environment);
+
+    /**
+     * Indicates whether this entity is loaded on the currently active environment.
+     *
+     * @return True if the entity is loaded on the game's currently active environment; otherwise false.
+     *
+     * @see GameWorld#environment()
+     * @see IEntity#loaded(Environment)
+     * @see IEntity#removed(Environment)
+     */
+    boolean isLoaded();
 }
