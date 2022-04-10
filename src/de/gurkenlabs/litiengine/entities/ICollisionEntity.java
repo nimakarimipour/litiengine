@@ -1,77 +1,78 @@
 package de.gurkenlabs.litiengine.entities;
 
+import javax.annotation.Nullable;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-
 import de.gurkenlabs.litiengine.Align;
 import de.gurkenlabs.litiengine.Valign;
 import de.gurkenlabs.litiengine.physics.Collision;
 import de.gurkenlabs.litiengine.physics.CollisionEvent;
 
 public interface ICollisionEntity extends IEntity {
-  void onCollision(CollisionListener listener);
 
-  void removeCollisionListener(CollisionListener listener);
+    void onCollision(CollisionListener listener);
 
-  void fireCollisionEvent(CollisionEvent event);
+    void removeCollisionListener(CollisionListener listener);
 
-  boolean canCollideWith(ICollisionEntity otherEntity);
+    void fireCollisionEvent(CollisionEvent event);
 
-  /**
-   * Gets the collision box.
-   *
-   * @return the collision box
-   */
-  Rectangle2D getCollisionBox();
+    boolean canCollideWith(ICollisionEntity otherEntity);
 
-  /**
-   * Gets the collision box.
-   *
-   * @param location
-   *          the location
-   * @return the collision box
-   */
-  Rectangle2D getCollisionBox(Point2D location);
+    /**
+     * Gets the collision box.
+     *
+     * @return the collision box
+     */
+    Rectangle2D getCollisionBox();
 
-  /**
-   * Gets the center {@link Point2D} of the entities collision box.
-   * 
-   * @return The center {@link Point2D} of the entities collision box
-   */
-  Point2D getCollisionBoxCenter();
+    /**
+     * Gets the collision box.
+     *
+     * @param location
+     *          the location
+     * @return the collision box
+     */
+    Rectangle2D getCollisionBox(Point2D location);
 
-  Valign getCollisionBoxValign();
+    /**
+     * Gets the center {@link Point2D} of the entities collision box.
+     *
+     * @return The center {@link Point2D} of the entities collision box
+     */
+    Point2D getCollisionBoxCenter();
 
-  Align getCollisionBoxAlign();
+    Valign getCollisionBoxValign();
 
-  Collision getCollisionType();
+    Align getCollisionBoxAlign();
 
-  double getCollisionBoxHeight();
+    Collision getCollisionType();
 
-  double getCollisionBoxWidth();
+    double getCollisionBoxHeight();
 
-  /**
-   * Checks for collision.
-   *
-   * @return true, if successful
-   */
-  boolean hasCollision();
+    double getCollisionBoxWidth();
 
-  /**
-   * Sets the collision.
-   *
-   * @param collision
-   *          the new collision
-   */
-  void setCollision(boolean collision);
+    /**
+     * Checks for collision.
+     *
+     * @return true, if successful
+     */
+    boolean hasCollision();
 
-  void setCollisionBoxHeight(final double collisionBoxHeight);
+    /**
+     * Sets the collision.
+     *
+     * @param collision
+     *          the new collision
+     */
+    void setCollision(boolean collision);
 
-  void setCollisionBoxWidth(final double collisionBoxWidth);
+    void setCollisionBoxHeight(final double collisionBoxHeight);
 
-  void setCollisionBoxAlign(final Align align);
+    void setCollisionBoxWidth(final double collisionBoxWidth);
 
-  void setCollisionBoxValign(final Valign valign);
+    void setCollisionBoxAlign(final Align align);
 
-  void setCollisionType(Collision collisionType);
+    void setCollisionBoxValign(final Valign valign);
+
+    void setCollisionType(Collision collisionType);
 }
