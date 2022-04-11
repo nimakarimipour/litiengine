@@ -1,69 +1,70 @@
 package de.gurkenlabs.litiengine.sound;
 
+import javax.annotation.Nullable;
 import java.util.Iterator;
 import java.util.Objects;
-
 import javax.sound.sampled.AudioFormat;
-
 import de.gurkenlabs.litiengine.resources.Resources;
 
 public class LoopedTrack implements Track, Iterator<Sound> {
-  private Sound track;
 
-  /**
-   * Initializes a new {@code LoopedTrack} for the specified sound.
-   * 
-   * @param soundName
-   *          The name of the sound to be played by this track.
-   */
-  public LoopedTrack(String soundName) {
-    this(Resources.sounds().get(soundName));
-  }
+    private Sound track;
 
-  /**
-   * Initializes a new {@code LoopedTrack} for the specified sound.
-   * 
-   * @param sound
-   *          The sound to be played by this track.
-   */
-  public LoopedTrack(Sound sound) {
-    this.track = Objects.requireNonNull(sound);
-  }
+    /**
+     * Initializes a new {@code LoopedTrack} for the specified sound.
+     *
+     * @param soundName
+     *          The name of the sound to be played by this track.
+     */
+    public LoopedTrack(String soundName) {
+        this(Resources.sounds().get(soundName));
+    }
 
-  @Override
-  public Iterator<Sound> iterator() {
-    return this;
-  }
+    /**
+     * Initializes a new {@code LoopedTrack} for the specified sound.
+     *
+     * @param sound
+     *          The sound to be played by this track.
+     */
+    public LoopedTrack(@Nullable Sound sound) {
+        this.track = Objects.requireNonNull(sound);
+    }
 
-  @Override
-  public AudioFormat getFormat() {
-    return this.track.getFormat();
-  }
+    @Override
+    public Iterator<Sound> iterator() {
+        return this;
+    }
 
-  // implement the iterator here to avoid allocating new objects
-  // they don't have any state data anyway
-  @Override
-  public boolean hasNext() {
-    return true;
-  }
+    @Override
+    @Nullable
+    public AudioFormat getFormat() {
+        return this.track.getFormat();
+    }
 
-  @Override
-  public Sound next() {
-    return this.track;
-  }
+    // implement the iterator here to avoid allocating new objects
+    // they don't have any state data anyway
+    @Override
+    public boolean hasNext() {
+        return true;
+    }
 
-  @Override
-  public boolean equals(Object anObject) {
-    return this == anObject || anObject instanceof LoopedTrack && ((LoopedTrack) anObject).track.equals(this.track);
-  }
+    @Override
+    public Sound next() {
+        return this.track;
+    }
 
-  @Override
-  public int hashCode() {
-    return this.track.hashCode();
-  }
+    @Override
+    public boolean equals(Object anObject) {
+        return this == anObject || anObject instanceof LoopedTrack && ((LoopedTrack) anObject).track.equals(this.track);
+    }
 
-  @Override
-  public String toString() {
-    return "looped track: " + this.track;
-  }
+    @Override
+    public int hashCode() {
+        return this.track.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "looped track: " + this.track;
+    }
 }

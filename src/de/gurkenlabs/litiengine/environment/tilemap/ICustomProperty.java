@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.environment.tilemap;
 
+import javax.annotation.Nullable;
 import java.awt.Color;
 import java.net.URL;
 
@@ -8,70 +9,73 @@ import java.net.URL;
  */
 public interface ICustomProperty {
 
-  public void setValue(URL value);
+    public void setValue(URL value);
 
-  public void setValue(String value);
+    public void setValue(String value);
 
-  public void setValue(char value);
+    public void setValue(char value);
 
-  public void setValue(Enum<?> value);
+    public void setValue(@Nullable Enum<?> value);
 
-  public void setValue(long value);
+    public void setValue(long value);
 
-  public void setValue(double value);
+    public void setValue(double value);
 
-  // no methods for setting to byte, short, int, or float because they will already be accepted as a long or double
+    // no methods for setting to byte, short, int, or float because they will already be accepted as a long or double
+    public void setValue(boolean value);
 
-  public void setValue(boolean value);
+    public void setValue(Color value);
 
-  public void setValue(Color value);
+    @Nullable
+    public String getAsString();
 
-  public String getAsString();
+    public char getAsChar();
 
-  public char getAsChar();
+    public boolean getAsBool();
 
-  public boolean getAsBool();
+    @Nullable
+    public Color getAsColor();
 
-  public Color getAsColor();
+    public float getAsFloat();
 
-  public float getAsFloat();
+    public double getAsDouble();
 
-  public double getAsDouble();
+    public byte getAsByte();
 
-  public byte getAsByte();
+    public short getAsShort();
 
-  public short getAsShort();
+    public int getAsInt();
 
-  public int getAsInt();
+    public long getAsLong();
 
-  public long getAsLong();
+    @Nullable
+    public <T extends Enum<T>> T getAsEnum(Class<T> enumType);
 
-  public <T extends Enum<T>> T getAsEnum(Class<T> enumType);
+    @Nullable
+    public URL getAsFile();
 
-  public URL getAsFile();
+    public String getType();
 
-  public String getType();
+    public void setType(String type);
 
-  public void setType(String type);
+    /**
+     * Tests for equality between two custom properties. Two custom
+     * properties are <i>equal</i> if they both have the same type
+     * and string value.
+     *
+     * @param anObject
+     *          The custom property to test equality for
+     * @return Whether the two custom properties are equal, or false
+     *         if {@code anObject} is not a custom property
+     */
+    public boolean equals(Object anObject);
 
-  /**
-   * Tests for equality between two custom properties. Two custom
-   * properties are <i>equal</i> if they both have the same type
-   * and string value.
-   * 
-   * @param anObject
-   *          The custom property to test equality for
-   * @return Whether the two custom properties are equal, or false
-   *         if {@code anObject} is not a custom property
-   */
-  public boolean equals(Object anObject);
-
-  /**
-   * Returns the hash code for this custom property. The hash code
-   * for a custom property is equal to its type's hash code times 31
-   * plus its value's hash code.
-   * 
-   * @return The hash code for this custom property
-   */
-  public int hashCode();
+    /**
+     * Returns the hash code for this custom property. The hash code
+     * for a custom property is equal to its type's hash code times 31
+     * plus its value's hash code.
+     *
+     * @return The hash code for this custom property
+     */
+    public int hashCode();
 }

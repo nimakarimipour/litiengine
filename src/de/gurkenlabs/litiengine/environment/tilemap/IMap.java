@@ -1,141 +1,150 @@
 package de.gurkenlabs.litiengine.environment.tilemap;
 
+import javax.annotation.Nullable;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.geom.Rectangle2D;
 import java.net.URL;
 import java.util.List;
-
 import de.gurkenlabs.litiengine.util.AlphanumComparator;
 
 public interface IMap extends ILayerList, Comparable<IMap> {
 
-  /**
-   * Gets the tilesets.
-   *
-   * @return the tilesets
-   */
-  public List<ITileset> getTilesets();
+    /**
+     * Gets the tilesets.
+     *
+     * @return the tilesets
+     */
+    public List<ITileset> getTilesets();
 
-  public ITilesetEntry getTilesetEntry(int gid);
+    @Nullable
+    public ITilesetEntry getTilesetEntry(int gid);
 
-  /**
-   * Gets the orientation.
-   *
-   * @return the orientation
-   */
-  public IMapOrientation getOrientation();
+    /**
+     * Gets the orientation.
+     *
+     * @return the orientation
+     */
+    @Nullable
+    public IMapOrientation getOrientation();
 
-  public URL getPath();
+    @Nullable
+    public URL getPath();
 
-  /**
-   * Gets the renderorder.
-   *
-   * @return the renderorder
-   */
-  public RenderOrder getRenderOrder();
+    /**
+     * Gets the renderorder.
+     *
+     * @return the renderorder
+     */
+    @Nullable
+    public RenderOrder getRenderOrder();
 
-  /**
-   * Gets the size in pixels.
-   *
-   * @return the size in pixels
-   */
-  public Dimension getSizeInPixels();
+    /**
+     * Gets the size in pixels.
+     *
+     * @return the size in pixels
+     */
+    public Dimension getSizeInPixels();
 
-  /**
-   * Gets the map width in tiles.
-   *
-   * @return the width in tiles
-   */
-  public int getWidth();
+    /**
+     * Gets the map width in tiles.
+     *
+     * @return the width in tiles
+     */
+    public int getWidth();
 
-  /**
-   * Gets the map height in tiles.
-   *
-   * @return the height in tiles
-   */
-  public int getHeight();
+    /**
+     * Gets the map height in tiles.
+     *
+     * @return the height in tiles
+     */
+    public int getHeight();
 
-  /**
-   * Gets the sizein tiles.
-   *
-   * @return the sizein tiles
-   */
-  public Dimension getSizeInTiles();
+    /**
+     * Gets the sizein tiles.
+     *
+     * @return the sizein tiles
+     */
+    public Dimension getSizeInTiles();
 
-  public Rectangle2D getBounds();
+    public Rectangle2D getBounds();
 
-  /**
-   * Gets the tile size.
-   *
-   * @return the tile size
-   */
-  public Dimension getTileSize();
+    /**
+     * Gets the tile size.
+     *
+     * @return the tile size
+     */
+    public Dimension getTileSize();
 
-  /**
-   * Gets the horizontal tile size.
-   *
-   * @return the horizontal tile size
-   */
-  public int getTileWidth();
+    /**
+     * Gets the horizontal tile size.
+     *
+     * @return the horizontal tile size
+     */
+    public int getTileWidth();
 
-  /**
-   * Gets the vertical tile size.
-   *
-   * @return the vertical tile size
-   */
-  public int getTileHeight();
+    /**
+     * Gets the vertical tile size.
+     *
+     * @return the vertical tile size
+     */
+    public int getTileHeight();
 
-  /**
-   * Gets the straight edges' length for hexagonal maps.
-   *
-   * @return the hex side length
-   */
-  public int getHexSideLength();
+    /**
+     * Gets the straight edges' length for hexagonal maps.
+     *
+     * @return the hex side length
+     */
+    public int getHexSideLength();
 
-  /**
-   * Gets the staggering axis
-   *
-   * @return the tile size
-   */
-  public StaggerAxis getStaggerAxis();
+    /**
+     * Gets the staggering axis
+     *
+     * @return the tile size
+     */
+    @Nullable
+    public StaggerAxis getStaggerAxis();
 
-  /**
-   * Gets the tile size.
-   *
-   * @return the tile size
-   */
-  public StaggerIndex getStaggerIndex();
+    /**
+     * Gets the tile size.
+     *
+     * @return the tile size
+     */
+    @Nullable
+    public StaggerIndex getStaggerIndex();
 
-  /**
-   * Gets the version.
-   *
-   * @return the version
-   */
-  public double getVersion();
+    /**
+     * Gets the version.
+     *
+     * @return the version
+     */
+    public double getVersion();
 
-  public String getTiledVersion();
+    @Nullable
+    public String getTiledVersion();
 
-  /**
-   * Sets the name.
-   *
-   * @param name
-   *          the new name
-   */
-  public void setName(String name);
+    /**
+     * Sets the name.
+     *
+     * @param name
+     *          the new name
+     */
+    public void setName(String name);
 
-  public String getName();
+    @Nullable
+    public String getName();
 
-  public int getNextObjectId();
+    public int getNextObjectId();
 
-  public int getNextLayerId();
+    public int getNextLayerId();
 
-  public Color getBackgroundColor();
+    @Nullable
+    public Color getBackgroundColor();
 
-  public boolean isInfinite();
+    public boolean isInfinite();
 
-  @Override
-  public default int compareTo(IMap map) {
-    return AlphanumComparator.compareTo(this.getName(), map.getName());
-  }
+    @Override
+    public default int compareTo(IMap map) {
+        return AlphanumComparator.compareTo(this.getName(), map.getName());
+    }
 }
