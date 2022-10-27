@@ -62,9 +62,11 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
     private String orientation;
 
     @XmlTransient
+    @SuppressWarnings("NullAway.Init")
     private IMapOrientation mapOrientation;
 
     @XmlAttribute
+    @SuppressWarnings("NullAway.Init")
     private RenderOrder renderorder;
 
     @XmlAttribute
@@ -83,6 +85,7 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
     private int infinite;
 
     @XmlAttribute
+    @SuppressWarnings("NullAway.Init")
     private Integer hexsidelength;
 
     @XmlAttribute
@@ -99,9 +102,11 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
     private Color backgroundcolor;
 
     @XmlAttribute(name = "nextlayerid")
+    @SuppressWarnings("NullAway.Init")
     private Integer nextLayerId;
 
     @XmlAttribute(name = "nextobjectid")
+    @SuppressWarnings("NullAway.Init")
     private Integer nextObjectId;
 
     @XmlAttribute
@@ -109,9 +114,11 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
     private String name;
 
     @XmlElement(name = "tileset", type = Tileset.class)
+    @SuppressWarnings("NullAway.Init")
     private List<ITileset> tilesets;
 
     @XmlElements({ @XmlElement(name = "imagelayer", type = ImageLayer.class), @XmlElement(name = "layer", type = TileLayer.class), @XmlElement(name = "objectgroup", type = MapObjectLayer.class), @XmlElement(name = "group", type = GroupLayer.class) })
+    @SuppressWarnings("NullAway.Init")
     private List<ILayer> layers;
 
     @XmlTransient

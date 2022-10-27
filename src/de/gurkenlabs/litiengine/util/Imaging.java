@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.util;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.awt.AlphaComposite;
 import java.awt.Color;
@@ -313,6 +314,7 @@ public final class Imaging {
         return new BufferedImage(cm, raster, isAlphaPremultiplied, null);
     }
 
+    @NullUnmarked
     public static BufferedImage getCompatibleImage(final int width, final int height) {
         if (width == 0 || height == 0) {
             return null;
@@ -440,6 +442,7 @@ public final class Imaging {
     }
 
     @Nullable
+    @NullUnmarked
     public static BufferedImage scale(final BufferedImage image, final int max) {
         Dimension2D newDimension = GeometricUtilities.scaleWithRatio(image.getWidth(), image.getHeight(), max);
         return scale(image, (int) newDimension.getWidth(), (int) newDimension.getHeight());

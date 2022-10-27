@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.entities;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
@@ -412,6 +413,7 @@ public abstract class Entity implements IEntity, EntityRenderListener, Tweenable
     }
 
     @Override
+    @NullUnmarked
     public void removeTag(String tag) {
         this.getTags().remove(tag);
         if (Game.world().environment() == null) {
@@ -495,6 +497,7 @@ public abstract class Entity implements IEntity, EntityRenderListener, Tweenable
     }
 
     @Override
+    @NullUnmarked
     public Environment getEnvironment() {
         return this.environment;
     }

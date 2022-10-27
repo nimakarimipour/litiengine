@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.graphics;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.awt.Dimension;
 import java.awt.geom.Point2D;
@@ -141,6 +142,7 @@ public class Camera implements ICamera {
     }
 
     @Override
+    @NullUnmarked
     public void setFocus(@Nullable final Point2D focus) {
         this.focus = this.clampToMap(focus);
         // dunno why but without the factor of 0.01 sometimes everything starts to

@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.input;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.awt.AWTException;
 import java.util.logging.Level;
@@ -50,6 +51,7 @@ public final class Input {
      * @see GamepadManager#current()
      * @see GamepadManager#get(int)
      */
+    @NullUnmarked
     public static GamepadManager gamepads() {
         if (!Game.config().input().isGamepadSupport()) {
             log.log(Level.SEVERE, "Cannot access gamepads because gamepad support is disabled in the configuration.");
@@ -62,6 +64,7 @@ public final class Input {
      *
      * @return The keyboard input device.
      */
+    @NullUnmarked
     public static IKeyboard keyboard() {
         return keyboard;
     }
@@ -71,6 +74,7 @@ public final class Input {
      *
      * @return The mouse input device.
      */
+    @NullUnmarked
     public static IMouse mouse() {
         return mouse;
     }

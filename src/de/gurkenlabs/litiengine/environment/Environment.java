@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.environment;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -274,6 +275,7 @@ public final class Environment implements IRenderable {
      * @param listener
      *          The listener to add.
      */
+    @NullUnmarked
     public void onRendered(RenderType renderType, EnvironmentRenderedListener listener) {
         this.renderListeners.get(renderType).add(listener);
     }
@@ -342,6 +344,7 @@ public final class Environment implements IRenderable {
      * @see IEntity#loaded(Environment)
      * @see EnvironmentEntityListener#entityAdded(IEntity)
      */
+    @NullUnmarked
     public void add(IEntity entity) {
         if (entity == null) {
             return;
@@ -440,6 +443,7 @@ public final class Environment implements IRenderable {
      * @see #render(Graphics2D)
      * @see RenderEngine#renderEntity(Graphics2D, IEntity)
      */
+    @NullUnmarked
     public void add(IRenderable renderable, RenderType renderType) {
         this.renderables.get(renderType).add(renderable);
     }
@@ -482,6 +486,7 @@ public final class Environment implements IRenderable {
     /**
      * Clears all loaded entities and renderable instances from this environment.
      */
+    @NullUnmarked
     public void clear() {
         Game.physics().clear();
         this.combatEntities.clear();
@@ -1187,6 +1192,7 @@ public final class Environment implements IRenderable {
      * @see IEntity#getRenderType()
      * @see ILayer#getRenderType()
      */
+    @NullUnmarked
     public Collection<IEntity> getEntities(final RenderType renderType) {
         return Collections.unmodifiableCollection(this.miscEntities.get(renderType).values());
     }
@@ -1357,6 +1363,7 @@ public final class Environment implements IRenderable {
      *
      * @return The map of this environment.
      */
+    @NullUnmarked
     public IMap getMap() {
         return this.map;
     }
@@ -2258,6 +2265,7 @@ public final class Environment implements IRenderable {
     }
 
     @Override
+    @NullUnmarked
     public void render(final Graphics2D g) {
         long renderStart = System.nanoTime();
         final AffineTransform otx = g.getTransform();
@@ -2415,6 +2423,7 @@ public final class Environment implements IRenderable {
         }
     }
 
+    @NullUnmarked
     private void render(Graphics2D g, RenderType renderType) {
         long renderStart = System.nanoTime();
         // 1. Render map layers
@@ -2478,6 +2487,7 @@ public final class Environment implements IRenderable {
         entity.loaded(this);
     }
 
+    @NullUnmarked
     private void addGravityForce(IMobileEntity entity) {
         IMovementController mvmtControl = entity.movement();
         if (mvmtControl != null) {
@@ -2637,6 +2647,7 @@ public final class Environment implements IRenderable {
         }
     }
 
+    @NullUnmarked
     private void fireRenderEvent(Graphics2D g, RenderType type) {
         for (EnvironmentRenderedListener listener : this.renderListeners.get(type)) {
             listener.rendered(g, type);

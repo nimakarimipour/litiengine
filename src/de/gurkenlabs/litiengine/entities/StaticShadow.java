@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.entities;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.awt.Color;
 import java.awt.geom.Area;
@@ -133,6 +134,7 @@ public class StaticShadow extends MapArea {
         this.shadowOffset = DEFAULT_OFFSET;
     }
 
+    @NullUnmarked
     public StaticShadowType getShadowType() {
         return this.shadowType;
     }
@@ -204,6 +206,7 @@ public class StaticShadow extends MapArea {
         return this.area;
     }
 
+    @NullUnmarked
     private void createArea() {
         if (this.getShadowType() == StaticShadowType.NONE) {
             return;

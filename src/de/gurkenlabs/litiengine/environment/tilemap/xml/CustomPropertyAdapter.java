@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.environment.tilemap.xml;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
@@ -92,6 +93,7 @@ public class CustomPropertyAdapter extends XmlAdapter<CustomPropertyAdapter.Prop
         }
 
         @SuppressWarnings("unused")
+        @NullUnmarked
         private void beforeMarshal(Marshaller m) throws URISyntaxException {
             if (this.type.equals(PropertyType.STRING)) {
                 this.type = null;
@@ -132,6 +134,7 @@ public class CustomPropertyAdapter extends XmlAdapter<CustomPropertyAdapter.Prop
     }
 
     @Override
+    @NullUnmarked
     public Map<String, ICustomProperty> unmarshal(PropertyList v) {
         // use hashtable to reject null keys/values
         Map<String, ICustomProperty> map = new HashMap<>(v.properties.size());

@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.gui;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.math.BigDecimal;
 import java.util.List;
@@ -41,6 +42,7 @@ public class NumberAdjuster extends TextFieldComponent {
         this.setCurrentValue(this.getCurrentValue().subtract(this.getStepSize()));
     }
 
+    @NullUnmarked
     public BigDecimal getCurrentValue() {
         return this.currentValue;
     }

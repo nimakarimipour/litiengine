@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.environment.tilemap.xml;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -19,6 +20,7 @@ public class TileAnimation implements ITileAnimation {
     private transient int totalDuration;
 
     @Override
+    @NullUnmarked
     public List<ITileAnimationFrame> getFrames() {
         return this.frames;
     }

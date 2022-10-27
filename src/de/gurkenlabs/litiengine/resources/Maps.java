@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.resources;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -258,6 +259,7 @@ public final class Maps extends ResourcesContainer<IMap> {
          *          The mapObject to be added to the specified {@code MapObjectLayer}.
          * @return The added map object.
          */
+        @NullUnmarked
         public IMapObject add(@Nullable IMapObjectLayer layer, IMapObject mapObject) {
             layer.addMapObject(mapObject);
             return mapObject;

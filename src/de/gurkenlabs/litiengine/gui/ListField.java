@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.gui;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -55,8 +56,10 @@ public class ListField extends GuiComponent {
 
     private boolean selectEntireRow = false;
 
+    @SuppressWarnings("NullAway.Init")
     private VerticalSlider verticalSlider;
 
+    @SuppressWarnings("NullAway.Init")
     private HorizontalSlider horizontalSlider;
 
     private boolean sliderInside = false;
@@ -198,6 +201,7 @@ public class ListField extends GuiComponent {
      *          the row
      * @return ImageComponent at [column,row]
      */
+    @NullUnmarked
     public ImageComponent getListEntry(final int column, final int row) {
         if (column < 0 || row < 0 || column >= this.listEntries.size() || row >= this.listEntries.get(column).size()) {
             return null;

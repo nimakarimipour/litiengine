@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.entities.behavior;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
@@ -27,6 +28,7 @@ public class StateMachine implements IUpdateable {
     }
 
     @Override
+    @NullUnmarked
     public void update() {
         if (this.currentState == null) {
             return;

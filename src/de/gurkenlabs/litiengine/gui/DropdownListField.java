@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.gui;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.awt.event.KeyEvent;
 import java.util.List;
@@ -19,6 +20,7 @@ public class DropdownListField extends GuiComponent {
 
     private final Object[] content;
 
+    @SuppressWarnings("NullAway.Init")
     private ListField contentList;
 
     /**
@@ -27,6 +29,7 @@ public class DropdownListField extends GuiComponent {
     @Nullable
     private ImageComponent dropDownButton;
 
+    @SuppressWarnings("NullAway.Init")
     private ImageComponent chosenElementComponent;
 
     @Nullable
@@ -46,6 +49,7 @@ public class DropdownListField extends GuiComponent {
         this.changeConsumer = new CopyOnWriteArrayList<>();
     }
 
+    @NullUnmarked
     public Spritesheet getButtonSprite() {
         return this.buttonSprite;
     }
@@ -71,6 +75,7 @@ public class DropdownListField extends GuiComponent {
         return this.dropDownButton;
     }
 
+    @NullUnmarked
     public Spritesheet getEntrySprite() {
         return this.entrySprite;
     }
@@ -108,6 +113,7 @@ public class DropdownListField extends GuiComponent {
     }
 
     @Override
+    @NullUnmarked
     public void prepare() {
         this.contentList = new ListField(this.getX(), this.getY(), this.getWidth(), this.getHeight(), this.getContentArray(), this.numberOfShownElements);
         this.contentList.setButtonSprite(this.buttonSprite);

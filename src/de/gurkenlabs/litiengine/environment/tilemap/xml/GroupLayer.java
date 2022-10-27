@@ -17,6 +17,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.ITileLayer;
 public class GroupLayer extends Layer implements IGroupLayer {
 
     @XmlElements({ @XmlElement(name = "imagelayer", type = ImageLayer.class), @XmlElement(name = "layer", type = TileLayer.class), @XmlElement(name = "objectgroup", type = MapObjectLayer.class), @XmlElement(name = "group", type = GroupLayer.class) })
+    @SuppressWarnings("NullAway.Init")
     private List<ILayer> layers;
 
     private transient List<ITileLayer> rawTileLayers = new ArrayList<>();

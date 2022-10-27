@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.graphics.animation;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
@@ -85,6 +86,7 @@ public class Animation implements IUpdateable, ILaunchable {
      * @param keyFrameDurations
      *          The duration of each keyframe.
      */
+    @NullUnmarked
     public Animation(@Nullable final Spritesheet spritesheet, final boolean loop, final boolean randomizeStart, final int... keyFrameDurations) {
         this(spritesheet.getName(), spritesheet, loop, randomizeStart, keyFrameDurations);
     }
@@ -182,6 +184,7 @@ public class Animation implements IUpdateable, ILaunchable {
         return this.name;
     }
 
+    @NullUnmarked
     public Spritesheet getSpritesheet() {
         // in case the previously sprite sheet was unloaded (removed from the loaded sprite sheets),
         // try to find an updated one by the name of the previously used sprite
@@ -328,6 +331,7 @@ public class Animation implements IUpdateable, ILaunchable {
     }
 
     @Override
+    @NullUnmarked
     public void update() {
         // do nothing if the animation is not playing or the current keyframe is not finished
         if (!this.isPlaying() || Game.time().since(this.lastFrameUpdate) < this.getCurrentKeyFrame().getDuration()) {
@@ -348,6 +352,7 @@ public class Animation implements IUpdateable, ILaunchable {
         this.lastFrameUpdate = Game.loop().getTicks();
     }
 
+    @NullUnmarked
     KeyFrame getCurrentKeyFrame() {
         return this.currentFrame;
     }

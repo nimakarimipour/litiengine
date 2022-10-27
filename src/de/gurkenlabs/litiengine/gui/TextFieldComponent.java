@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.gui;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
@@ -69,6 +70,7 @@ public class TextFieldComponent extends ImageComponent {
     }
 
     @Override
+    @NullUnmarked
     public String getText() {
         return this.fullText;
     }

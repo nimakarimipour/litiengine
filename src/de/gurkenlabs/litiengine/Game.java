@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.awt.event.KeyEvent;
 import java.lang.Thread.UncaughtExceptionHandler;
@@ -95,6 +96,7 @@ public final class Game {
 
     private static final TweenEngine tweenEngine = new TweenEngine();
 
+    @SuppressWarnings("NullAway.Init")
     private static GameLoop gameLoop;
 
     @Nullable
@@ -298,6 +300,7 @@ public final class Game {
      * @see GameWindow#setIcon(java.awt.Image)
      * @see GameWindow#cursor()
      */
+    @NullUnmarked
     public static GameWindow window() {
         return gameWindow;
     }
@@ -628,6 +631,7 @@ public final class Game {
         return true;
     }
 
+    @NullUnmarked
     static synchronized void terminate() {
         if (!initialized) {
             return;

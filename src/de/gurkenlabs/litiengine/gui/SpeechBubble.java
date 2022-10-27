@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.gui;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.awt.Color;
 import java.awt.Font;
@@ -140,6 +141,7 @@ public class SpeechBubble implements IUpdateable, IRenderable {
     }
 
     @Override
+    @NullUnmarked
     public void render(final Graphics2D g) {
         if (this.currentText == null || this.textIndex <= 0 || !Game.graphics().canRender(this.entity)) {
             return;
@@ -215,6 +217,7 @@ public class SpeechBubble implements IUpdateable, IRenderable {
         }
     }
 
+    @NullUnmarked
     private void createBubbleImage() {
         final BufferedImage img = Imaging.getCompatibleImage(500, 500);
         final Graphics2D g = img.createGraphics();

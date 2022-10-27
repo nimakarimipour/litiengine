@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.graphics;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.awt.Canvas;
 import java.awt.Color;
@@ -98,6 +99,7 @@ public class RenderComponent extends Canvas {
         }
     }
 
+    @NullUnmarked
     public void render() {
         final long currentMillis = System.currentTimeMillis();
         if (currentMillis - this.lastFpsTime >= 1000) {

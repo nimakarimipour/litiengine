@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.gui;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -94,6 +95,7 @@ public abstract class GuiComponent implements MouseListener, MouseMotionListener
 
     private boolean isSelected;
 
+    @SuppressWarnings("NullAway.Init")
     private String name;
 
     private boolean suspended;
@@ -257,6 +259,7 @@ public abstract class GuiComponent implements MouseListener, MouseMotionListener
      *
      * @return the GuiComponent's font
      */
+    @NullUnmarked
     public Font getFont() {
         return this.font;
     }
@@ -314,6 +317,7 @@ public abstract class GuiComponent implements MouseListener, MouseMotionListener
      *
      * @return the entire text on this GuiComponent
      */
+    @NullUnmarked
     public String getText() {
         return this.text;
     }

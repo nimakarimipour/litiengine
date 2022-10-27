@@ -27,8 +27,10 @@ public class SoundSource extends Entity {
 
     private boolean loop;
 
+    @SuppressWarnings("NullAway.Init")
     private Sound sound;
 
+    @SuppressWarnings("NullAway.Init")
     private SFXPlayback playback;
 
     /**

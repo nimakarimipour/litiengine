@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.graphics;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
@@ -102,6 +103,7 @@ public final class Spritesheet implements Comparable<Spritesheet> {
         return scaled;
     }
 
+    @NullUnmarked
     public BufferedImage getImage() {
         return this.image;
     }
@@ -188,6 +190,7 @@ public final class Spritesheet implements Comparable<Spritesheet> {
         return this.getRows() * this.getColumns();
     }
 
+    @NullUnmarked
     public boolean isLoaded() {
         return Resources.spritesheets().contains(this.getName()) && Resources.spritesheets().get(this.getName()).equals(this);
     }

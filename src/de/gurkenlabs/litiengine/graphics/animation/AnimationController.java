@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.graphics.animation;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
@@ -190,6 +191,7 @@ public class AnimationController implements IAnimationController {
 
     @Override
     @Nullable
+    @NullUnmarked
     public BufferedImage getCurrentImage() {
         if (!this.isEnabled()) {
             return null;

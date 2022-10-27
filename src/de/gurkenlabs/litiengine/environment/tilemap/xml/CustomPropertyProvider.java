@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.environment.tilemap.xml;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.awt.Color;
 import java.net.URL;
@@ -60,6 +61,7 @@ public class CustomPropertyProvider implements ICustomPropertyProvider {
     }
 
     @Override
+    @NullUnmarked
     public void setTypeOfProperty(String propertyName, String type) {
         this.getProperty(propertyName).setType(type);
     }
@@ -79,6 +81,7 @@ public class CustomPropertyProvider implements ICustomPropertyProvider {
 
     @Override
     @Nullable
+    @NullUnmarked
     public String getStringValue(String propertyName) {
         return this.getStringValue(propertyName, null);
     }
@@ -187,6 +190,7 @@ public class CustomPropertyProvider implements ICustomPropertyProvider {
     }
 
     @Override
+    @NullUnmarked
     public Color getColorValue(String propertyName) {
         return this.getColorValue(propertyName, null);
     }
@@ -205,6 +209,7 @@ public class CustomPropertyProvider implements ICustomPropertyProvider {
     }
 
     @Override
+    @NullUnmarked
     public <T extends Enum<T>> T getEnumValue(String propertyName, Class<T> enumType) {
         return this.getEnumValue(propertyName, enumType, null);
     }

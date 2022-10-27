@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.environment;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.Collections;
@@ -256,6 +257,7 @@ public final class GameWorld implements IUpdateable {
      *
      * @see ICamera
      */
+    @NullUnmarked
     public ICamera camera() {
         return this.camera;
     }
@@ -267,6 +269,7 @@ public final class GameWorld implements IUpdateable {
      *
      * @see Environment
      */
+    @NullUnmarked
     public Environment environment() {
         return this.environment;
     }
@@ -533,6 +536,7 @@ public final class GameWorld implements IUpdateable {
      * @param cam
      *          The new camera to be set.
      */
+    @NullUnmarked
     public void setCamera(@Nullable final ICamera cam) {
         if (this.camera() != null) {
             Game.loop().detach(camera);

@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.environment.tilemap.xml;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.awt.Dimension;
 import java.awt.Point;
@@ -18,6 +19,7 @@ public abstract class Layer extends CustomPropertyProvider implements ILayer {
     private int id;
 
     @XmlAttribute
+    @SuppressWarnings("NullAway.Init")
     private String name;
 
     @XmlAttribute
@@ -164,6 +166,7 @@ public abstract class Layer extends CustomPropertyProvider implements ILayer {
     }
 
     @Override
+    @NullUnmarked
     public IMap getMap() {
         return this.parentMap;
     }

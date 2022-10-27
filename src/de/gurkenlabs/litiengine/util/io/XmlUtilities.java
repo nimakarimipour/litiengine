@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.util.io;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -73,6 +74,7 @@ public final class XmlUtilities {
         }
     }
 
+    @NullUnmarked
     public static <T> JAXBContext getContext(Class<T> cls) {
         try {
             final JAXBContext jaxbContext;
@@ -89,6 +91,7 @@ public final class XmlUtilities {
         return null;
     }
 
+    @NullUnmarked
     public static <T> T read(Class<T> cls, URL path) throws JAXBException {
         final JAXBContext jaxbContext = getContext(cls);
         if (jaxbContext == null) {

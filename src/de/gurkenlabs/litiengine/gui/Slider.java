@@ -10,10 +10,13 @@ import de.gurkenlabs.litiengine.input.Input;
 
 public abstract class Slider extends GuiComponent {
 
+    @SuppressWarnings("NullAway.Init")
     private ImageComponent button1;
 
+    @SuppressWarnings("NullAway.Init")
     private ImageComponent button2;
 
+    @SuppressWarnings("NullAway.Init")
     private ImageComponent sliderComponent;
 
     @Nullable

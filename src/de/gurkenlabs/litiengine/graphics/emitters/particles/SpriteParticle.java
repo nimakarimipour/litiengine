@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.graphics.emitters.particles;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.awt.AlphaComposite;
 import java.awt.Composite;
@@ -13,6 +14,7 @@ import de.gurkenlabs.litiengine.graphics.animation.AnimationController;
 
 public class SpriteParticle extends Particle {
 
+    @SuppressWarnings("NullAway.Init")
     private AnimationController animation;
 
     private boolean animateSprite;
@@ -77,6 +79,7 @@ public class SpriteParticle extends Particle {
         return loopSprite;
     }
 
+    @NullUnmarked
     public void setLoopSprite(boolean loopSprite) {
         this.loopSprite = loopSprite;
         this.animation.getDefault().setLooping(loopSprite);

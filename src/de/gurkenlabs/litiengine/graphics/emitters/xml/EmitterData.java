@@ -151,6 +151,7 @@ public class EmitterData implements Serializable, Resource {
 
     @XmlElementWrapper
     @XmlElement(name = "color")
+    @SuppressWarnings("NullAway.Init")
     private List<String> colors;
 
     @XmlElement
@@ -199,6 +200,7 @@ public class EmitterData implements Serializable, Resource {
     private int maxParticles;
 
     @XmlAttribute
+    @SuppressWarnings("NullAway.Init")
     private String name;
 
     @XmlElement
@@ -215,6 +217,7 @@ public class EmitterData implements Serializable, Resource {
 
     @XmlElementWrapper
     @XmlElement(name = "text")
+    @SuppressWarnings("NullAway.Init")
     private List<String> texts;
 
     @XmlAttribute

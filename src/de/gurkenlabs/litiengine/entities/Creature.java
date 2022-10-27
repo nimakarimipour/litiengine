@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.entities;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.awt.geom.Point2D;
 import java.util.Collection;
@@ -157,6 +158,7 @@ public class Creature extends CombatEntity implements IMobileEntity {
     }
 
     @Override
+    @NullUnmarked
     public Attribute<Float> getVelocity() {
         return this.velocity;
     }

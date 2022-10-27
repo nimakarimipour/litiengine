@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.environment.tilemap;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.awt.Point;
 import java.awt.geom.Path2D;
@@ -216,6 +217,7 @@ public final class MapUtilities {
         return path;
     }
 
+    @NullUnmarked
     public static List<Point2D> getAbsolutePolyshapePoints(final IMapObject mapObject) {
         if (mapObject.isPolygon()) {
             return mapObject.getPolygon().getAbsolutePoints(mapObject.getLocation());

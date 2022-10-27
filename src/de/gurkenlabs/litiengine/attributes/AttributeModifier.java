@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.attributes;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 
 /**
@@ -109,6 +110,7 @@ public class AttributeModifier<T extends Number> implements Comparable<Attribute
     }
 
     @SuppressWarnings("unchecked")
+    @NullUnmarked
     private T ensureType(final Double modValue, final T originalValue) {
         if (originalValue instanceof Double) {
             return (T) modValue;

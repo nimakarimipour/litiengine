@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.entities;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import de.gurkenlabs.litiengine.graphics.animation.IEntityAnimationController;
 import java.util.Map;
@@ -45,6 +46,7 @@ public final class EntityControllers {
         return null;
     }
 
+    @NullUnmarked
     public <T extends IEntityController> void clearControllers(Class<T> clss) {
         Optional<Class<? extends IEntityController>> typeKey = this.controllers.keySet().stream().filter(x -> clss.isAssignableFrom(clss)).findFirst();
         if (typeKey.isPresent()) {

@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.gui;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.awt.Color;
 import java.awt.Font;
@@ -45,6 +46,7 @@ public class FontIcon {
      *
      * @return the font
      */
+    @NullUnmarked
     public Font getFont() {
         return this.font;
     }

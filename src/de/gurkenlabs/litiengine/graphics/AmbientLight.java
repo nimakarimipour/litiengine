@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.graphics;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.awt.AlphaComposite;
 import java.awt.Color;
@@ -79,6 +80,7 @@ public class AmbientLight extends ColorLayer {
         g.fill(ambientArea);
     }
 
+    @NullUnmarked
     private void renderLightSource(final Graphics2D g, final LightSource light, Rectangle2D section) {
         final double mapWidth = this.getEnvironment().getMap().getSizeInPixels().width;
         final double mapHeight = this.getEnvironment().getMap().getSizeInPixels().height;

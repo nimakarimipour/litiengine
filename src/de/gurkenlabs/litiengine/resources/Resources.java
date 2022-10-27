@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.resources;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.awt.Font;
 import java.awt.image.BufferedImage;
@@ -330,6 +331,7 @@ public final class Resources {
         spritesheets().clear();
     }
 
+    @NullUnmarked
     public static URL getLocation(String name) {
         URL fromClass = ClassLoader.getSystemResource(name);
         if (fromClass != null) {

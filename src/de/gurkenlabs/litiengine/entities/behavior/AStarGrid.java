@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.entities.behavior;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -98,6 +99,7 @@ public class AStarGrid implements IRenderable {
         return newNeighbors;
     }
 
+    @NullUnmarked
     public AStarNode getNode(final Point2D point) {
         return this.getNode(point.getX(), point.getY());
     }

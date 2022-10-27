@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.environment.tilemap.xml;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.awt.Point;
 import java.awt.geom.AffineTransform;
@@ -34,6 +35,7 @@ public class Tile extends CustomPropertyProvider implements ITile {
     @Nullable
     private Integer gid;
 
+    @SuppressWarnings("NullAway.Init")
     private transient Point tileCoordinate;
 
     @Nullable
@@ -169,6 +171,7 @@ public class Tile extends CustomPropertyProvider implements ITile {
     }
 
     @Override
+    @NullUnmarked
     public ITilesetEntry getTilesetEntry() {
         return this.tilesetEntry;
     }

@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.environment.tilemap;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.awt.Dimension;
 import java.awt.Point;
@@ -77,6 +78,7 @@ public class MapOrientations {
      *          The name of the orientation, as stored in the TMX file
      * @return The {@code IMapOrientation} by the given name
      */
+    @NullUnmarked
     public static IMapOrientation forName(@Nullable String name) {
         if ("orthogonal".equals(name)) {
             return ORTHOGONAL;
@@ -110,6 +112,7 @@ public class MapOrientations {
 
         @Override
         @Nullable
+        @NullUnmarked
         public Rectangle2D getBounds(Point tile, IMap map) {
             return tile == null ? null : this.getBounds(tile.x, tile.y, map);
         }

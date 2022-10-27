@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.entities;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
@@ -83,6 +84,7 @@ public abstract class CollisionEntity extends Entity implements ICollisionEntity
      * @return the collision box
      */
     @Override
+    @NullUnmarked
     public Rectangle2D getCollisionBox() {
         return this.collisionBox;
     }

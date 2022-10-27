@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.sound;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.util.EventObject;
 
@@ -32,6 +33,7 @@ public class SoundEvent extends EventObject {
     }
 
     @Override
+    @NullUnmarked
     public String toString() {
         return super.toString() + "[sound=" + this.sound.getName() + "]";
     }

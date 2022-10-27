@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.resources;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -185,6 +186,7 @@ public class ResourceBundle implements Serializable {
         return newFile.toString();
     }
 
+    @NullUnmarked
     void beforeMarshal(Marshaller m) {
         List<SpritesheetResource> distinctList = new ArrayList<>();
         for (SpritesheetResource sprite : this.getSpriteSheets()) {

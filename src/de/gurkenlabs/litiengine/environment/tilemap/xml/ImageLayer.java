@@ -12,6 +12,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.IMapImage;
 public class ImageLayer extends Layer implements IImageLayer {
 
     @XmlElement
+    @SuppressWarnings("NullAway.Init")
     private MapImage image;
 
     @XmlAttribute

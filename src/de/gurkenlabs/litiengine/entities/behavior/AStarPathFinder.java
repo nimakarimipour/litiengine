@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.entities.behavior;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.awt.Dimension;
 import java.awt.Point;
@@ -161,6 +162,7 @@ public class AStarPathFinder extends PathFinder {
      *          The target node for the path.
      * @return The found {@link Path}
      */
+    @NullUnmarked
     private static Path retracePath(final AStarNode startNode, final AStarNode targetNode) {
         final List<AStarNode> path = new ArrayList<>();
         AStarNode currentNode = targetNode.getPredecessor();

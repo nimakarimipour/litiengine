@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.resources;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.net.URL;
 import java.util.ArrayList;
@@ -205,6 +206,7 @@ public abstract class ResourcesContainer<T> {
      *          The resource's name.
      * @return The resource with the specified name or null if not found.
      */
+    @NullUnmarked
     public T get(@Nullable String resourceName) {
         return this.get(this.getIdentifier(resourceName), false);
     }
@@ -271,6 +273,7 @@ public abstract class ResourcesContainer<T> {
         }
     }
 
+    @NullUnmarked
     public T get(URL resourceName, boolean forceLoad) {
         return this.get(resourceName.toString(), forceLoad);
     }

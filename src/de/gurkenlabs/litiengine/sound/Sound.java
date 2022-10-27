@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.sound;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.io.IOException;
 import java.io.InputStream;
@@ -66,6 +67,7 @@ public final class Sound {
      *
      * @return The audio format of this instance.
      */
+    @NullUnmarked
     public AudioFormat getFormat() {
         return this.format;
     }

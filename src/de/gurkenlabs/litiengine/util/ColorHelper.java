@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.util;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.awt.Color;
 import java.util.logging.Level;
@@ -39,6 +40,7 @@ public final class ColorHelper {
      * @see Color#getRGB()
      * @see Integer#toHexString(int)
      */
+    @NullUnmarked
     public static String encode(@Nullable Color color) {
         if (color == null) {
             return null;

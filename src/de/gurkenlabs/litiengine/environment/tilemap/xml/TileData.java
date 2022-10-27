@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.environment.tilemap.xml;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -62,6 +63,7 @@ public class TileData {
     }
 
     @XmlAttribute
+    @SuppressWarnings("NullAway.Init")
     private String encoding;
 
     @XmlAttribute
@@ -78,6 +80,7 @@ public class TileData {
     private String value;
 
     @XmlTransient
+    @SuppressWarnings("NullAway.Init")
     private List<TileChunk> chunks;
 
     @XmlTransient
@@ -135,6 +138,7 @@ public class TileData {
     }
 
     @XmlTransient
+    @NullUnmarked
     public String getValue() {
         return this.value;
     }
@@ -443,6 +447,7 @@ public class TileData {
         }
     }
 
+    @NullUnmarked
     private List<Tile> parseData() throws InvalidTileLayerException {
         List<Tile> tmpTiles;
         if (this.getEncoding().equals(Encoding.BASE64)) {

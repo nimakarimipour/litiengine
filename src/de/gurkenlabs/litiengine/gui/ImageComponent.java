@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.gui;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -74,6 +75,7 @@ public class ImageComponent extends GuiComponent {
     }
 
     @Nullable
+    @NullUnmarked
     public Image getBackground() {
         if (this.getSpritesheet() == null) {
             return null;

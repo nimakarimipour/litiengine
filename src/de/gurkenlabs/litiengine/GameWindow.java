@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.awt.Color;
 import java.awt.Component;
@@ -64,6 +65,7 @@ public final class GameWindow {
     @Nullable
     private Point screenLocation;
 
+    @NullUnmarked
     GameWindow() {
         this.hostControl = new JFrame();
         this.resolutionChangedListeners = new CopyOnWriteArrayList<>();
@@ -210,6 +212,7 @@ public final class GameWindow {
      * @return
      *         The {@code GameWindow}'s internal resolution as a {@link Dimension}.
      */
+    @NullUnmarked
     public Dimension getResolution() {
         return this.resolution;
     }

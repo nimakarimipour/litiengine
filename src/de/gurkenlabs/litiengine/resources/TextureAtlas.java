@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.resources;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +43,7 @@ public class TextureAtlas {
     }
 
     @Nullable
+    @NullUnmarked
     public static TextureAtlas read(String textureAtlasFile) {
         try {
             TextureAtlas atlas = XmlUtilities.read(TextureAtlas.class, Resources.getLocation(textureAtlasFile));
@@ -140,6 +142,7 @@ public class TextureAtlas {
         }
 
         @XmlTransient
+        @NullUnmarked
         public String getName() {
             return this.name;
         }

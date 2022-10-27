@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.resources;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
@@ -66,6 +67,7 @@ public class SpritesheetResource extends NamedResource implements Serializable {
     }
 
     @XmlTransient
+    @NullUnmarked
     public String getImage() {
         return this.image;
     }

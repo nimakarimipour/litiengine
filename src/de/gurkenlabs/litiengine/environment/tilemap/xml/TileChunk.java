@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.environment.tilemap.xml;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -29,6 +30,7 @@ public class TileChunk implements Comparable<TileChunk> {
     private String value;
 
     @XmlTransient
+    @NullUnmarked
     public String getValue() {
         return this.value;
     }

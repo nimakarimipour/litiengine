@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.environment.tilemap.xml;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.awt.image.BufferedImage;
 import java.net.URL;
@@ -22,6 +23,7 @@ import de.gurkenlabs.litiengine.util.ArrayUtilities;
 public class TilesetEntry extends CustomPropertyProvider implements ITilesetEntry {
 
     @XmlTransient
+    @SuppressWarnings("NullAway.Init")
     private Tileset tileset;
 
     @Nullable
@@ -92,6 +94,7 @@ public class TilesetEntry extends CustomPropertyProvider implements ITilesetEntr
 
     @Override
     @Nullable
+    @NullUnmarked
     public BufferedImage getImage() {
         if (this.animation == null) {
             return this.getBasicImage();
@@ -101,6 +104,7 @@ public class TilesetEntry extends CustomPropertyProvider implements ITilesetEntr
 
     @Override
     @Nullable
+    @NullUnmarked
     public BufferedImage getBasicImage() {
         if (this.image != null) {
             return Resources.images().get(this.image.getAbsoluteSourcePath());

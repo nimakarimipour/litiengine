@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.environment;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
@@ -106,6 +107,7 @@ public abstract class EntitySpawner<T extends IEntity> implements IEntitySpawner
     }
 
     @Override
+    @NullUnmarked
     public List<Spawnpoint> getSpawnPoints() {
         return this.spawnpoints;
     }
@@ -184,6 +186,7 @@ public abstract class EntitySpawner<T extends IEntity> implements IEntitySpawner
         }
     }
 
+    @NullUnmarked
     private void spawn(@Nullable final Spawnpoint spawnpoint, final int amount) {
         if (spawnpoint.getEnvironment() == null || !spawnpoint.getEnvironment().isLoaded()) {
             return;

@@ -52,6 +52,7 @@ public class Tileset extends CustomPropertyProvider implements ITileset {
     private Integer margin;
 
     @XmlAttribute
+    @SuppressWarnings("NullAway.Init")
     private String name;
 
     @XmlAttribute
@@ -79,6 +80,7 @@ public class Tileset extends CustomPropertyProvider implements ITileset {
     private Integer spacing;
 
     @XmlAttribute
+    @SuppressWarnings("NullAway.Init")
     private String source;
 
     @XmlElementWrapper(name = "terraintypes")
@@ -91,6 +93,7 @@ public class Tileset extends CustomPropertyProvider implements ITileset {
     private List<TilesetEntry> tiles = null;
 
     @XmlTransient
+    @SuppressWarnings("NullAway.Init")
     private List<TilesetEntry> allTiles;
 
     @XmlTransient

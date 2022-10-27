@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.environment.tilemap.xml;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.awt.Point;
 import java.awt.geom.Point2D;
@@ -85,6 +86,7 @@ public class TileLayer extends Layer implements ITileLayer {
     }
 
     @Override
+    @NullUnmarked
     public List<ITile> getTiles() {
         return this.tileList;
     }
@@ -105,6 +107,7 @@ public class TileLayer extends Layer implements ITileLayer {
         return super.getHeight();
     }
 
+    @NullUnmarked
     protected List<Tile> getData() {
         return this.data.getTiles();
     }

@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.environment.tilemap.xml;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
@@ -32,14 +33,17 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
     private String name;
 
     @XmlAttribute
+    @SuppressWarnings("NullAway.Init")
     private String type;
 
     @XmlAttribute
     @XmlJavaTypeAdapter(value = DecimalFloatAdapter.class)
+    @SuppressWarnings("NullAway.Init")
     private Float x;
 
     @XmlAttribute
     @XmlJavaTypeAdapter(value = DecimalFloatAdapter.class)
+    @SuppressWarnings("NullAway.Init")
     private Float y;
 
     @XmlAttribute
@@ -222,6 +226,7 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
 
     @Override
     @Nullable
+    @NullUnmarked
     public IPolyShape getPolygon() {
         return this.polygon;
     }
@@ -371,6 +376,7 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
     }
 
     @Override
+    @NullUnmarked
     public IMapObjectLayer getLayer() {
         return this.layer;
     }

@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.input;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -153,6 +154,7 @@ public final class GamepadManager extends GamepadEvents implements ILaunchable {
      * @see #getAll()
      * @see #current()
      */
+    @NullUnmarked
     public Gamepad get(final int index) {
         if (this.gamePads.isEmpty()) {
             return null;

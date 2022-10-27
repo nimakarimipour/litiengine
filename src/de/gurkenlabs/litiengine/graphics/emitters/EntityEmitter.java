@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.graphics.emitters;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.awt.geom.Point2D;
 import de.gurkenlabs.litiengine.entities.IEntity;
@@ -69,6 +70,7 @@ public class EntityEmitter extends Emitter {
 
     @Override
     @Nullable
+    @NullUnmarked
     public Point2D getLocation() {
         if (this.getEntity() == null) {
             return null;

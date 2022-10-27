@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.tweening;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -31,6 +32,7 @@ public class TweenEngine implements IUpdateable, ILaunchable {
      * @param duration the duration of the Tween in milliseconds.
      * @return the Tween instance
      */
+    @NullUnmarked
     public Tween begin(final Tweenable target, final TweenType type, final int duration) {
         Tween tween = this.getTween(target, type);
         if (tween == null) {
@@ -115,6 +117,7 @@ public class TweenEngine implements IUpdateable, ILaunchable {
      * @param target the {@code Tweenable} target object
      * @param type   the {@code TweenType} determining which values of the target object will be modified.
      */
+    @NullUnmarked
     public void remove(final Tweenable target, final TweenType type) {
         final Tween tween = this.getTween(target, type);
         if (tween != null) {
@@ -150,6 +153,7 @@ public class TweenEngine implements IUpdateable, ILaunchable {
      * Updates all registered Tweens by applying the {@code TweenEquation}.
      */
     @Override
+    @NullUnmarked
     public void update() {
         for (final Tweenable target : this.getTweens().keySet()) {
             for (final Tween tween : this.getTweens().get(target).values()) {

@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.graphics.emitters.particles;
 
+import de.gurkenlabs.litiengine.NullUnmarked;
 import javax.annotation.Nullable;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -125,6 +126,7 @@ public abstract class Particle implements ITimeToLive {
         return this.collisionType;
     }
 
+    @NullUnmarked
     public Color getColor() {
         return this.color;
     }
