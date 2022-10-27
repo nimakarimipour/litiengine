@@ -81,7 +81,7 @@ tasks.withType(JavaCompile) {
             check("NullAway", CheckSeverity.ERROR)
             check("TypeAnnotatorScanner", CheckSeverity.ERROR)
             check("ExhaustiveFixSerializer", CheckSeverity.OFF)
-            check("NullUnmarkedCollector", CheckSeverity.OFF)
+            check("NullUnmarkedCollector", CheckSeverity.ERROR)
             option("NullAway:AnnotatedPackages", "de.gurkenlabs.litiengine")
             option("NullAway:SerializeFixMetadata", "true")
             option("NullAway:FixSerializationConfigPath", "/tmp/NullAwayFix/nullaway.xml")
