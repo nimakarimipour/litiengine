@@ -62,27 +62,32 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:3.4.0'
     testImplementation 'org.mockito:mockito-inline:3.4.0'
 
-    annotationProcessor "com.uber.nullaway:nullaway:0.9.6"
-    annotationProcessor "edu.ucr.cs.riple.nullawayannotator:css:1.2.3-LOCAL"
-
     compileOnly "com.google.code.findbugs:jsr305:3.0.2"
     errorprone "com.google.errorprone:error_prone_core:2.3.2"
     errorproneJavac "com.google.errorprone:javac:9+181-r4173-1"
+
+    annotationProcessor "com.uber.nullaway:nullaway:0.10.2"
+    annotationProcessor "edu.ucr.cs.riple.nullawayannotator:type-annotator-scanner:1.3.4-SNAPSHOT"
+    annotationProcessor "edu.ucr.cs.riple.checkers:ExhaustiveFixSerializer:1.0-SNAPSHOT"
+    annotationProcessor "edu.ucr.cs.riple.checkers:NullUnmarkedCollector:1.0-SNAPSHOT"
 }
 
+import net.ltgt.gradle.errorprone.CheckSeverity
 tasks.withType(JavaCompile) {
     // remove the if condition if you want to run NullAway on test code
     if (!name.toLowerCase().contains("test")) {
-        options.errorprone.errorproneArgs += ["-XepDisableAllChecks",
-                                              "-Xep:NullAway:ERROR",
-                                              "-XepOpt:NullAway:AnnotatedPackages=de.gurkenlabs.litiengine",
-                                              "-XepOpt:NullAway:SerializeFixMetadata=true",
-                                              "-XepOpt:NullAway:FixSerializationConfigPath=/tmp/NullAwayFix/config.xml",
-                                              "-Xep:CSS:ERROR",
-                                              "-XepOpt:CSS:ConfigPath=/tmp/NullAwayFix/css.xml",
-                                              "-XepDisableAllWarnings"]
+        options.errorprone.disableAllChecks = true
+        options.errorprone {
+            check("NullAway", CheckSeverity.ERROR)
+            check("TypeAnnotatorScanner", CheckSeverity.ERROR)
+            check("ExhaustiveFixSerializer", CheckSeverity.OFF)
+            check("NullUnmarkedCollector", CheckSeverity.OFF)
+            option("NullAway:AnnotatedPackages", "de.gurkenlabs.litiengine")
+            option("NullAway:SerializeFixMetadata", "true")
+            option("NullAway:FixSerializationConfigPath", "/tmp/NullAwayFix/nullaway.xml")
+            option("TypeAnnotatorScanner:ConfigPath", "/tmp/NullAwayFix/scanner.xml")
+        }
         options.compilerArgs << "-Xmaxerrs" << "100000"
-
     }
 }
 
