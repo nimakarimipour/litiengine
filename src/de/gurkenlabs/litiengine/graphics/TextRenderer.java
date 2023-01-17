@@ -24,6 +24,7 @@ import de.gurkenlabs.litiengine.Align;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.Valign;
 import de.gurkenlabs.litiengine.util.MathUtilities;
+import javax.annotation.Nullable;
 
 public final class TextRenderer {
   private TextRenderer() {
@@ -303,7 +304,7 @@ public final class TextRenderer {
    * @see RenderingHints
    */
   public static void renderWithOutline(final Graphics2D g, final String text, final double x, final double y, double width, double height,
-      final Color outlineColor, final float stroke, Align align, Valign valign, final boolean antiAliasing) {
+      @Nullable final Color outlineColor, final float stroke, Align align, Valign valign, final boolean antiAliasing) {
     if (text == null || text.isEmpty()) {
       return;
     }

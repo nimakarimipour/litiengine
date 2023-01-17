@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Point;
 
 import de.gurkenlabs.litiengine.graphics.RenderType;
+import javax.annotation.Nullable;
 
 public interface ILayer extends ICustomPropertyProvider {
 
@@ -14,7 +15,7 @@ public interface ILayer extends ICustomPropertyProvider {
    *
    * @return the name
    */
-  public String getName();
+  @Nullable public String getName();
 
   /**
    * Gets the opacity.
@@ -51,7 +52,7 @@ public interface ILayer extends ICustomPropertyProvider {
    */
   public Dimension getSizeInTiles();
 
-  public IMap getMap();
+  @Nullable public IMap getMap();
 
   /**
    * Checks if is visible.
@@ -64,7 +65,7 @@ public interface ILayer extends ICustomPropertyProvider {
 
   public void setName(String name);
 
-  public RenderType getRenderType();
+  @Nullable public RenderType getRenderType();
 
   public int getWidth();
 

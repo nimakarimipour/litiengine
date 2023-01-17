@@ -9,6 +9,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.IMapObject;
 import de.gurkenlabs.litiengine.environment.tilemap.MapObjectProperty;
 import de.gurkenlabs.litiengine.environment.tilemap.MapObjectType;
 import de.gurkenlabs.litiengine.graphics.StaticShadowType;
+import javax.annotation.Nullable;
 
 public class StaticShadowMapObjectLoader extends MapObjectLoader {
 

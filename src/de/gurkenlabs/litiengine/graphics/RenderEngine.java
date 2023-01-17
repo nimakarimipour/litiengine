@@ -27,6 +27,7 @@ import de.gurkenlabs.litiengine.environment.GameWorld;
 import de.gurkenlabs.litiengine.graphics.animation.IAnimationController;
 import de.gurkenlabs.litiengine.graphics.animation.IEntityAnimationController;
 import de.gurkenlabs.litiengine.graphics.emitters.Emitter;
+import javax.annotation.Nullable;
 
 /**
  * The 2D Render Engine is used to render texts, shapes and entities at their location in the

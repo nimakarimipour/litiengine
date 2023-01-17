@@ -7,14 +7,15 @@ import java.util.function.Consumer;
 
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.input.Input;
+import javax.annotation.Nullable;
 
 public abstract class Slider extends GuiComponent {
   private ImageComponent button1;
   private ImageComponent button2;
-  private ImageComponent sliderComponent;
+  @Nullable private ImageComponent sliderComponent;
 
-  private Spritesheet buttonSprite;
-  private Spritesheet sliderSprite;
+  @Nullable private Spritesheet buttonSprite;
+  @Nullable private Spritesheet sliderSprite;
   private final List<Consumer<Float>> changeConsumer;
   private float currentValue;
   private boolean isDragging;
@@ -39,7 +40,7 @@ public abstract class Slider extends GuiComponent {
     return this.button2;
   }
 
-  public Spritesheet getButtonSpritesheet() {
+  @Nullable public Spritesheet getButtonSpritesheet() {
     return this.buttonSprite;
   }
 
@@ -61,11 +62,11 @@ public abstract class Slider extends GuiComponent {
 
   public abstract Point2D getRelativeSliderPosition();
 
-  public ImageComponent getSliderComponent() {
+  @Nullable public ImageComponent getSliderComponent() {
     return this.sliderComponent;
   }
 
-  public Spritesheet getSliderSpritesheet() {
+  @Nullable public Spritesheet getSliderSpritesheet() {
     return this.sliderSprite;
   }
 
