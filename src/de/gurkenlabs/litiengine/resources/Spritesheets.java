@@ -20,6 +20,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.ITileset;
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.util.io.Codec;
 import de.gurkenlabs.litiengine.util.io.FileUtilities;
+import javax.annotation.Nullable;
 
 public final class Spritesheets {
   private final Map<String, int[]> customKeyFrameDurations = new ConcurrentHashMap<>();
@@ -94,7 +95,7 @@ public final class Spritesheets {
     return new Spritesheet(image, path, spriteWidth, spriteHeight);
   }
 
-  public Spritesheet load(final ITileset tileset) {
+  @Nullable public Spritesheet load(final ITileset tileset) {
     if (tileset == null || tileset.getImage() == null) {
       return null;
     }
@@ -106,7 +107,7 @@ public final class Spritesheets {
     return new Spritesheet(Resources.images().get(tileset.getImage().getAbsoluteSourcePath(), true), tileset.getImage().getSource(), tileset.getTileDimension().width, tileset.getTileDimension().height);
   }
 
-  public Spritesheet load(final SpritesheetResource info) {
+  @Nullable public Spritesheet load(final SpritesheetResource info) {
     Spritesheet sprite = null;
     if (info.getImage() == null || info.getImage().isEmpty()) {
       log.log(Level.SEVERE, "Sprite {0} could not be loaded because no image is defined.", new Object[] { info.getName() });

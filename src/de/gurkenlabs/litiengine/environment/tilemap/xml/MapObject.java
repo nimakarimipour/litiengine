@@ -18,6 +18,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.IMapObjectLayer;
 import de.gurkenlabs.litiengine.environment.tilemap.IMapObjectText;
 import de.gurkenlabs.litiengine.environment.tilemap.IPolyShape;
 import de.gurkenlabs.litiengine.environment.tilemap.ITilesetEntry;
+import javax.annotation.Nullable;
 
 public class MapObject extends CustomPropertyProvider implements IMapObject {
   @XmlAttribute
@@ -215,7 +216,7 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
     return this.polygon;
   }
 
-  @Override
+  @Nullable @Override
   public Ellipse2D getEllipse() {
     if (!this.isEllipse()) {
       return null;

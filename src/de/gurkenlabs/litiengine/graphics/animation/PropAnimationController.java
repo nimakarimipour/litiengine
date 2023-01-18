@@ -9,6 +9,7 @@ import de.gurkenlabs.litiengine.entities.Rotation;
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.util.Imaging;
+import javax.annotation.Nullable;
 
 public class PropAnimationController<T extends Prop> extends EntityAnimationController<T> {
   public static final String PROP_IDENTIFIER = "prop-";
@@ -140,7 +141,7 @@ public class PropAnimationController<T extends Prop> extends EntityAnimationCont
     return new Animation(state.spriteString(), spritesheet, true, true, Resources.spritesheets().getCustomKeyFrameDurations(spritesheet.getName()));
   }
 
-  private static Spritesheet findSpriteSheet(final Prop prop, final PropState state) {
+  @Nullable private static Spritesheet findSpriteSheet(final Prop prop, final PropState state) {
     if (prop == null || prop.getSpritesheetName() == null || prop.getSpritesheetName().isEmpty()) {
       return null;
     }

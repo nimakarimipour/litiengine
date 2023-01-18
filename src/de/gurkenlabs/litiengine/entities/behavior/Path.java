@@ -5,6 +5,7 @@ import java.awt.geom.Point2D;
 import java.util.List;
 
 import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
+import javax.annotation.Nullable;
 
 /**
  * The Class Path.

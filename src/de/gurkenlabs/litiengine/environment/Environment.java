@@ -69,6 +69,7 @@ import de.gurkenlabs.litiengine.physics.IMovementController;
 import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.util.TimeUtilities;
 import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
+import javax.annotation.Nullable;
 
 public final class Environment implements IRenderable {
   private static final Map<String, IMapObjectLoader> mapObjectLoaders = new ConcurrentHashMap<>();
@@ -619,7 +620,7 @@ public final class Environment implements IRenderable {
    *          The map ID of the entity.
    * @return The entity with the specified map ID or null if no entity could be found.
    */
-  public IEntity get(final int mapId) {
+  @Nullable public IEntity get(final int mapId) {
     return this.allEntities.get(mapId);
   }
 
@@ -657,7 +658,7 @@ public final class Environment implements IRenderable {
    *          The map ID of the entity.
    * @return The strongly typed entity with the specified map ID or null if no entity could be found or if the defined type doesn't match.
    */
-  public <T extends IEntity> T get(Class<T> clss, int mapId) {
+  @Nullable public <T extends IEntity> T get(Class<T> clss, int mapId) {
     IEntity ent = this.get(mapId);
     if (ent == null || !clss.isInstance(ent)) {
       return null;
@@ -673,7 +674,7 @@ public final class Environment implements IRenderable {
    *          The name of the entity.
    * @return The entity with the specified name or null if no entity could be found or if the defined type doesn't match.
    */
-  public IEntity get(final String name) {
+  @Nullable public IEntity get(final String name) {
     if (name == null || name.isEmpty()) {
       return null;
     }
@@ -698,7 +699,7 @@ public final class Environment implements IRenderable {
    *          The name of the entity.
    * @return The strongly typed entity with the specified name or null if no entity could be found or if the defined type doesn't match.
    */
-  public <T extends IEntity> T get(Class<T> clss, String name) {
+  @Nullable public <T extends IEntity> T get(Class<T> clss, String name) {
     IEntity ent = this.get(name);
     if (ent == null || !clss.isInstance(ent)) {
       return null;
@@ -2079,7 +2080,7 @@ public final class Environment implements IRenderable {
    * 
    * @see Trigger#canTrigger(ICollisionEntity)
    */
-  public Trigger interact(ICollisionEntity source, Predicate<Trigger> condition) {
+  @Nullable public Trigger interact(ICollisionEntity source, @Nullable Predicate<Trigger> condition) {
     for (final Trigger trigger : this.triggers) {
       if (trigger.canTrigger(source) && (condition == null || condition.test(trigger))) {
         boolean result = trigger.interact(source);

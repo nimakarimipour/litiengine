@@ -6,6 +6,7 @@ import java.util.List;
 import de.gurkenlabs.litiengine.abilities.Ability;
 import de.gurkenlabs.litiengine.abilities.effects.Effect;
 import de.gurkenlabs.litiengine.attributes.RangeAttribute;
+import javax.annotation.Nullable;
 
 public interface ICombatEntity extends ICollisionEntity {
   void addCombatEntityListener(CombatEntityListener listener);
@@ -32,7 +33,7 @@ public interface ICombatEntity extends ICollisionEntity {
 
   Shape getHitBox();
 
-  ICombatEntity getTarget();
+  @Nullable ICombatEntity getTarget();
 
   int getTeam();
 

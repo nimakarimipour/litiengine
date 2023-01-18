@@ -25,6 +25,7 @@ import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.sound.Sound;
 import de.gurkenlabs.litiengine.tweening.TweenType;
 import de.gurkenlabs.litiengine.tweening.Tweenable;
+import javax.annotation.Nullable;
 
 /**
  * The abstract Class GuiComponent provides all properties and methods needed for screens, built-in, and custom GUI components such as buttons,

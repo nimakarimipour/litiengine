@@ -5,6 +5,7 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
 import de.gurkenlabs.litiengine.resources.Resource;
+import javax.annotation.Nullable;
 
 /**
  * This interface represents an instance on a map that can define various things
@@ -49,7 +50,7 @@ public interface IMapObject extends ICustomPropertyProvider, Resource {
 
   public IPolyShape getPolygon();
 
-  public Ellipse2D getEllipse();
+  @Nullable public Ellipse2D getEllipse();
 
   public IMapObjectText getText();
 

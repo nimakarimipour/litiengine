@@ -39,6 +39,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.RenderOrder;
 import de.gurkenlabs.litiengine.environment.tilemap.StaggerAxis;
 import de.gurkenlabs.litiengine.environment.tilemap.StaggerIndex;
 import de.gurkenlabs.litiengine.util.io.FileUtilities;
+import javax.annotation.Nullable;
 
 @XmlRootElement(name = "map")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -215,7 +216,7 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
     return this.tilesets;
   }
 
-  @Override
+  @Nullable @Override
   public ITilesetEntry getTilesetEntry(int gid) {
     for (ITileset tileset : this.getTilesets()) {
       if (tileset.containsTile(gid)) {

@@ -7,6 +7,7 @@ import java.net.URL;
 import java.util.List;
 
 import de.gurkenlabs.litiengine.util.AlphanumComparator;
+import javax.annotation.Nullable;
 
 public interface IMap extends ILayerList, Comparable<IMap> {
 

@@ -34,6 +34,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.xml.Tileset;
 import de.gurkenlabs.litiengine.environment.tilemap.xml.TmxMap;
 import de.gurkenlabs.litiengine.graphics.emitters.xml.EmitterData;
 import de.gurkenlabs.litiengine.util.io.XmlUtilities;
+import javax.annotation.Nullable;
 
 @XmlRootElement(name = "litidata")
 public class ResourceBundle implements Serializable {
@@ -79,11 +80,11 @@ public class ResourceBundle implements Serializable {
     this.sounds = new ArrayList<>();
   }
 
-  public static ResourceBundle load(String file) {
+  @Nullable public static ResourceBundle load(String file) {
     return load(Resources.getLocation(file));
   }
 
-  public static ResourceBundle load(final URL file) {
+  @Nullable public static ResourceBundle load(final URL file) {
     try {
       ResourceBundle gameFile = getResourceBundle(file);
       if (gameFile == null) {

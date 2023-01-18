@@ -14,6 +14,7 @@ import de.gurkenlabs.litiengine.Align;
 import de.gurkenlabs.litiengine.graphics.ShapeRenderer;
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.input.Input;
+import javax.annotation.Nullable;
 
 /**
  * The Class ListField.
@@ -33,7 +34,7 @@ public class ListField extends GuiComponent {
   private int verticalLowerBound = 0;
   private int horizontalLowerBound = 0;
 
-  private ImageComponent selectedComponent;
+  @Nullable private ImageComponent selectedComponent;
 
   private int selectionColumn = -1;
   private int selectionRow = -1;
@@ -211,11 +212,11 @@ public class ListField extends GuiComponent {
     return this.shownColumns;
   }
 
-  public ImageComponent getSelectedComponent() {
+  @Nullable public ImageComponent getSelectedComponent() {
     return this.selectedComponent;
   }
 
-  public Object getSelectedObject() {
+  @Nullable public Object getSelectedObject() {
     if (this.getSelectedComponent() == null) {
       return null;
     }

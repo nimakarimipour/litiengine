@@ -11,6 +11,7 @@ import de.gurkenlabs.litiengine.ILaunchable;
 import de.gurkenlabs.litiengine.IUpdateable;
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.resources.Resources;
+import javax.annotation.Nullable;
 
 /**
  * The {@code Animation} class keeps track of the current keyframe which is used to animate a visual element.

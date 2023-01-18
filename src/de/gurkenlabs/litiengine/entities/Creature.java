@@ -18,6 +18,7 @@ import de.gurkenlabs.litiengine.graphics.animation.IEntityAnimationController;
 import de.gurkenlabs.litiengine.physics.IMovementController;
 import de.gurkenlabs.litiengine.physics.MovementController;
 import de.gurkenlabs.litiengine.tweening.TweenType;
+import javax.annotation.Nullable;
 
 /**
  * TODO: Add idle event
@@ -60,7 +61,7 @@ public class Creature extends CombatEntity implements IMobileEntity {
    * 
    * @see CreatureAnimationController#getSpriteName(Creature, de.gurkenlabs.litiengine.graphics.CreatureAnimationState)
    */
-  public Creature(String spritesheetName) {
+  public Creature(@Nullable String spritesheetName) {
     super();
     final MovementInfo movementInfo = this.getClass().getAnnotation(MovementInfo.class);
     if (movementInfo != null) {

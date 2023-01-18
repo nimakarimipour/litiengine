@@ -32,6 +32,7 @@ import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.util.io.FileUtilities;
 import de.gurkenlabs.litiengine.util.io.XmlUtilities;
+import javax.annotation.Nullable;
 
 @XmlRootElement(name = "tileset")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -72,7 +73,7 @@ public class Tileset extends CustomPropertyProvider implements ITileset {
   @XmlAttribute
   private String source;
 
-  @XmlElementWrapper(name = "terraintypes")
+  @Nullable @XmlElementWrapper(name = "terraintypes")
   @XmlElement(name = "terrain")
   private List<Terrain> terrainTypes = null;
 
@@ -85,7 +86,7 @@ public class Tileset extends CustomPropertyProvider implements ITileset {
   @XmlTransient
   protected Tileset sourceTileset;
 
-  private transient Spritesheet spriteSheet;
+  @Nullable private transient Spritesheet spriteSheet;
 
   public Tileset() {
     Resources.images().addClearedListener(() -> this.spriteSheet = null);

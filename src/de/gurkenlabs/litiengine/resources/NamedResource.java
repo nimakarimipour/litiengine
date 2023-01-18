@@ -2,9 +2,10 @@ package de.gurkenlabs.litiengine.resources;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.annotation.Nullable;
 
 public abstract class NamedResource implements Resource {
-  @XmlAttribute
+  @Nullable @XmlAttribute
   private String name;
 
   @XmlTransient

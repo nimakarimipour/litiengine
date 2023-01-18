@@ -12,6 +12,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.ILayer;
 import de.gurkenlabs.litiengine.environment.tilemap.IMap;
 import de.gurkenlabs.litiengine.environment.tilemap.LayerProperty;
 import de.gurkenlabs.litiengine.graphics.RenderType;
+import javax.annotation.Nullable;
 
 public abstract class Layer extends CustomPropertyProvider implements ILayer {
 
@@ -30,7 +31,7 @@ public abstract class Layer extends CustomPropertyProvider implements ILayer {
   @XmlAttribute
   private Float opacity;
 
-  @XmlAttribute
+  @Nullable @XmlAttribute
   @XmlJavaTypeAdapter(BooleanIntegerAdapter.class)
   private Boolean visible;
 
@@ -208,7 +209,7 @@ public abstract class Layer extends CustomPropertyProvider implements ILayer {
     this.visible = visible;
   }
 
-  protected void setMap(TmxMap map) {
+  protected void setMap(@Nullable TmxMap map) {
     this.parentMap = map;
   }
 

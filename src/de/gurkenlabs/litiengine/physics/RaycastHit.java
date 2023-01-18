@@ -3,6 +3,7 @@ package de.gurkenlabs.litiengine.physics;
 import java.awt.geom.Point2D;
 
 import de.gurkenlabs.litiengine.entities.ICollisionEntity;
+import javax.annotation.Nullable;
 
 public class RaycastHit {
   private final Point2D point;

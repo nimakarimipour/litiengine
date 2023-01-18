@@ -15,6 +15,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import de.gurkenlabs.litiengine.environment.tilemap.ICustomProperty;
 import de.gurkenlabs.litiengine.environment.tilemap.ITile;
 import de.gurkenlabs.litiengine.environment.tilemap.ITilesetEntry;
+import javax.annotation.Nullable;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Tile extends CustomPropertyProvider implements ITile {
@@ -25,7 +26,7 @@ public class Tile extends CustomPropertyProvider implements ITile {
   protected static final int FLIPPED_DIAGONALLY_FLAG = 0x20000000;
   private static final AffineTransform TX_DIAGONAL_FLIP = new AffineTransform(0.0, 1.0, 1.0, 0.0, 0.0, 0.0);
 
-  @XmlAttribute
+  @Nullable @XmlAttribute
   private Integer gid;
 
   private transient Point tileCoordinate;
@@ -118,7 +119,7 @@ public class Tile extends CustomPropertyProvider implements ITile {
     return this.flipped;
   }
 
-  @Override
+  @Nullable @Override
   public BufferedImage getImage() {
     if (this.tilesetEntry == null) { // happens if the tile is empty
       return null;

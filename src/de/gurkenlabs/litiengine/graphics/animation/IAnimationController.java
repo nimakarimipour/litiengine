@@ -9,6 +9,7 @@ import de.gurkenlabs.litiengine.IUpdateable;
 import de.gurkenlabs.litiengine.graphics.ImageEffect;
 import de.gurkenlabs.litiengine.graphics.ImageRenderer;
 import de.gurkenlabs.litiengine.graphics.RenderEngine;
+import javax.annotation.Nullable;
 
 public interface IAnimationController extends IUpdateable {
 
@@ -84,7 +85,7 @@ public interface IAnimationController extends IUpdateable {
    * @see #getDefault()
    * @see #hasAnimation(String)
    */
-  public Animation get(String animationName);
+  @Nullable public Animation get(String animationName);
 
   /**
    * Gets the currently active {@code Animation} of this controller.
@@ -215,7 +216,7 @@ public interface IAnimationController extends IUpdateable {
    * @see Animation#getCurrentKeyFrame()
    * @see #isEnabled()
    */
-  public BufferedImage getCurrentImage(int width, int height);
+  @Nullable public BufferedImage getCurrentImage(int width, int height);
 
   /**
    * Gets the {@code AffineTransform} instance assigned to this controller that can be used to externally transform

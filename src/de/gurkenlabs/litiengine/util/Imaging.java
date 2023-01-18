@@ -27,6 +27,7 @@ import java.util.function.UnaryOperator;
 import de.gurkenlabs.litiengine.entities.Rotation;
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
+import javax.annotation.Nullable;
 
 public final class Imaging {
   public static final int CROP_ALIGN_CENTER = 0;
@@ -38,7 +39,7 @@ public final class Imaging {
   public static final int CROP_VALIGN_TOP = 1;
   public static final int CROP_VALIGN_TOPCENTER = 2;
 
-  private static GraphicsConfiguration graphicsConfig;
+  @Nullable private static GraphicsConfiguration graphicsConfig;
 
   private Imaging() {
     throw new UnsupportedOperationException();
@@ -107,7 +108,7 @@ public final class Imaging {
    *          the color
    * @return the image
    */
-  public static BufferedImage applyAlphaChannel(final BufferedImage img, final Color color) {
+  @Nullable public static BufferedImage applyAlphaChannel(final BufferedImage img, final Color color) {
     if (color == null || img == null) {
       return img;
     }
@@ -280,7 +281,7 @@ public final class Imaging {
    *          the flash color
    * @return the buffered image
    */
-  public static BufferedImage flashVisiblePixels(final Image image, final Color flashColor) {
+  @Nullable public static BufferedImage flashVisiblePixels(final Image image, final Color flashColor) {
     final BufferedImage bimage = getCompatibleImage(image.getWidth(null), image.getHeight(null));
     if (bimage == null) {
       return null;
@@ -468,11 +469,11 @@ public final class Imaging {
     return scale(image, (int) newDimension.getWidth(), (int) newDimension.getHeight());
   }
 
-  public static BufferedImage scale(final BufferedImage image, final double factor) {
+  @Nullable public static BufferedImage scale(final BufferedImage image, final double factor) {
     return scale(image, factor, false);
   }
 
-  public static BufferedImage scale(final BufferedImage image, final double factor, boolean keepRatio) {
+  @Nullable public static BufferedImage scale(final BufferedImage image, final double factor, boolean keepRatio) {
     if (image == null) {
       return null;
     }
@@ -503,7 +504,7 @@ public final class Imaging {
     return scale(image, width, height, keepRatio, true);
   }
 
-  public static BufferedImage scale(final BufferedImage image, final int width, final int height, final boolean keepRatio, final boolean fill) {
+  @Nullable public static BufferedImage scale(final BufferedImage image, final int width, final int height, final boolean keepRatio, final boolean fill) {
     if (width == 0 || height == 0 || image == null) {
       return null;
     }
@@ -548,7 +549,7 @@ public final class Imaging {
     return newImg;
   }
 
-  public static BufferedImage setOpacity(final Image img, final float opacity) {
+  @Nullable public static BufferedImage setOpacity(final Image img, final float opacity) {
     if (img == null)
       return null;
     final BufferedImage bimage = getCompatibleImage(img.getWidth(null), img.getHeight(null));
@@ -565,7 +566,7 @@ public final class Imaging {
     return bimage;
   }
 
-  public static BufferedImage toBufferedImage(final Image img) {
+  @Nullable public static BufferedImage toBufferedImage(final Image img) {
     if (img == null) {
       return null;
     }

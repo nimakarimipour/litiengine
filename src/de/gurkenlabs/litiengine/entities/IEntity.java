@@ -13,6 +13,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.IMapObjectLayer;
 import de.gurkenlabs.litiengine.graphics.RenderEngine;
 import de.gurkenlabs.litiengine.graphics.RenderType;
 import de.gurkenlabs.litiengine.graphics.animation.IEntityAnimationController;
+import javax.annotation.Nullable;
 
 public interface IEntity{
   void onMessage(EntityMessageListener listener);
@@ -130,7 +131,7 @@ public interface IEntity{
    * @see IEntity#perform(String)
    * @see IEntity#actions()
    */
-  EntityAction register(String name, Runnable action);
+  @Nullable EntityAction register(String name, Runnable action);
 
   void detachControllers();
 
