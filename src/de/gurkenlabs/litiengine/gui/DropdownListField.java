@@ -9,6 +9,7 @@ import de.gurkenlabs.litiengine.Align;
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.input.Input;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class DropdownListField extends GuiComponent {
   public static final FontIcon ARROW_DOWN = new FontIcon(ICON_FONT, "\uE804");
@@ -51,7 +52,7 @@ public class DropdownListField extends GuiComponent {
     return this.content;
   }
 
-  public ListField getContentList() {
+  @NullUnmarked public ListField getContentList() {
     return this.contentList;
   }
 
@@ -95,7 +96,7 @@ public class DropdownListField extends GuiComponent {
     this.getChangeConsumer().add(c);
   }
 
-  @Override
+  @NullUnmarked @Override
   public void prepare() {
     this.contentList = new ListField(this.getX(), this.getY(), this.getWidth(), this.getHeight(), this.getContentArray(), this.numberOfShownElements);
     this.contentList.setButtonSprite(this.buttonSprite);
@@ -168,7 +169,7 @@ public class DropdownListField extends GuiComponent {
   /**
    * Toggle drop down.
    */
-  public void toggleDropDown() {
+  @NullUnmarked public void toggleDropDown() {
     if (this.isDroppedDown()) {
       this.getContentList().suspend();
       this.chosenElementComponent.prepare();
@@ -180,7 +181,7 @@ public class DropdownListField extends GuiComponent {
     this.getContentList().refresh();
   }
 
-  private void prepareInput() {
+  @NullUnmarked private void prepareInput() {
     Input.keyboard().onKeyTyped(KeyEvent.VK_UP, e -> {
       if (this.isSuspended() || !this.isVisible() || !this.isArrowKeyNavigation() || !this.getChosenElementComponent().isHovered()) {
         return;

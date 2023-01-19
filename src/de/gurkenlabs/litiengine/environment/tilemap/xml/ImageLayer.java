@@ -10,10 +10,11 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import de.gurkenlabs.litiengine.environment.tilemap.IImageLayer;
 import de.gurkenlabs.litiengine.environment.tilemap.IMapImage;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class ImageLayer extends Layer implements IImageLayer {
 
-  @XmlElement
+  @SuppressWarnings("NullAway.Init") @XmlElement
   private MapImage image;
 
   @Nullable @XmlAttribute
@@ -30,7 +31,7 @@ public class ImageLayer extends Layer implements IImageLayer {
     return this.trans;
   }
 
-  @Override
+  @NullUnmarked @Override
   public int getOffsetX() {
     if (this.isInfiniteMap()) {
       TmxMap map = (TmxMap) this.getMap();
@@ -40,7 +41,7 @@ public class ImageLayer extends Layer implements IImageLayer {
     return super.getOffsetX();
   }
 
-  @Override
+  @NullUnmarked @Override
   public int getOffsetY() {
     if (this.isInfiniteMap()) {
       TmxMap map = (TmxMap) this.getMap();

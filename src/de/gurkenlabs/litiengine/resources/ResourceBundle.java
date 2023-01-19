@@ -35,6 +35,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.xml.TmxMap;
 import de.gurkenlabs.litiengine.graphics.emitters.xml.EmitterData;
 import de.gurkenlabs.litiengine.util.io.XmlUtilities;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 @XmlRootElement(name = "litidata")
 public class ResourceBundle implements Serializable {
@@ -194,7 +195,7 @@ public class ResourceBundle implements Serializable {
     return newFile.toString();
   }
 
-  void beforeMarshal(Marshaller m) {
+  @NullUnmarked void beforeMarshal(Marshaller m) {
     List<SpritesheetResource> distinctList = new ArrayList<>();
     for (SpritesheetResource sprite : this.getSpriteSheets()) {
       if (distinctList.stream().anyMatch(x -> x.getName().equals(sprite.getName()) && x.getImage().equals(sprite.getImage()))) {

@@ -21,6 +21,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 import de.gurkenlabs.litiengine.environment.tilemap.ICustomProperty;
 import de.gurkenlabs.litiengine.util.io.URLAdapter;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class CustomPropertyAdapter extends XmlAdapter<CustomPropertyAdapter.PropertyList, Map<String, ICustomProperty>> {
   private static class PropertyType {
@@ -77,7 +78,7 @@ public class CustomPropertyAdapter extends XmlAdapter<CustomPropertyAdapter.Prop
       }
     }
 
-    @SuppressWarnings("unused")
+    @NullUnmarked @SuppressWarnings("unused")
     private void beforeMarshal(Marshaller m) throws URISyntaxException {
       if (this.type.equals(PropertyType.STRING)) {
         this.type = null;
@@ -118,7 +119,7 @@ public class CustomPropertyAdapter extends XmlAdapter<CustomPropertyAdapter.Prop
     }
   }
 
-  @Override
+  @NullUnmarked @Override
   public Map<String, ICustomProperty> unmarshal(PropertyList v) {
     Map<String, ICustomProperty> map = new HashMap<>(v.properties.size()); // use hashtable to reject null keys/values
     for (Property property : v.properties) {

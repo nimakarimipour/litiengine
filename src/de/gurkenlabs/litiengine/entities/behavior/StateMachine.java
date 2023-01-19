@@ -5,6 +5,7 @@ import java.util.List;
 
 import de.gurkenlabs.litiengine.IUpdateable;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class StateMachine implements IUpdateable {
   @Nullable private State currentState;
@@ -25,7 +26,7 @@ public class StateMachine implements IUpdateable {
     this.currentState.enter();
   }
 
-  @Override
+  @NullUnmarked @Override
   public void update() {
     if (this.currentState == null) {
       return;

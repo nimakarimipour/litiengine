@@ -12,6 +12,7 @@ import javax.swing.SwingUtilities;
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.util.Imaging;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class MouseDrawComponent extends ImageComponent {
   private double brushSize = 2;
@@ -41,7 +42,7 @@ public class MouseDrawComponent extends ImageComponent {
     this.drawingColor = color;
   }
 
-  @Override
+  @NullUnmarked @Override
   public void mouseDragged(MouseEvent e) {
     super.mouseDragged(e);
 
@@ -61,7 +62,7 @@ public class MouseDrawComponent extends ImageComponent {
     }
   }
 
-  public void clearDrawingSpace() {
+  @NullUnmarked public void clearDrawingSpace() {
     Graphics2D g = (Graphics2D) this.drawingSpace.getGraphics();
     g.setComposite(AlphaComposite.Clear);
     g.fillRect(0, 0, (int) this.getWidth(), (int) this.getHeight());

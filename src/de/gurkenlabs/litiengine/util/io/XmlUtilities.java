@@ -25,6 +25,7 @@ import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.sax.SAXSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public final class XmlUtilities {
   private static final Logger log = Logger.getLogger(XmlUtilities.class.getName());
@@ -71,7 +72,7 @@ public final class XmlUtilities {
     }
   }
 
-  public static <T> JAXBContext getContext(Class<T> cls) {
+  @NullUnmarked public static <T> JAXBContext getContext(Class<T> cls) {
     try {
       final JAXBContext jaxbContext;
       if (jaxbContexts.containsKey(cls)) {

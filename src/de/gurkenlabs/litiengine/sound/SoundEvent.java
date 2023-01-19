@@ -2,6 +2,7 @@ package de.gurkenlabs.litiengine.sound;
 
 import java.util.EventObject;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /**
  * This implementation is used for all events that need to pass a {@code Sound} object to their listeners.
@@ -28,7 +29,7 @@ public class SoundEvent extends EventObject {
     return this.sound;
   }
 
-  @Override
+  @NullUnmarked @Override
   public String toString() {
     return super.toString() + "[sound=" + this.sound.getName() + "]";
   }

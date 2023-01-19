@@ -10,8 +10,8 @@ import de.gurkenlabs.litiengine.input.Input;
 import javax.annotation.Nullable;
 
 public abstract class Slider extends GuiComponent {
-  private ImageComponent button1;
-  private ImageComponent button2;
+  @SuppressWarnings("NullAway.Init") private ImageComponent button1;
+  @SuppressWarnings("NullAway.Init") private ImageComponent button2;
   @Nullable private ImageComponent sliderComponent;
 
   @Nullable private Spritesheet buttonSprite;

@@ -26,6 +26,7 @@ import de.gurkenlabs.litiengine.tweening.TweenType;
 import de.gurkenlabs.litiengine.tweening.Tweenable;
 import de.gurkenlabs.litiengine.util.ReflectionUtilities;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 @EntityInfo
 public abstract class Entity implements IEntity, EntityRenderListener, Tweenable {
@@ -402,7 +403,7 @@ public abstract class Entity implements IEntity, EntityRenderListener, Tweenable
     }
   }
 
-  @Override
+  @NullUnmarked @Override
   public void removeTag(String tag) {
     this.getTags().remove(tag);
     if (Game.world().environment() == null) {
@@ -485,7 +486,7 @@ public abstract class Entity implements IEntity, EntityRenderListener, Tweenable
     return sb.toString();
   }
 
-  @Override
+  @NullUnmarked @Override
   public Environment getEnvironment() {
     return this.environment;
   }

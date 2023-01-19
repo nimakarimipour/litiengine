@@ -13,6 +13,7 @@ import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.util.ArrayUtilities;
 import de.gurkenlabs.litiengine.util.io.Codec;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 @XmlRootElement(name = "sprite")
 public class SpritesheetResource extends NamedResource implements Serializable {
@@ -61,7 +62,7 @@ public class SpritesheetResource extends NamedResource implements Serializable {
     return this.height;
   }
 
-  @XmlTransient
+  @NullUnmarked @XmlTransient
   public String getImage() {
     return this.image;
   }

@@ -33,6 +33,7 @@ import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.util.io.FileUtilities;
 import de.gurkenlabs.litiengine.util.io.XmlUtilities;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 @XmlRootElement(name = "tileset")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -218,7 +219,7 @@ public class Tileset extends CustomPropertyProvider implements ITileset {
     return types;
   }
 
-  @Override
+  @NullUnmarked @Override
   public ITerrain[] getTerrain(int tileId) {
     if (this.sourceTileset != null) {
       return this.sourceTileset.getTerrain(tileId);
@@ -266,7 +267,7 @@ public class Tileset extends CustomPropertyProvider implements ITileset {
     return this.tilecount != null ? this.tilecount : 0;
   }
 
-  @Nullable @Override
+  @NullUnmarked @Nullable @Override
   public ITilesetEntry getTile(int id) {
     if (this.sourceTileset != null) {
       return this.sourceTileset.getTile(id);
@@ -338,7 +339,7 @@ public class Tileset extends CustomPropertyProvider implements ITileset {
     }
   }
 
-  public void saveSource(String basePath) {
+  @NullUnmarked public void saveSource(String basePath) {
     if (this.sourceTileset == null) {
       return;
     }

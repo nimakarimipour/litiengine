@@ -26,6 +26,7 @@ import de.gurkenlabs.litiengine.sound.Sound;
 import de.gurkenlabs.litiengine.tweening.TweenType;
 import de.gurkenlabs.litiengine.tweening.Tweenable;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /**
  * The abstract Class GuiComponent provides all properties and methods needed for screens, built-in, and custom GUI components such as buttons,
@@ -220,7 +221,7 @@ public abstract class GuiComponent implements MouseListener, MouseMotionListener
    *
    * @return the GuiComponent's font
    */
-  public Font getFont() {
+  @NullUnmarked public Font getFont() {
     return this.font;
   }
 
@@ -256,7 +257,7 @@ public abstract class GuiComponent implements MouseListener, MouseMotionListener
    *
    * @return the name
    */
-  public String getName() {
+  @NullUnmarked public String getName() {
     return this.name;
   }
 

@@ -5,6 +5,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlValue;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /**
  * This class represents a chunk of tiles in an infinite map.
@@ -26,7 +27,7 @@ public class TileChunk implements Comparable<TileChunk> {
   @Nullable @XmlValue
   private String value;
 
-  @XmlTransient
+  @NullUnmarked @XmlTransient
   public String getValue() {
     return this.value;
   }

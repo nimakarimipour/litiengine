@@ -16,6 +16,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import de.gurkenlabs.litiengine.util.io.FileUtilities;
 import de.gurkenlabs.litiengine.util.io.XmlUtilities;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 @XmlRootElement(name = "TextureAtlas")
 public class TextureAtlas {
@@ -39,7 +40,7 @@ public class TextureAtlas {
     // keep for serialization
   }
 
-  @Nullable public static TextureAtlas read(String textureAtlasFile) {
+  @NullUnmarked @Nullable public static TextureAtlas read(String textureAtlasFile) {
     try {
       TextureAtlas atlas = XmlUtilities.read(TextureAtlas.class, Resources.getLocation(textureAtlasFile));
       if (atlas == null) {
@@ -79,7 +80,7 @@ public class TextureAtlas {
     return this.sprites;
   }
 
-  @Nullable public Sprite getSprite(String name) {
+  @NullUnmarked @Nullable public Sprite getSprite(String name) {
     if (name == null || name.isEmpty()) {
       return null;
     }

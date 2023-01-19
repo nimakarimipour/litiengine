@@ -11,6 +11,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.TmxProperty;
 import de.gurkenlabs.litiengine.graphics.RenderType;
 import de.gurkenlabs.litiengine.graphics.StaticShadowType;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 @EntityInfo(renderType = RenderType.OVERLAY)
 public class StaticShadow extends MapArea {
@@ -200,7 +201,7 @@ public class StaticShadow extends MapArea {
     return this.area;
   }
 
-  private void createArea() {
+  @NullUnmarked private void createArea() {
     if (this.getShadowType() == StaticShadowType.NONE) {
       return;
     }

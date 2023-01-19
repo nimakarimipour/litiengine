@@ -7,6 +7,7 @@ import java.util.Objects;
 import de.gurkenlabs.litiengine.environment.tilemap.ICustomProperty;
 import de.gurkenlabs.litiengine.util.ColorHelper;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class CustomProperty implements ICustomProperty {
 
@@ -122,12 +123,12 @@ public class CustomProperty implements ICustomProperty {
     this.location = null;
   }
 
-  @Override
+  @NullUnmarked @Override
   public String getAsString() {
     return this.value;
   }
 
-  @Override
+  @NullUnmarked @Override
   public char getAsChar() {
     return this.value.charAt(0); // TODO Is this enough? Should it check if it's the right length and throw an exception if it's not?
   }

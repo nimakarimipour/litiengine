@@ -28,6 +28,7 @@ import de.gurkenlabs.litiengine.entities.Rotation;
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public final class Imaging {
   public static final int CROP_ALIGN_CENTER = 0;
@@ -376,7 +377,7 @@ public final class Imaging {
    *          The image to be flipped.
    * @return The flipped image.
    */
-  public static BufferedImage horizontalFlip(final BufferedImage img) {
+  @NullUnmarked public static BufferedImage horizontalFlip(final BufferedImage img) {
     final int w = img.getWidth();
     final int h = img.getHeight();
     if (w == 0 || h == 0) {
@@ -397,7 +398,7 @@ public final class Imaging {
    *          The image to be flipped.
    * @return The flipped image.
    */
-  public static BufferedImage verticalFlip(final BufferedImage img) {
+  @NullUnmarked public static BufferedImage verticalFlip(final BufferedImage img) {
     final int w = img.getWidth();
     final int h = img.getHeight();
     if (w == 0 || h == 0) {
@@ -464,7 +465,7 @@ public final class Imaging {
     return bimg;
   }
 
-  @Nullable public static BufferedImage scale(final BufferedImage image, final int max) {
+  @NullUnmarked @Nullable public static BufferedImage scale(final BufferedImage image, final int max) {
     Dimension2D newDimension = GeometricUtilities.scaleWithRatio(image.getWidth(), image.getHeight(), max);
     return scale(image, (int) newDimension.getWidth(), (int) newDimension.getHeight());
   }
@@ -504,7 +505,7 @@ public final class Imaging {
     return scale(image, width, height, keepRatio, true);
   }
 
-  @Nullable public static BufferedImage scale(@Nullable final BufferedImage image, final int width, final int height, final boolean keepRatio, final boolean fill) {
+  @NullUnmarked @Nullable public static BufferedImage scale(@Nullable final BufferedImage image, final int width, final int height, final boolean keepRatio, final boolean fill) {
     if (width == 0 || height == 0 || image == null) {
       return null;
     }

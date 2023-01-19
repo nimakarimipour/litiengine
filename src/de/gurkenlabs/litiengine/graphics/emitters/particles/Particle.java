@@ -15,6 +15,7 @@ import de.gurkenlabs.litiengine.physics.Collision;
 import de.gurkenlabs.litiengine.util.ColorHelper;
 import de.gurkenlabs.litiengine.util.MathUtilities;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public abstract class Particle implements ITimeToLive {
   private long aliveTick;
@@ -106,7 +107,7 @@ public abstract class Particle implements ITimeToLive {
     return this.collisionType;
   }
 
-  public Color getColor() {
+  @NullUnmarked public Color getColor() {
     return this.color;
   }
 

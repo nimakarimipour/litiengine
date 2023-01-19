@@ -25,6 +25,7 @@ import de.gurkenlabs.litiengine.resources.Resource;
 import de.gurkenlabs.litiengine.util.ColorHelper;
 import de.gurkenlabs.litiengine.util.MathUtilities;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 @XmlRootElement(name = "emitter")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -335,7 +336,7 @@ public class EmitterData implements Serializable, Resource {
     return this.particleTTL;
   }
 
-  @XmlTransient
+  @NullUnmarked @XmlTransient
   public List<String> getTexts() {
     return this.texts;
   }

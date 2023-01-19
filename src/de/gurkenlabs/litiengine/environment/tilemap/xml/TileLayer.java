@@ -13,6 +13,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.ITile;
 import de.gurkenlabs.litiengine.environment.tilemap.ITileLayer;
 import de.gurkenlabs.litiengine.environment.tilemap.ITilesetEntry;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class TileLayer extends Layer implements ITileLayer {
 
@@ -40,7 +41,7 @@ public class TileLayer extends Layer implements ITileLayer {
     this.data = data;
   }
 
-  @Nullable @Override
+  @NullUnmarked @Nullable @Override
   public ITile getTileByLocation(final Point2D location) {
     final Optional<ITile> tile = this.getTiles().stream().filter(x -> x.getTileCoordinate().equals(location)).findFirst();
     return tile.isPresent() ? tile.get() : null;
@@ -110,7 +111,7 @@ public class TileLayer extends Layer implements ITileLayer {
     return super.getHeight();
   }
 
-  protected List<Tile> getData() {
+  @NullUnmarked protected List<Tile> getData() {
     return this.data.getTiles();
   }
 
@@ -118,7 +119,7 @@ public class TileLayer extends Layer implements ITileLayer {
     return this.data;
   }
 
-  @Override
+  @NullUnmarked @Override
   void finish(@Nullable URL location) throws TmxException {
     super.finish(location);
     this.tileList = new CopyOnWriteArrayList<>(this.getData());

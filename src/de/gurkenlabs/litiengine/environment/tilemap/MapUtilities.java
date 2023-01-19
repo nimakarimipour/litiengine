@@ -10,6 +10,7 @@ import java.util.List;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.util.MathUtilities;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public final class MapUtilities {
   private MapUtilities() {
@@ -230,7 +231,7 @@ public final class MapUtilities {
     return path;
   }
 
-  public static List<Point2D> getAbsolutePolyshapePoints(final IMapObject mapObject) {
+  @NullUnmarked public static List<Point2D> getAbsolutePolyshapePoints(final IMapObject mapObject) {
     if (mapObject.isPolygon()) {
       return mapObject.getPolygon().getAbsolutePoints(mapObject.getLocation());
     }

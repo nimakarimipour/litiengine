@@ -31,6 +31,7 @@ import de.gurkenlabs.litiengine.graphics.MouseCursor;
 import de.gurkenlabs.litiengine.graphics.RenderComponent;
 import de.gurkenlabs.litiengine.gui.screens.Resolution;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /**
  * The {@code GameWindow} class is a wrapper for the game's visual window in which the {@code RenderComponent} lives.<br>
@@ -217,7 +218,7 @@ public final class GameWindow {
    *         The {@code GameWindow}'s internal resolution as a {@link Dimension}.
    * 
    */
-  public Dimension getResolution() {
+  @NullUnmarked public Dimension getResolution() {
     return this.resolution;
   }
 

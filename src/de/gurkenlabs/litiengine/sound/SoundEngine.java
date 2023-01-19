@@ -23,6 +23,7 @@ import de.gurkenlabs.litiengine.entities.IEntity;
 import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.tweening.TweenFunction;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /**
  * This {@code SoundEngine} class provides all methods to play back sounds and music in your
@@ -730,7 +731,7 @@ public final class SoundEngine implements IUpdateable, ILaunchable {
     this.sounds.add(playback);
   }
 
-  private SFXPlayback playSound(@Nullable Sound sound, Supplier<Point2D> supplier, boolean loop, int range, float volume) {
+  @NullUnmarked private SFXPlayback playSound(@Nullable Sound sound, Supplier<Point2D> supplier, boolean loop, int range, float volume) {
     if (sound == null) {
       return null;
     }
