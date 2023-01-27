@@ -4,6 +4,7 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 
 import de.gurkenlabs.litiengine.entities.ICollisionEntity;
+import javax.annotation.Nullable;
 
 public class Force {
   private boolean cancelOnCollision;
@@ -12,7 +13,7 @@ public class Force {
   private Point2D location;
   private final float size;
   private float strength;
-  private String identifier;
+  @Nullable private String identifier;
 
   /**
    * Instantiates a new force.
@@ -68,7 +69,7 @@ public class Force {
     return this.strength;
   }
 
-  public String getIdentifier() {
+  @Nullable public String getIdentifier() {
     return this.identifier;
   }
 

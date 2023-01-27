@@ -11,10 +11,11 @@ import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.environment.Environment;
 import de.gurkenlabs.litiengine.util.Imaging;
 import de.gurkenlabs.litiengine.util.MathUtilities;
+import javax.annotation.Nullable;
 
 public abstract class ColorLayer implements IRenderable {
   private final Environment environment;
-  private final BufferedImage layer;
+  @Nullable private final BufferedImage layer;
 
   private Color color;
 

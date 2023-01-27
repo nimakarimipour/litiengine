@@ -15,6 +15,7 @@ import de.gurkenlabs.litiengine.graphics.ImageRenderer;
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.util.Imaging;
+import javax.annotation.Nullable;
 
 public class ImageComponent extends GuiComponent {
   public static final int BACKGROUND_INDEX = 0;
@@ -22,10 +23,10 @@ public class ImageComponent extends GuiComponent {
   public static final int BACKGROUND_PRESSED_INDEX = 2;
   public static final int BACKGROUND_DISABLED_INDEX = 3;
 
-  private BufferedImage baseImage;
-  private BufferedImage scaledImage;
+  @Nullable private BufferedImage baseImage;
+  @Nullable private BufferedImage scaledImage;
 
-  private Spritesheet spritesheet;
+  @Nullable private Spritesheet spritesheet;
 
   private ImageScaleMode imageScaleMode = ImageScaleMode.NORMAL;
   private Align imageAlign = Align.CENTER;
@@ -54,8 +55,8 @@ public class ImageComponent extends GuiComponent {
     this.setImage(image);
   }
 
-  public ImageComponent(final double x, final double y, final double width, final double height, final Spritesheet spritesheet, final String text,
-      final Image image) {
+  public ImageComponent(final double x, final double y, final double width, final double height, @Nullable final Spritesheet spritesheet, final String text,
+      @Nullable final Image image) {
     this(x, y, width, height, text);
     this.spritesheet = spritesheet;
     this.setImageAlign(Align.LEFT);
@@ -65,7 +66,7 @@ public class ImageComponent extends GuiComponent {
     }
   }
 
-  public Image getBackground() {
+  @Nullable public Image getBackground() {
     if (this.getSpritesheet() == null) {
       return null;
     }
@@ -126,7 +127,7 @@ public class ImageComponent extends GuiComponent {
     Resources.images().add(cacheKey, this.scaledImage);
   }
 
-  public BufferedImage getImage() {
+  @Nullable public BufferedImage getImage() {
     if (this.scaledImage == null) {
       return this.baseImage;
     }
@@ -173,7 +174,7 @@ public class ImageComponent extends GuiComponent {
     this.rescaleImage();
   }
 
-  public void setSpriteSheet(final Spritesheet spr) {
+  public void setSpriteSheet(@Nullable final Spritesheet spr) {
     this.spritesheet = spr;
   }
 
@@ -197,7 +198,7 @@ public class ImageComponent extends GuiComponent {
     this.rescaleImage();
   }
 
-  protected Spritesheet getSpritesheet() {
+  @Nullable protected Spritesheet getSpritesheet() {
     return this.spritesheet;
   }
 

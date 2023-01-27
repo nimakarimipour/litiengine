@@ -1,6 +1,7 @@
 package de.gurkenlabs.litiengine.sound;
 
 import javax.sound.sampled.AudioFormat;
+import javax.annotation.Nullable;
 
 /**
  * The {@code Track} class defines a sequence in which music {@code Sounds} should be played back by the engine.

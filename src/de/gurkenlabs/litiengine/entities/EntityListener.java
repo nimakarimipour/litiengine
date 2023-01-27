@@ -3,6 +3,7 @@ package de.gurkenlabs.litiengine.entities;
 import java.util.EventListener;
 
 import de.gurkenlabs.litiengine.environment.Environment;
+import javax.annotation.Nullable;
 
 public interface EntityListener extends EventListener {
 
