@@ -5,6 +5,7 @@ import java.awt.geom.Point2D;
 import java.util.List;
 
 import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
+import javax.annotation.Nullable;
 
 /**
  * The Class Path.
@@ -15,10 +16,10 @@ public class Path {
   private final Path2D path2D;
 
   private final List<Point2D> points;
-  private final Point2D start;
+  @Nullable private final Point2D start;
 
   /** The target. */
-  private final Point2D target;
+  @Nullable private final Point2D target;
 
   public Path(final Path2D path) {
     this.path2D = path;
@@ -64,7 +65,7 @@ public class Path {
     return this.points;
   }
 
-  public Point2D getStart() {
+  @Nullable public Point2D getStart() {
     return this.start;
   }
 
@@ -73,7 +74,7 @@ public class Path {
    *
    * @return the target
    */
-  public Point2D getTarget() {
+  @Nullable public Point2D getTarget() {
     return this.target;
   }
 }

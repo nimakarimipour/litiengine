@@ -6,6 +6,7 @@ import java.util.Objects;
 import javax.sound.sampled.AudioFormat;
 
 import de.gurkenlabs.litiengine.resources.Resources;
+import javax.annotation.Nullable;
 
 /**
  * A {@code Track} that plays an intro sound and then loops the specified music sound.

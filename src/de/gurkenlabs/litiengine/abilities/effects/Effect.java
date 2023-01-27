@@ -17,6 +17,7 @@ import de.gurkenlabs.litiengine.abilities.Ability;
 import de.gurkenlabs.litiengine.entities.EntityDistanceComparator;
 import de.gurkenlabs.litiengine.entities.ICombatEntity;
 import de.gurkenlabs.litiengine.entities.RelativeEntityComparator;
+import javax.annotation.Nullable;
 
 /**
  * The Class Effect seeks for affected entities in the game's current

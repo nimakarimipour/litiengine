@@ -7,6 +7,7 @@ import de.gurkenlabs.litiengine.Align;
 import de.gurkenlabs.litiengine.Valign;
 import de.gurkenlabs.litiengine.physics.Collision;
 import de.gurkenlabs.litiengine.physics.CollisionEvent;
+import javax.annotation.Nullable;
 
 public interface ICollisionEntity extends IEntity {
   void onCollision(CollisionListener listener);

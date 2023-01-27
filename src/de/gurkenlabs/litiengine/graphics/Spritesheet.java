@@ -14,13 +14,14 @@ import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.util.AlphanumComparator;
 import de.gurkenlabs.litiengine.util.Imaging;
 import de.gurkenlabs.litiengine.util.io.FileUtilities;
+import javax.annotation.Nullable;
 
 public final class Spritesheet implements Comparable<Spritesheet> {
   private static final Logger log = Logger.getLogger(Spritesheet.class.getName());
 
   private final List<Integer> emptySprites = new CopyOnWriteArrayList<>();
 
-  private final BufferedImage image;
+  @Nullable private final BufferedImage image;
   private final String name;
   private final ImageFormat imageFormat;
 
@@ -43,7 +44,7 @@ public final class Spritesheet implements Comparable<Spritesheet> {
    * @param spriteHeight
    *          the height in pixels of each sprite in the spritesheet.
    */
-  public Spritesheet(final BufferedImage image, final String path, final int spriteWidth, final int spriteHeight) {
+  public Spritesheet(@Nullable final BufferedImage image, final String path, final int spriteWidth, final int spriteHeight) {
     checkImage(image, path);
     this.image = image;
     this.name = FileUtilities.getFileName(path);
@@ -79,7 +80,7 @@ public final class Spritesheet implements Comparable<Spritesheet> {
     return this.columns;
   }
 
-  public BufferedImage getPreview(int dimension) {
+  @Nullable public BufferedImage getPreview(int dimension) {
     final BufferedImage img = this.getSprite(0);
     BufferedImage scaled = null;
     String cacheKey = "iconx" + dimension + this.getName();
@@ -122,15 +123,15 @@ public final class Spritesheet implements Comparable<Spritesheet> {
     return this.rows;
   }
 
-  public BufferedImage getRandomSprite() {
+  @Nullable public BufferedImage getRandomSprite() {
     return Game.random().choose(this.sprites);
   }
 
-  public BufferedImage getSprite(final int index) {
+  @Nullable public BufferedImage getSprite(final int index) {
     return this.getSprite(index, 0, 0);
   }
 
-  public BufferedImage getSprite(final int index, final int margin, final int spacing) {
+  @Nullable public BufferedImage getSprite(final int index, final int margin, final int spacing) {
     if (this.emptySprites.contains(index) || this.sprites.length == 0) {
       return null;
     }
@@ -223,7 +224,7 @@ public final class Spritesheet implements Comparable<Spritesheet> {
     }
   }
 
-  private static void checkImage(BufferedImage image, String name) {
+  private static void checkImage(@Nullable BufferedImage image, String name) {
     if (image == null) {
       throw new IllegalArgumentException("The image for the spritesheet '" + name + "' is null!");
     }

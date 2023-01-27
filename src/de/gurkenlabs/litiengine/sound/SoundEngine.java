@@ -22,6 +22,7 @@ import de.gurkenlabs.litiengine.IUpdateable;
 import de.gurkenlabs.litiengine.entities.IEntity;
 import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.tweening.TweenFunction;
+import javax.annotation.Nullable;
 
 /**
  * This {@code SoundEngine} class provides all methods to play back sounds and music in your
@@ -48,10 +49,10 @@ public final class SoundEngine implements IUpdateable, ILaunchable {
   });
 
   private static final Logger log = Logger.getLogger(SoundEngine.class.getName());
-  private Point2D listenerLocation;
+  @Nullable private Point2D listenerLocation;
   private UnaryOperator<Point2D> listenerLocationCallback = old -> Game.world().camera().getFocus();
   private int maxDist = DEFAULT_MAX_DISTANCE;
-  private MusicPlayback music;
+  @Nullable private MusicPlayback music;
   private final Collection<MusicPlayback> allMusic = ConcurrentHashMap.newKeySet();
   private final Collection<SFXPlayback> sounds = ConcurrentHashMap.newKeySet();
 
@@ -86,7 +87,7 @@ public final class SoundEngine implements IUpdateable, ILaunchable {
    *          The name of the {@code Sound} to be played.
    * @return The playback of the music
    */
-  public MusicPlayback playMusic(String musicName) {
+  @Nullable public MusicPlayback playMusic(String musicName) {
     return playMusic(Resources.sounds().get(musicName));
   }
 
@@ -98,7 +99,7 @@ public final class SoundEngine implements IUpdateable, ILaunchable {
    *          The {@code Sound} to be played.
    * @return The playback of the music
    */
-  public MusicPlayback playMusic(Sound music) {
+  @Nullable public MusicPlayback playMusic(Sound music) {
     return playMusic(new LoopedTrack(music));
   }
 
@@ -109,7 +110,7 @@ public final class SoundEngine implements IUpdateable, ILaunchable {
    *          The track to play
    * @return The playback of the music
    */
-  public MusicPlayback playMusic(Track track) {
+  @Nullable public MusicPlayback playMusic(Track track) {
     return playMusic(track, null, false, true);
   }
 
@@ -122,7 +123,7 @@ public final class SoundEngine implements IUpdateable, ILaunchable {
    *          Whether to restart if the specified track is already playing, determined by {@link Object#equals(Object)}
    * @return The playback of the music
    */
-  public MusicPlayback playMusic(Track track, boolean restart) {
+  @Nullable public MusicPlayback playMusic(Track track, boolean restart) {
     return playMusic(track, null, restart, true);
   }
 
@@ -137,7 +138,7 @@ public final class SoundEngine implements IUpdateable, ILaunchable {
    *          Whether to stop an existing track if present
    * @return The playback of the music
    */
-  public MusicPlayback playMusic(Track track, boolean restart, boolean stop) {
+  @Nullable public MusicPlayback playMusic(Track track, boolean restart, boolean stop) {
     return playMusic(track, null, restart, stop);
   }
 
@@ -154,7 +155,7 @@ public final class SoundEngine implements IUpdateable, ILaunchable {
    *          Whether to stop an existing track if present
    * @return The playback of the music
    */
-  public synchronized MusicPlayback playMusic(Track track, Consumer<? super MusicPlayback> config, boolean restart, boolean stop) {
+  @Nullable public synchronized MusicPlayback playMusic(Track track, @Nullable Consumer<? super MusicPlayback> config, boolean restart, boolean stop) {
     if (!restart && music != null && music.isPlaying() && music.getTrack().equals(track)) {
       return music;
     }
@@ -207,7 +208,7 @@ public final class SoundEngine implements IUpdateable, ILaunchable {
    *
    * @return The main music, which could be {@code null}.
    */
-  public synchronized MusicPlayback getMusic() {
+  @Nullable public synchronized MusicPlayback getMusic() {
     return music;
   }
 
@@ -232,7 +233,7 @@ public final class SoundEngine implements IUpdateable, ILaunchable {
    * @return An {@link SFXPlayback} instance that allows to further process
    *         and control the played sound.
    */
-  public SFXPlayback playSound(final Sound sound, final IEntity entity) {
+  @Nullable public SFXPlayback playSound(@Nullable final Sound sound, final IEntity entity) {
     return playSound(sound, entity, false);
   }
 
@@ -248,7 +249,7 @@ public final class SoundEngine implements IUpdateable, ILaunchable {
    * @return An {@link SFXPlayback} instance that allows to further process
    *         and control the played sound.
    */
-  public SFXPlayback playSound(final String soundName, final IEntity entity) {
+  @Nullable public SFXPlayback playSound(final String soundName, final IEntity entity) {
     return playSound(Resources.sounds().get(soundName), entity, false);
   }
 
@@ -265,7 +266,7 @@ public final class SoundEngine implements IUpdateable, ILaunchable {
    * @return An {@link SFXPlayback} instance that allows to further process
    *         and control the played sound.
    */
-  public SFXPlayback playSound(final Sound sound, final IEntity entity, boolean loop) {
+  @Nullable public SFXPlayback playSound(@Nullable final Sound sound, final IEntity entity, boolean loop) {
     return playSound(sound, entity, loop, getMaxDistance(), 1f);
   }
 
@@ -284,7 +285,7 @@ public final class SoundEngine implements IUpdateable, ILaunchable {
    * @return An {@link SFXPlayback} instance that allows to further process
    *         and control the played sound.
    */
-  public SFXPlayback playSound(final Sound sound, final IEntity entity, boolean loop, int range) {
+  @Nullable public SFXPlayback playSound(final Sound sound, final IEntity entity, boolean loop, int range) {
     return playSound(sound, entity::getCenter, loop, range, 1f);
   }
 
@@ -305,7 +306,7 @@ public final class SoundEngine implements IUpdateable, ILaunchable {
    * @return An {@link SFXPlayback} instance that allows to further process
    *         and control the played sound.
    */
-  public SFXPlayback playSound(final Sound sound, final IEntity entity, boolean loop, int range, float volume) {
+  @Nullable public SFXPlayback playSound(@Nullable final Sound sound, final IEntity entity, boolean loop, int range, float volume) {
     return playSound(sound, entity::getCenter, loop, range, volume);
   }
 
@@ -322,7 +323,7 @@ public final class SoundEngine implements IUpdateable, ILaunchable {
    * @return An {@link SFXPlayback} instance that allows to further process
    *         and control the played sound.
    */
-  public SFXPlayback playSound(final String soundName, final IEntity entity, boolean loop) {
+  @Nullable public SFXPlayback playSound(final String soundName, final IEntity entity, boolean loop) {
     return playSound(Resources.sounds().get(soundName), entity, loop);
   }
 
@@ -338,7 +339,7 @@ public final class SoundEngine implements IUpdateable, ILaunchable {
    * @return An {@link SFXPlayback} instance that allows to further process
    *         and control the played sound.
    */
-  public SFXPlayback playSound(final Sound sound, final Point2D location) {
+  @Nullable public SFXPlayback playSound(final Sound sound, final Point2D location) {
     return playSound(sound, location, false);
   }
 
@@ -354,7 +355,7 @@ public final class SoundEngine implements IUpdateable, ILaunchable {
    * @return An {@link SFXPlayback} instance that allows to further process
    *         and control the played sound.
    */
-  public SFXPlayback playSound(final String soundName, final Point2D location) {
+  @Nullable public SFXPlayback playSound(final String soundName, final Point2D location) {
     return playSound(Resources.sounds().get(soundName), location, false);
   }
 
@@ -372,7 +373,7 @@ public final class SoundEngine implements IUpdateable, ILaunchable {
    * @return An {@link SFXPlayback} instance that allows to further process
    *         and control the played sound.
    */
-  public SFXPlayback playSound(final Sound sound, double x, double y) {
+  @Nullable public SFXPlayback playSound(final Sound sound, double x, double y) {
     return playSound(sound, new Point2D.Double(x, y), false);
   }
 
@@ -390,7 +391,7 @@ public final class SoundEngine implements IUpdateable, ILaunchable {
    * @return An {@link SFXPlayback} instance that allows to further process
    *         and control the played sound.
    */
-  public SFXPlayback playSound(final String soundName, double x, double y) {
+  @Nullable public SFXPlayback playSound(final String soundName, double x, double y) {
     return playSound(Resources.sounds().get(soundName), new Point2D.Double(x, y), false);
   }
 
@@ -407,7 +408,7 @@ public final class SoundEngine implements IUpdateable, ILaunchable {
    * @return An {@link SFXPlayback} instance that allows to further process
    *         and control the played sound.
    */
-  public SFXPlayback playSound(final Sound sound, final Point2D location, boolean loop) {
+  @Nullable public SFXPlayback playSound(final Sound sound, final Point2D location, boolean loop) {
     return playSound(sound, () -> location, loop, getMaxDistance(), 1f);
   }
 
@@ -426,7 +427,7 @@ public final class SoundEngine implements IUpdateable, ILaunchable {
    * @return An {@link SFXPlayback} instance that allows to further process
    *         and control the played sound.
    */
-  public SFXPlayback playSound(final Sound sound, final Point2D location, boolean loop, int range) {
+  @Nullable public SFXPlayback playSound(final Sound sound, final Point2D location, boolean loop, int range) {
     return playSound(sound, () -> location, loop, range, 1f);
   }
 
@@ -447,7 +448,7 @@ public final class SoundEngine implements IUpdateable, ILaunchable {
    * @return An {@link SFXPlayback} instance that allows to further process
    *         and control the played sound.
    */
-  public SFXPlayback playSound(final Sound sound, final Point2D location, boolean loop, int range, float volume) {
+  @Nullable public SFXPlayback playSound(final Sound sound, final Point2D location, boolean loop, int range, float volume) {
     return playSound(sound, () -> location, loop, range, volume);
   }
 
@@ -464,7 +465,7 @@ public final class SoundEngine implements IUpdateable, ILaunchable {
    * @return An {@link SFXPlayback} instance that allows to further process
    *         and control the played sound.
    */
-  public SFXPlayback playSound(final String soundName, final Point2D location, boolean loop) {
+  @Nullable public SFXPlayback playSound(final String soundName, final Point2D location, boolean loop) {
     return playSound(Resources.sounds().get(soundName), location, loop);
   }
 
@@ -484,7 +485,7 @@ public final class SoundEngine implements IUpdateable, ILaunchable {
    * @return An {@link SFXPlayback} instance that allows to further process
    *         and control the played sound.
    */
-  public SFXPlayback playSound(final Sound sound, final double x, final double y, boolean loop) {
+  @Nullable public SFXPlayback playSound(final Sound sound, final double x, final double y, boolean loop) {
     return playSound(sound, new Point2D.Double(x, y), loop);
   }
 
@@ -504,7 +505,7 @@ public final class SoundEngine implements IUpdateable, ILaunchable {
    * @return An {@link SFXPlayback} instance that allows to further process
    *         and control the played sound.
    */
-  public SFXPlayback playSound(final String soundName, final double x, final double y, boolean loop) {
+  @Nullable public SFXPlayback playSound(final String soundName, final double x, final double y, boolean loop) {
     return playSound(Resources.sounds().get(soundName), new Point2D.Double(x, y), loop);
   }
 
@@ -518,7 +519,7 @@ public final class SoundEngine implements IUpdateable, ILaunchable {
    * @return An {@link SFXPlayback} instance that allows to further process
    *         and control the played sound.
    */
-  public SFXPlayback playSound(final Sound sound) {
+  @Nullable public SFXPlayback playSound(final Sound sound) {
     return playSound(sound, false);
   }
 
@@ -532,7 +533,7 @@ public final class SoundEngine implements IUpdateable, ILaunchable {
    * @return An {@link SFXPlayback} instance that allows to further process
    *         and control the played sound.
    */
-  public SFXPlayback playSound(final String soundName) {
+  @Nullable public SFXPlayback playSound(final String soundName) {
     return playSound(Resources.sounds().get(soundName), false);
   }
 
@@ -547,7 +548,7 @@ public final class SoundEngine implements IUpdateable, ILaunchable {
    * @return An {@link SFXPlayback} instance that allows to further process
    *         and control the played sound.
    */
-  public SFXPlayback playSound(final Sound sound, boolean loop) {
+  @Nullable public SFXPlayback playSound(final Sound sound, boolean loop) {
     return playSound(sound, () -> null, loop, getMaxDistance(), 1f);
   }
 
@@ -564,7 +565,7 @@ public final class SoundEngine implements IUpdateable, ILaunchable {
    * @return An {@link SFXPlayback} instance that allows to further process
    *         and control the played sound.
    */
-  public SFXPlayback playSound(final Sound sound, boolean loop, int range) {
+  @Nullable public SFXPlayback playSound(final Sound sound, boolean loop, int range) {
     return playSound(sound, () -> null, loop, range, 1f);
   }
 
@@ -583,7 +584,7 @@ public final class SoundEngine implements IUpdateable, ILaunchable {
    * @return An {@link SFXPlayback} instance that allows to further process
    *         and control the played sound.
    */
-  public SFXPlayback playSound(final Sound sound, boolean loop, int range, float volume) {
+  @Nullable public SFXPlayback playSound(final Sound sound, boolean loop, int range, float volume) {
     return playSound(sound, () -> null, loop, range, volume);
   }
 
@@ -598,7 +599,7 @@ public final class SoundEngine implements IUpdateable, ILaunchable {
    * @return An {@link SFXPlayback} instance that allows to further process
    *         and control the played sound.
    */
-  public SFXPlayback playSound(final String soundName, boolean loop) {
+  @Nullable public SFXPlayback playSound(final String soundName, boolean loop) {
     return playSound(Resources.sounds().get(soundName), loop);
   }
 
@@ -643,7 +644,7 @@ public final class SoundEngine implements IUpdateable, ILaunchable {
    *          The volume modifier for the sound playback instance.
    * @return An {@code SFXPlayback} object that can be configured prior to starting, but will need to be manually started.
    */
-  public SFXPlayback createSound(Sound sound, Supplier<Point2D> supplier, boolean loop, int range, float volume) {
+  @Nullable public SFXPlayback createSound(Sound sound, Supplier<Point2D> supplier, boolean loop, int range, float volume) {
     try {
       return new SFXPlayback(sound, supplier, loop, range, volume);
     } catch (LineUnavailableException | IllegalArgumentException e) {
@@ -729,7 +730,7 @@ public final class SoundEngine implements IUpdateable, ILaunchable {
     this.sounds.add(playback);
   }
 
-  private SFXPlayback playSound(Sound sound, Supplier<Point2D> supplier, boolean loop, int range, float volume) {
+  @Nullable private SFXPlayback playSound(@Nullable Sound sound, Supplier<Point2D> supplier, boolean loop, int range, float volume) {
     if (sound == null) {
       return null;
     }

@@ -12,36 +12,37 @@ import de.gurkenlabs.litiengine.environment.tilemap.ILayer;
 import de.gurkenlabs.litiengine.environment.tilemap.IMap;
 import de.gurkenlabs.litiengine.environment.tilemap.LayerProperty;
 import de.gurkenlabs.litiengine.graphics.RenderType;
+import javax.annotation.Nullable;
 
 public abstract class Layer extends CustomPropertyProvider implements ILayer {
 
   @XmlAttribute
   private int id;
 
-  @XmlAttribute
+  @Nullable @XmlAttribute
   private String name;
 
-  @XmlAttribute
+  @Nullable @XmlAttribute
   private Integer width;
 
-  @XmlAttribute
+  @Nullable @XmlAttribute
   private Integer height;
 
-  @XmlAttribute
+  @Nullable @XmlAttribute
   private Float opacity;
 
-  @XmlAttribute
+  @Nullable @XmlAttribute
   @XmlJavaTypeAdapter(BooleanIntegerAdapter.class)
   private Boolean visible;
 
-  @XmlAttribute
+  @Nullable @XmlAttribute
   private Integer offsetx;
 
-  @XmlAttribute
+  @Nullable @XmlAttribute
   private Integer offsety;
 
-  private transient TmxMap parentMap;
-  private transient RenderType renderType;
+  @Nullable private transient TmxMap parentMap;
+  @Nullable private transient RenderType renderType;
   private transient boolean renderTypeLoaded;
 
   public Layer() {
@@ -88,7 +89,7 @@ public abstract class Layer extends CustomPropertyProvider implements ILayer {
     return this.id;
   }
 
-  @Override
+  @Nullable @Override
   public String getName() {
     return this.name;
   }
@@ -158,7 +159,7 @@ public abstract class Layer extends CustomPropertyProvider implements ILayer {
     return this.width;
   }
 
-  @Override
+  @Nullable @Override
   public IMap getMap() {
     return this.parentMap;
   }
@@ -174,7 +175,7 @@ public abstract class Layer extends CustomPropertyProvider implements ILayer {
 
   @Override
   @XmlTransient
-  public void setName(String name) {
+  public void setName(@Nullable String name) {
     this.name = name;
   }
 
@@ -208,7 +209,7 @@ public abstract class Layer extends CustomPropertyProvider implements ILayer {
     this.visible = visible;
   }
 
-  protected void setMap(TmxMap map) {
+  protected void setMap(@Nullable TmxMap map) {
     this.parentMap = map;
   }
 
