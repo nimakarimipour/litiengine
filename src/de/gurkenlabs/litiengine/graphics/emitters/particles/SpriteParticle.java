@@ -10,12 +10,13 @@ import java.awt.image.BufferedImage;
 import de.gurkenlabs.litiengine.graphics.ImageRenderer;
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.graphics.animation.AnimationController;
+import javax.annotation.Nullable;
 
 public class SpriteParticle extends Particle {
-  private AnimationController animation;
+  @Nullable private AnimationController animation;
   private boolean animateSprite;
   private boolean loopSprite;
-  private BufferedImage currentImage;
+  @Nullable private BufferedImage currentImage;
   private Spritesheet spritesheet;
 
   public SpriteParticle(final Spritesheet spritesheet) {

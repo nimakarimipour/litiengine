@@ -6,6 +6,7 @@ import java.util.Objects;
 import javax.sound.sampled.AudioFormat;
 
 import de.gurkenlabs.litiengine.resources.Resources;
+import javax.annotation.Nullable;
 
 /**
  * A {@code Track} that plays an intro sound and then loops the specified music sound.
@@ -58,7 +59,7 @@ public class IntroTrack implements Track {
    * @param loop
    *          The sound to be looped.
    */
-  public IntroTrack(Sound intro, Sound loop) {
+  public IntroTrack(@Nullable Sound intro, @Nullable Sound loop) {
     Objects.requireNonNull(intro);
     Objects.requireNonNull(loop);
     if (!intro.getFormat().matches(loop.getFormat())) {
@@ -91,7 +92,7 @@ public class IntroTrack implements Track {
     return new Iter();
   }
 
-  @Override
+  @Nullable @Override
   public AudioFormat getFormat() {
     return this.loop.getFormat();
   }

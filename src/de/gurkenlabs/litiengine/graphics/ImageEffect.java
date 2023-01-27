@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.ITimeToLive;
+import javax.annotation.Nullable;
 
 public abstract class ImageEffect implements ITimeToLive, Comparable<ImageEffect> {
   private final long aliveTick;
@@ -58,5 +59,5 @@ public abstract class ImageEffect implements ITimeToLive, Comparable<ImageEffect
     return Integer.compare(this.getPriority(), other.getPriority());
   }
 
-  public abstract BufferedImage apply(BufferedImage image);
+  @Nullable public abstract BufferedImage apply(BufferedImage image);
 }

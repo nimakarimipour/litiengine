@@ -9,6 +9,7 @@ import de.gurkenlabs.litiengine.entities.LightSource;
 import de.gurkenlabs.litiengine.environment.tilemap.IMapObject;
 import de.gurkenlabs.litiengine.environment.tilemap.MapObjectProperty;
 import de.gurkenlabs.litiengine.environment.tilemap.MapObjectType;
+import javax.annotation.Nullable;
 
 public class LightSourceMapObjectLoader extends MapObjectLoader {
 
@@ -42,7 +43,7 @@ public class LightSourceMapObjectLoader extends MapObjectLoader {
     return entities;
   }
 
-  protected LightSource createLightSource(IMapObject mapObject, int intensity, Color color, LightSource.Type lightType, boolean active) {
+  protected LightSource createLightSource(IMapObject mapObject, int intensity, Color color, @Nullable LightSource.Type lightType, boolean active) {
     return new LightSource(intensity, color, lightType, active);
   }
 }

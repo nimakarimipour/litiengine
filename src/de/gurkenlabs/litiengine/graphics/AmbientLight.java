@@ -20,6 +20,7 @@ import de.gurkenlabs.litiengine.environment.Environment;
 import de.gurkenlabs.litiengine.util.MathUtilities;
 import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
 import de.gurkenlabs.litiengine.util.geom.Vector2D;
+import javax.annotation.Nullable;
 
 public class AmbientLight extends ColorLayer {
   public static final Color DEFAULT_COLOR = new Color(0, 0, 0, 0);
@@ -32,7 +33,7 @@ public class AmbientLight extends ColorLayer {
    * @param ambientColor
    *          The color of this instance.
    */
-  public AmbientLight(final Environment environment, final Color ambientColor) {
+  public AmbientLight(final Environment environment, @Nullable final Color ambientColor) {
     super(environment, ambientColor);
   }
 

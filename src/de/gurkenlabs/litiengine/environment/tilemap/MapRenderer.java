@@ -18,6 +18,7 @@ import de.gurkenlabs.litiengine.graphics.ImageRenderer;
 import de.gurkenlabs.litiengine.graphics.RenderType;
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.resources.Resources;
+import javax.annotation.Nullable;
 
 public class MapRenderer {
   private static Collection<LayerRenderedListener> layerRenderedListeners = ConcurrentHashMap.newKeySet();
@@ -75,7 +76,7 @@ public class MapRenderer {
     renderLayers(g, map, map, viewport, env, renderTypes, 1f);
   }
 
-  private static void renderLayers(final Graphics2D g, final IMap map, ILayerList layers, final Rectangle2D viewport, Environment env, RenderType[] renderTypes, float opacity) {
+  private static void renderLayers(final Graphics2D g, final IMap map, ILayerList layers, final Rectangle2D viewport, @Nullable Environment env, RenderType[] renderTypes, float opacity) {
     final List<ILayer> renderLayers = layers.getRenderLayers();
     for (final ILayer layer : renderLayers) {
       if (layer == null || !shouldBeRendered(g, map, layer, renderTypes)) {

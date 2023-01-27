@@ -8,6 +8,7 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import javax.annotation.Nullable;
 
 /**
  * This class allows for absolute and relative URLs to be unmarshalled as Java URL objects.
@@ -15,7 +16,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * @see XmlJavaTypeAdapter
  */
 public class URLAdapter extends XmlAdapter<String, URL> {
-  private URL base;
+  @Nullable private URL base;
 
   /**
    * Constructs a new {@code URLAdapter}, with no additional properties. This constructor is called if no configured instance is available to an
@@ -34,12 +35,12 @@ public class URLAdapter extends XmlAdapter<String, URL> {
    * @see Unmarshaller#setAdapter(XmlAdapter)
    * @see Marshaller#setAdapter(XmlAdapter)
    */
-  public URLAdapter(URL base) {
+  public URLAdapter(@Nullable URL base) {
     this.base = base;
   }
 
-  @Override
-  public URL unmarshal(String v) throws MalformedURLException {
+  @Nullable @Override
+  public URL unmarshal(@Nullable String v) throws MalformedURLException {
     if (v == null) {
       return null;
     }
@@ -51,7 +52,7 @@ public class URLAdapter extends XmlAdapter<String, URL> {
   }
 
   // TODO make a unit test for this
-  @Override
+  @Nullable @Override
   public String marshal(URL v) {
     if (v == null) {
       return null;
@@ -90,7 +91,7 @@ public class URLAdapter extends XmlAdapter<String, URL> {
    * 
    * @return The base URL used, or {@code null} if this instance has not been configured for relative URLs
    */
-  public URL getBaseURL() {
+  @Nullable public URL getBaseURL() {
     return this.base;
   }
 }

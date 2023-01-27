@@ -24,13 +24,14 @@ import de.gurkenlabs.litiengine.physics.Collision;
 import de.gurkenlabs.litiengine.resources.Resource;
 import de.gurkenlabs.litiengine.util.ColorHelper;
 import de.gurkenlabs.litiengine.util.MathUtilities;
+import javax.annotation.Nullable;
 
 @XmlRootElement(name = "emitter")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class EmitterData implements Serializable, Resource {
   private static final long serialVersionUID = 50238884097993529L;
 
-  public static final Color DEFAULT_COLOR = ColorHelper.decode("#CC00a5bc");
+  @Nullable public static final Color DEFAULT_COLOR = ColorHelper.decode("#CC00a5bc");
 
   public static final String DEFAULT_SPRITESHEET = "";
   public static final String DEFAULT_NAME = "Custom Emitter";
@@ -102,16 +103,16 @@ public class EmitterData implements Serializable, Resource {
   @XmlElement
   private boolean loopSprite;
 
-  @XmlElement
+  @Nullable @XmlElement
   private Collision collisionType;
 
-  @XmlElement
+  @Nullable @XmlElement
   private Quality requiredQuality;
 
   @XmlElement
   private float colorVariance;
 
-  @XmlElementWrapper
+  @Nullable @XmlElementWrapper
   @XmlElement(name = "color")
   private List<String> colors;
 
@@ -160,13 +161,13 @@ public class EmitterData implements Serializable, Resource {
   @XmlAttribute
   private int maxParticles;
 
-  @XmlAttribute
+  @Nullable @XmlAttribute
   private String name;
 
-  @XmlElement
+  @Nullable @XmlElement
   private Align originAlign;
 
-  @XmlElement
+  @Nullable @XmlElement
   private Valign originValign;
 
   @XmlElement
@@ -175,11 +176,11 @@ public class EmitterData implements Serializable, Resource {
   @XmlElement
   private ParticleParameter particleTTL;
 
-  @XmlElementWrapper
+  @Nullable @XmlElementWrapper
   @XmlElement(name = "text")
   private List<String> texts;
 
-  @XmlAttribute
+  @Nullable @XmlAttribute
   private ParticleType particleType;
 
   @XmlElement
@@ -191,7 +192,7 @@ public class EmitterData implements Serializable, Resource {
   @XmlAttribute
   private int spawnRate;
 
-  @XmlElement
+  @Nullable @XmlElement
   private String spritesheet;
 
   @XmlAttribute
@@ -249,7 +250,7 @@ public class EmitterData implements Serializable, Resource {
     return this.colorVariance;
   }
 
-  @XmlTransient
+  @Nullable @XmlTransient
   public List<String> getColors() {
     return this.colors;
   }
@@ -309,7 +310,7 @@ public class EmitterData implements Serializable, Resource {
     return this.maxParticles;
   }
 
-  @XmlTransient
+  @Nullable @XmlTransient
   @Override
   public String getName() {
     return this.name;
@@ -334,7 +335,7 @@ public class EmitterData implements Serializable, Resource {
     return this.particleTTL;
   }
 
-  @XmlTransient
+  @Nullable @XmlTransient
   public List<String> getTexts() {
     return this.texts;
   }
@@ -369,7 +370,7 @@ public class EmitterData implements Serializable, Resource {
     return this.spawnRate;
   }
 
-  @XmlTransient
+  @Nullable @XmlTransient
   public String getSpritesheet() {
     return this.spritesheet;
   }
@@ -420,15 +421,15 @@ public class EmitterData implements Serializable, Resource {
     this.loopSprite = loopSprite;
   }
 
-  public void setCollisionType(final Collision collisionType) {
+  public void setCollisionType(@Nullable final Collision collisionType) {
     this.collisionType = collisionType;
   }
 
-  public void setRequiredQuality(final Quality minQuality) {
+  public void setRequiredQuality(@Nullable final Quality minQuality) {
     this.requiredQuality = minQuality;
   }
 
-  public void setColor(final Color color) {
+  public void setColor(@Nullable final Color color) {
     final List<String> tmpList = new ArrayList<>();
     tmpList.add(ColorHelper.encode(color));
     this.colors = tmpList;
@@ -548,15 +549,15 @@ public class EmitterData implements Serializable, Resource {
   }
 
   @Override
-  public void setName(final String name) {
+  public void setName(@Nullable final String name) {
     this.name = name;
   }
 
-  public void setOriginAlign(final Align align) {
+  public void setOriginAlign(@Nullable final Align align) {
     this.originAlign = align;
   }
 
-  public void setOriginValign(final Valign valign) {
+  public void setOriginValign(@Nullable final Valign valign) {
     this.originValign = valign;
   }
 
@@ -576,7 +577,7 @@ public class EmitterData implements Serializable, Resource {
     this.particleTTL = particleTTL;
   }
 
-  public void setParticleType(final ParticleType particleType) {
+  public void setParticleType(@Nullable final ParticleType particleType) {
     this.particleType = particleType;
   }
 

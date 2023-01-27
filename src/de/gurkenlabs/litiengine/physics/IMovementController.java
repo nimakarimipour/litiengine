@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import de.gurkenlabs.litiengine.entities.IEntityController;
 import de.gurkenlabs.litiengine.entities.IMobileEntity;
+import javax.annotation.Nullable;
 
 /**
  * The Interface IMovementController is used for moving entities by applying forces to them.
@@ -70,7 +71,7 @@ public interface IMovementController extends IEntityController {
    */
   List<Force> getActiveForces();
   
-  Force getForce(String identifier);
+  @Nullable Force getForce(String identifier);
 
   double getMoveAngle();
   

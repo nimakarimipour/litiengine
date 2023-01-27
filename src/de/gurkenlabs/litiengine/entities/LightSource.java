@@ -22,6 +22,7 @@ import de.gurkenlabs.litiengine.graphics.IRenderable;
 import de.gurkenlabs.litiengine.graphics.RenderType;
 import de.gurkenlabs.litiengine.graphics.ShapeRenderer;
 import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
+import javax.annotation.Nullable;
 
 @EntityInfo(renderType = RenderType.OVERLAY)
 @TmxType(MapObjectType.LIGHTSOURCE)
@@ -51,7 +52,7 @@ public class LightSource extends Entity implements IRenderable {
   @TmxProperty(name = MapObjectProperty.LIGHT_INTENSITY)
   private int intensity;
 
-  @TmxProperty(name = MapObjectProperty.LIGHT_SHAPE)
+  @Nullable @TmxProperty(name = MapObjectProperty.LIGHT_SHAPE)
   private Type lightShapeType;
 
   @TmxProperty(name = MapObjectProperty.LIGHT_FOCUSOFFSETX)
@@ -61,7 +62,7 @@ public class LightSource extends Entity implements IRenderable {
   private double focusOffsetY;
 
   private Color color;
-  private Shape lightShape;
+  @Nullable private Shape lightShape;
   private int radius;
 
   /**
@@ -78,7 +79,7 @@ public class LightSource extends Entity implements IRenderable {
    * @param activated
    *          A flag indicating whether this light is activated by default.
    */
-  public LightSource(final int intensity, final Color lightColor, final Type shapeType, boolean activated) {
+  public LightSource(final int intensity, final Color lightColor, @Nullable final Type shapeType, boolean activated) {
     super();
     this.color = lightColor;
     this.intensity = intensity;
@@ -120,11 +121,11 @@ public class LightSource extends Entity implements IRenderable {
     return this.activated ? this.intensity : 0;
   }
 
-  public Shape getLightShape() {
+  @Nullable public Shape getLightShape() {
     return this.lightShape;
   }
 
-  public Type getLightShapeType() {
+  @Nullable public Type getLightShapeType() {
     return this.lightShapeType;
   }
 
@@ -214,7 +215,7 @@ public class LightSource extends Entity implements IRenderable {
     this.updateAmbientLayers();
   }
 
-  @Override
+  @Nullable @Override
   public String sendMessage(final Object sender, final String message) {
     if (message == null || message.isEmpty()) {
       return null;

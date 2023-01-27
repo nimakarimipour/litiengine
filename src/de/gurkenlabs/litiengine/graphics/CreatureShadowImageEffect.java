@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 
 import de.gurkenlabs.litiengine.entities.Creature;
 import de.gurkenlabs.litiengine.util.Imaging;
+import javax.annotation.Nullable;
 
 public class CreatureShadowImageEffect extends ImageEffect {
   private static final Color DEFAULT_SHADOW_COLOR = new Color(124, 164, 174, 120);
