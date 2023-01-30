@@ -7,6 +7,7 @@ import de.gurkenlabs.litiengine.Align;
 import de.gurkenlabs.litiengine.Valign;
 import de.gurkenlabs.litiengine.physics.Collision;
 import de.gurkenlabs.litiengine.physics.CollisionEvent;
+import javax.annotation.Nullable;
 
 public interface ICollisionEntity extends IEntity {
   void onCollision(CollisionListener listener);
@@ -22,7 +23,7 @@ public interface ICollisionEntity extends IEntity {
    *
    * @return the collision box
    */
-  Rectangle2D getCollisionBox();
+  @Nullable Rectangle2D getCollisionBox();
 
   /**
    * Gets the collision box.

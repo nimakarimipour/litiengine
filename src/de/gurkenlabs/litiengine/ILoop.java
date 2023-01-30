@@ -1,6 +1,7 @@
 package de.gurkenlabs.litiengine;
 
 import java.util.concurrent.locks.Lock;
+import javax.annotation.Nullable;
 
 /**
  * The {@code ILoop} interface provide method for game loops that are publicly exposed.
@@ -29,7 +30,7 @@ public interface ILoop extends ILaunchable {
    * @param updatable
    *          The instance that will be unregistered for the update event.
    */
-  void detach(final IUpdateable updatable);
+  void detach(@Nullable final IUpdateable updatable);
 
   /**
    * Gets the amount of attached {@code IUpdatable} instances of this loop.

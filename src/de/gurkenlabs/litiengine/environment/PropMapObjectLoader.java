@@ -17,6 +17,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.MapObjectProperty;
 import de.gurkenlabs.litiengine.environment.tilemap.MapObjectType;
 import de.gurkenlabs.litiengine.graphics.animation.EntityAnimationController;
 import de.gurkenlabs.litiengine.graphics.animation.PropAnimationController;
+import javax.annotation.Nullable;
 
 public class PropMapObjectLoader extends MapObjectLoader {
   private static final Logger log = Logger.getLogger(PropMapObjectLoader.class.getName());
@@ -81,7 +82,7 @@ public class PropMapObjectLoader extends MapObjectLoader {
     return entities;
   }
 
-  protected Prop createNewProp(IMapObject mapObject, String spriteSheet) {
+  protected Prop createNewProp(IMapObject mapObject, @Nullable String spriteSheet) {
     for (Class<? extends Prop> customProp : customPropType) {
       for (String prefix : EntityAnimationController.getDefaultSpritePrefixes(customProp)) {
         if (prefix != null && (PropAnimationController.PROP_IDENTIFIER + spriteSheet).equalsIgnoreCase(prefix)) {
@@ -96,7 +97,7 @@ public class PropMapObjectLoader extends MapObjectLoader {
     return new Prop(spriteSheet);
   }
 
-  private static Prop createCustomProp(Class<? extends Prop> customProp, String spriteSheet) {
+  @Nullable private static Prop createCustomProp(Class<? extends Prop> customProp, @Nullable String spriteSheet) {
     try {
       return customProp.getConstructor(String.class).newInstance(spriteSheet);
     } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {

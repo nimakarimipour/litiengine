@@ -3,10 +3,11 @@ package de.gurkenlabs.litiengine.environment.tilemap;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.net.URL;
+import javax.annotation.Nullable;
 
 public interface IMapImage extends ICustomPropertyProvider {
 
-  public URL getAbsoluteSourcePath(); // XXX merge with getSource
+  @Nullable public URL getAbsoluteSourcePath(); // XXX merge with getSource
 
   /**
    * Gets the width.
@@ -34,14 +35,14 @@ public interface IMapImage extends ICustomPropertyProvider {
    *
    * @return the source
    */
-  public String getSource();
+  @Nullable public String getSource();
 
   /**
    * Gets the transparent color.
    *
    * @return the transparent color
    */
-  public Color getTransparentColor();
+  @Nullable public Color getTransparentColor();
 
   /**
    * Tests for equality between two map images. Two map images

@@ -6,12 +6,13 @@ import java.util.NoSuchElementException;
 import javax.sound.sampled.AudioFormat;
 
 import de.gurkenlabs.litiengine.resources.Resources;
+import javax.annotation.Nullable;
 
 /**
  * A {@code Track} that plays a sound once and then stops.
  */
 public class SinglePlayTrack implements Track {
-  private Sound sound;
+  @Nullable private Sound sound;
 
   private class Iter implements Iterator<Sound> {
     private boolean hasNext = true;
@@ -21,7 +22,7 @@ public class SinglePlayTrack implements Track {
       return this.hasNext;
     }
 
-    @Override
+    @Nullable @Override
     public Sound next() {
       if (!this.hasNext) {
         throw new NoSuchElementException();
@@ -47,7 +48,7 @@ public class SinglePlayTrack implements Track {
    * @param sound
    *          The sound to be played by this track.
    */
-  public SinglePlayTrack(Sound sound) {
+  public SinglePlayTrack(@Nullable Sound sound) {
     this.sound = sound;
   }
 
@@ -56,7 +57,7 @@ public class SinglePlayTrack implements Track {
     return new Iter();
   }
 
-  @Override
+  @Nullable @Override
   public AudioFormat getFormat() {
     return this.sound.getFormat();
   }

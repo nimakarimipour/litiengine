@@ -17,6 +17,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.TmxProperty;
 import de.gurkenlabs.litiengine.environment.tilemap.TmxType;
 import de.gurkenlabs.litiengine.graphics.RenderType;
 import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
+import javax.annotation.Nullable;
 
 /**
  * TODO: Triggers should be able to call entity actions (similar to the current message approach)
@@ -49,7 +50,7 @@ public class Trigger extends CollisionEntity implements IUpdateable {
   @TmxProperty(name = MapObjectProperty.TRIGGER_ONETIME)
   private final boolean isOneTimeTrigger;
 
-  @TmxProperty(name = MapObjectProperty.TRIGGER_MESSAGE)
+  @Nullable @TmxProperty(name = MapObjectProperty.TRIGGER_MESSAGE)
   private String message;
 
   @TmxProperty(name = MapObjectProperty.TRIGGER_COOLDOWN)
@@ -80,7 +81,7 @@ public class Trigger extends CollisionEntity implements IUpdateable {
    * @param message
    *          The message that gets sent by this trigger upon activation.
    */
-  public Trigger(final TriggerActivation activation, final String name, final String message) {
+  public Trigger(final TriggerActivation activation, @Nullable final String name, final String message) {
     this(activation, name, message, false);
   }
 
@@ -94,7 +95,7 @@ public class Trigger extends CollisionEntity implements IUpdateable {
    * @param isOneTime
    *          A flag, indicating whether this instance can only be triggered once.
    */
-  public Trigger(final TriggerActivation activation, final String message, final boolean isOneTime) {
+  public Trigger(final TriggerActivation activation, @Nullable final String message, final boolean isOneTime) {
     this.message = message;
     this.isOneTimeTrigger = isOneTime;
     this.activationType = activation;
@@ -114,7 +115,7 @@ public class Trigger extends CollisionEntity implements IUpdateable {
    * @param isOneTime
    *          A flag, indicating whether this instance can only be triggered once.
    */
-  public Trigger(final TriggerActivation activation, final String name, final String message, final boolean isOneTime) {
+  public Trigger(final TriggerActivation activation, @Nullable final String name, final String message, final boolean isOneTime) {
     this(activation, message, isOneTime);
     this.setName(name);
   }
@@ -131,7 +132,7 @@ public class Trigger extends CollisionEntity implements IUpdateable {
    * @param cooldown
    *          The cooldown that needs to be respected between two activation events.
    */
-  public Trigger(final TriggerActivation activation, final String message, final boolean isOneTime, final int cooldown) {
+  public Trigger(final TriggerActivation activation, @Nullable final String message, final boolean isOneTime, final int cooldown) {
     this(activation, message, isOneTime);
     this.setCooldown(cooldown);
   }
@@ -196,7 +197,7 @@ public class Trigger extends CollisionEntity implements IUpdateable {
     return this.activators;
   }
 
-  public String getMessage() {
+  @Nullable public String getMessage() {
     return this.message;
   }
 

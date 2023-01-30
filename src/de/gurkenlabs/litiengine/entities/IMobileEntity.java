@@ -4,6 +4,7 @@ import java.util.EventListener;
 
 import de.gurkenlabs.litiengine.attributes.Attribute;
 import de.gurkenlabs.litiengine.physics.IMovementController;
+import javax.annotation.Nullable;
 
 public interface IMobileEntity extends ICollisionEntity {
 
@@ -47,7 +48,7 @@ public interface IMobileEntity extends ICollisionEntity {
    *
    * @return the velocity in pixel per second.
    */
-  Attribute<Float> getVelocity();
+  @Nullable Attribute<Float> getVelocity();
 
   /**
    * Gets the entity's velocity in PIXELS per tick.
@@ -61,7 +62,7 @@ public interface IMobileEntity extends ICollisionEntity {
    *
    * @return the movement controller
    */
-  IMovementController movement();
+  @Nullable IMovementController movement();
 
   /**
    * Sets the acceleration for this entity. Acceleration is a value that defines how long it takes the entity to reach the full

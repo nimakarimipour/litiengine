@@ -26,6 +26,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.ITile;
 import de.gurkenlabs.litiengine.environment.tilemap.MapUtilities;
 import de.gurkenlabs.litiengine.input.Input;
 import de.gurkenlabs.litiengine.physics.Collision;
+import javax.annotation.Nullable;
 
 /**
  * The {@code DebugRenderer} class implements default debug rendering and exposes extension points to reder your own
@@ -125,7 +126,7 @@ public final class DebugRenderer {
     }
   }
 
-  public static void renderMapDebugInfo(final Graphics2D g, final IMap map) {
+  public static void renderMapDebugInfo(final Graphics2D g, @Nullable final IMap map) {
     if (!Game.config().debug().isDebugEnabled()) {
       return;
     }
@@ -160,7 +161,7 @@ public final class DebugRenderer {
     TextRenderer.render(g, locationString, x, y + 5.0);
   }
 
-  private static void drawTileBoundingBox(final Graphics2D g, final IMap map, final Point2D location) {
+  private static void drawTileBoundingBox(final Graphics2D g, @Nullable final IMap map, final Point2D location) {
     final Rectangle2D playerTile = map.getOrientation().getEnclosingTileShape(location, map).getBounds2D();
 
     // draw rect

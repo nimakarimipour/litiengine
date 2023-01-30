@@ -1,0 +1,2 @@
+kind	class	method	param	index	uri	reason	annotation	rootClass	rootMethod
+PARAMETER	de.gurkenlabs.litiengine.attributes.AttributeModifier	AttributeModifier(de.gurkenlabs.litiengine.attributes.Modification,double)	modifyValue	1	/Users/nima/Developer/NullAwayFixer/Projects/litiengine/src/de/gurkenlabs/litiengine/attributes/AttributeModifier.java	PASS_NULLABLE	nullable	de.gurkenlabs.litiengine.entities.CombatEntity	resurrect()

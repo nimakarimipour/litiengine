@@ -9,6 +9,7 @@ import de.gurkenlabs.litiengine.entities.Spawnpoint;
 import de.gurkenlabs.litiengine.environment.tilemap.IMapObject;
 import de.gurkenlabs.litiengine.environment.tilemap.MapObjectProperty;
 import de.gurkenlabs.litiengine.environment.tilemap.MapObjectType;
+import javax.annotation.Nullable;
 
 public class SpawnpointMapObjectLoader extends MapObjectLoader {
 
@@ -33,7 +34,7 @@ public class SpawnpointMapObjectLoader extends MapObjectLoader {
     return entities;
   }
 
-  protected Spawnpoint createSpawnpoint(IMapObject mapObject, Direction direction, String spawnType) {
+  protected Spawnpoint createSpawnpoint(IMapObject mapObject, Direction direction, @Nullable String spawnType) {
     return new Spawnpoint(direction, spawnType);
   }
 }

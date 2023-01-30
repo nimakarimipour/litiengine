@@ -9,6 +9,7 @@ import java.awt.geom.Rectangle2D;
 
 import de.gurkenlabs.litiengine.entities.StaticShadow;
 import de.gurkenlabs.litiengine.environment.Environment;
+import javax.annotation.Nullable;
 
 public class StaticShadowLayer extends ColorLayer {
 
@@ -21,7 +22,7 @@ public class StaticShadowLayer extends ColorLayer {
    * @param color
    *          The color of this instance.
    */
-  public StaticShadowLayer(Environment environment, Color color) {
+  public StaticShadowLayer(Environment environment, @Nullable Color color) {
     super(environment, color);
   }
 

@@ -13,6 +13,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.IMapObjectLayer;
 import de.gurkenlabs.litiengine.graphics.RenderEngine;
 import de.gurkenlabs.litiengine.graphics.RenderType;
 import de.gurkenlabs.litiengine.graphics.animation.IEntityAnimationController;
+import javax.annotation.Nullable;
 
 public interface IEntity{
   void onMessage(EntityMessageListener listener);
@@ -78,19 +79,19 @@ public interface IEntity{
    * 
    * @see RenderEngine#renderEntity(java.awt.Graphics2D, IEntity)
    */
-  IEntityAnimationController<?> animations();
+  @Nullable IEntityAnimationController<?> animations();
 
   boolean isVisible();
 
   void setVisible(boolean visible);
 
-  IBehaviorController behavior();
+  @Nullable IBehaviorController behavior();
 
   void addController(IEntityController controller);
 
   <T extends IEntityController> void setController(Class<T> clss, T controller);
 
-  <T extends IEntityController> T getController(Class<T> clss);
+  @Nullable <T extends IEntityController> T getController(Class<T> clss);
 
   /**
    * All registered actions of this entity.
@@ -130,7 +131,7 @@ public interface IEntity{
    * @see IEntity#perform(String)
    * @see IEntity#actions()
    */
-  EntityAction register(String name, Runnable action);
+  @Nullable EntityAction register(String name, Runnable action);
 
   void detachControllers();
 
@@ -142,7 +143,7 @@ public interface IEntity{
 
   double getHeight();
 
-  Point2D getLocation();
+  @Nullable Point2D getLocation();
 
   int getMapId();
 
@@ -151,7 +152,7 @@ public interface IEntity{
    * 
    * @return The name of this entity.
    */
-  String getName();
+  @Nullable String getName();
 
   RenderType getRenderType();
 
@@ -179,7 +180,7 @@ public interface IEntity{
 
   double getY();
 
-  String sendMessage(Object sender, String message);
+  @Nullable String sendMessage(Object sender, @Nullable String message);
 
   void setHeight(double height);
 
@@ -199,7 +200,7 @@ public interface IEntity{
    * @param location
    *          the new map location
    */
-  void setLocation(Point2D location);
+  void setLocation(@Nullable Point2D location);
 
   /**
    * Sets an id which should only be filled when an entity gets added due to map
@@ -210,7 +211,7 @@ public interface IEntity{
    */
   void setMapId(int mapId);
 
-  void setName(String name);
+  void setName(@Nullable String name);
 
   void setRenderType(RenderType renderType);
 
@@ -231,7 +232,7 @@ public interface IEntity{
    * 
    * @return The entity's environment.
    */
-  Environment getEnvironment();
+  @Nullable Environment getEnvironment();
 
   /**
    * This method provides the possibility to implement behavior whenever this entity was added to the environment.

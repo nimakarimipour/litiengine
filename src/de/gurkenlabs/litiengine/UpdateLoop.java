@@ -8,6 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import de.gurkenlabs.litiengine.util.TimeUtilities;
+import javax.annotation.Nullable;
 
 /**
  * The {@code UpdateLoop} is a basic loop implementation that performs operations at the specified {@code tickRate}
@@ -93,7 +94,7 @@ public class UpdateLoop extends Thread implements AutoCloseable, ILoop {
   }
 
   @Override
-  public void detach(final IUpdateable updatable) {
+  public void detach(@Nullable final IUpdateable updatable) {
     this.updatables.remove(updatable);
   }
 

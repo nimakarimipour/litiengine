@@ -3,13 +3,14 @@ package de.gurkenlabs.litiengine.attributes;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+import javax.annotation.Nullable;
 
 public class RangeAttribute<T extends Number> extends Attribute<T> {
   private final List<AttributeModifier<T>> minModifiers;
   private final List<AttributeModifier<T>> maxModifiers;
   private T minBaseValue;
 
-  private T maxBaseValue;
+  @Nullable private T maxBaseValue;
 
   /**
    * Initializes a new instance of the {@code RangeAttribute} class.
@@ -54,11 +55,11 @@ public class RangeAttribute<T extends Number> extends Attribute<T> {
     return this.valueInRange(current);
   }
 
-  public T getMin() {
+  @Nullable public T getMin() {
     return this.applyMinModifiers(this.minBaseValue);
   }
 
-  public T getMax() {
+  @Nullable public T getMax() {
     return this.applyMaxModifiers(this.maxBaseValue);
   }
 
@@ -99,7 +100,7 @@ public class RangeAttribute<T extends Number> extends Attribute<T> {
     return this.maxModifiers;
   }
 
-  protected T applyMinModifiers(final T maxValue) {
+  @Nullable protected T applyMinModifiers(final T maxValue) {
     T currentValue = maxValue;
     for (final AttributeModifier<T> modifier : this.getMinModifiers()) {
       currentValue = modifier.modify(currentValue);
@@ -108,7 +109,7 @@ public class RangeAttribute<T extends Number> extends Attribute<T> {
     return currentValue;
   }
 
-  protected T applyMaxModifiers(final T maxValue) {
+  @Nullable protected T applyMaxModifiers(@Nullable final T maxValue) {
     T currentValue = maxValue;
     for (final AttributeModifier<T> modifier : this.getMaxModifiers()) {
       currentValue = modifier.modify(currentValue);
@@ -117,7 +118,7 @@ public class RangeAttribute<T extends Number> extends Attribute<T> {
     return currentValue;
   }
 
-  private T valueInRange(final T value) {
+  private T valueInRange(@Nullable final T value) {
     if (value.doubleValue() < this.minBaseValue.doubleValue()) {
       return this.minBaseValue;
     } else if (value.doubleValue() > this.getMax().doubleValue()) {

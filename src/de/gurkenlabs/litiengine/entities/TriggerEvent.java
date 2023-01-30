@@ -2,12 +2,13 @@ package de.gurkenlabs.litiengine.entities;
 
 import java.util.EventObject;
 import java.util.List;
+import javax.annotation.Nullable;
 
 public class TriggerEvent extends EventObject {
   private static final long serialVersionUID = 3624707673365488289L;
 
   private final transient IEntity entity;
-  private final transient String message;
+  @Nullable private final transient String message;
   private final transient List<Integer> targets;
   private final transient Trigger trigger;
 
@@ -33,7 +34,7 @@ public class TriggerEvent extends EventObject {
    * 
    * @return The trigger's message.
    */
-  public String getMessage() {
+  @Nullable public String getMessage() {
     return this.message;
   }
 

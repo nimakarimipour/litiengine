@@ -6,12 +6,13 @@ import java.util.Objects;
 
 import de.gurkenlabs.litiengine.environment.tilemap.ICustomProperty;
 import de.gurkenlabs.litiengine.util.ColorHelper;
+import javax.annotation.Nullable;
 
 public class CustomProperty implements ICustomProperty {
 
   private String type;
-  private String value;
-  private URL location;
+  @Nullable private String value;
+  @Nullable private URL location;
 
   /**
    * Instantiates a new {@code CustomProperty} instance.
@@ -44,7 +45,7 @@ public class CustomProperty implements ICustomProperty {
    * @param value
    *          The value of this custom property.
    */
-  public CustomProperty(String type, String value) {
+  public CustomProperty(@Nullable String type, @Nullable String value) {
     this.type = Objects.requireNonNull(type);
     this.value = Objects.requireNonNull(value);
   }
@@ -92,7 +93,7 @@ public class CustomProperty implements ICustomProperty {
   }
 
   @Override
-  public void setValue(Enum<?> value) {
+  public void setValue(@Nullable Enum<?> value) {
     this.value = value.name();
     this.location = null;
   }
@@ -121,7 +122,7 @@ public class CustomProperty implements ICustomProperty {
     this.location = null;
   }
 
-  @Override
+  @Nullable @Override
   public String getAsString() {
     return this.value;
   }
@@ -136,7 +137,7 @@ public class CustomProperty implements ICustomProperty {
     return Boolean.parseBoolean(this.value);
   }
 
-  @Override
+  @Nullable @Override
   public Color getAsColor() {
     return ColorHelper.decode(this.value);
   }
@@ -171,7 +172,7 @@ public class CustomProperty implements ICustomProperty {
     return Long.parseLong(this.value);
   }
 
-  @Override
+  @Nullable @Override
   public <T extends Enum<T>> T getAsEnum(Class<T> enumType) {
     try {
       return Enum.valueOf(enumType, this.value);
@@ -187,7 +188,7 @@ public class CustomProperty implements ICustomProperty {
     return null;
   }
 
-  @Override
+  @Nullable @Override
   public URL getAsFile() {
     return this.location;
   }

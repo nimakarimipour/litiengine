@@ -2,6 +2,7 @@ package de.gurkenlabs.litiengine.environment.tilemap;
 
 import java.awt.Point;
 import java.awt.image.BufferedImage;
+import javax.annotation.Nullable;
 
 public interface ITile extends ICustomPropertyProvider {
 
@@ -12,16 +13,16 @@ public interface ITile extends ICustomPropertyProvider {
    */
   public int getGridId();
 
-  public BufferedImage getImage();
+  @Nullable public BufferedImage getImage();
 
   /**
    * Gets the tile coordinate.
    *
    * @return the tile coordinate
    */
-  public Point getTileCoordinate();
+  @Nullable public Point getTileCoordinate();
 
-  public ITilesetEntry getTilesetEntry();
+  @Nullable public ITilesetEntry getTilesetEntry();
 
   public boolean isFlippedHorizontally();
 

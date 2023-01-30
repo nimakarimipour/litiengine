@@ -14,10 +14,11 @@ import de.gurkenlabs.litiengine.environment.tilemap.IImageLayer;
 import de.gurkenlabs.litiengine.environment.tilemap.ILayer;
 import de.gurkenlabs.litiengine.environment.tilemap.IMapObjectLayer;
 import de.gurkenlabs.litiengine.environment.tilemap.ITileLayer;
+import javax.annotation.Nullable;
 
 public class GroupLayer extends Layer implements IGroupLayer {
 
-  @XmlElements({
+  @Nullable @XmlElements({
       @XmlElement(name = "imagelayer", type = ImageLayer.class),
       @XmlElement(name = "layer", type = TileLayer.class),
       @XmlElement(name = "objectgroup", type = MapObjectLayer.class),
@@ -35,7 +36,7 @@ public class GroupLayer extends Layer implements IGroupLayer {
   private transient List<IImageLayer> imageLayers = Collections.unmodifiableList(this.rawImageLayers);
   private transient List<IGroupLayer> groupLayers = Collections.unmodifiableList(this.rawGroupLayers);
 
-  @Override
+  @Nullable @Override
   public List<ILayer> getRenderLayers() {
     return this.layers;
   }
@@ -137,7 +138,7 @@ public class GroupLayer extends Layer implements IGroupLayer {
   }
 
   @Override
-  void finish(URL location) throws TmxException {
+  void finish(@Nullable URL location) throws TmxException {
     super.finish(location);
     for (ILayer layer : this.layers) {
       if (layer instanceof Layer) {

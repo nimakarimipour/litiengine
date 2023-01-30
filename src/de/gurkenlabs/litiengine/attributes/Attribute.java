@@ -3,6 +3,7 @@ package de.gurkenlabs.litiengine.attributes;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import javax.annotation.Nullable;
 
 /**
  * An attribute is a numerical representation of a property that can be adjusted using {@link AttributeModifier}s.
@@ -25,7 +26,7 @@ public class Attribute<T extends Number> {
 
   private final List<AttributeModifier<T>> modifiers;
 
-  private T baseValue;
+  @Nullable private T baseValue;
 
   /**
    * Initializes a new instance of the {@code Attribute} class.
@@ -69,7 +70,7 @@ public class Attribute<T extends Number> {
    * 
    * @return The current value of this attribute.
    */
-  public T get() {
+  @Nullable public T get() {
     return this.applyModifiers(this.getBase());
   }
 
@@ -78,7 +79,7 @@ public class Attribute<T extends Number> {
    * 
    * @return The raw base value of this attribute.
    */
-  public T getBase() {
+  @Nullable public T getBase() {
     return this.baseValue;
   }
 
@@ -133,7 +134,7 @@ public class Attribute<T extends Number> {
    * @param baseValue
    *          The base value to be set.
    */
-  public void setBaseValue(final T baseValue) {
+  public void setBaseValue(@Nullable final T baseValue) {
     this.baseValue = baseValue;
   }
 
@@ -144,7 +145,7 @@ public class Attribute<T extends Number> {
    *          the base value
    * @return the t
    */
-  protected T applyModifiers(final T baseValue) {
+  @Nullable protected T applyModifiers(@Nullable final T baseValue) {
     T currentValue = baseValue;
     for (final AttributeModifier<T> modifier : this.getModifiers()) {
       currentValue = modifier.modify(currentValue);
@@ -153,7 +154,7 @@ public class Attribute<T extends Number> {
     return currentValue;
   }
 
-  @Override
+  @Nullable @Override
   public String toString() {
     return this.get() == null ? null : this.get().toString();
   }

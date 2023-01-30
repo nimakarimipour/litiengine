@@ -25,6 +25,7 @@ import de.gurkenlabs.litiengine.graphics.animation.IEntityAnimationController;
 import de.gurkenlabs.litiengine.tweening.TweenType;
 import de.gurkenlabs.litiengine.tweening.Tweenable;
 import de.gurkenlabs.litiengine.util.ReflectionUtilities;
+import javax.annotation.Nullable;
 
 @EntityInfo
 public abstract class Entity implements IEntity, EntityRenderListener, Tweenable {
@@ -40,18 +41,18 @@ public abstract class Entity implements IEntity, EntityRenderListener, Tweenable
   private final EntityActionMap actions = new EntityActionMap();
   private final ICustomPropertyProvider properties = new CustomPropertyProvider();
 
-  private Environment environment;
+  @Nullable private Environment environment;
   private boolean loaded;
 
   private double angle;
 
-  private Rectangle2D boundingBox;
+  @Nullable private Rectangle2D boundingBox;
 
   private int mapId;
 
-  private Point2D mapLocation;
+  @Nullable private Point2D mapLocation;
 
-  private String name;
+  @Nullable private String name;
 
   private double width;
 
@@ -96,7 +97,7 @@ public abstract class Entity implements IEntity, EntityRenderListener, Tweenable
     this.name = name;
   }
 
-  protected Entity(int mapId, String name) {
+  protected Entity(int mapId, @Nullable String name) {
     this(mapId);
     this.name = name;
   }
@@ -186,12 +187,12 @@ public abstract class Entity implements IEntity, EntityRenderListener, Tweenable
     return this.angle;
   }
 
-  @Override
+  @Nullable @Override
   public IEntityAnimationController<?> animations() {
     return this.controllers.getAnimationController();
   }
 
-  @Override
+  @Nullable @Override
   public IBehaviorController behavior() {
     return this.getController(IBehaviorController.class);
   }
@@ -206,7 +207,7 @@ public abstract class Entity implements IEntity, EntityRenderListener, Tweenable
     this.controllers.setController(clss, controller);
   }
 
-  @Override
+  @Nullable @Override
   public <T extends IEntityController> T getController(Class<T> clss) {
     return this.controllers.getController(clss);
   }
@@ -231,7 +232,7 @@ public abstract class Entity implements IEntity, EntityRenderListener, Tweenable
     return this.height;
   }
 
-  @Override
+  @Nullable @Override
   public Point2D getLocation() {
     return this.mapLocation;
   }
@@ -241,7 +242,7 @@ public abstract class Entity implements IEntity, EntityRenderListener, Tweenable
     return this.mapId;
   }
 
-  @Override
+  @Nullable @Override
   public String getName() {
     return this.name;
   }
@@ -299,13 +300,13 @@ public abstract class Entity implements IEntity, EntityRenderListener, Tweenable
     this.actions.get(actionName).perform();
   }
 
-  @Override
+  @Nullable @Override
   public EntityAction register(String name, Runnable action) {
     return this.actions.register(name, action);
   }
 
-  @Override
-  public String sendMessage(final Object sender, final String message) {
+  @Nullable @Override
+  public String sendMessage(final Object sender, @Nullable final String message) {
     EntityMessageEvent event = this.fireMessageReceived(sender, ANY_MESSAGE, message, null);
     this.fireMessageReceived(sender, message, message, event);
 
@@ -331,7 +332,7 @@ public abstract class Entity implements IEntity, EntityRenderListener, Tweenable
    *          the new map location
    */
   @Override
-  public void setLocation(final Point2D location) {
+  public void setLocation(@Nullable final Point2D location) {
     this.mapLocation = location;
     this.boundingBox = null;
     this.fireLocationChangedEvent();
@@ -347,7 +348,7 @@ public abstract class Entity implements IEntity, EntityRenderListener, Tweenable
   }
 
   @Override
-  public void setName(final String name) {
+  public void setName(@Nullable final String name) {
     this.name = name;
   }
 
@@ -484,7 +485,7 @@ public abstract class Entity implements IEntity, EntityRenderListener, Tweenable
     return sb.toString();
   }
 
-  @Override
+  @Nullable @Override
   public Environment getEnvironment() {
     return this.environment;
   }
@@ -584,7 +585,7 @@ public abstract class Entity implements IEntity, EntityRenderListener, Tweenable
     }
   }
 
-  private EntityMessageEvent fireMessageReceived(Object sender, String listenerMessage, String message, EntityMessageEvent event) {
+  @Nullable private EntityMessageEvent fireMessageReceived(Object sender, @Nullable String listenerMessage, @Nullable String message, @Nullable EntityMessageEvent event) {
     if (message == null) {
       return event;
     }
