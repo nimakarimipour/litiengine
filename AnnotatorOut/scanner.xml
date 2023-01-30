@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<scanner>
+    <method active="true" />
+    <field active="true" />
+    <call active="true" />
+    <class active="true" />
+    <uuid>018c1a13-7896-4da7-b051-d2b8943ad612</uuid>
+    <path>/tmp/NullAwayFix/0</path>
+    <annotations>
+        <nonnull>
+            com.uber.nonnull
+        </nonnull>
+        <nonnull>
+            edu.ucr.nonnull
+        </nonnull>
+    </annotations>
+</scanner>
