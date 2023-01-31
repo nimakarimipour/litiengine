@@ -15,6 +15,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.ILayer;
 import de.gurkenlabs.litiengine.environment.tilemap.IMapObjectLayer;
 import de.gurkenlabs.litiengine.environment.tilemap.ITileLayer;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class GroupLayer extends Layer implements IGroupLayer {
 
@@ -46,7 +47,7 @@ public class GroupLayer extends Layer implements IGroupLayer {
     return this.mapObjectLayers;
   }
 
-  @Override
+  @NullUnmarked @Override
   public void addLayer(ILayer layer) {
     this.layers.add(layer);
     this.layerAdded(layer);
@@ -55,7 +56,7 @@ public class GroupLayer extends Layer implements IGroupLayer {
     }
   }
 
-  @Override
+  @NullUnmarked @Override
   public void addLayer(int index, ILayer layer) {
     this.layers.add(index, layer);
     this.layerAdded(layer);
@@ -64,7 +65,7 @@ public class GroupLayer extends Layer implements IGroupLayer {
     }
   }
 
-  @Override
+  @NullUnmarked @Override
   public void removeLayer(ILayer layer) {
     this.layers.remove(layer);
     this.layerRemoved(layer);
@@ -73,7 +74,7 @@ public class GroupLayer extends Layer implements IGroupLayer {
     }
   }
 
-  @Override
+  @NullUnmarked @Override
   public void removeLayer(int index) {
     ILayer removed = this.layers.remove(index);
     this.layerRemoved(removed);
@@ -127,7 +128,7 @@ public class GroupLayer extends Layer implements IGroupLayer {
     return this.groupLayers;
   }
 
-  @Override
+  @NullUnmarked @Override
   protected void afterUnmarshal(Unmarshaller u, Object parent) {
     super.afterUnmarshal(u, parent);
     if (getMap() != null) {
@@ -137,7 +138,7 @@ public class GroupLayer extends Layer implements IGroupLayer {
     }
   }
 
-  @Override
+  @NullUnmarked @Override
   void finish(@Nullable URL location) throws TmxException {
     super.finish(location);
     for (ILayer layer : this.layers) {

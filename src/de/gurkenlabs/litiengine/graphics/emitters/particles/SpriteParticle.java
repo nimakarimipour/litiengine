@@ -11,6 +11,7 @@ import de.gurkenlabs.litiengine.graphics.ImageRenderer;
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.graphics.animation.AnimationController;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class SpriteParticle extends Particle {
   @Nullable private AnimationController animation;
@@ -31,7 +32,7 @@ public class SpriteParticle extends Particle {
   }
 
 
-  @Override
+  @NullUnmarked @Override
   public void render(final Graphics2D g, final Point2D emitterOrigin) {
     final Point2D renderLocation = getRenderLocation(emitterOrigin);
     if (isAnimatingSprite()) {
@@ -47,7 +48,7 @@ public class SpriteParticle extends Particle {
     g.setComposite(oldComp);
   }
 
-  @Override
+  @NullUnmarked @Override
   public void update(Point2D emitterOrigin, float updateRatio) {
     super.update(emitterOrigin, updateRatio);
     this.animation.update();
@@ -73,7 +74,7 @@ public class SpriteParticle extends Particle {
     return loopSprite;
   }
 
-  public void setLoopSprite(boolean loopSprite) {
+  @NullUnmarked public void setLoopSprite(boolean loopSprite) {
     this.loopSprite = loopSprite;
     this.animation.getDefault().setLooping(loopSprite);
   }

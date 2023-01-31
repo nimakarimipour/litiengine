@@ -8,6 +8,7 @@ import de.gurkenlabs.litiengine.entities.Action;
 import de.gurkenlabs.litiengine.entities.IEntity;
 import de.gurkenlabs.litiengine.entities.IMobileEntity;
 import de.gurkenlabs.litiengine.util.ListUtilities;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /**
  * A movement controller that supports keyboard input for horizontal entity movement.
@@ -49,7 +50,7 @@ public class PlatformingMovementController<T extends IMobileEntity> extends Keyb
    * @param jump
    *          the jump
    */
-  public PlatformingMovementController(T entity, final int jump) {
+  @NullUnmarked public PlatformingMovementController(T entity, final int jump) {
     super(entity);
     this.getUpKeys().clear();
     this.getDownKeys().clear();

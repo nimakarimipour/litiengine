@@ -29,6 +29,7 @@ import de.gurkenlabs.litiengine.graphics.ShapeRenderer;
 import de.gurkenlabs.litiengine.sound.Sound;
 import de.gurkenlabs.litiengine.util.Imaging;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class SpeechBubble implements IUpdateable, IRenderable {
   public static final SpeechBubbleAppearance DEFAULT_APPEARANCE = new SpeechBubbleAppearance(Color.WHITE, new Color(16, 20, 19, 150), new Color(16, 20, 19), 4.0f);
@@ -56,7 +57,7 @@ public class SpeechBubble implements IUpdateable, IRenderable {
   @Nullable private Sound typeSound;
   @Nullable private Point2D entityCenter;
 
-  private SpeechBubble(final IEntity entity, final String text, @Nullable SpeechBubbleAppearance appearance, @Nullable Font font) {
+  @NullUnmarked private SpeechBubble(final IEntity entity, final String text, @Nullable SpeechBubbleAppearance appearance, @Nullable Font font) {
     if (appearance == null) {
       this.appearance = DEFAULT_APPEARANCE;
     } else {
@@ -125,7 +126,7 @@ public class SpeechBubble implements IUpdateable, IRenderable {
     return this.font;
   }
 
-  @Override
+  @NullUnmarked @Override
   public void render(final Graphics2D g) {
     if (this.currentText == null || this.textIndex <= 0 || !Game.graphics().canRender(this.entity)) {
       return;
@@ -172,7 +173,7 @@ public class SpeechBubble implements IUpdateable, IRenderable {
     this.currentTextDisplayTime = duration;
   }
 
-  @Override
+  @NullUnmarked @Override
   public void update() {
     if (this.currentText == null) {
       this.hide();
@@ -200,7 +201,7 @@ public class SpeechBubble implements IUpdateable, IRenderable {
     // continue displaying currently displayed text
   }
 
-  public void hide() {
+  @NullUnmarked public void hide() {
     Game.world().environment().removeRenderable(this);
     Game.loop().detach(this);
     if (activeSpeechBubbles.get(this.getEntity()) != null && activeSpeechBubbles.remove(this.getEntity()).equals(this)) {
@@ -212,7 +213,7 @@ public class SpeechBubble implements IUpdateable, IRenderable {
     }
   }
 
-  private void createBubbleImage() {
+  @NullUnmarked private void createBubbleImage() {
     final BufferedImage img = Imaging.getCompatibleImage(500, 500);
     final Graphics2D g = img.createGraphics();
     g.setFont(this.getFont());

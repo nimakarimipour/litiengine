@@ -1,6 +1,7 @@
 package de.gurkenlabs.litiengine.entities;
 
 import java.util.Comparator;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /**
  * This {@code Comparator} implementation sorts entities by the max y-coordinate of their collision box (if its a {@code ICollisionEntity})
@@ -12,7 +13,7 @@ import java.util.Comparator;
  */
 public class EntityYComparator implements Comparator<IEntity> {
 
-  @Override
+  @NullUnmarked @Override
   public int compare(final IEntity m1, final IEntity m2) {
     ICollisionEntity coll1 = null;
     ICollisionEntity coll2 = null;

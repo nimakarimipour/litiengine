@@ -16,6 +16,7 @@ import javax.imageio.stream.FileImageOutputStream;
 import de.gurkenlabs.litiengine.resources.ImageFormat;
 import de.gurkenlabs.litiengine.util.Imaging;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public final class ImageSerializer {
   private static final Logger log = Logger.getLogger(ImageSerializer.class.getName());
@@ -24,7 +25,7 @@ public final class ImageSerializer {
     throw new UnsupportedOperationException();
   }
 
-  @Nullable public static BufferedImage loadImage(final String fileName) {
+  @NullUnmarked @Nullable public static BufferedImage loadImage(final String fileName) {
     final File file = new File(fileName);
     if (!file.exists()) {
       return null;

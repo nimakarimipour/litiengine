@@ -21,6 +21,7 @@ import de.gurkenlabs.litiengine.util.MathUtilities;
 import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
 import de.gurkenlabs.litiengine.util.geom.Vector2D;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class AmbientLight extends ColorLayer {
   public static final Color DEFAULT_COLOR = new Color(0, 0, 0, 0);
@@ -84,7 +85,7 @@ public class AmbientLight extends ColorLayer {
     g.fill(ambientArea);
   }
 
-  private void renderLightSource(final Graphics2D g, final LightSource light, Rectangle2D section) {
+  @NullUnmarked private void renderLightSource(final Graphics2D g, final LightSource light, Rectangle2D section) {
     final double mapWidth = this.getEnvironment().getMap().getSizeInPixels().width;
     final double mapHeight = this.getEnvironment().getMap().getSizeInPixels().height;
     double longerDimension = mapWidth < mapHeight ? mapHeight : mapWidth;

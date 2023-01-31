@@ -27,6 +27,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.MapUtilities;
 import de.gurkenlabs.litiengine.input.Input;
 import de.gurkenlabs.litiengine.physics.Collision;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /**
  * The {@code DebugRenderer} class implements default debug rendering and exposes extension points to reder your own
@@ -126,7 +127,7 @@ public final class DebugRenderer {
     }
   }
 
-  public static void renderMapDebugInfo(final Graphics2D g, @Nullable final IMap map) {
+  @NullUnmarked public static void renderMapDebugInfo(final Graphics2D g, @Nullable final IMap map) {
     if (!Game.config().debug().isDebugEnabled()) {
       return;
     }
@@ -151,7 +152,7 @@ public final class DebugRenderer {
     }
   }
 
-  private static void drawMapId(final Graphics2D g, final IEntity entity) {
+  @NullUnmarked private static void drawMapId(final Graphics2D g, final IEntity entity) {
     g.setColor(Color.RED);
     g.setFont(g.getFont().deriveFont(Font.PLAIN, 4f));
     final double x = Game.world().camera().getViewportDimensionCenter(entity).getX() + 10;
@@ -161,7 +162,7 @@ public final class DebugRenderer {
     TextRenderer.render(g, locationString, x, y + 5.0);
   }
 
-  private static void drawTileBoundingBox(final Graphics2D g, @Nullable final IMap map, final Point2D location) {
+  @NullUnmarked private static void drawTileBoundingBox(final Graphics2D g, @Nullable final IMap map, final Point2D location) {
     final Rectangle2D playerTile = map.getOrientation().getEnclosingTileShape(location, map).getBounds2D();
 
     // draw rect

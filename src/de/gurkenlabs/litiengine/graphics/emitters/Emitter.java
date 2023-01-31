@@ -34,6 +34,7 @@ import de.gurkenlabs.litiengine.graphics.emitters.xml.EmitterLoader;
 import de.gurkenlabs.litiengine.graphics.emitters.xml.ParticleParameter;
 import de.gurkenlabs.litiengine.resources.Resources;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /**
  * A standard implementation for emitters that provide a particle effect.
@@ -125,7 +126,7 @@ public class Emitter extends Entity implements IUpdateable, ITimeToLive, IRender
     this.setLocation(origin);
   }
 
-  public void activate() {
+  @NullUnmarked public void activate() {
     if (this.activated) {
       return;
     }
@@ -151,7 +152,7 @@ public class Emitter extends Entity implements IUpdateable, ITimeToLive, IRender
   /**
    * Deactivate.
    */
-  public void deactivate() {
+  @NullUnmarked public void deactivate() {
     if (!this.activated) {
       return;
     }
@@ -190,7 +191,7 @@ public class Emitter extends Entity implements IUpdateable, ITimeToLive, IRender
     return this.emitterData;
   }
 
-  public Point2D getOrigin() {
+  @NullUnmarked public Point2D getOrigin() {
     return new Point2D.Double(this.getX() + this.data().getOriginAlign().getValue(this.getWidth()), this.getY() + this.data().getOriginValign().getValue(this.getHeight()));
   }
 
@@ -298,7 +299,7 @@ public class Emitter extends Entity implements IUpdateable, ITimeToLive, IRender
     this.stopped = !this.stopped;
   }
 
-  @Override
+  @NullUnmarked @Override
   public void update() {
     if (this.isPaused()) {
       return;
@@ -346,7 +347,7 @@ public class Emitter extends Entity implements IUpdateable, ITimeToLive, IRender
    *
    * @return the particle
    */
-  @Nullable protected Particle createNewParticle() {
+  @NullUnmarked @Nullable protected Particle createNewParticle() {
 
     float width = (float) this.data().getParticleWidth().get();
     float height = (float) this.data().getParticleHeight().get();
@@ -431,7 +432,7 @@ public class Emitter extends Entity implements IUpdateable, ITimeToLive, IRender
     }
   }
 
-  private void renderParticles(final Graphics2D g, final RenderType renderType) {
+  @NullUnmarked private void renderParticles(final Graphics2D g, final RenderType renderType) {
     if (Game.config().graphics().getGraphicQuality().getValue() < this.data().getRequiredQuality().getValue()) {
       return;
     }

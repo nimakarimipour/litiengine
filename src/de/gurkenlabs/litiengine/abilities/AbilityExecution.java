@@ -8,6 +8,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.IUpdateable;
 import de.gurkenlabs.litiengine.abilities.effects.Effect;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class AbilityExecution implements IUpdateable {
   private final Ability ability;
@@ -16,7 +17,7 @@ public class AbilityExecution implements IUpdateable {
   private final long executionTicks;
   private final Shape impactArea;
 
-  AbilityExecution(final Ability ability) {
+  @NullUnmarked AbilityExecution(final Ability ability) {
     this.appliedEffects = new CopyOnWriteArrayList<>();
     this.ability = ability;
     this.executionTicks = Game.time().now();
@@ -50,7 +51,7 @@ public class AbilityExecution implements IUpdateable {
    * 2. Unregister this instance after all effects were applied. 
    * 3. Effects will apply their follow up effects on their own.
    */
-  @Override
+  @NullUnmarked @Override
   public void update() {
     // if there a no effects to apply -> unregister this instance and we're done
     if (this.getAbility().getEffects().isEmpty() || this.getAbility().getEffects().size() == this.getAppliedEffects().size()) {

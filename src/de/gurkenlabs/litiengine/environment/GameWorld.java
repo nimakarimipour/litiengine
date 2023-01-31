@@ -16,6 +16,7 @@ import de.gurkenlabs.litiengine.graphics.Camera;
 import de.gurkenlabs.litiengine.graphics.ICamera;
 import de.gurkenlabs.litiengine.resources.Resources;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /**
  * The {@code GameWorld} class is a global environment manager that contains all {@code Environments}
@@ -326,7 +327,7 @@ public final class GameWorld implements IUpdateable {
    *          The map by which the environment is identified.
    * @return The environment for the map or null if no such map can be found.
    */
-  @Nullable public Environment getEnvironment(@Nullable IMap map) {
+  @NullUnmarked @Nullable public Environment getEnvironment(@Nullable IMap map) {
     if (map == null || map.getName() == null || map.getName().isEmpty()) {
       return null;
     }
@@ -366,7 +367,7 @@ public final class GameWorld implements IUpdateable {
    * 
    * @see GameWorld#environment()
    */
-  public void loadEnvironment(@Nullable final Environment env) {
+  @NullUnmarked public void loadEnvironment(@Nullable final Environment env) {
     Lock lock = Game.loop().getLock();
     lock.lock();
     try {
@@ -539,7 +540,7 @@ public final class GameWorld implements IUpdateable {
    * @param cam
    *          The new camera to be set.
    */
-  public void setCamera(@Nullable final ICamera cam) {
+  @NullUnmarked public void setCamera(@Nullable final ICamera cam) {
     if (this.camera() != null) {
       Game.loop().detach(camera);
     }

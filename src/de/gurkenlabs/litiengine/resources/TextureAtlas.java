@@ -16,6 +16,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import de.gurkenlabs.litiengine.util.io.FileUtilities;
 import de.gurkenlabs.litiengine.util.io.XmlUtilities;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 @XmlRootElement(name = "TextureAtlas")
 public class TextureAtlas {
@@ -79,7 +80,7 @@ public class TextureAtlas {
     return this.sprites;
   }
 
-  @Nullable public Sprite getSprite(String name) {
+  @NullUnmarked @Nullable public Sprite getSprite(String name) {
     if (name == null || name.isEmpty()) {
       return null;
     }

@@ -16,6 +16,7 @@ import de.gurkenlabs.litiengine.Align;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.input.Input;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class TextFieldComponent extends ImageComponent {
   public static final String DOUBLE_FORMAT = "[-+]?[0-9]*\\.?[0-9]*([eE][-+]?[0-9]*)?";
@@ -30,7 +31,7 @@ public class TextFieldComponent extends ImageComponent {
   private long lastToggled;
   private int maxLength = 0;
 
-  public TextFieldComponent(final double x, final double y, final double width, final double height, final String text) {
+  @NullUnmarked public TextFieldComponent(final double x, final double y, final double width, final double height, final String text) {
     super(x, y, width, height, text);
     this.changeConfirmedConsumers = new CopyOnWriteArrayList<>();
     this.setText(text);
@@ -64,7 +65,7 @@ public class TextFieldComponent extends ImageComponent {
     return this.fullText;
   }
 
-  public void handleTypedKey(final KeyEvent event) {
+  @NullUnmarked public void handleTypedKey(final KeyEvent event) {
     if (this.isSuspended() || !this.isSelected() || !this.isVisible() || !this.isEnabled()) {
       return;
     }
@@ -94,7 +95,7 @@ public class TextFieldComponent extends ImageComponent {
     this.changeConfirmedConsumers.add(cons);
   }
 
-  @Override
+  @NullUnmarked @Override
   public void render(final Graphics2D g) {
     super.render(g);
     g.setFont(this.getFont());
@@ -124,7 +125,7 @@ public class TextFieldComponent extends ImageComponent {
     this.fullText = text;
   }
 
-  private void handleBackSpace() {
+  @NullUnmarked private void handleBackSpace() {
     if (Input.keyboard().isPressed(KeyEvent.VK_SHIFT)) {
       while (this.getText().length() >= 1 && this.getText().charAt(this.getText().length() - 1) == ' ') {
         this.setText(this.getText().substring(0, this.getText().length() - 1));
@@ -142,7 +143,7 @@ public class TextFieldComponent extends ImageComponent {
     }
   }
 
-  private void handleNormalTyping(KeyEvent event) {
+  @NullUnmarked private void handleNormalTyping(KeyEvent event) {
     if (this.getMaxLength() > 0 && this.getText().length() >= this.getMaxLength()) {
       return;
     }

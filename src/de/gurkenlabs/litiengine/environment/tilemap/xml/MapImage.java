@@ -13,6 +13,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import de.gurkenlabs.litiengine.environment.tilemap.IMapImage;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class MapImage extends CustomPropertyProvider implements IMapImage {
@@ -130,7 +131,7 @@ public class MapImage extends CustomPropertyProvider implements IMapImage {
     this.height = height;
   }
 
-  @Override
+  @NullUnmarked @Override
   public boolean equals(Object anObject) {
     if (!(anObject instanceof IMapImage)) {
       return false;
@@ -151,12 +152,12 @@ public class MapImage extends CustomPropertyProvider implements IMapImage {
    * 
    * @return The hash code for this map image
    */
-  @Override
+  @NullUnmarked @Override
   public int hashCode() {
     return this.getAbsoluteSourcePath().hashCode() ^ this.getTransparentColor().hashCode();
   }
 
-  @Override
+  @NullUnmarked @Override
   public String toString() {
     return this.getAbsoluteSourcePath().toExternalForm();
   }

@@ -8,6 +8,7 @@ import de.gurkenlabs.litiengine.Valign;
 
 import static de.gurkenlabs.litiengine.entities.EntityPivotType.COLLISIONBOX_CENTER;
 import static de.gurkenlabs.litiengine.entities.EntityPivotType.DIMENSION_CENTER;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class EntityPivot {
   private final IEntity entity;
@@ -52,7 +53,7 @@ public class EntityPivot {
     return this.offsetY;
   }
 
-  public Point2D getPoint() {
+  @NullUnmarked public Point2D getPoint() {
     EntityPivotType type = this.getType();
     if (type == COLLISIONBOX_CENTER) {
       Rectangle2D collisionBox = ((ICollisionEntity) this.getEntity()).getCollisionBox();

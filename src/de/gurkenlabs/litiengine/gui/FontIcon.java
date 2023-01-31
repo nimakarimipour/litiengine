@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 
 import de.gurkenlabs.litiengine.graphics.TextRenderer;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /**
  * A fonticon is an class that represents a single character of an icon font.
@@ -69,7 +70,7 @@ public class FontIcon {
    * @param bold
    *          the bold
    */
-  public void render(final Graphics2D g, final Color color, final float fontSize, final double x, final double y, final boolean bold) {
+  @NullUnmarked public void render(final Graphics2D g, final Color color, final float fontSize, final double x, final double y, final boolean bold) {
     final Color oldColor = g.getColor();
     final Font oldFont = g.getFont();
     g.setColor(color);

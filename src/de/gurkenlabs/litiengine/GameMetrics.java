@@ -10,6 +10,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import de.gurkenlabs.litiengine.configuration.ClientConfiguration;
 import de.gurkenlabs.litiengine.graphics.IRenderable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /**
  * The class {@code GameMetrics} provides meta information about the game's metrics. This allows the developer to
@@ -65,7 +66,7 @@ public final class GameMetrics implements IRenderable {
     this.renderMetrics.add(new RenderMetrics(name, renderTime, infos));
   }
 
-  @Override
+  @NullUnmarked @Override
   public void render(final Graphics2D g) {
     this.updateMetrics();
 

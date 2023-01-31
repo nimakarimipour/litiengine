@@ -40,6 +40,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.StaggerAxis;
 import de.gurkenlabs.litiengine.environment.tilemap.StaggerIndex;
 import de.gurkenlabs.litiengine.util.io.FileUtilities;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 @XmlRootElement(name = "map")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -152,12 +153,12 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
    *
    * @return the next object id
    */
-  @Override
+  @NullUnmarked @Override
   public int getNextObjectId() {
     return this.nextObjectId;
   }
 
-  @Override
+  @NullUnmarked @Override
   public int getNextLayerId() {
     return this.nextLayerId;
   }
@@ -186,7 +187,7 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
     return this.mapObjectLayers;
   }
 
-  @Override
+  @NullUnmarked @Override
   public Dimension getSizeInPixels() {
     return this.getOrientation().getSize(this);
   }
@@ -276,7 +277,7 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
     return this.height;
   }
 
-  @Override
+  @NullUnmarked @Override
   public int getHexSideLength() {
     return this.hexsidelength;
   }
@@ -295,7 +296,7 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
     this.path = path;
   }
 
-  @Override
+  @NullUnmarked @Override
   public void finish(@Nullable URL location) throws TmxException {
     super.finish(location);
     if (this.name == null) {
@@ -333,7 +334,7 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
     }
   }
 
-  @Override
+  @NullUnmarked @Override
   public void removeLayer(ILayer layer) {
     this.layers.remove(layer);
     this.removeRawLayer(layer);
@@ -342,7 +343,7 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
     }
   }
 
-  @Override
+  @NullUnmarked @Override
   public void removeLayer(int index) {
     ILayer removed = this.layers.remove(index);
     this.removeRawLayer(removed);
@@ -509,7 +510,7 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
     }
   }
 
-  @SuppressWarnings("unused")
+  @NullUnmarked @SuppressWarnings("unused")
   private void beforeMarshal(Marshaller m) {
     this.orientation = this.mapOrientation.getName();
   }
@@ -544,7 +545,7 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
     }
   }
 
-  private <T extends ILayer> int getRawIndex(int index, Class<T> layerType) {
+  @NullUnmarked private <T extends ILayer> int getRawIndex(int index, Class<T> layerType) {
     int rawIndex = 0;
     for (int i = 0; i < this.layers.size(); i++) {
       if (i >= index) {

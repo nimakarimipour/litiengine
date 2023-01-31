@@ -1,4 +1,5 @@
 package de.gurkenlabs.litiengine.entities;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class EntityDistanceComparator extends RelativeEntityComparator {
 
@@ -12,7 +13,7 @@ public class EntityDistanceComparator extends RelativeEntityComparator {
     super(relativeEntity);
   }
 
-  @Override
+  @NullUnmarked @Override
   public int compare(final IEntity entity1, final IEntity entity2) {
     if (this.getRelativeEntity() == null) {
       return 0;

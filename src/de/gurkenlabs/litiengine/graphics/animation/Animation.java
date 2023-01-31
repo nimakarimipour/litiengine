@@ -12,6 +12,7 @@ import de.gurkenlabs.litiengine.IUpdateable;
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.resources.Resources;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /**
  * The {@code Animation} class keeps track of the current keyframe which is used to animate a visual element.
@@ -73,7 +74,7 @@ public class Animation implements IUpdateable, ILaunchable {
    * @param keyFrameDurations
    *          The duration of each keyframe.
    */
-  public Animation(@Nullable final Spritesheet spritesheet, final boolean loop, final boolean randomizeStart, final int... keyFrameDurations) {
+  @NullUnmarked public Animation(@Nullable final Spritesheet spritesheet, final boolean loop, final boolean randomizeStart, final int... keyFrameDurations) {
     this(spritesheet.getName(), spritesheet, loop, randomizeStart, keyFrameDurations);
   }
 
@@ -309,7 +310,7 @@ public class Animation implements IUpdateable, ILaunchable {
   /**
    * Restarts this animation at its first frame.
    */
-  public void restart() {
+  @NullUnmarked public void restart() {
     this.currentFrame = this.firstFrame;
     this.lastFrameUpdate = Game.loop().getTicks();
   }
@@ -324,7 +325,7 @@ public class Animation implements IUpdateable, ILaunchable {
     this.currentFrame = this.getKeyframes().get(0);
   }
 
-  @Override
+  @NullUnmarked @Override
   public void update() {
     // do nothing if the animation is not playing or the current keyframe is not finished
     if (!this.isPlaying() || Game.time().since(this.lastFrameUpdate) < this.getCurrentKeyFrame().getDuration()) {

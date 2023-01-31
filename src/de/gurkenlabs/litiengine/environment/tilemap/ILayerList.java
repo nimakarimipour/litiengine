@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import de.gurkenlabs.litiengine.environment.Environment;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public interface ILayerList extends ICustomPropertyProvider {
 
@@ -69,7 +70,7 @@ public interface ILayerList extends ICustomPropertyProvider {
     return null;
   }
 
-  @Nullable public default IMapObjectLayer getMapObjectLayer(String layerName) {
+  @NullUnmarked @Nullable public default IMapObjectLayer getMapObjectLayer(String layerName) {
     Optional<IMapObjectLayer> layer = this.getMapObjectLayers().stream().filter(x -> x.getName().equals(layerName)).findFirst();
     return layer.orElse(null);
   }

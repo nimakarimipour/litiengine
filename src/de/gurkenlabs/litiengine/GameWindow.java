@@ -31,6 +31,7 @@ import de.gurkenlabs.litiengine.graphics.MouseCursor;
 import de.gurkenlabs.litiengine.graphics.RenderComponent;
 import de.gurkenlabs.litiengine.gui.screens.Resolution;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /**
  * The {@code GameWindow} class is a wrapper for the game's visual window in which the {@code RenderComponent} lives.<br>
@@ -58,7 +59,7 @@ public final class GameWindow {
   @Nullable private Dimension resolution;
   @Nullable private Point screenLocation;
 
-  GameWindow() {
+  @NullUnmarked GameWindow() {
     this.hostControl = new JFrame();
 
     this.resolutionChangedListeners = new CopyOnWriteArrayList<>();
@@ -385,7 +386,7 @@ public final class GameWindow {
 
   }
 
-  private static void initializeWindowEventListeners(Window window) {
+  @NullUnmarked private static void initializeWindowEventListeners(Window window) {
 
     window.addWindowStateListener(e -> {
       if (e.getNewState() == Frame.ICONIFIED) {
@@ -396,14 +397,14 @@ public final class GameWindow {
     });
 
     window.addWindowFocusListener(new WindowFocusListener() {
-      @Override
+      @NullUnmarked @Override
       public void windowLostFocus(WindowEvent e) {
         if (Game.config().graphics().reduceFramesWhenNotFocused()) {
           Game.loop().setTickRate(NONE_FOCUS_MAX_FPS);
         }
       }
 
-      @Override
+      @NullUnmarked @Override
       public void windowGainedFocus(WindowEvent e) {
         Game.loop().setTickRate(Game.config().client().getMaxFps());
       }

@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.GameListener;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /**
  * The static {@code Input} class is the LITIENGINE's access point to devices that capture physical player input.
@@ -91,7 +92,7 @@ public final class Input {
       }
     }
 
-    private static void init() {
+    @NullUnmarked private static void init() {
       try {
         keyboard = new Keyboard();
         Mouse m = new Mouse();

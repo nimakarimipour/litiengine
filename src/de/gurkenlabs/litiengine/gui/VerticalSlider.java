@@ -6,6 +6,7 @@ import java.awt.Stroke;
 import java.awt.geom.Point2D;
 
 import de.gurkenlabs.litiengine.input.Input;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class VerticalSlider extends Slider {
   public static final FontIcon ARROW_DOWN = new FontIcon(ICON_FONT, "\uE804");
@@ -32,7 +33,7 @@ public class VerticalSlider extends Slider {
     super.render(g);
   }
 
-  @Override
+  @NullUnmarked @Override
   public void setValueRelativeToMousePosition() {
     final double mouseY = Input.mouse().getLocation().getY();
     if (mouseY >= this.minSliderY && mouseY <= this.maxSliderY) {
@@ -42,7 +43,7 @@ public class VerticalSlider extends Slider {
     }
   }
 
-  @Override
+  @NullUnmarked @Override
   protected void initializeComponents() {
     super.initializeComponents();
     this.setButton1(new ImageComponent(this.getX(), this.getY(), this.getWidth(), this.getWidth(), ARROW_UP.getText()));

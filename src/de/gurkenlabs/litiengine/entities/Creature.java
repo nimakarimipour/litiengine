@@ -19,6 +19,7 @@ import de.gurkenlabs.litiengine.physics.IMovementController;
 import de.gurkenlabs.litiengine.physics.MovementController;
 import de.gurkenlabs.litiengine.tweening.TweenType;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /**
  * TODO: Add idle event
@@ -89,7 +90,7 @@ public class Creature extends CombatEntity implements IMobileEntity {
     this.movedListeners.remove(listener);
   }
 
-  @Override
+  @NullUnmarked @Override
   public float[] getTweenValues(TweenType tweenType) {
     switch (tweenType) {
     case VELOCITY:
@@ -99,7 +100,7 @@ public class Creature extends CombatEntity implements IMobileEntity {
     }
   }
 
-  @Override
+  @NullUnmarked @Override
   public void setTweenValues(TweenType tweenType, float[] newValues) {
     switch (tweenType) {
     case VELOCITY:
@@ -145,7 +146,7 @@ public class Creature extends CombatEntity implements IMobileEntity {
     return this.spritesheetName;
   }
 
-  @Override
+  @NullUnmarked @Override
   public float getTickVelocity() {
     // pixels per ms multiplied by the passed ms
     // ensure that entities don't travel too far in case of lag
@@ -180,11 +181,11 @@ public class Creature extends CombatEntity implements IMobileEntity {
     this.deceleration = deceleration;
   }
 
-  public void setFacingDirection(@Nullable final Direction facingDirection) {
+  @NullUnmarked public void setFacingDirection(@Nullable final Direction facingDirection) {
     this.setAngle(facingDirection.toAngle());
   }
 
-  @Override
+  @NullUnmarked @Override
   public void setLocation(@Nullable final Point2D position) {
     if (this.isDead() || position == null) {
       return;
@@ -217,7 +218,7 @@ public class Creature extends CombatEntity implements IMobileEntity {
     this.scaling = scaling;
   }
 
-  @Override
+  @NullUnmarked @Override
   public void setVelocity(float velocity) {
     this.getVelocity().setBaseValue(velocity);
   }
@@ -241,7 +242,7 @@ public class Creature extends CombatEntity implements IMobileEntity {
     return sb.toString();
   }
 
-  protected void updateAnimationController() {
+  @NullUnmarked protected void updateAnimationController() {
     IEntityAnimationController<?> controller = this.createAnimationController();
     this.getControllers().addController(controller);
     if (Game.world().environment() != null && Game.world().environment().isLoaded()) {

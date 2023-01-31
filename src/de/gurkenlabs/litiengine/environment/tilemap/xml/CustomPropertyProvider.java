@@ -18,6 +18,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import de.gurkenlabs.litiengine.environment.tilemap.ICustomProperty;
 import de.gurkenlabs.litiengine.environment.tilemap.ICustomPropertyProvider;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class CustomPropertyProvider implements ICustomPropertyProvider {
@@ -58,7 +59,7 @@ public class CustomPropertyProvider implements ICustomPropertyProvider {
     return property.getType();
   }
 
-  @Override
+  @NullUnmarked @Override
   public void setTypeOfProperty(String propertyName, String type) {
     this.getProperty(propertyName).setType(type);
   }

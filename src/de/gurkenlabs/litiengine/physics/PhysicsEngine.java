@@ -22,6 +22,7 @@ import de.gurkenlabs.litiengine.util.ArrayUtilities;
 import de.gurkenlabs.litiengine.util.MathUtilities;
 import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /**
  * This class is used to hold all collision aware instances and static collision boxes.
@@ -72,7 +73,7 @@ public final class PhysicsEngine implements IUpdateable {
    * @see ICollisionEntity#getCollisionBox()
    * @see PhysicsEngine#remove(ICollisionEntity)
    */
-  public void add(final ICollisionEntity entity) {
+  @NullUnmarked public void add(final ICollisionEntity entity) {
     if (entity.getCollisionType() == null) {
       return;
     }
@@ -96,7 +97,7 @@ public final class PhysicsEngine implements IUpdateable {
    * @param entity
    *          The entity that is about to be removed.
    */
-  public void remove(final ICollisionEntity entity) {
+  @NullUnmarked public void remove(final ICollisionEntity entity) {
     if (entity.getCollisionType() == null) {
       return;
     }
@@ -117,7 +118,7 @@ public final class PhysicsEngine implements IUpdateable {
    * Clears all previously registered participants in the collision process from this instance.
    * This includes all entities, static collision boxes and the map boundaries.
    */
-  public void clear() {
+  @NullUnmarked public void clear() {
     for (Collision type : Collision.values()) {
       if (type == Collision.NONE) {
         continue;
@@ -375,7 +376,7 @@ public final class PhysicsEngine implements IUpdateable {
    * @see Collision
    * @see ICollisionEntity
    */
-  public boolean collides(Point2D location, Collision collision, @Nullable ICollisionEntity entity) {
+  @NullUnmarked public boolean collides(Point2D location, Collision collision, @Nullable ICollisionEntity entity) {
     if (this.environmentBounds != null && !this.environmentBounds.contains(location)) {
       return true;
     }
@@ -547,7 +548,7 @@ public final class PhysicsEngine implements IUpdateable {
    *          The {@code ICollisionEntity} type to check for collision.
    * @return A {@code RaycastHit} determining the hit point, ray length, and corresponding {@code ICollisionEntity}.
    */
-  @Nullable public RaycastHit raycast(Line2D line, Collision collision, @Nullable ICollisionEntity entity) {
+  @NullUnmarked @Nullable public RaycastHit raycast(Line2D line, Collision collision, @Nullable ICollisionEntity entity) {
     final Point2D rayCastSource = new Point2D.Double(line.getX1(), line.getY1());
 
     for (final ICollisionEntity collisionEntity : this.collisionEntities.get(collision)) {
@@ -701,7 +702,7 @@ public final class PhysicsEngine implements IUpdateable {
    * Clears all collision boxes registered on the {@code PhysicsEngine} once per tick and re-adds them with their updated positions.
    *
    */
-  @Override
+  @NullUnmarked @Override
   public void update() {
     // retrieve all collision box rectangles once per update
     for (Collision type : Collision.values()) {
@@ -751,7 +752,7 @@ public final class PhysicsEngine implements IUpdateable {
    *          The {@code Rectangle2D} to check for intersection.
    * @return The {@code Intersection} area.
    */
-  @Nullable private Intersection getIntersection(final ICollisionEntity entity, final Rectangle2D rect) {
+  @NullUnmarked @Nullable private Intersection getIntersection(final ICollisionEntity entity, final Rectangle2D rect) {
     Intersection result = null;
     for (final ICollisionEntity otherEntity : this.getCollisionEntities()) {
       if (!canCollide(entity, otherEntity)) {
@@ -811,7 +812,7 @@ public final class PhysicsEngine implements IUpdateable {
    *          The target position to which the entity should be moved to.
    * @return The position to which the entity should be moved after resolving the collision.
    */
-  private Point2D resolveCollision(final ICollisionEntity entity, final Point2D targetPosition) {
+  @NullUnmarked private Point2D resolveCollision(final ICollisionEntity entity, final Point2D targetPosition) {
     // first resolve x-axis movement
     Point2D resolvedPosition = new Point2D.Double(targetPosition.getX(), entity.getY());
 
@@ -846,7 +847,7 @@ public final class PhysicsEngine implements IUpdateable {
     return resolvedPosition;
   }
 
-  private Point2D clamptoMap(IMobileEntity entity, Point2D newLocation) {
+  @NullUnmarked private Point2D clamptoMap(IMobileEntity entity, Point2D newLocation) {
     double collisionLocationX = entity.getCollisionBoxAlign().getLocation(entity.getWidth(), entity.getCollisionBoxWidth());
     double leftBoundX = this.getBounds().getMinX() - collisionLocationX;
     double deltaX = entity.getWidth() - entity.getCollisionBoxWidth() - collisionLocationX;
@@ -875,14 +876,14 @@ public final class PhysicsEngine implements IUpdateable {
     return false;
   }
 
-  private boolean resolveCollisionForRaycastToNewPosition(ICollisionEntity entity, Point2D newPosition) {
+  @NullUnmarked private boolean resolveCollisionForRaycastToNewPosition(ICollisionEntity entity, Point2D newPosition) {
     // special case to prevent entities to glitch through collision boxes if
     // they have a large enough step size
     final Line2D line = new Line2D.Double(entity.getCollisionBox().getCenterX(), entity.getCollisionBox().getCenterY(), entity.getCollisionBox(newPosition).getCenterX(), entity.getCollisionBox(newPosition).getCenterY());
     return this.collides(line, Collision.ANY, entity);
   }
 
-  private static void fireCollisionEvents(ICollisionEntity collider, @Nullable Intersection... intersections) {
+  @NullUnmarked private static void fireCollisionEvents(ICollisionEntity collider, @Nullable Intersection... intersections) {
     // aggregate the involved entities of all intersections
     ICollisionEntity[] involvedEntities = null;
     for (Intersection inter : intersections) {

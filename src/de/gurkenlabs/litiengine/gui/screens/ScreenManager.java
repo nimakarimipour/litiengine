@@ -11,6 +11,7 @@ import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.GameWindow;
 import de.gurkenlabs.litiengine.graphics.RenderComponent;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /**
  * The {@code ScreenManager} holds instances of all available screens and handles whenever a different {@code Screen} should be shown to the
@@ -81,7 +82,7 @@ public final class ScreenManager {
    * @param screen
    *          The screen to add.
    */
-  public void add(final Screen screen) {
+  @NullUnmarked public void add(final Screen screen) {
     screen.setWidth(Game.window().getWidth());
     screen.setHeight(Game.window().getHeight());
     this.screens.add(screen);
@@ -114,7 +115,7 @@ public final class ScreenManager {
    * @param screen
    *          The screen to be displayed.
    */
-  public void display(@Nullable final Screen screen) {
+  @NullUnmarked public void display(@Nullable final Screen screen) {
     if (Game.hasStarted() && Game.time().since(this.lastScreenChange) < this.getChangeCooldown()) {
       log.log(Level.INFO, "Skipping displaying of screen {0} because screen changing is currently on cooldown.", screen != null ? screen.getName() : "");
       return;
@@ -148,7 +149,7 @@ public final class ScreenManager {
    * @param screenName
    *          The name of the screen to be displayed.
    */
-  public void display(final String screenName) {
+  @NullUnmarked public void display(final String screenName) {
     if (this.current() != null && this.current().getName().equalsIgnoreCase(screenName)) {
       log.log(Level.INFO, "Skipping displaying of screen {0} because it is already the current screen.", screenName);
       return;
@@ -174,7 +175,7 @@ public final class ScreenManager {
    *          The name of the screen.
    * @return The
    */
-  @Nullable public Screen get(String screenName) {
+  @NullUnmarked @Nullable public Screen get(String screenName) {
     Optional<Screen> opt = this.screens.stream().filter(element -> element.getName().equalsIgnoreCase(screenName)).findFirst();
     return opt.orElse(null);
   }

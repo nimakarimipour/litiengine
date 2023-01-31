@@ -3,6 +3,7 @@ package de.gurkenlabs.litiengine.input;
 import de.gurkenlabs.litiengine.entities.IMobileEntity;
 import de.gurkenlabs.litiengine.entities.behavior.EntityNavigator;
 import de.gurkenlabs.litiengine.physics.MovementController;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class MousePathController extends MovementController<IMobileEntity> {
   /** The player is navigating. */
@@ -18,7 +19,7 @@ public class MousePathController extends MovementController<IMobileEntity> {
   public EntityNavigator getNavigator() {
     return this.navigator;
   }
-  @Override
+  @NullUnmarked @Override
   public void update() {
     super.update();
     // can only walk if no forces are active

@@ -8,6 +8,7 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
 import de.gurkenlabs.litiengine.Game;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public abstract class ShapeParticle extends Particle {
 
@@ -22,7 +23,7 @@ public abstract class ShapeParticle extends Particle {
     return this.getShape(origin).getBounds2D();
   }
 
-  @Override
+  @NullUnmarked @Override
   public void render(final Graphics2D g, final Point2D emitterOrigin) {
     g.setColor(new Color(this.getColor().getRed() / 255f, this.getColor().getGreen() / 255f, this.getColor().getBlue() / 255f, this.getOpacity()));
 

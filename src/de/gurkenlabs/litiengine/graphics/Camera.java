@@ -15,6 +15,7 @@ import de.gurkenlabs.litiengine.entities.IEntity;
 import de.gurkenlabs.litiengine.graphics.animation.IAnimationController;
 import de.gurkenlabs.litiengine.util.MathUtilities;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class Camera implements ICamera {
   private final Collection<ZoomChangedListener> zoomListeners = ConcurrentHashMap.newKeySet();
@@ -161,7 +162,7 @@ public class Camera implements ICamera {
     this.setFocus(new Point2D.Double(x, y));
   }
 
-  @Override
+  @NullUnmarked @Override
   public void setZoom(final float targetZoom, final int delay) {
     if (delay == 0) {
 
@@ -195,7 +196,7 @@ public class Camera implements ICamera {
     this.shakeDuration = shakeDuration;
   }
 
-  @Override
+  @NullUnmarked @Override
   public void update() {
     if (Game.world().camera() != null && !Game.world().camera().equals(this)) {
       return;
@@ -289,7 +290,7 @@ public class Camera implements ICamera {
   }
 
   // TODO: write a unit test for this
-  protected Point2D clampToMap(@Nullable Point2D focus) {
+  @NullUnmarked protected Point2D clampToMap(@Nullable Point2D focus) {
 
     if (Game.world().environment() == null || Game.world().environment().getMap() == null || !this.isClampToMap()) {
       return new Point2D.Double(focus.getX(), focus.getY());
@@ -313,11 +314,11 @@ public class Camera implements ICamera {
     return this.panTime;
   }
 
-  protected double getViewportWidth() {
+  @NullUnmarked protected double getViewportWidth() {
     return Game.window().getResolution().getWidth() / this.getRenderScale();
   }
 
-  protected double getViewportHeight() {
+  @NullUnmarked protected double getViewportHeight() {
     return Game.window().getResolution().getHeight() / this.getRenderScale();
   }
 

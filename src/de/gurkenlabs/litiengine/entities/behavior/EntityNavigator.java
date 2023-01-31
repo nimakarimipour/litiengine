@@ -16,6 +16,7 @@ import de.gurkenlabs.litiengine.entities.IMobileEntity;
 import de.gurkenlabs.litiengine.graphics.IRenderable;
 import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class EntityNavigator implements IUpdateable, IRenderable {
 
@@ -39,7 +40,7 @@ public class EntityNavigator implements IUpdateable, IRenderable {
    * @param pathFinder
    *          The pathfinder that is used to navigate the entity
    */
-  public EntityNavigator(final IMobileEntity entity, final PathFinder pathFinder) {
+  @NullUnmarked public EntityNavigator(final IMobileEntity entity, final PathFinder pathFinder) {
     this.cancelNavigationConditions = new CopyOnWriteArrayList<>();
     this.listeners = new CopyOnWriteArrayList<>();
     this.entity = entity;
@@ -105,7 +106,7 @@ public class EntityNavigator implements IUpdateable, IRenderable {
     Game.graphics().renderOutline(g, this.getPath().getPath());
   }
 
-  public void rotateTowards(final Point2D target) {
+  @NullUnmarked public void rotateTowards(final Point2D target) {
     final double angle = GeometricUtilities.calcRotationAngleInDegrees(this.entity.getCollisionBox().getCenterX(), this.entity.getCollisionBox().getCenterY(), target.getX(), target.getY());
     this.entity.setAngle((float) angle);
   }
@@ -123,7 +124,7 @@ public class EntityNavigator implements IUpdateable, IRenderable {
     }
   }
 
-  @Override
+  @NullUnmarked @Override
   public void update() {
     if (!this.isNavigating()) {
       return;

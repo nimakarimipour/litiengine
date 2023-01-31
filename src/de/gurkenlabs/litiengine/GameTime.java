@@ -2,6 +2,7 @@ package de.gurkenlabs.litiengine;
 
 import de.gurkenlabs.litiengine.environment.Environment;
 import de.gurkenlabs.litiengine.environment.EnvironmentLoadedListener;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /**
  * The {@code GameTime} class provides temporal information that can be used to perform time based events.
@@ -31,7 +32,7 @@ public final class GameTime implements EnvironmentLoadedListener {
    * 
    * @see GameLoop#getTicks()
    */
-  public long now() {
+  @NullUnmarked public long now() {
     return Game.loop().getTicks();
   }
 
@@ -45,7 +46,7 @@ public final class GameTime implements EnvironmentLoadedListener {
    * 
    * @see #now()
    */
-  public long since(final long tick) {
+  @NullUnmarked public long since(final long tick) {
     return toMilliseconds(Game.loop().getTicks() - tick);
   }
 
@@ -55,7 +56,7 @@ public final class GameTime implements EnvironmentLoadedListener {
    * 
    * @return The time since the game has been started.
    */
-  public long sinceGameStart() {
+  @NullUnmarked public long sinceGameStart() {
     return this.toMilliseconds(Game.loop().getTicks());
   }
 
@@ -75,7 +76,7 @@ public final class GameTime implements EnvironmentLoadedListener {
    *          The ticks that will be converted to milliseconds.
    * @return The milliseconds that correspond to the specified ticks.
    */
-  public long toMilliseconds(final long ticks) {
+  @NullUnmarked public long toMilliseconds(final long ticks) {
     return this.toMilliseconds(ticks, Game.loop().getTickRate());
   }
 
@@ -100,7 +101,7 @@ public final class GameTime implements EnvironmentLoadedListener {
    *          The milliseconds that will be converted to ticks.
    * @return The ticks that correspond to the specified milliseconds.
    */
-  public long toTicks(final int milliseconds) {
+  @NullUnmarked public long toTicks(final int milliseconds) {
     return this.toTicks(milliseconds, Game.loop().getTickRate());
   }
 
@@ -117,7 +118,7 @@ public final class GameTime implements EnvironmentLoadedListener {
     return (long) (updateRate / 1000.0 * milliseconds);
   }
 
-  @Override
+  @NullUnmarked @Override
   public void loaded(Environment environment) {
     environmentLoaded = Game.loop().getTicks();
   }

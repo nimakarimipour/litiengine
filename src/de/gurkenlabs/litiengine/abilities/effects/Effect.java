@@ -18,6 +18,7 @@ import de.gurkenlabs.litiengine.entities.EntityDistanceComparator;
 import de.gurkenlabs.litiengine.entities.ICombatEntity;
 import de.gurkenlabs.litiengine.entities.RelativeEntityComparator;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /**
  * The Class Effect seeks for affected entities in the game's current
@@ -36,7 +37,7 @@ public abstract class Effect implements IUpdateable {
   @Nullable private int duration;
   private RelativeEntityComparator targetPriorityComparator;
 
-  protected Effect(final Ability ability, final EffectTarget... targets) {
+  @NullUnmarked protected Effect(final Ability ability, final EffectTarget... targets) {
     this.appliedListeners = ConcurrentHashMap.newKeySet();
     this.ceasedListeners = ConcurrentHashMap.newKeySet();
     this.appliances = new ArrayList<>();
@@ -75,7 +76,7 @@ public abstract class Effect implements IUpdateable {
    * @param impactArea
    *          The impact area
    */
-  public void apply(final Shape impactArea) {
+  @NullUnmarked public void apply(final Shape impactArea) {
     final List<ICombatEntity> affected = this.lookForAffectedEntities(impactArea);
     for (final ICombatEntity affectedEntity : affected) {
       this.apply(affectedEntity);
@@ -155,7 +156,7 @@ public abstract class Effect implements IUpdateable {
    * 3. remove appliance
    * 4. unregister from loop if all appliances are done
    */
-  @Override
+  @NullUnmarked @Override
   public void update() {
 
     for (final Iterator<EffectApplication> iterator = this.getActiveAppliances().iterator(); iterator.hasNext();) {
@@ -192,7 +193,7 @@ public abstract class Effect implements IUpdateable {
     this.getFollowUpEffects().forEach(followUp -> followUp.apply(appliance.getImpactArea()));
   }
 
-  protected Collection<ICombatEntity> getEntitiesInImpactArea(final Shape impactArea) {
+  @NullUnmarked protected Collection<ICombatEntity> getEntitiesInImpactArea(final Shape impactArea) {
     return Game.world().environment().findCombatEntities(impactArea);
   }
 

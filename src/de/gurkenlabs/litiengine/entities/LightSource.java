@@ -23,6 +23,7 @@ import de.gurkenlabs.litiengine.graphics.RenderType;
 import de.gurkenlabs.litiengine.graphics.ShapeRenderer;
 import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 @EntityInfo(renderType = RenderType.OVERLAY)
 @TmxType(MapObjectType.LIGHTSOURCE)
@@ -243,7 +244,7 @@ public class LightSource extends Entity implements IRenderable {
     return mob -> new Ellipse2D.Double(center.getX() - radius, center.getY() - radius, radius * 2, radius * 2).contains(mob.getCenter());
   }
 
-  private static Area getObstructedVisionArea(final IEntity mob, final Point2D center) {
+  @NullUnmarked private static Area getObstructedVisionArea(final IEntity mob, final Point2D center) {
     final Polygon shadowPolygon = new Polygon();
 
     final Ellipse2D shadowEllipse = getShadowEllipse(mob);
@@ -331,7 +332,7 @@ public class LightSource extends Entity implements IRenderable {
    * @param center
    *          the center
    */
-  private void renderShadows(final Graphics2D g) {
+  @NullUnmarked private void renderShadows(final Graphics2D g) {
     if (!Game.world().environment().getCombatEntities().stream().anyMatch(isInRange(this.getCenter(), SHADOW_GRADIENT_SIZE))) {
       return;
     }
@@ -377,7 +378,7 @@ public class LightSource extends Entity implements IRenderable {
     }
   }
 
-  private void updateShape() {
+  @NullUnmarked private void updateShape() {
     switch (this.getLightShapeType()) {
     case ELLIPSE:
       this.lightShape = new Ellipse2D.Double(this.getX(), this.getY(), this.getWidth(), this.getHeight());

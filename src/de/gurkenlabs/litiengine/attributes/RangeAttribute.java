@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class RangeAttribute<T extends Number> extends Attribute<T> {
   private final List<AttributeModifier<T>> minModifiers;
@@ -63,7 +64,7 @@ public class RangeAttribute<T extends Number> extends Attribute<T> {
     return this.applyMaxModifiers(this.maxBaseValue);
   }
 
-  public float getRelativeCurrentValue() {
+  @NullUnmarked public float getRelativeCurrentValue() {
     return this.get().floatValue() / this.getMax().floatValue();
   }
 
@@ -118,7 +119,7 @@ public class RangeAttribute<T extends Number> extends Attribute<T> {
     return currentValue;
   }
 
-  private T valueInRange(@Nullable final T value) {
+  @NullUnmarked private T valueInRange(@Nullable final T value) {
     if (value.doubleValue() < this.minBaseValue.doubleValue()) {
       return this.minBaseValue;
     } else if (value.doubleValue() > this.getMax().doubleValue()) {

@@ -18,6 +18,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.IMapObject;
 import de.gurkenlabs.litiengine.environment.tilemap.IMapObjectLayer;
 import de.gurkenlabs.litiengine.util.ColorHelper;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class MapObjectLayer extends Layer implements IMapObjectLayer {
   public static final String DEFAULT_MAPOBJECTLAYER_NAME = "default";
@@ -47,7 +48,7 @@ public class MapObjectLayer extends Layer implements IMapObjectLayer {
    * @param original
    *          the layer we want to copy
    */
-  public MapObjectLayer(MapObjectLayer original) {
+  @NullUnmarked public MapObjectLayer(MapObjectLayer original) {
     super(original);
     int mapId = Game.world().environment().getNextMapId();
     for (IMapObject obj : original.getMapObjects()) {

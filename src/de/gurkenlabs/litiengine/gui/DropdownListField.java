@@ -9,6 +9,7 @@ import de.gurkenlabs.litiengine.Align;
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.input.Input;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class DropdownListField extends GuiComponent {
   public static final FontIcon ARROW_DOWN = new FontIcon(ICON_FONT, "\uE804");
@@ -63,7 +64,7 @@ public class DropdownListField extends GuiComponent {
     return this.entrySprite;
   }
 
-  public List<ImageComponent> getListEntries() {
+  @NullUnmarked public List<ImageComponent> getListEntries() {
     return this.getContentList().getListEntry(0);
   }
 
@@ -71,11 +72,11 @@ public class DropdownListField extends GuiComponent {
     return this.numberOfShownElements;
   }
 
-  public int getSelectedIndex() {
+  @NullUnmarked public int getSelectedIndex() {
     return this.getContentList().getSelectionRow();
   }
 
-  @Nullable public Object getSelectedObject() {
+  @NullUnmarked @Nullable public Object getSelectedObject() {
     if (this.getContentArray().length == 0) {
       return null;
     }
@@ -95,7 +96,7 @@ public class DropdownListField extends GuiComponent {
     this.getChangeConsumer().add(c);
   }
 
-  @Override
+  @NullUnmarked @Override
   public void prepare() {
     this.contentList = new ListField(this.getX(), this.getY(), this.getWidth(), this.getHeight(), this.getContentArray(), this.numberOfShownElements);
     this.contentList.setButtonSprite(this.buttonSprite);
@@ -168,7 +169,7 @@ public class DropdownListField extends GuiComponent {
   /**
    * Toggle drop down.
    */
-  public void toggleDropDown() {
+  @NullUnmarked public void toggleDropDown() {
     if (this.isDroppedDown()) {
       this.getContentList().suspend();
       this.chosenElementComponent.prepare();
@@ -180,7 +181,7 @@ public class DropdownListField extends GuiComponent {
     this.getContentList().refresh();
   }
 
-  private void prepareInput() {
+  @NullUnmarked private void prepareInput() {
     Input.keyboard().onKeyTyped(KeyEvent.VK_UP, e -> {
       if (this.isSuspended() || !this.isVisible() || !this.isArrowKeyNavigation() || !this.getChosenElementComponent().isHovered()) {
         return;

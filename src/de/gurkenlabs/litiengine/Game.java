@@ -41,6 +41,7 @@ import de.gurkenlabs.litiengine.tweening.TweenEngine;
 import de.gurkenlabs.litiengine.util.ArrayUtilities;
 import de.gurkenlabs.litiengine.util.io.XmlUtilities;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /***
  * <p>
@@ -464,7 +465,7 @@ public final class Game {
    * @param args
    *          The arguments passed to the programs entry point.
    */
-  public static synchronized void init(String... args) {
+  @NullUnmarked public static synchronized void init(String... args) {
     if (initialized) {
       log().log(Level.INFO, "The game has already been initialized.");
       return;
@@ -523,7 +524,7 @@ public final class Game {
    * @param uncaughtExceptionHandler
    *          The handler to be used for uncaught exceptions.
    */
-  public static void setUncaughtExceptionHandler(UncaughtExceptionHandler uncaughtExceptionHandler) {
+  @NullUnmarked public static void setUncaughtExceptionHandler(UncaughtExceptionHandler uncaughtExceptionHandler) {
     gameLoop.setUncaughtExceptionHandler(uncaughtExceptionHandler);
     Thread.setDefaultUncaughtExceptionHandler(uncaughtExceptionHandler);
   }
@@ -545,7 +546,7 @@ public final class Game {
    * @see GameListener#started()
    * @see #hasStarted()
    */
-  public static synchronized void start() {
+  @NullUnmarked public static synchronized void start() {
     if (!initialized) {
       throw new IllegalStateException("The game cannot be started without being first initialized. Call Game.init(...) before Game.start().");
     }
@@ -627,7 +628,7 @@ public final class Game {
     return true;
   }
 
-  static synchronized void terminate() {
+  @NullUnmarked static synchronized void terminate() {
     if (!initialized) {
       return;
     }

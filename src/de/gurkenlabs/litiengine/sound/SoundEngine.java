@@ -23,6 +23,7 @@ import de.gurkenlabs.litiengine.entities.IEntity;
 import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.tweening.TweenFunction;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /**
  * This {@code SoundEngine} class provides all methods to play back sounds and music in your
@@ -50,7 +51,7 @@ public final class SoundEngine implements IUpdateable, ILaunchable {
 
   private static final Logger log = Logger.getLogger(SoundEngine.class.getName());
   @Nullable private Point2D listenerLocation;
-  private UnaryOperator<Point2D> listenerLocationCallback = old -> Game.world().camera().getFocus();
+  @SuppressWarnings("NullAway") private UnaryOperator<Point2D> listenerLocationCallback = old -> Game.world().camera().getFocus();
   private int maxDist = DEFAULT_MAX_DISTANCE;
   @Nullable private MusicPlayback music;
   private final Collection<MusicPlayback> allMusic = ConcurrentHashMap.newKeySet();
@@ -667,7 +668,7 @@ public final class SoundEngine implements IUpdateable, ILaunchable {
     listenerLocationCallback = callback;
   }
 
-  @Override
+  @NullUnmarked @Override
   public void start() {
     listenerLocation = Game.world().camera().getFocus();
   }

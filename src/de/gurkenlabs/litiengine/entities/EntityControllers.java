@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /**
  * This class holds all controllers for the entities in the game. It is used as
@@ -44,7 +45,7 @@ public final class EntityControllers {
     return null;
   }
 
-  public <T extends IEntityController> void clearControllers(Class<T> clss) {
+  @NullUnmarked public <T extends IEntityController> void clearControllers(Class<T> clss) {
     Optional<Class<? extends IEntityController>> typeKey = this.controllers.keySet().stream().filter(x -> clss.isAssignableFrom(clss)).findFirst();
     if (typeKey.isPresent()) {
       IEntityController controller = this.controllers.get(typeKey.get());

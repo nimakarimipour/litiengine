@@ -11,6 +11,7 @@ import de.gurkenlabs.litiengine.entities.IMobileEntity;
 import de.gurkenlabs.litiengine.util.MathUtilities;
 import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class MovementController<T extends IMobileEntity> implements IMovementController {
   private final List<Force> activeForces;
@@ -28,12 +29,12 @@ public class MovementController<T extends IMobileEntity> implements IMovementCon
     this.mobileEntity = mobileEntity;
   }
 
-  @Override
+  @NullUnmarked @Override
   public void attach() {
     Game.loop().attach(this);
   }
 
-  @Override
+  @NullUnmarked @Override
   public void detach() {
     Game.loop().detach(this);
   }
@@ -88,7 +89,7 @@ public class MovementController<T extends IMobileEntity> implements IMovementCon
     this.handleMovement();
   }
 
-  public void handleMovement() {
+  @NullUnmarked public void handleMovement() {
     if (!this.isMovementAllowed()) {
       this.velocity = 0;
       return;
@@ -166,7 +167,7 @@ public class MovementController<T extends IMobileEntity> implements IMovementCon
     return true;
   }
 
-  private void handleForces() {
+  @NullUnmarked private void handleForces() {
     // clean up forces
     this.activeForces.forEach(x -> {
       if (x.hasEnded()) {

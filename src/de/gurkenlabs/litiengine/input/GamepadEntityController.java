@@ -6,6 +6,7 @@ import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.entities.IMobileEntity;
 import de.gurkenlabs.litiengine.physics.MovementController;
 import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class GamepadEntityController<T extends IMobileEntity> extends MovementController<T> {
   private int gamepadId = -1;
@@ -13,7 +14,7 @@ public class GamepadEntityController<T extends IMobileEntity> extends MovementCo
   private double gamepadRightStick = Game.config().input().getGamepadStickDeadzone();
   private boolean rotateWithRightStick = false;
 
-  public GamepadEntityController(final T entity, boolean rotateWithRightStick) {
+  @NullUnmarked public GamepadEntityController(final T entity, boolean rotateWithRightStick) {
     super(entity);
     if (Input.gamepads().current() != null) {
       this.gamepadId = Input.gamepads().current().getId();
@@ -68,7 +69,7 @@ public class GamepadEntityController<T extends IMobileEntity> extends MovementCo
     this.rotateWithRightStick = rotateWithRightStick;
   }
 
-  private void retrieveGamepadValues() {
+  @NullUnmarked private void retrieveGamepadValues() {
     if (this.gamepadId == -1 || this.gamepadId != -1 && Input.gamepads().getById(this.gamepadId) == null) {
       return;
     }

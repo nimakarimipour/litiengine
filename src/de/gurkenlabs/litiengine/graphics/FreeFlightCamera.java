@@ -5,6 +5,7 @@ import java.awt.geom.Point2D;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.IUpdateable;
 import de.gurkenlabs.litiengine.input.Input;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class FreeFlightCamera extends Camera implements IUpdateable {
   private static final double DEFAULT_SCROLL_PIXELS_PER_SECOND = 400;
@@ -39,7 +40,7 @@ public class FreeFlightCamera extends Camera implements IUpdateable {
    * @param focus
    *          The initial focus of this instance.
    */
-  public FreeFlightCamera(final Point2D focus) {
+  @NullUnmarked public FreeFlightCamera(final Point2D focus) {
     this.setFocus(focus);
     this.velocity = DEFAULT_SCROLL_PIXELS_PER_SECOND;
     this.scrollPadding = DEFAULT_SCROLL_PADDING;
@@ -69,7 +70,7 @@ public class FreeFlightCamera extends Camera implements IUpdateable {
     this.handleFreeFlightCamera();
   }
 
-  private void handleFreeFlightCamera() {
+  @NullUnmarked private void handleFreeFlightCamera() {
     if (Game.world().environment() == null || Game.world().environment().getMap() == null) {
       return;
     }

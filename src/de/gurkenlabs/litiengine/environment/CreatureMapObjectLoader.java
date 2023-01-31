@@ -17,6 +17,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.MapObjectProperty;
 import de.gurkenlabs.litiengine.environment.tilemap.MapObjectType;
 import de.gurkenlabs.litiengine.graphics.animation.EntityAnimationController;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class CreatureMapObjectLoader extends MapObjectLoader {
   private static final Logger log = Logger.getLogger(CreatureMapObjectLoader.class.getName());
@@ -86,7 +87,7 @@ public class CreatureMapObjectLoader extends MapObjectLoader {
     return entities;
   }
 
-  protected Creature createNewCreature(IMapObject mapObject, @Nullable String spriteSheet) {
+  @NullUnmarked protected Creature createNewCreature(IMapObject mapObject, @Nullable String spriteSheet) {
     // for each known custom creature type, check if it was registered for the specified spriteSheetName
     // if so: create an instance of the custom class instead of the default Creature class
     for (Class<? extends Creature> customCreature : customCreatureType) {

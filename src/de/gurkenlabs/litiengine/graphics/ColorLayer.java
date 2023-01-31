@@ -12,6 +12,7 @@ import de.gurkenlabs.litiengine.environment.Environment;
 import de.gurkenlabs.litiengine.util.Imaging;
 import de.gurkenlabs.litiengine.util.MathUtilities;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public abstract class ColorLayer implements IRenderable {
   private final Environment environment;
@@ -19,7 +20,7 @@ public abstract class ColorLayer implements IRenderable {
 
   @Nullable private Color color;
 
-  protected ColorLayer(Environment env, @Nullable final Color color) {
+  @NullUnmarked protected ColorLayer(Environment env, @Nullable final Color color) {
     this.environment = env;
     this.color = color;
 
@@ -28,7 +29,7 @@ public abstract class ColorLayer implements IRenderable {
     this.updateSection(this.environment.getMap().getBounds());
   }
 
-  @Override
+  @NullUnmarked @Override
   public void render(Graphics2D g) {
     final Rectangle2D viewport = Game.world().camera().getViewport();
     ImageRenderer.render(g, this.layer, -viewport.getX(), -viewport.getY());
@@ -38,17 +39,17 @@ public abstract class ColorLayer implements IRenderable {
     return this.color;
   }
 
-  public void setAlpha(int ambientAlpha) {
+  @NullUnmarked public void setAlpha(int ambientAlpha) {
     this.setColor(new Color(this.getColor().getRed(), this.getColor().getGreen(), this.getColor().getBlue(), MathUtilities.clamp(ambientAlpha, 0, 255)));
     this.updateSection(this.environment.getMap().getBounds());
   }
 
-  public void setColor(final Color color) {
+  @NullUnmarked public void setColor(final Color color) {
     this.color = color;
     this.updateSection(this.environment.getMap().getBounds());
   }
 
-  public void updateSection(Rectangle2D section) {
+  @NullUnmarked public void updateSection(Rectangle2D section) {
     if (this.getColor() == null) {
       return;
     }

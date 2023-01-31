@@ -15,6 +15,7 @@ import de.gurkenlabs.litiengine.util.AlphanumComparator;
 import de.gurkenlabs.litiengine.util.Imaging;
 import de.gurkenlabs.litiengine.util.io.FileUtilities;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public final class Spritesheet implements Comparable<Spritesheet> {
   private static final Logger log = Logger.getLogger(Spritesheet.class.getName());
@@ -188,7 +189,7 @@ public final class Spritesheet implements Comparable<Spritesheet> {
     return this.getRows() * this.getColumns();
   }
 
-  public boolean isLoaded() {
+  @NullUnmarked public boolean isLoaded() {
     return Resources.spritesheets().contains(this.getName()) && Resources.spritesheets().get(this.getName()).equals(this);
   }
 
@@ -206,11 +207,11 @@ public final class Spritesheet implements Comparable<Spritesheet> {
     this.updateRowsAndCols();
   }
 
-  private void checkWidth(int value) {
+  @NullUnmarked private void checkWidth(int value) {
     checkDimension(value, this.getImage().getWidth(), this.getName(), "width");
   }
 
-  private void checkHeight(int value) {
+  @NullUnmarked private void checkHeight(int value) {
     checkDimension(value, this.getImage().getHeight(), this.getName(), "height");
   }
 
@@ -242,7 +243,7 @@ public final class Spritesheet implements Comparable<Spritesheet> {
     return new Point(margin + column * (this.getSpriteWidth() + spacing), margin + row * (this.getSpriteHeight() + spacing));
   }
 
-  private void updateRowsAndCols() {
+  @NullUnmarked private void updateRowsAndCols() {
     final BufferedImage sprite = this.getImage();
     this.columns = sprite.getWidth() / this.spriteWidth;
     this.rows = sprite.getHeight() / this.spriteHeight;

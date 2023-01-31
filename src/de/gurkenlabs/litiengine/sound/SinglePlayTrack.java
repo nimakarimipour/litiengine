@@ -7,6 +7,7 @@ import javax.sound.sampled.AudioFormat;
 
 import de.gurkenlabs.litiengine.resources.Resources;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /**
  * A {@code Track} that plays a sound once and then stops.
@@ -57,7 +58,7 @@ public class SinglePlayTrack implements Track {
     return new Iter();
   }
 
-  @Nullable @Override
+  @NullUnmarked @Nullable @Override
   public AudioFormat getFormat() {
     return this.sound.getFormat();
   }
@@ -67,13 +68,13 @@ public class SinglePlayTrack implements Track {
     return obj instanceof SinglePlayTrack && this.sound == ((SinglePlayTrack) obj).sound;
   }
 
-  @Override
+  @NullUnmarked @Override
   public int hashCode() {
     // add a constant to avoid collisions with LoopedTrack
     return this.sound.hashCode() + 0xdb9857d0;
   }
 
-  @Override
+  @NullUnmarked @Override
   public String toString() {
     return "track: " + this.sound.getName() + " (not looped)";
   }

@@ -12,6 +12,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.environment.tilemap.IMapObject;
 import de.gurkenlabs.litiengine.environment.tilemap.MapObjectType;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 @XmlRootElement(name = "template")
 public class Blueprint extends MapObject {
@@ -102,7 +103,7 @@ public class Blueprint extends MapObject {
     return this.build(Math.round((float) location.getX()), Math.round((float) location.getY()));
   }
 
-  public List<IMapObject> build(float x, float y) {
+  @NullUnmarked public List<IMapObject> build(float x, float y) {
     List<IMapObject> builtObjects = new ArrayList<>();
 
     int baseId = Game.world().environment().getNextMapId();

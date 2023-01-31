@@ -10,6 +10,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.TmxType;
 import de.gurkenlabs.litiengine.graphics.animation.IEntityAnimationController;
 import de.gurkenlabs.litiengine.graphics.animation.PropAnimationController;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 @AnimationInfo(spritePrefix = PropAnimationController.PROP_IDENTIFIER)
 @TmxType(MapObjectType.PROP)
@@ -120,7 +121,7 @@ public class Prop extends CombatEntity {
    *
    * @return the state
    */
-  public PropState getState() {
+  @NullUnmarked public PropState getState() {
     if (!this.isIndestructible() && this.getHitPoints().get() <= 0) {
       return PropState.DESTROYED;
     } else if (!this.isIndestructible() && this.getHitPoints().get() <= this.getHitPoints().getMax() * 0.5) {
@@ -206,7 +207,7 @@ public class Prop extends CombatEntity {
     return new PropAnimationController<>(this);
   }
 
-  private void updateAnimationController() {
+  @NullUnmarked private void updateAnimationController() {
     IEntityAnimationController<?> controller = this.createAnimationController();
     this.getControllers().addController(controller);
     if (Game.world().environment() != null && Game.world().environment().isLoaded()) {

@@ -9,6 +9,7 @@ import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.entities.IEntity;
 import de.gurkenlabs.litiengine.entities.Spawnpoint;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /**
  * TODO: Implement spawn event/listener
@@ -147,7 +148,7 @@ public abstract class EntitySpawner<T extends IEntity> implements IEntitySpawner
    * 
    * @see SpawnMode
    */
-  protected void spawnNewEntities() {
+  @NullUnmarked protected void spawnNewEntities() {
     if (this.getSpawnMode() != SpawnMode.CUSTOMSPAWNPOINTS && this.getSpawnPoints().isEmpty()) {
       return;
     }
@@ -181,7 +182,7 @@ public abstract class EntitySpawner<T extends IEntity> implements IEntitySpawner
     }
   }
 
-  private void spawn(@Nullable final Spawnpoint spawnpoint, final int amount) {
+  @NullUnmarked private void spawn(@Nullable final Spawnpoint spawnpoint, final int amount) {
     if (spawnpoint.getEnvironment() == null || !spawnpoint.getEnvironment().isLoaded()) {
       return;
     }

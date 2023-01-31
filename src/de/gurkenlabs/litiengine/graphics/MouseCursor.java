@@ -17,6 +17,7 @@ import de.gurkenlabs.litiengine.input.Input;
 import de.gurkenlabs.litiengine.input.Mouse;
 import de.gurkenlabs.litiengine.util.Imaging;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /**
  * The visual representation of the {@code Mouse} in the LITIENGINE.<br>
@@ -24,7 +25,7 @@ import javax.annotation.Nullable;
  * 
  * @see Mouse
  */
-public final class MouseCursor implements IRenderable {
+@NullUnmarked public final class MouseCursor implements IRenderable {
 
   private static final Cursor DEFAULT_CURSOR = new Cursor(Cursor.DEFAULT_CURSOR);
   private static final Cursor BLANK_CURSOR;
@@ -58,7 +59,7 @@ public final class MouseCursor implements IRenderable {
     this.visible = true;
   }
 
-  @Override
+  @NullUnmarked @Override
   public void render(Graphics2D g) {
     if (this.isVisible()) {
       final Point2D locationWithOffset = new Point2D.Double(Input.mouse().getLocation().getX() + this.getOffsetX(), Input.mouse().getLocation().getY() + this.getOffsetY());
@@ -100,7 +101,7 @@ public final class MouseCursor implements IRenderable {
     this.set(img, Align.LEFT, Valign.TOP);
   }
 
-  public void set(final Image img, final int offsetX, final int offsetY) {
+  @NullUnmarked public void set(final Image img, final int offsetX, final int offsetY) {
     this.image = img;
     this.setOffset(offsetX, offsetY);
 

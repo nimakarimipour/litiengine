@@ -17,6 +17,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.MapObjectProperty;
 import de.gurkenlabs.litiengine.environment.tilemap.TmxProperty;
 import de.gurkenlabs.litiengine.tweening.TweenType;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 @CombatInfo
 @CollisionInfo(collision = true)
@@ -250,7 +251,7 @@ public class CombatEntity extends CollisionEntity implements ICombatEntity {
   /**
    * Resurrect.
    */
-  @Override
+  @NullUnmarked @Override
   public void resurrect() {
     if (!this.isDead()) {
       return;

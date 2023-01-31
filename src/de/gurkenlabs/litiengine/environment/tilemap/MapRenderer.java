@@ -19,6 +19,7 @@ import de.gurkenlabs.litiengine.graphics.RenderType;
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.resources.Resources;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class MapRenderer {
   private static Collection<LayerRenderedListener> layerRenderedListeners = ConcurrentHashMap.newKeySet();
@@ -76,7 +77,7 @@ public class MapRenderer {
     renderLayers(g, map, map, viewport, env, renderTypes, 1f);
   }
 
-  private static void renderLayers(final Graphics2D g, final IMap map, ILayerList layers, final Rectangle2D viewport, @Nullable Environment env, RenderType[] renderTypes, float opacity) {
+  @NullUnmarked private static void renderLayers(final Graphics2D g, final IMap map, ILayerList layers, final Rectangle2D viewport, @Nullable Environment env, RenderType[] renderTypes, float opacity) {
     final List<ILayer> renderLayers = layers.getRenderLayers();
     for (final ILayer layer : renderLayers) {
       if (layer == null || !shouldBeRendered(g, map, layer, renderTypes)) {
@@ -106,7 +107,7 @@ public class MapRenderer {
     }
   }
 
-  private static void renderTileLayer(final Graphics2D g, final ITileLayer layer, final IMap map, final Rectangle2D viewport, float opacity) {
+  @NullUnmarked private static void renderTileLayer(final Graphics2D g, final ITileLayer layer, final IMap map, final Rectangle2D viewport, float opacity) {
     // TODO: possibly implement the same render order that Tiled uses for staggered maps: undo the staggering, and then render it right-down
     g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
     if (map.getRenderOrder().btt) {
@@ -125,7 +126,7 @@ public class MapRenderer {
     }
   }
 
-  private static void drawRow(Graphics2D g, ITileLayer layer, int y, IMap map, Rectangle2D viewport) {
+  @NullUnmarked private static void drawRow(Graphics2D g, ITileLayer layer, int y, IMap map, Rectangle2D viewport) {
     if (map.getRenderOrder().rtl) {
       for (int x = map.getWidth() - 1; x >= 0; x--) {
         drawTile(g, layer, x, y, map, viewport);
@@ -137,7 +138,7 @@ public class MapRenderer {
     }
   }
 
-  private static void drawTile(Graphics2D g, ITileLayer layer, int x, int y, IMap map, Rectangle2D viewport) {
+  @NullUnmarked private static void drawTile(Graphics2D g, ITileLayer layer, int x, int y, IMap map, Rectangle2D viewport) {
     ITile tile = layer.getTile(x, y);
     if (tile == null) {
       return;
@@ -182,7 +183,7 @@ public class MapRenderer {
     return layer.isVisible() && layer.getOpacity() > 0f;
   }
 
-  protected static void renderImageLayer(Graphics2D g, IImageLayer layer, final IMap map, Rectangle2D viewport, float opacity) {
+  @NullUnmarked protected static void renderImageLayer(Graphics2D g, IImageLayer layer, final IMap map, Rectangle2D viewport, float opacity) {
     Spritesheet sprite = Resources.spritesheets().get(layer.getImage().getSource());
     BufferedImage img;
     if (sprite == null) {

@@ -18,6 +18,7 @@ import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.util.Imaging;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class AnimationController implements IAnimationController {
   private static final int MAX_IMAGE_EFFECTS = 20;
@@ -99,7 +100,7 @@ public class AnimationController implements IAnimationController {
     this(new Animation(sprite, loop, Resources.spritesheets().getCustomKeyFrameDurations(sprite)));
   }
 
-  public static Animation flipAnimation(Animation anim, String newSpriteName) {
+  @NullUnmarked public static Animation flipAnimation(Animation anim, String newSpriteName) {
     final BufferedImage flippedImage = Imaging.flipSpritesHorizontally(anim.getSpritesheet());
     Spritesheet flippedSpritesheet = Resources.spritesheets().load(flippedImage, newSpriteName, anim.getSpritesheet().getSpriteWidth(), anim.getSpritesheet().getSpriteHeight());
     return new Animation(flippedSpritesheet, anim.isLooping(), anim.getKeyFrameDurations());
@@ -139,7 +140,7 @@ public class AnimationController implements IAnimationController {
    * 
    * @see ILoop
    */
-  public void attach() {
+  @NullUnmarked public void attach() {
     Game.loop().attach(this);
   }
 
@@ -153,7 +154,7 @@ public class AnimationController implements IAnimationController {
    * 
    * @see ILoop
    */
-  public void detach() {
+  @NullUnmarked public void detach() {
     Game.loop().detach(this);
   }
 

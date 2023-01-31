@@ -17,6 +17,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class GeometricUtilities {
   private static final double RAYCAST_EPSILON = 0.01;
@@ -66,7 +67,7 @@ public class GeometricUtilities {
    *          Point we want to calcuate the angle to.
    * @return angle in degrees. This is the angle from centerPt to targetPt.
    */
-  public static double calcRotationAngleInDegrees(@Nullable final Point2D centerPt, final Point2D targetPt) {
+  @NullUnmarked public static double calcRotationAngleInDegrees(@Nullable final Point2D centerPt, final Point2D targetPt) {
     return calcRotationAngleInDegrees(centerPt.getX(), centerPt.getY(), targetPt.getX(), targetPt.getY());
   }
 
@@ -79,7 +80,7 @@ public class GeometricUtilities {
    *          the p
    * @return true, if successful
    */
-  public static boolean contains(@Nullable final Rectangle2D rectangle, final Point2D p) {
+  @NullUnmarked public static boolean contains(@Nullable final Rectangle2D rectangle, final Point2D p) {
     return rectangle.getX() <= p.getX() && rectangle.getY() <= p.getY() && rectangle.getX() + rectangle.getWidth() >= p.getX() && rectangle.getY() + rectangle.getHeight() >= p.getY();
   }
 
@@ -304,7 +305,7 @@ public class GeometricUtilities {
    *          the rectangle
    * @return the lines
    */
-  public static Line2D[] getLines(@Nullable final Rectangle2D rectangle) {
+  @NullUnmarked public static Line2D[] getLines(@Nullable final Rectangle2D rectangle) {
     final Line2D[] lines = new Line2D[4];
     lines[0] = new Line2D.Double(rectangle.getMinX(), rectangle.getMinY(), rectangle.getMinX(), rectangle.getMaxY());
     lines[1] = new Line2D.Double(rectangle.getMinX(), rectangle.getMaxY(), rectangle.getMaxX(), rectangle.getMaxY());
@@ -490,7 +491,7 @@ public class GeometricUtilities {
     return line;
   }
 
-  public static boolean intersects(@Nullable final Rectangle2D a, @Nullable final Rectangle2D b) {
+  @NullUnmarked public static boolean intersects(@Nullable final Rectangle2D a, @Nullable final Rectangle2D b) {
     return Math.abs(a.getCenterX() - b.getCenterX()) < a.getWidth() * 0.5 + b.getWidth() * 0.5 && Math.abs(a.getCenterY() - b.getCenterY()) < a.getHeight() * 0.5 + b.getHeight() * 0.5;
   }
 
@@ -516,7 +517,7 @@ public class GeometricUtilities {
    *          The distance between starting point and end point.
    * @return The {@code Point2D} where the projection ends.
    */
-  public static Point2D project(@Nullable final Point2D start, final double angle, final double delta) {
+  @NullUnmarked public static Point2D project(@Nullable final Point2D start, final double angle, final double delta) {
     double x = start.getX();
     double y = start.getY();
 
@@ -541,7 +542,7 @@ public class GeometricUtilities {
    *          the scalar
    * @return the point2 d. double
    */
-  public static Point2D project(@Nullable final Point2D start, final Point2D end, final double scalar) {
+  @NullUnmarked public static Point2D project(@Nullable final Point2D start, final Point2D end, final double scalar) {
     double dx = end.getX() - start.getX();
     double dy = end.getY() - start.getY();
 

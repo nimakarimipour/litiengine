@@ -15,6 +15,7 @@ import de.gurkenlabs.litiengine.graphics.IRenderable;
 import de.gurkenlabs.litiengine.physics.Collision;
 import de.gurkenlabs.litiengine.util.MathUtilities;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class AStarGrid implements IRenderable {
   public static final double PENALTY_STATIC_PROP = 5;
@@ -124,7 +125,7 @@ public class AStarGrid implements IRenderable {
     return this.size;
   }
 
-  @Override
+  @NullUnmarked @Override
   public void render(Graphics2D g) {
     final Rectangle2D viewport = Game.world().camera().getViewport();
 
@@ -169,7 +170,7 @@ public class AStarGrid implements IRenderable {
     }
   }
 
-  protected void assignPenalty(AStarNode node) {
+  @NullUnmarked protected void assignPenalty(AStarNode node) {
     if (!Game.physics().collides(node.getLocation(), Collision.DYNAMIC)) {
       return;
     }

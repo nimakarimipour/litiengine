@@ -6,6 +6,7 @@ import java.awt.Stroke;
 import java.awt.geom.Point2D;
 
 import de.gurkenlabs.litiengine.input.Input;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class HorizontalSlider extends Slider {
   public static final FontIcon ARROW_LEFT = new FontIcon(ICON_FONT, "\uE805");
@@ -22,7 +23,7 @@ public class HorizontalSlider extends Slider {
     return new Point2D.Double(this.minSliderX + this.getCurrentValue() / (this.getMaxValue() - this.getMinValue()) * (this.maxSliderX - this.minSliderX), this.getY());
   }
 
-  @Override
+  @NullUnmarked @Override
   protected void initializeComponents() {
     super.initializeComponents();
 
@@ -48,7 +49,7 @@ public class HorizontalSlider extends Slider {
 
   }
 
-  @Override
+  @NullUnmarked @Override
   public void setValueRelativeToMousePosition() {
     final double mouseX = Input.mouse().getLocation().getX();
     if (mouseX >= this.minSliderX && mouseX <= this.maxSliderX) {

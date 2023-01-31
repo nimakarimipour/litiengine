@@ -7,6 +7,7 @@ import java.util.Objects;
 import de.gurkenlabs.litiengine.environment.tilemap.ICustomProperty;
 import de.gurkenlabs.litiengine.util.ColorHelper;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class CustomProperty implements ICustomProperty {
 
@@ -92,7 +93,7 @@ public class CustomProperty implements ICustomProperty {
     this.location = null;
   }
 
-  @Override
+  @NullUnmarked @Override
   public void setValue(@Nullable Enum<?> value) {
     this.value = value.name();
     this.location = null;
@@ -127,7 +128,7 @@ public class CustomProperty implements ICustomProperty {
     return this.value;
   }
 
-  @Override
+  @NullUnmarked @Override
   public char getAsChar() {
     return this.value.charAt(0); // TODO Is this enough? Should it check if it's the right length and throw an exception if it's not?
   }
@@ -203,7 +204,7 @@ public class CustomProperty implements ICustomProperty {
     this.type = Objects.requireNonNull(type);
   }
 
-  @Override
+  @NullUnmarked @Override
   public boolean equals(Object anObject) {
     if (this == anObject) {
       return true;
@@ -215,7 +216,7 @@ public class CustomProperty implements ICustomProperty {
     return this.getType().equals(other.getType()) && this.getAsString().equals(other.getAsString());
   }
 
-  @Override
+  @NullUnmarked @Override
   public int hashCode() {
     return this.getType().hashCode() * 31 + this.getAsString().hashCode();
   }

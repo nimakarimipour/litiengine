@@ -26,6 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import de.gurkenlabs.litiengine.util.ArrayUtilities;
 import de.gurkenlabs.litiengine.util.io.Codec;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class TileData {
   private static final Logger log = Logger.getLogger(TileData.class.getName());
@@ -276,7 +277,7 @@ public class TileData {
     return this.offsetY;
   }
 
-  protected static List<Tile> parseBase64Data(@Nullable String value, @Nullable String compression) throws InvalidTileLayerException {
+  @NullUnmarked protected static List<Tile> parseBase64Data(@Nullable String value, @Nullable String compression) throws InvalidTileLayerException {
     List<Tile> parsed = new ArrayList<>();
 
     String enc = value.trim();
@@ -329,7 +330,7 @@ public class TileData {
     return parsed;
   }
 
-  protected static List<Tile> parseCsvData(@Nullable String value) throws InvalidTileLayerException {
+  @NullUnmarked protected static List<Tile> parseCsvData(@Nullable String value) throws InvalidTileLayerException {
 
     List<Tile> parsed = new ArrayList<>();
 
@@ -406,7 +407,7 @@ public class TileData {
   /**
    * For infinite maps, the size of a tile layer depends on the {@code TileChunks} it contains.
    */
-  private void updateDimensionsByTileData() {
+  @NullUnmarked private void updateDimensionsByTileData() {
     int minX = 0;
     int maxX = 0;
     int minY = 0;
@@ -441,7 +442,7 @@ public class TileData {
     this.offsetY = minY;
   }
 
-  private List<Tile> parseChunkData() throws InvalidTileLayerException {
+  @NullUnmarked private List<Tile> parseChunkData() throws InvalidTileLayerException {
     // first fill a two-dimensional array with all the information of the chunks
     Tile[][] tileArr = new Tile[this.getHeight()][this.getWidth()];
 
@@ -485,7 +486,7 @@ public class TileData {
     }
   }
 
-  private List<Tile> parseData() throws InvalidTileLayerException {
+  @NullUnmarked private List<Tile> parseData() throws InvalidTileLayerException {
     List<Tile> tmpTiles;
     if (this.getEncoding().equals(Encoding.BASE64)) {
       tmpTiles = parseBase64Data(this.value, this.compression);

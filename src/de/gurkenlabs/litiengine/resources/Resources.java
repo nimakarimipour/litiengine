@@ -26,6 +26,7 @@ import de.gurkenlabs.litiengine.graphics.emitters.xml.EmitterLoader;
 import de.gurkenlabs.litiengine.sound.Sound;
 import de.gurkenlabs.litiengine.util.TimeUtilities;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /**
  * This class is the engines entry point for accessing any kind of resources. A resource is any non-executable data that is deployed with your game.
@@ -351,7 +352,7 @@ public final class Resources {
     }
   }
 
-  @Nullable private static InputStream getResource(@Nullable final URL file) {
+  @NullUnmarked @Nullable private static InputStream getResource(@Nullable final URL file) {
     try {
       return file.openStream();
     } catch (IOException e) {

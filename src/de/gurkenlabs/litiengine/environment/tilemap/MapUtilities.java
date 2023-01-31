@@ -10,6 +10,7 @@ import java.util.List;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.util.MathUtilities;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public final class MapUtilities {
   private MapUtilities() {
@@ -57,7 +58,7 @@ public final class MapUtilities {
     return maxId;
   }
 
-  public static Rectangle2D getTileBoundingBox(final IMap map, final Rectangle2D box) {
+  @NullUnmarked public static Rectangle2D getTileBoundingBox(final IMap map, final Rectangle2D box) {
     final int minX = (int) MathUtilities.clamp(box.getX(), 0, map.getSizeInPixels().width - 1);
     final int minY = (int) MathUtilities.clamp(box.getY(), 0, map.getSizeInPixels().height - 1);
     final int maxX = (int) MathUtilities.clamp(box.getMaxX(), 0, map.getSizeInPixels().width - 1);
@@ -99,7 +100,7 @@ public final class MapUtilities {
    *          the pixel map location.
    * @return The x / y tile coordinate for the given mapLocation.
    */
-  public static Point getTile(@Nullable IMap map, final Point2D mapLocation) {
+  @NullUnmarked public static Point getTile(@Nullable IMap map, final Point2D mapLocation) {
     if (map == null) {
       return new Point(-1, -1);
     }
@@ -124,7 +125,7 @@ public final class MapUtilities {
     return new Point2D.Double(tileLocation.x * map.getTileSize().getWidth(), tileLocation.y * map.getTileSize().getHeight());
   }
 
-  public static List<ITile> getTilesByPixelLocation(final IMap map, final Point2D location) {
+  @NullUnmarked public static List<ITile> getTilesByPixelLocation(final IMap map, final Point2D location) {
     final List<ITile> tilesAtLocation = new ArrayList<>();
     if (map.getTileLayers() == null || map.getTileLayers().isEmpty()) {
       return tilesAtLocation;
@@ -149,7 +150,7 @@ public final class MapUtilities {
     return getTopMostTile(Game.world().environment().getMap(), location);
   }
 
-  @Nullable public static ITile getTopMostTile(final IMap map, final Point2D location) {
+  @NullUnmarked @Nullable public static ITile getTopMostTile(final IMap map, final Point2D location) {
     if (map.getTileLayers() == null || map.getTileLayers().isEmpty()) {
       return null;
     }
@@ -206,7 +207,7 @@ public final class MapUtilities {
     return match;
   }
 
-  @Nullable public static Path2D convertPolyshapeToPath(final IMapObject mapObject) {
+  @NullUnmarked @Nullable public static Path2D convertPolyshapeToPath(final IMapObject mapObject) {
     if (mapObject == null || (!mapObject.isPolygon() && !mapObject.isPolyline())) {
       return null;
     }
@@ -230,7 +231,7 @@ public final class MapUtilities {
     return path;
   }
 
-  public static List<Point2D> getAbsolutePolyshapePoints(final IMapObject mapObject) {
+  @NullUnmarked public static List<Point2D> getAbsolutePolyshapePoints(final IMapObject mapObject) {
     if (mapObject.isPolygon()) {
       return mapObject.getPolygon().getAbsolutePoints(mapObject.getLocation());
     }
@@ -258,7 +259,7 @@ public final class MapUtilities {
     return getTileBoundingBox(getCurrentMap(), mapLocation);
   }
 
-  public static Rectangle2D getTileBoundingBox(@Nullable final IMap map, final Point2D mapLocation) {
+  @NullUnmarked public static Rectangle2D getTileBoundingBox(@Nullable final IMap map, final Point2D mapLocation) {
     if (map == null) {
       return new Rectangle2D.Double();
     }
@@ -278,7 +279,7 @@ public final class MapUtilities {
     return getTileBoundingBox(getCurrentMap(), tile);
   }
 
-  @Nullable public static Rectangle2D getTileBoundingBox(@Nullable final IMap map, final Point tile) {
+  @NullUnmarked @Nullable public static Rectangle2D getTileBoundingBox(@Nullable final IMap map, final Point tile) {
     if (map == null) {
       return new Rectangle2D.Double();
     }

@@ -7,6 +7,7 @@ import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class NumberAdjuster extends TextFieldComponent {
   public static final FontIcon ARROW_DOWN = new FontIcon(ICON_FONT, "\uE84A");
@@ -28,7 +29,7 @@ public class NumberAdjuster extends TextFieldComponent {
     this.setFormat(DOUBLE_FORMAT);
   }
 
-  public void decrement() {
+  @NullUnmarked public void decrement() {
     this.setCurrentValue(this.getCurrentValue().subtract(this.getStepSize()));
   }
 
@@ -48,7 +49,7 @@ public class NumberAdjuster extends TextFieldComponent {
     return this.upperBound;
   }
 
-  public void increment() {
+  @NullUnmarked public void increment() {
     this.setCurrentValue(this.getCurrentValue().add(this.getStepSize()));
   }
 
@@ -90,7 +91,7 @@ public class NumberAdjuster extends TextFieldComponent {
 
   }
 
-  public void setLowerBound(final BigDecimal lowerBound) {
+  @NullUnmarked public void setLowerBound(final BigDecimal lowerBound) {
     this.lowerBound = lowerBound;
     if (this.getCurrentValue().compareTo(this.getLowerBound()) < 0) {
       this.setCurrentValue(this.getLowerBound());
@@ -101,7 +102,7 @@ public class NumberAdjuster extends TextFieldComponent {
     this.step = stepSize;
   }
 
-  public void setUpperBound(final BigDecimal upperBound) {
+  @NullUnmarked public void setUpperBound(final BigDecimal upperBound) {
     this.upperBound = upperBound;
     if (this.getCurrentValue().compareTo(this.getUpperBound()) > 0) {
       this.setCurrentValue(this.getUpperBound());

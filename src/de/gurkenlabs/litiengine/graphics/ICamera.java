@@ -10,6 +10,7 @@ import de.gurkenlabs.litiengine.IUpdateable;
 import de.gurkenlabs.litiengine.Valign;
 import de.gurkenlabs.litiengine.entities.IEntity;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /**
  * The Interface ICamera defines methods that allow to determine where entities
@@ -119,7 +120,7 @@ public interface ICamera extends IUpdateable {
    *          the entity
    * @return the screen location
    */
-  default Point2D getViewportLocation(IEntity entity) {
+  @NullUnmarked default Point2D getViewportLocation(IEntity entity) {
     Point2D entityLocation = entity.getLocation();
     return getViewportLocation(entityLocation.getX(), entityLocation.getY());
   }
@@ -131,7 +132,7 @@ public interface ICamera extends IUpdateable {
    *          the point
    * @return the screen location
    */
-  default Point2D getViewportLocation(@Nullable Point2D point) {
+  @NullUnmarked default Point2D getViewportLocation(@Nullable Point2D point) {
     return getViewportLocation(point.getX(), point.getY());
   }
 
@@ -141,7 +142,7 @@ public interface ICamera extends IUpdateable {
    * @see RenderEngine#setBaseRenderScale(float)
    * @return the scale factor
    */
-  default float getRenderScale() {
+  @NullUnmarked default float getRenderScale() {
     return Game.graphics().getBaseRenderScale() * Game.window().getResolutionScale() * this.getZoom();
   }
 

@@ -7,6 +7,7 @@ import java.util.List;
 import de.gurkenlabs.litiengine.entities.IMobileEntity;
 import de.gurkenlabs.litiengine.physics.MovementController;
 import de.gurkenlabs.litiengine.util.ListUtilities;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class KeyboardEntityController<T extends IMobileEntity> extends MovementController<T> {
   private final List<Integer> up;
@@ -18,7 +19,7 @@ public class KeyboardEntityController<T extends IMobileEntity> extends MovementC
     this(entity, KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_A, KeyEvent.VK_D);
   }
 
-  public KeyboardEntityController(final T entity, final int up, final int down, final int left, final int right) {
+  @NullUnmarked public KeyboardEntityController(final T entity, final int up, final int down, final int left, final int right) {
     super(entity);
     this.up = new ArrayList<>();
     this.down = new ArrayList<>();

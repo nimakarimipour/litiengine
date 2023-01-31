@@ -21,6 +21,7 @@ import de.gurkenlabs.litiengine.IUpdateable;
 import de.gurkenlabs.litiengine.environment.tilemap.MapUtilities;
 import de.gurkenlabs.litiengine.util.MathUtilities;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /**
  * This implementation provides information about the mouse input in the LITIENGINE.
@@ -60,7 +61,7 @@ public final class Mouse implements MouseListener, MouseMotionListener, MouseWhe
    * @throws AWTException
    *           In case the {@link Robot} class could not be initialized.
    */
-  Mouse() throws AWTException {
+  @NullUnmarked Mouse() throws AWTException {
     try {
       this.robot = new Robot();
       this.robot.setAutoDelay(0);
@@ -98,7 +99,7 @@ public final class Mouse implements MouseListener, MouseMotionListener, MouseWhe
     return this.location;
   }
 
-  @Override
+  @NullUnmarked @Override
   public Point2D getMapLocation() {
     return Game.world().camera().getMapLocation(new Point2D.Double(this.getLocation().getX() / Game.world().camera().getRenderScale(), this.getLocation().getY() / Game.world().camera().getRenderScale()));
   }
@@ -344,7 +345,7 @@ public final class Mouse implements MouseListener, MouseMotionListener, MouseWhe
     this.mouseReleasedListeners.clear();
   }
 
-  @Override
+  @NullUnmarked @Override
   public void setGrabMouse(final boolean grab) {
     this.grabMouse = grab;
 
@@ -355,7 +356,7 @@ public final class Mouse implements MouseListener, MouseMotionListener, MouseWhe
     }
   }
 
-  @Override
+  @NullUnmarked @Override
   public void setLocation(final Point2D adjustMouse) {
     if (adjustMouse == null) {
       return;
@@ -387,7 +388,7 @@ public final class Mouse implements MouseListener, MouseMotionListener, MouseWhe
    *
    * @param e The event containing information about the original mouse.
    */
-  private void setLocation(final MouseEvent e) {
+  @NullUnmarked private void setLocation(final MouseEvent e) {
     if (this.grabMouse && !Game.window().isFocusOwner()) {
       return;
     }

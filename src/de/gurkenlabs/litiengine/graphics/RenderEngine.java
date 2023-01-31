@@ -28,6 +28,7 @@ import de.gurkenlabs.litiengine.graphics.animation.IAnimationController;
 import de.gurkenlabs.litiengine.graphics.animation.IEntityAnimationController;
 import de.gurkenlabs.litiengine.graphics.emitters.Emitter;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /**
  * The 2D Render Engine is used to render texts, shapes and entities at their location in the
@@ -153,7 +154,7 @@ public final class RenderEngine {
    * @param antialias
    *          Configure whether or not to render the text with antialiasing.
    */
-  public void renderText(final Graphics2D g, final String text, final double x, final double y, boolean antialias) {
+  @NullUnmarked public void renderText(final Graphics2D g, final String text, final double x, final double y, boolean antialias) {
     if (text == null || text.isEmpty()) {
       return;
     }
@@ -250,7 +251,7 @@ public final class RenderEngine {
    *          The angle by which the shape will be rotated.
    * 
    */
-  public void renderShape(final Graphics2D g, final Shape shape, boolean antialiasing, double angle) {
+  @NullUnmarked public void renderShape(final Graphics2D g, final Shape shape, boolean antialiasing, double angle) {
     if (shape == null) {
       return;
     }
@@ -277,7 +278,7 @@ public final class RenderEngine {
    * @param shape
    *          The shape to be rendered.
    */
-  public void renderOutline(final Graphics2D g, @Nullable final Shape shape) {
+  @NullUnmarked public void renderOutline(final Graphics2D g, @Nullable final Shape shape) {
     renderOutline(g, shape, new BasicStroke(1 / Game.world().camera().getRenderScale()));
   }
 
@@ -291,7 +292,7 @@ public final class RenderEngine {
    * @param antialiasing
    *          Configure whether or not to render the shape with antialiasing.
    */
-  public void renderOutline(final Graphics2D g, final Shape shape, boolean antialiasing) {
+  @NullUnmarked public void renderOutline(final Graphics2D g, final Shape shape, boolean antialiasing) {
     renderOutline(g, shape, new BasicStroke(1 / Game.world().camera().getRenderScale()), antialiasing);
   }
 
@@ -344,7 +345,7 @@ public final class RenderEngine {
    *          The angle by which the shape will be rotated.
    * @see Stroke
    */
-  public void renderOutline(final Graphics2D g, @Nullable final Shape shape, final Stroke stroke, boolean antialiasing, double angle) {
+  @NullUnmarked public void renderOutline(final Graphics2D g, @Nullable final Shape shape, final Stroke stroke, boolean antialiasing, double angle) {
     if (shape == null) {
       return;
     }
@@ -390,7 +391,7 @@ public final class RenderEngine {
    * @param location
    *          The location of the image.
    */
-  public void renderImage(Graphics2D g, final Image image, Point2D location) {
+  @NullUnmarked public void renderImage(Graphics2D g, final Image image, Point2D location) {
     Point2D viewPortLocation = Game.world().camera().getViewportLocation(location);
     ImageRenderer.render(g, image, viewPortLocation.getX() * Game.world().camera().getRenderScale(), viewPortLocation.getY() * Game.world().camera().getRenderScale());
   }
@@ -422,7 +423,7 @@ public final class RenderEngine {
    * 
    * @see EntityYComparator
    */
-  public void renderEntities(final Graphics2D g, final Collection<? extends IEntity> entities, final boolean sort) {
+  @NullUnmarked public void renderEntities(final Graphics2D g, final Collection<? extends IEntity> entities, final boolean sort) {
     // filter out entities that are outside of the viewport and always include emitters which have an internal mechanism do determine on a per-particle basis whether it should be rendered
     final List<? extends IEntity> entitiesToRender = entities.stream().filter(x -> Game.world().camera().getViewport().intersects(x.getBoundingBox()) || x instanceof Emitter).collect(Collectors.toList());
 
@@ -472,7 +473,7 @@ public final class RenderEngine {
    * @see EntityRenderListener#canRender(IEntity)
    * @see EntityRenderedListener#rendered(EntityRenderEvent)
    */
-  public void renderEntity(final Graphics2D g, final IEntity entity) {
+  @NullUnmarked public void renderEntity(final Graphics2D g, final IEntity entity) {
     if (entity == null) {
       return;
     }

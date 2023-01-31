@@ -25,6 +25,7 @@ import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.Valign;
 import de.gurkenlabs.litiengine.util.MathUtilities;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public final class TextRenderer {
   private TextRenderer() {
@@ -264,7 +265,7 @@ public final class TextRenderer {
     renderWithOutline(g, text, location.getX(), location.getY(), outlineColor);
   }
 
-  public static void renderWithOutline(final Graphics2D g, final String text, final double x, final double y, final Color outlineColor,
+  @NullUnmarked public static void renderWithOutline(final Graphics2D g, final String text, final double x, final double y, final Color outlineColor,
       final boolean antiAliasing) {
     float stroke = (float) MathUtilities.clamp((g.getFont().getSize2D() * 1 / 5f) * Math.log(Game.world().camera().getRenderScale()), 1, 100);
     renderWithOutline(g, text, x, y, outlineColor, stroke, antiAliasing);

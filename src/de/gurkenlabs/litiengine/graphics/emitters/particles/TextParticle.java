@@ -10,6 +10,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class TextParticle extends Particle {
   @Nullable private Font font;
@@ -28,7 +29,7 @@ public class TextParticle extends Particle {
     return this.text;
   }
 
-  @Override
+  @NullUnmarked @Override
   public void render(final Graphics2D g, final Point2D emitterOrigin) {
     if (this.getText() == null || this.getText().isEmpty()) {
       return;

@@ -10,6 +10,7 @@ import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.environment.tilemap.ITileAnimation;
 import de.gurkenlabs.litiengine.environment.tilemap.ITileAnimationFrame;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TileAnimation implements ITileAnimation {
@@ -23,7 +24,7 @@ public class TileAnimation implements ITileAnimation {
     return this.frames;
   }
 
-  @Override
+  @NullUnmarked @Override
   public int getTotalDuration() {
     if (this.totalDuration > 0) {
       return this.totalDuration;
@@ -42,7 +43,7 @@ public class TileAnimation implements ITileAnimation {
     return this.totalDuration;
   }
 
-  @Override
+  @NullUnmarked @Override
   public ITileAnimationFrame getCurrentFrame() {
     long time = Game.time().sinceEnvironmentLoad() % this.getTotalDuration();
     for (ITileAnimationFrame frame : this.getFrames()) {

@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import de.gurkenlabs.litiengine.environment.tilemap.IImageLayer;
 import de.gurkenlabs.litiengine.environment.tilemap.IMapImage;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class ImageLayer extends Layer implements IImageLayer {
 
@@ -30,7 +31,7 @@ public class ImageLayer extends Layer implements IImageLayer {
     return this.trans;
   }
 
-  @Override
+  @NullUnmarked @Override
   public int getOffsetX() {
     if (this.isInfiniteMap()) {
       TmxMap map = (TmxMap) this.getMap();
@@ -40,7 +41,7 @@ public class ImageLayer extends Layer implements IImageLayer {
     return super.getOffsetX();
   }
 
-  @Override
+  @NullUnmarked @Override
   public int getOffsetY() {
     if (this.isInfiniteMap()) {
       TmxMap map = (TmxMap) this.getMap();
@@ -54,7 +55,7 @@ public class ImageLayer extends Layer implements IImageLayer {
     return this.getMap() != null && this.getMap().isInfinite() && this.getMap() instanceof TmxMap;
   }
 
-  @Override
+  @NullUnmarked @Override
   void finish(@Nullable URL location) throws TmxException {
     super.finish(location);
     this.image.finish(location);

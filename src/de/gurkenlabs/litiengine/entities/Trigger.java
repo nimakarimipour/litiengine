@@ -18,6 +18,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.TmxType;
 import de.gurkenlabs.litiengine.graphics.RenderType;
 import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /**
  * TODO: Triggers should be able to call entity actions (similar to the current message approach)
@@ -304,7 +305,7 @@ public class Trigger extends CollisionEntity implements IUpdateable {
     }
   }
 
-  private boolean activate(final IEntity activator, final int tar) {
+  @NullUnmarked private boolean activate(final IEntity activator, final int tar) {
     if (!this.isLoaded() || this.isOneTimeTrigger && this.isActivated || this.getActivationType() == TriggerActivation.COLLISION && activator != null && this.collisionActivated.contains(activator)) {
       return false;
     }
@@ -364,7 +365,7 @@ public class Trigger extends CollisionEntity implements IUpdateable {
     return true;
   }
 
-  private List<IEntity> getEntitiesInCollisionBox() {
+  @NullUnmarked private List<IEntity> getEntitiesInCollisionBox() {
     final List<IEntity> collEntities = new CopyOnWriteArrayList<>();
     for (final ICollisionEntity coll : Game.physics().getCollisionEntities()) {
       if (coll == this || !this.activators.isEmpty() && !this.activators.contains(coll.getMapId())) {

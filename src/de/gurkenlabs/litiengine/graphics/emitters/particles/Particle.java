@@ -15,6 +15,7 @@ import de.gurkenlabs.litiengine.physics.Collision;
 import de.gurkenlabs.litiengine.util.ColorHelper;
 import de.gurkenlabs.litiengine.util.MathUtilities;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public abstract class Particle implements ITimeToLive {
   private long aliveTick;
@@ -154,7 +155,7 @@ public abstract class Particle implements ITimeToLive {
     return this.antiAliasing;
   }
 
-  public float getOpacity() {
+  @NullUnmarked public float getOpacity() {
     if (this.isFading() && this.getTimeToLive() > 0) {
       return MathUtilities.clamp(this.getColor().getAlpha() / 255f - (float) this.getAliveTime() / this.getTimeToLive(), 0, 1);
     }
@@ -168,7 +169,7 @@ public abstract class Particle implements ITimeToLive {
    *          the effect position
    * @return the location
    */
-  public Point2D getRenderLocation(Point2D effectLocation) {
+  @NullUnmarked public Point2D getRenderLocation(Point2D effectLocation) {
     // if we have a camera, we need to render the particle relative to the
     // viewport
     Point2D newEffectLocation = Game.screens() != null ? Game.world().camera().getViewportLocation(effectLocation) : effectLocation;

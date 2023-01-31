@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public final class ArrayUtilities {
   public static final String DEFAULT_STRING_DELIMITER = ",";
@@ -372,7 +373,7 @@ public final class ArrayUtilities {
    * 
    * @return A string with all joined elements, separated by the delimiter.
    */
-  @Nullable public static String join(@Nullable Collection<?> collection) {
+  @NullUnmarked @Nullable public static String join(@Nullable Collection<?> collection) {
     return joinArray(collection.toArray(), DEFAULT_STRING_DELIMITER);
   }
 

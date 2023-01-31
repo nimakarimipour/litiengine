@@ -23,6 +23,7 @@ import de.gurkenlabs.litiengine.entities.EntityPivot;
 import de.gurkenlabs.litiengine.graphics.IRenderable;
 import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 @AbilityInfo
 public abstract class Ability implements IRenderable {
@@ -90,7 +91,7 @@ public abstract class Ability implements IRenderable {
     return this.internalCalculateImpactArea(this.getExecutor().getAngle());
   }
 
-  public Ellipse2D calculatePotentialImpactArea() {
+  @NullUnmarked public Ellipse2D calculatePotentialImpactArea() {
     final int range = this.getAttributes().impact().get();
     final double arcX = this.getExecutor().getCollisionBox().getCenterX() - range * 0.5;
     final double arcY = this.getExecutor().getCollisionBox().getCenterY() - range * 0.5;
@@ -102,7 +103,7 @@ public abstract class Ability implements IRenderable {
     return !this.getExecutor().isDead() && !this.isOnCooldown();
   }
 
-  public boolean isOnCooldown() {
+  @NullUnmarked public boolean isOnCooldown() {
     return (this.getCurrentExecution() != null && this.getCurrentExecution().getExecutionTicks() > 0 && Game.time().since(this.getCurrentExecution().getExecutionTicks()) < this.getAttributes().cooldown().get());
   }
 
@@ -135,7 +136,7 @@ public abstract class Ability implements IRenderable {
     return this.castType;
   }
 
-  public float getCooldownInSeconds() {
+  @NullUnmarked public float getCooldownInSeconds() {
     return (float) (this.getAttributes().cooldown().get() * 0.001);
   }
 
@@ -159,7 +160,7 @@ public abstract class Ability implements IRenderable {
     return this.entityPivot;
   }
 
-  public float getRemainingCooldownInSeconds() {
+  @NullUnmarked public float getRemainingCooldownInSeconds() {
     if (this.getCurrentExecution() == null || this.getExecutor() == null || this.getExecutor().isDead()) {
       return 0;
     }
@@ -168,7 +169,7 @@ public abstract class Ability implements IRenderable {
     return (float) (!this.canCast() ? (this.getAttributes().cooldown().get() - Game.time().since(this.getCurrentExecution().getExecutionTicks())) * 0.001 : 0);
   }
 
-  public boolean isActive() {
+  @NullUnmarked public boolean isActive() {
     return this.getCurrentExecution() != null && Game.time().since(this.getCurrentExecution().getExecutionTicks()) < this.getAttributes().duration().get();
   }
 
@@ -209,7 +210,7 @@ public abstract class Ability implements IRenderable {
 
   public List<Effect> getEffects() { return this.effects; }
 
-  protected Shape internalCalculateImpactArea(final double angle) {
+  @NullUnmarked protected Shape internalCalculateImpactArea(final double angle) {
     final int impact = this.getAttributes().impact().get();
     final int impactAngle = this.getAttributes().impactAngle().get();
     final double arcX = this.getPivot().getPoint().getX() - impact * 0.5;

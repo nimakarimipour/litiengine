@@ -8,6 +8,7 @@ import de.gurkenlabs.litiengine.graphics.RenderComponent;
 import de.gurkenlabs.litiengine.input.Input;
 import de.gurkenlabs.litiengine.input.Keyboard;
 import de.gurkenlabs.litiengine.input.Mouse;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /**
  * The main update loop that executes the game logic by calling the update functions on all registered {@code IUpdatable} instances.
@@ -78,7 +79,7 @@ public final class GameLoop extends UpdateLoop implements IGameLoop {
    * In addition to the normal base implementation, the {@code GameLoop} performs registered action at the required
    * time and tracks some detailed metrics.
    */
-  @Override
+  @NullUnmarked @Override
   protected void process() {
     this.updateInvariableEngineComponents();
 
@@ -121,7 +122,7 @@ public final class GameLoop extends UpdateLoop implements IGameLoop {
     }
   }
 
-  private void updateInvariableEngineComponents() {
+  @NullUnmarked private void updateInvariableEngineComponents() {
     Game.audio().update();
 
     ((Keyboard) Input.keyboard()).update();

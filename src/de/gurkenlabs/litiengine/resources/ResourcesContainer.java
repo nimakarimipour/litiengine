@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.GameListener;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /**
  * An abstract implementation for all classes that provide a certain type of resources.
@@ -121,7 +122,7 @@ public abstract class ResourcesContainer<T> {
     }
   }
 
-  public void add(@Nullable URL resourceName, T resource) {
+  @NullUnmarked public void add(@Nullable URL resourceName, T resource) {
     this.add(resourceName.toString(), resource);
   }
 
@@ -275,7 +276,7 @@ public abstract class ResourcesContainer<T> {
     }
   }
 
-  @Nullable public T get(@Nullable URL resourceName, boolean forceLoad) {
+  @NullUnmarked @Nullable public T get(@Nullable URL resourceName, boolean forceLoad) {
     return this.get(resourceName.toString(), forceLoad);
   }
 
@@ -353,7 +354,7 @@ public abstract class ResourcesContainer<T> {
    * @see #contains(String)
    * @see #get(String)
    */
-  public Optional<T> tryGet(@Nullable String resourceName) {
+  @NullUnmarked public Optional<T> tryGet(@Nullable String resourceName) {
     if (this.contains(resourceName)) {
       return Optional.of(this.get(resourceName));
     }

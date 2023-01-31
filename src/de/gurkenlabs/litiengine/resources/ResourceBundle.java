@@ -35,6 +35,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.xml.TmxMap;
 import de.gurkenlabs.litiengine.graphics.emitters.xml.EmitterData;
 import de.gurkenlabs.litiengine.util.io.XmlUtilities;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 @XmlRootElement(name = "litidata")
 public class ResourceBundle implements Serializable {
@@ -142,7 +143,7 @@ public class ResourceBundle implements Serializable {
     return this.sounds;
   }
 
-  public String save(final String fileName, final boolean compress) {
+  @NullUnmarked public String save(final String fileName, final boolean compress) {
     String fileNameWithExtension = fileName;
     if (!fileNameWithExtension.endsWith("." + FILE_EXTENSION)) {
       fileNameWithExtension += "." + FILE_EXTENSION;
@@ -194,7 +195,7 @@ public class ResourceBundle implements Serializable {
     return newFile.toString();
   }
 
-  void beforeMarshal(Marshaller m) {
+  @NullUnmarked void beforeMarshal(Marshaller m) {
     List<SpritesheetResource> distinctList = new ArrayList<>();
     for (SpritesheetResource sprite : this.getSpriteSheets()) {
       if (distinctList.stream().anyMatch(x -> x.getName().equals(sprite.getName()) && x.getImage().equals(sprite.getImage()))) {
@@ -222,7 +223,7 @@ public class ResourceBundle implements Serializable {
     }
   }
 
-  @Nullable private static ResourceBundle getResourceBundle(@Nullable URL file) throws JAXBException, IOException {
+  @NullUnmarked @Nullable private static ResourceBundle getResourceBundle(@Nullable URL file) throws JAXBException, IOException {
     final JAXBContext jaxbContext = XmlUtilities.getContext(ResourceBundle.class);
     final Unmarshaller um = jaxbContext.createUnmarshaller();
     try (InputStream inputStream = Resources.get(file)) {

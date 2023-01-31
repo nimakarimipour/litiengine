@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.attributes;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /**
  * An attribute modifier allows to modify attributes by the
@@ -72,7 +73,7 @@ public class AttributeModifier<T extends Number> implements Comparable<Attribute
     return active;
   }
 
-  @Nullable public T modify(@Nullable final T modvalue) {
+  @NullUnmarked @Nullable public T modify(@Nullable final T modvalue) {
     if (!this.isActive()) {
       return modvalue;
     }

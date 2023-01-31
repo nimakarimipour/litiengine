@@ -26,6 +26,7 @@ import de.gurkenlabs.litiengine.sound.Sound;
 import de.gurkenlabs.litiengine.tweening.TweenType;
 import de.gurkenlabs.litiengine.tweening.Tweenable;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /**
  * The abstract Class GuiComponent provides all properties and methods needed for screens, built-in, and custom GUI components such as buttons,
@@ -679,7 +680,7 @@ public abstract class GuiComponent implements MouseListener, MouseMotionListener
    * Prepare the GuiComponent and all its child Components (Makes the GuiComponent visible and adds mouse listeners.).
    * This is, for example, done right before switching to a new screen.
    */
-  public void prepare() {
+  @NullUnmarked public void prepare() {
     this.suspended = false;
     this.visible = true;
     Input.mouse().addMouseListener(this);
@@ -743,7 +744,7 @@ public abstract class GuiComponent implements MouseListener, MouseMotionListener
     }
   }
 
-  @Override
+  @NullUnmarked @Override
   public float[] getTweenValues(TweenType tweenType) {
     switch (tweenType) {
     case POSITION_X:
@@ -1089,7 +1090,7 @@ public abstract class GuiComponent implements MouseListener, MouseMotionListener
   /**
    * Suspend the GuiComponent and all its child Components (Makes the GuiComponent invisible and removes mouse listeners.).
    */
-  public void suspend() {
+  @NullUnmarked public void suspend() {
     Input.mouse().removeMouseListener(this);
     Input.mouse().removeMouseWheelListener(this);
     Input.mouse().removeMouseMotionListener(this);

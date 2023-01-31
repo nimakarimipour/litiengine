@@ -11,6 +11,7 @@ import net.java.games.input.Component;
 import net.java.games.input.Component.Identifier;
 import net.java.games.input.Controller;
 import net.java.games.input.Event;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /**
  * The {@code Gamepad} class is designed as a wrapper implementation for any gamepad input that provides events and information
@@ -199,7 +200,7 @@ public final class Gamepad extends GamepadEvents implements IUpdateable {
     return 0;
   }
 
-  private void dispose() {
+  @NullUnmarked private void dispose() {
     this.componentPollListeners.clear();
     this.componentPressedListeners.clear();
     Input.gamepads().remove(this);

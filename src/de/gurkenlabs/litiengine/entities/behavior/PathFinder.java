@@ -14,6 +14,7 @@ import de.gurkenlabs.litiengine.entities.ICollisionEntity;
 import de.gurkenlabs.litiengine.entities.IMobileEntity;
 import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public abstract class PathFinder {
   private static final float PATH_MARGIN = 2.0f;
@@ -40,7 +41,7 @@ public abstract class PathFinder {
     return new Path(start, target, path2D, points);
   }
 
-  protected Rectangle2D applyPathMargin(final ICollisionEntity entity, final Rectangle2D rectangle) {
+  @NullUnmarked protected Rectangle2D applyPathMargin(final ICollisionEntity entity, final Rectangle2D rectangle) {
     // calculate offset in order to prevent collision
     final double newX = rectangle.getX() - (entity.getCollisionBox().getWidth() * 0.5 + PATH_MARGIN);
     final double newY = rectangle.getY() - (entity.getCollisionBox().getHeight() * 0.5 + PATH_MARGIN);
