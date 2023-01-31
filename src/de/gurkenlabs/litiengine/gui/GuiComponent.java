@@ -25,14 +25,15 @@ import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.sound.Sound;
 import de.gurkenlabs.litiengine.tweening.TweenType;
 import de.gurkenlabs.litiengine.tweening.Tweenable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /**
  * The abstract Class GuiComponent provides all properties and methods needed for screens, built-in, and custom GUI components such as buttons,
  * sliders, etc... It includes mouse event handling, different hovering states and appearances, and texts to be rendered.
  */
-public abstract class GuiComponent implements MouseListener, MouseMotionListener, MouseWheelListener, IRenderable, Tweenable {
+@NullUnmarked public abstract class GuiComponent implements MouseListener, MouseMotionListener, MouseWheelListener, IRenderable, Tweenable {
 
-  protected static final Font ICON_FONT;
+  @SuppressWarnings("NullAway.Init") protected static final Font ICON_FONT;
   private static int id = 0;
 
   static {
@@ -60,25 +61,25 @@ public abstract class GuiComponent implements MouseListener, MouseMotionListener
 
   private boolean drawTextShadow = false;
   private boolean enabled;
-  private Font font;
+  @SuppressWarnings("NullAway.Init") private Font font;
   private boolean forwardMouseEvents = true;
   private double height;
 
-  private Sound hoverSound;
+  @SuppressWarnings("NullAway.Init") private Sound hoverSound;
   private boolean textAntialiasing;
   private boolean isHovered;
   private boolean isPressed;
   private boolean isSelected;
-  private String name;
+  @SuppressWarnings("NullAway.Init") private String name;
   private boolean suspended;
-  private Object tag;
-  private String text;
+  @SuppressWarnings("NullAway.Init") private Object tag;
+  @SuppressWarnings("NullAway.Init") private String text;
   private Align textAlign = Align.CENTER;
   private Valign textValign = Valign.MIDDLE;
   private boolean automaticLineBreaks;
   private int textAngle = 0;
 
-  private Color textShadowColor;
+  @SuppressWarnings("NullAway.Init") private Color textShadowColor;
   private float textShadowStroke = 2f;
   private double textX;
   private double textY;

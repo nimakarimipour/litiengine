@@ -13,7 +13,7 @@ import de.gurkenlabs.litiengine.util.io.Codec;
 
 @XmlRootElement(name = "sound")
 public class SoundResource extends NamedResource {
-  @XmlElement(name = "data")
+  @SuppressWarnings("NullAway.Init") @XmlElement(name = "data")
   private String data;
 
   @XmlElement(name = "format")

@@ -15,41 +15,41 @@ import de.gurkenlabs.litiengine.Valign;
 import de.gurkenlabs.litiengine.environment.tilemap.IMapObjectText;
 
 public class Text implements IMapObjectText {
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   private String fontfamily;
 
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   private Integer pixelsize;
 
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   private Integer wrap;
 
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   @XmlJavaTypeAdapter(ColorAdapter.class)
   private Color color;
 
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   private Integer bold;
 
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   private Integer italic;
 
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   private Integer underline;
 
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   private Integer strikeout;
 
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   private Integer kerning;
 
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   private Align halign;
 
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   private Valign valign;
 
-  @XmlValue
+  @SuppressWarnings("NullAway.Init") @XmlValue
   private String text;
 
   @Override

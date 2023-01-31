@@ -12,7 +12,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.ITileAnimationFrame;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TileAnimation implements ITileAnimation {
-  @XmlElement(name = "frame", type = Frame.class)
+  @SuppressWarnings("NullAway.Init") @XmlElement(name = "frame", type = Frame.class)
   private List<ITileAnimationFrame> frames;
 
   private transient int totalDuration;

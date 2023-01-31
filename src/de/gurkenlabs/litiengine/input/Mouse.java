@@ -20,6 +20,7 @@ import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.IUpdateable;
 import de.gurkenlabs.litiengine.environment.tilemap.MapUtilities;
 import de.gurkenlabs.litiengine.util.MathUtilities;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /**
  * This implementation provides information about the mouse input in the LITIENGINE.
@@ -50,7 +51,7 @@ public final class Mouse implements MouseListener, MouseMotionListener, MouseWhe
   private Point2D lastLocation;
   private Point2D location;
 
-  private MouseEvent updateLocation;
+  @SuppressWarnings("NullAway.Init") private MouseEvent updateLocation;
   private boolean updatingLocation;
 
   /**
@@ -74,7 +75,7 @@ public final class Mouse implements MouseListener, MouseMotionListener, MouseWhe
     this.grabMouse = false;
   }
 
-  @Override
+  @NullUnmarked @Override
   public void update() {
     if (this.isPressed()) {
       for (final MousePressingListener listener : this.mousePressingListeners) {

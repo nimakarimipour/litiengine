@@ -16,6 +16,7 @@ import de.gurkenlabs.litiengine.attributes.RangeAttribute;
 import de.gurkenlabs.litiengine.environment.tilemap.MapObjectProperty;
 import de.gurkenlabs.litiengine.environment.tilemap.TmxProperty;
 import de.gurkenlabs.litiengine.tweening.TweenType;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 @CombatInfo
 @CollisionInfo(collision = true)
@@ -39,7 +40,7 @@ public class CombatEntity extends CollisionEntity implements ICombatEntity {
   @TmxProperty(name = MapObjectProperty.COMBAT_HITPOINTS)
   private int initialHitpoints;
 
-  private ICombatEntity target;
+  @SuppressWarnings("NullAway.Init") private ICombatEntity target;
   private long lastHit;
 
   /**
@@ -165,7 +166,7 @@ public class CombatEntity extends CollisionEntity implements ICombatEntity {
     }
   }
 
-  @Override
+  @NullUnmarked @Override
   public void hit(int damage) {
     this.hit(damage, null);
   }

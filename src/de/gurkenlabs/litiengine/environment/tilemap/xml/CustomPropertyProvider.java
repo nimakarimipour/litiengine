@@ -17,6 +17,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import de.gurkenlabs.litiengine.environment.tilemap.ICustomProperty;
 import de.gurkenlabs.litiengine.environment.tilemap.ICustomPropertyProvider;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class CustomPropertyProvider implements ICustomPropertyProvider {
@@ -48,7 +49,7 @@ public class CustomPropertyProvider implements ICustomPropertyProvider {
     return this.getProperties().containsKey(propertyName);
   }
 
-  @Override
+  @NullUnmarked @Override
   public String getTypeOfProperty(String propertyName) {
     ICustomProperty property = this.getProperty(propertyName);
     if (property == null) {
@@ -62,7 +63,7 @@ public class CustomPropertyProvider implements ICustomPropertyProvider {
     this.getProperty(propertyName).setType(type);
   }
 
-  @Override
+  @NullUnmarked @Override
   public ICustomProperty getProperty(String propertyName) {
     return this.getProperties().get(propertyName);
   }
@@ -74,7 +75,7 @@ public class CustomPropertyProvider implements ICustomPropertyProvider {
     }
   }
 
-  @Override
+  @NullUnmarked @Override
   public String getStringValue(String propertyName) {
     return this.getStringValue(propertyName, null);
   }
@@ -182,7 +183,7 @@ public class CustomPropertyProvider implements ICustomPropertyProvider {
     return property.getAsDouble();
   }
 
-  @Override
+  @NullUnmarked @Override
   public Color getColorValue(String propertyName) {
     return this.getColorValue(propertyName, null);
   }
@@ -202,7 +203,7 @@ public class CustomPropertyProvider implements ICustomPropertyProvider {
     return value;
   }
 
-  @Override
+  @NullUnmarked @Override
   public <T extends Enum<T>> T getEnumValue(String propertyName, Class<T> enumType) {
     return this.getEnumValue(propertyName, enumType, null);
   }
@@ -222,7 +223,7 @@ public class CustomPropertyProvider implements ICustomPropertyProvider {
     return value;
   }
 
-  @Override
+  @NullUnmarked @Override
   public URL getFileValue(String propertyName) {
     return this.getFileValue(propertyName, null);
   }

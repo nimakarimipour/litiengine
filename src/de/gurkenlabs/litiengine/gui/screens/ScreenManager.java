@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.GameWindow;
 import de.gurkenlabs.litiengine.graphics.RenderComponent;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /**
  * The {@code ScreenManager} holds instances of all available screens and handles whenever a different {@code Screen} should be shown to the
@@ -33,7 +34,7 @@ public final class ScreenManager {
 
   private final List<Screen> screens;
 
-  private Screen currentScreen;
+  @SuppressWarnings("NullAway.Init") private Screen currentScreen;
 
   private int changeCooldown = DEFAULT_CHANGE_COOLDOWN;
   private long lastScreenChange = 0;
@@ -96,7 +97,7 @@ public final class ScreenManager {
    * @param screen
    *          The screen to remove.
    */
-  public void remove(Screen screen) {
+  @NullUnmarked public void remove(Screen screen) {
     this.screens.remove(screen);
     if (this.current() == screen) {
       if (!this.screens.isEmpty()) {
@@ -173,7 +174,7 @@ public final class ScreenManager {
    *          The name of the screen.
    * @return The
    */
-  public Screen get(String screenName) {
+  @NullUnmarked public Screen get(String screenName) {
     Optional<Screen> opt = this.screens.stream().filter(element -> element.getName().equalsIgnoreCase(screenName)).findFirst();
     return opt.orElse(null);
   }

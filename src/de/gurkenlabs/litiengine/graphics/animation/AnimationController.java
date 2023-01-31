@@ -17,14 +17,15 @@ import de.gurkenlabs.litiengine.graphics.ImageEffect;
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.util.Imaging;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class AnimationController implements IAnimationController {
   private static final int MAX_IMAGE_EFFECTS = 20;
-  private AffineTransform affineTransform;
+  @SuppressWarnings("NullAway.Init") private AffineTransform affineTransform;
   private final Map<String, Animation> animations;
-  private Animation currentAnimation;
+  @SuppressWarnings("NullAway.Init") private Animation currentAnimation;
 
-  private Animation defaultAnimation;
+  @SuppressWarnings("NullAway.Init") private Animation defaultAnimation;
   private boolean enabled;
   private final List<ImageEffect> imageEffects;
   private final List<AnimationListener> listeners;
@@ -156,7 +157,7 @@ public class AnimationController implements IAnimationController {
     Game.loop().detach(this);
   }
 
-  @Override
+  @NullUnmarked @Override
   public Animation get(final String animationName) {
     if (animationName == null || animationName.isEmpty()) {
       return null;
@@ -180,7 +181,7 @@ public class AnimationController implements IAnimationController {
     return this.currentAnimation;
   }
 
-  @Override
+  @NullUnmarked @Override
   public BufferedImage getCurrentImage() {
     if (!this.isEnabled()) {
       return null;
@@ -205,7 +206,7 @@ public class AnimationController implements IAnimationController {
     return sprite;
   }
 
-  @Override
+  @NullUnmarked @Override
   public BufferedImage getCurrentImage(final int width, final int height) {
     if (this.getCurrentImage() == null) {
       return null;
@@ -220,7 +221,7 @@ public class AnimationController implements IAnimationController {
     return Imaging.scale(this.getCurrentImage(), width, height);
   }
 
-  @Override
+  @NullUnmarked @Override
   public Animation getDefault() {
     if (this.defaultAnimation != null) {
       return this.defaultAnimation;
@@ -283,7 +284,7 @@ public class AnimationController implements IAnimationController {
     }
   }
 
-  @Override
+  @NullUnmarked @Override
   public void remove(final Animation animation) {
     if (animation == null) {
       return;
@@ -318,7 +319,7 @@ public class AnimationController implements IAnimationController {
     this.affineTransform = affineTransform;
   }
 
-  @Override
+  @NullUnmarked @Override
   public void setDefault(final Animation defaultAnimation) {
     if (this.defaultAnimation != null) {
       this.animations.remove(this.defaultAnimation.getName());
@@ -338,7 +339,7 @@ public class AnimationController implements IAnimationController {
     this.enabled = enabled;
   }
 
-  @Override
+  @NullUnmarked @Override
   public void update() {
     for (final Animation animation : this.getAll()) {
       animation.update();
@@ -371,7 +372,7 @@ public class AnimationController implements IAnimationController {
    * 
    * @return the unique cache key for the current key frame
    */
-  protected String buildCurrentCacheKey() {
+  @NullUnmarked protected String buildCurrentCacheKey() {
     if (this.getCurrent() == null || this.getCurrent().getCurrentKeyFrame() == null || this.getCurrent().getSpritesheet() == null) {
       return null;
     }

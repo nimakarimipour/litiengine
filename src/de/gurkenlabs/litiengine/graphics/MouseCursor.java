@@ -29,8 +29,8 @@ public final class MouseCursor implements IRenderable {
   private static final Cursor BLANK_CURSOR;
   private static final Image DEBUG_CURSOR_IMAGE;
 
-  private Image image;
-  private AffineTransform transform;
+  @SuppressWarnings("NullAway.Init") private Image image;
+  @SuppressWarnings("NullAway.Init") private AffineTransform transform;
   private int offsetX;
   private int offsetY;
 

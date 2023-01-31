@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class GeometricUtilities {
   private static final double RAYCAST_EPSILON = 0.01;
@@ -205,7 +206,7 @@ public class GeometricUtilities {
    *          the line b
    * @return the intersection point
    */
-  public static Point2D getIntersectionPoint(final Line2D lineA, final Line2D lineB) {
+  @NullUnmarked public static Point2D getIntersectionPoint(final Line2D lineA, final Line2D lineB) {
 
     final double x1 = lineA.getX1();
     final double y1 = lineA.getY1();
@@ -241,7 +242,7 @@ public class GeometricUtilities {
    *          the rectangle
    * @return the point2 d
    */
-  public static Point2D getIntersectionPoint(final Line2D line, final Rectangle2D rectangle) {
+  @NullUnmarked public static Point2D getIntersectionPoint(final Line2D line, final Rectangle2D rectangle) {
     final List<Point2D> intersectionPoints = getIntersectionPoints(line, rectangle);
     for (final Point2D p : intersectionPoints) {
       if (p != null && !p.equals(line.getP1()) && contains(rectangle, p)) {
@@ -362,7 +363,7 @@ public class GeometricUtilities {
     return getAveragePosition(points.toArray(new Point2D[points.size()]));
   }
 
-  public static Point2D getAveragePosition(Point2D... points) {
+  @NullUnmarked public static Point2D getAveragePosition(Point2D... points) {
     if (points.length == 0) {
       return null;
     }
@@ -586,7 +587,7 @@ public class GeometricUtilities {
     return transform.createTransformedShape(shape);
   }
 
-  public static Dimension2D scaleWithRatio(final double width, final double height, final int max) {
+  @NullUnmarked public static Dimension2D scaleWithRatio(final double width, final double height, final int max) {
     if (width == 0 || height == 0) {
       return null;
     }

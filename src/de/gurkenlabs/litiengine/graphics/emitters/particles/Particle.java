@@ -22,7 +22,7 @@ public abstract class Particle implements ITimeToLive {
   private float deltaAngle;
 
   private Collision collisionType;
-  private Color color;
+  @SuppressWarnings("NullAway.Init") private Color color;
   private float deltaHeight;
   private float deltaWidth;
   /**

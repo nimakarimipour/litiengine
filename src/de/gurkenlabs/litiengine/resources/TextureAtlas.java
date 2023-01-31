@@ -15,12 +15,13 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import de.gurkenlabs.litiengine.util.io.FileUtilities;
 import de.gurkenlabs.litiengine.util.io.XmlUtilities;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 @XmlRootElement(name = "TextureAtlas")
 public class TextureAtlas {
   private static final Logger log = Logger.getLogger(TextureAtlas.class.getName());
 
-  @XmlAttribute(name = "imagePath")
+  @SuppressWarnings("NullAway.Init") @XmlAttribute(name = "imagePath")
   private String rawImagePath;
 
   @XmlAttribute
@@ -29,16 +30,16 @@ public class TextureAtlas {
   @XmlAttribute
   private int height;
 
-  @XmlElement(name = "sprite")
+  @SuppressWarnings("NullAway.Init") @XmlElement(name = "sprite")
   private List<Sprite> sprites;
 
-  private String absoluteImagePath;
+  @SuppressWarnings("NullAway.Init") private String absoluteImagePath;
 
   TextureAtlas() {
     // keep for serialization
   }
 
-  public static TextureAtlas read(String textureAtlasFile) {
+  @NullUnmarked public static TextureAtlas read(String textureAtlasFile) {
     try {
       TextureAtlas atlas = XmlUtilities.read(TextureAtlas.class, Resources.getLocation(textureAtlasFile));
       if (atlas == null) {
@@ -78,7 +79,7 @@ public class TextureAtlas {
     return this.sprites;
   }
 
-  public Sprite getSprite(String name) {
+  @NullUnmarked public Sprite getSprite(String name) {
     if (name == null || name.isEmpty()) {
       return null;
     }
@@ -104,7 +105,7 @@ public class TextureAtlas {
 
   @XmlRootElement(name = "sprite")
   public static class Sprite {
-    @XmlAttribute(name = "n")
+    @SuppressWarnings("NullAway.Init") @XmlAttribute(name = "n")
     private String name;
 
     @XmlAttribute()
@@ -125,11 +126,11 @@ public class TextureAtlas {
     @XmlAttribute(name = "oY")
     private int offsetY;
 
-    @XmlAttribute(name = "r")
+    @SuppressWarnings("NullAway.Init") @XmlAttribute(name = "r")
     @XmlJavaTypeAdapter(CustomBooleanAdapter.class)
     private Boolean rotated;
 
-    Sprite() {
+    @NullUnmarked Sprite() {
       // keep for serialization
     }
 

@@ -18,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import de.gurkenlabs.litiengine.Game;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public final class Strings {
   public static final String DEFAULT_BUNDLE = "strings";
@@ -35,7 +36,7 @@ public final class Strings {
     this.charset = charset;
   }
 
-  public String get(final String key) {
+  @NullUnmarked public String get(final String key) {
     if (key == null) {
       return null;
     }
@@ -43,7 +44,7 @@ public final class Strings {
     return this.getFrom(DEFAULT_BUNDLE, key);
   }
 
-  public String get(final String key, Object... args) {
+  @NullUnmarked public String get(final String key, Object... args) {
     if (key == null) {
       return null;
     }
@@ -51,7 +52,7 @@ public final class Strings {
     return this.getFrom(DEFAULT_BUNDLE, key, args);
   }
 
-  public String getFrom(final String bundleName, final String key, Object... args) {
+  @NullUnmarked public String getFrom(final String bundleName, final String key, Object... args) {
     if (bundleName == null || key == null) {
       return null;
     }

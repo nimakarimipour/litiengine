@@ -22,6 +22,7 @@ import de.gurkenlabs.litiengine.graphics.IRenderable;
 import de.gurkenlabs.litiengine.graphics.RenderType;
 import de.gurkenlabs.litiengine.graphics.ShapeRenderer;
 import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 @EntityInfo(renderType = RenderType.OVERLAY)
 @TmxType(MapObjectType.LIGHTSOURCE)
@@ -61,7 +62,7 @@ public class LightSource extends Entity implements IRenderable {
   private double focusOffsetY;
 
   private Color color;
-  private Shape lightShape;
+  @SuppressWarnings("NullAway.Init") private Shape lightShape;
   private int radius;
 
   /**
@@ -214,7 +215,7 @@ public class LightSource extends Entity implements IRenderable {
     this.updateAmbientLayers();
   }
 
-  @Override
+  @NullUnmarked @Override
   public String sendMessage(final Object sender, final String message) {
     if (message == null || message.isEmpty()) {
       return null;

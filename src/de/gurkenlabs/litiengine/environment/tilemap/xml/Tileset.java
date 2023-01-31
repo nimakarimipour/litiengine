@@ -32,6 +32,7 @@ import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.util.io.FileUtilities;
 import de.gurkenlabs.litiengine.util.io.XmlUtilities;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 @XmlRootElement(name = "tileset")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -42,52 +43,52 @@ public class Tileset extends CustomPropertyProvider implements ITileset {
   @XmlAttribute
   private int firstgid;
 
-  @XmlElement
+  @SuppressWarnings("NullAway.Init") @XmlElement
   private MapImage image;
 
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   private Integer margin;
 
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   private String name;
 
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   private Integer tilewidth;
 
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   private Integer tileheight;
 
-  @XmlElement(name = "tileoffset")
+  @SuppressWarnings("NullAway.Init") @XmlElement(name = "tileoffset")
   private TileOffset tileoffset;
 
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   private Integer tilecount;
 
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   private Integer columns;
 
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   private Integer spacing;
 
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   private String source;
 
-  @XmlElementWrapper(name = "terraintypes")
+  @SuppressWarnings("NullAway") @XmlElementWrapper(name = "terraintypes")
   @XmlElement(name = "terrain")
   private List<Terrain> terrainTypes = null;
 
-  @XmlElement(name = "tile")
+  @SuppressWarnings("NullAway") @XmlElement(name = "tile")
   private List<TilesetEntry> tiles = null;
 
-  @XmlTransient
+  @SuppressWarnings("NullAway.Init") @XmlTransient
   private List<TilesetEntry> allTiles;
 
-  @XmlTransient
+  @SuppressWarnings("NullAway.Init") @XmlTransient
   protected Tileset sourceTileset;
 
-  private transient Spritesheet spriteSheet;
+  @SuppressWarnings("NullAway.Init") private transient Spritesheet spriteSheet;
 
-  public Tileset() {
+  @NullUnmarked public Tileset() {
     Resources.images().addClearedListener(() -> this.spriteSheet = null);
   }
 
@@ -158,7 +159,7 @@ public class Tileset extends CustomPropertyProvider implements ITileset {
     return this.spacing;
   }
 
-  @Override
+  @NullUnmarked @Override
   @XmlTransient
   public Spritesheet getSpritesheet() {
     if (this.spriteSheet == null && this.getImage() != null) {
@@ -265,7 +266,7 @@ public class Tileset extends CustomPropertyProvider implements ITileset {
     return this.tilecount != null ? this.tilecount : 0;
   }
 
-  @Override
+  @NullUnmarked @Override
   public ITilesetEntry getTile(int id) {
     if (this.sourceTileset != null) {
       return this.sourceTileset.getTile(id);
@@ -403,7 +404,7 @@ public class Tileset extends CustomPropertyProvider implements ITileset {
     return false;
   }
 
-  @SuppressWarnings("unused")
+  @NullUnmarked @SuppressWarnings("unused")
   private void beforeMarshal(Marshaller m) {
     if (this.sourceTileset != null) {
       this.tilewidth = null;

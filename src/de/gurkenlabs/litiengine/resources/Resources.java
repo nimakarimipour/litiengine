@@ -25,6 +25,7 @@ import de.gurkenlabs.litiengine.graphics.emitters.xml.EmitterData;
 import de.gurkenlabs.litiengine.graphics.emitters.xml.EmitterLoader;
 import de.gurkenlabs.litiengine.sound.Sound;
 import de.gurkenlabs.litiengine.util.TimeUtilities;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /**
  * This class is the engines entry point for accessing any kind of resources. A resource is any non-executable data that is deployed with your game.
@@ -252,7 +253,7 @@ public final class Resources {
    * @return The contents of the specified file as {@code InputStream}.
    * @see Resources
    */
-  public static InputStream get(URL file) {
+  @NullUnmarked public static InputStream get(URL file) {
     InputStream stream = getResource(file);
     if (stream == null) {
       return null;
@@ -282,7 +283,7 @@ public final class Resources {
    *          The charset that is used to read the String from the file.
    * @return The contents of the specified file as {@code String}
    */
-  public static String read(String file, Charset charset) {
+  @NullUnmarked public static String read(String file, Charset charset) {
     final URL location = getLocation(file);
     if (location == null) {
       return null;
@@ -312,7 +313,7 @@ public final class Resources {
    *          The charset that is used to read the String from the file.
    * @return The contents of the specified file as {@code String}
    */
-  public static String read(URL file, Charset charset) {
+  @NullUnmarked public static String read(URL file, Charset charset) {
     try (Scanner scanner = new Scanner(file.openStream(), charset.toString())) {
       scanner.useDelimiter("\\A");
       return scanner.hasNext() ? scanner.next() : null;
@@ -334,7 +335,7 @@ public final class Resources {
     spritesheets().clear();
   }
 
-  public static URL getLocation(String name) {
+  @NullUnmarked public static URL getLocation(String name) {
     URL fromClass = ClassLoader.getSystemResource(name);
     if (fromClass != null) {
       return fromClass;
@@ -350,7 +351,7 @@ public final class Resources {
     }
   }
 
-  private static InputStream getResource(final URL file) {
+  @NullUnmarked private static InputStream getResource(final URL file) {
     try {
       return file.openStream();
     } catch (IOException e) {

@@ -17,6 +17,7 @@ import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.environment.tilemap.IMapObject;
 import de.gurkenlabs.litiengine.environment.tilemap.IMapObjectLayer;
 import de.gurkenlabs.litiengine.util.ColorHelper;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class MapObjectLayer extends Layer implements IMapObjectLayer {
   public static final String DEFAULT_MAPOBJECTLAYER_NAME = "default";
@@ -24,10 +25,10 @@ public class MapObjectLayer extends Layer implements IMapObjectLayer {
   @XmlElement(name = "object")
   private ArrayList<MapObject> objects = new ArrayList<>();
 
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   private String color;
 
-  private transient Color decodedColor;
+  @SuppressWarnings("NullAway.Init") private transient Color decodedColor;
 
   private transient List<IMapObject> mapObjects = new CopyOnWriteArrayList<>();
 
@@ -74,7 +75,7 @@ public class MapObjectLayer extends Layer implements IMapObjectLayer {
     return this.mapObjects;
   }
 
-  @Override
+  @NullUnmarked @Override
   public void removeMapObject(IMapObject mapObject) {
     this.mapObjects.remove(mapObject);
     this.objects.remove(mapObject);
@@ -109,7 +110,7 @@ public class MapObjectLayer extends Layer implements IMapObjectLayer {
     }
   }
 
-  @Override
+  @NullUnmarked @Override
   public Color getColor() {
     if (this.color == null || this.color.isEmpty()) {
       return null;
@@ -128,7 +129,7 @@ public class MapObjectLayer extends Layer implements IMapObjectLayer {
     return this.color;
   }
 
-  @Override
+  @NullUnmarked @Override
   public void setColor(String color) {
     this.color = color;
     this.decodedColor = null;

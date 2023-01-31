@@ -18,6 +18,7 @@ import de.gurkenlabs.litiengine.graphics.ImageRenderer;
 import de.gurkenlabs.litiengine.graphics.RenderType;
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.resources.Resources;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class MapRenderer {
   private static Collection<LayerRenderedListener> layerRenderedListeners = ConcurrentHashMap.newKeySet();
@@ -67,7 +68,7 @@ public class MapRenderer {
     layerRenderConditions.remove(condition);
   }
 
-  public static void render(Graphics2D g, IMap map, Rectangle2D viewport, RenderType... renderTypes) {
+  @NullUnmarked public static void render(Graphics2D g, IMap map, Rectangle2D viewport, RenderType... renderTypes) {
     renderLayers(g, map, map, viewport, null, renderTypes, 1f);
   }
 

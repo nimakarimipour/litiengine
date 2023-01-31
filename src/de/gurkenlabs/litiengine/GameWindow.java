@@ -30,6 +30,7 @@ import de.gurkenlabs.litiengine.configuration.GraphicConfiguration;
 import de.gurkenlabs.litiengine.graphics.MouseCursor;
 import de.gurkenlabs.litiengine.graphics.RenderComponent;
 import de.gurkenlabs.litiengine.gui.screens.Resolution;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /**
  * The {@code GameWindow} class is a wrapper for the game's visual window in which the {@code RenderComponent} lives.<br>
@@ -54,8 +55,8 @@ public final class GameWindow {
 
   private float resolutionScale = 1;
 
-  private Dimension resolution;
-  private Point screenLocation;
+  @SuppressWarnings("NullAway.Init") private Dimension resolution;
+  @SuppressWarnings("NullAway.Init") private Point screenLocation;
 
   GameWindow() {
     this.hostControl = new JFrame();
@@ -376,7 +377,7 @@ public final class GameWindow {
     });
 
     this.hostControl.addComponentListener(new ComponentAdapter() {
-      @Override
+      @NullUnmarked @Override
       public void componentMoved(final ComponentEvent evt) {
         screenLocation = null;
       }

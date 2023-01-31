@@ -8,9 +8,9 @@ import java.util.Locale;
 @ConfigurationGroupInfo(prefix = "cl_")
 public class ClientConfiguration extends ConfigurationGroup {
 
-  private String country;
+  @SuppressWarnings("NullAway.Init") private String country;
 
-  private String language;
+  @SuppressWarnings("NullAway.Init") private String language;
 
   private int maxFps;
 

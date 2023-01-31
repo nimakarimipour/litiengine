@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class ImageComponentList extends GuiComponent {
 
@@ -70,7 +71,7 @@ public class ImageComponentList extends GuiComponent {
     return this.rows;
   }
 
-  @Override
+  @NullUnmarked @Override
   public void prepare() {
 
     if (!initialized) {

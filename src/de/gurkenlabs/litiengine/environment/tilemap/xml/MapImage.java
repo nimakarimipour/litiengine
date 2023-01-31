@@ -16,10 +16,10 @@ import de.gurkenlabs.litiengine.environment.tilemap.IMapImage;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class MapImage extends CustomPropertyProvider implements IMapImage {
 
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   private String source;
 
-  @XmlAttribute(name = "trans")
+  @SuppressWarnings("NullAway.Init") @XmlAttribute(name = "trans")
   @XmlJavaTypeAdapter(ColorAdapter.class)
   private Color transparentcolor;
 
@@ -29,7 +29,7 @@ public class MapImage extends CustomPropertyProvider implements IMapImage {
   @XmlAttribute
   private int height;
 
-  @XmlTransient
+  @SuppressWarnings("NullAway.Init") @XmlTransient
   private URL absolutePath;
 
   /**

@@ -18,25 +18,26 @@ import de.gurkenlabs.litiengine.environment.tilemap.IMapObjectLayer;
 import de.gurkenlabs.litiengine.environment.tilemap.IMapObjectText;
 import de.gurkenlabs.litiengine.environment.tilemap.IPolyShape;
 import de.gurkenlabs.litiengine.environment.tilemap.ITilesetEntry;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class MapObject extends CustomPropertyProvider implements IMapObject {
   @XmlAttribute
   private int id;
 
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   private Integer gid;
 
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   private String name;
 
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   private String type;
 
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   @XmlJavaTypeAdapter(value = DecimalFloatAdapter.class)
   private Float x;
 
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   @XmlJavaTypeAdapter(value = DecimalFloatAdapter.class)
   private Float y;
 
@@ -48,25 +49,25 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
   @XmlJavaTypeAdapter(value = DecimalFloatAdapter.class)
   private Float height = 0f;
 
-  @XmlTransient
+  @SuppressWarnings("NullAway.Init") @XmlTransient
   private ITilesetEntry tile;
 
-  @XmlElement(name = "polyline")
+  @SuppressWarnings("NullAway.Init") @XmlElement(name = "polyline")
   private PolyShape polyline;
 
-  @XmlElement(name = "polygon")
+  @SuppressWarnings("NullAway.Init") @XmlElement(name = "polygon")
   private PolyShape polygon;
 
-  @XmlElement
+  @SuppressWarnings("NullAway.Init") @XmlElement
   private String point;
 
-  @XmlElement
+  @SuppressWarnings("NullAway.Init") @XmlElement
   private String ellipse;
 
-  @XmlElement
+  @SuppressWarnings("NullAway.Init") @XmlElement
   private Text text;
 
-  private transient MapObjectLayer layer;
+  @SuppressWarnings("NullAway.Init") private transient MapObjectLayer layer;
 
   /**
    * Instantiates a new {@code MapObject} instance.
@@ -93,7 +94,7 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
    * @param original
    *          the MapObject we want to copy
    */
-  public MapObject(MapObject original) {
+  @NullUnmarked public MapObject(MapObject original) {
     super(original);
     this.setName(original.getName());
     this.setId(Game.world().environment().getNextMapId());
@@ -215,7 +216,7 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
     return this.polygon;
   }
 
-  @Override
+  @NullUnmarked @Override
   public Ellipse2D getEllipse() {
     if (!this.isEllipse()) {
       return null;
@@ -247,7 +248,7 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
     this.id = id;
   }
 
-  @Override
+  @NullUnmarked @Override
   @XmlTransient
   public void setName(String name) {
     if (name != null && name.isEmpty()) {
@@ -389,7 +390,7 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
     return this.ellipse != null;
   }
 
-  @SuppressWarnings("unused")
+  @NullUnmarked @SuppressWarnings("unused")
   private void afterUnmarshal(Unmarshaller u, Object parent) {
     // MapObjects don't necessarily have to be children of a layer. E.g. they can also be children of a Blueprint.
     if (parent instanceof MapObjectLayer) {

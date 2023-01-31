@@ -14,6 +14,7 @@ import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.util.AlphanumComparator;
 import de.gurkenlabs.litiengine.util.Imaging;
 import de.gurkenlabs.litiengine.util.io.FileUtilities;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public final class Spritesheet implements Comparable<Spritesheet> {
   private static final Logger log = Logger.getLogger(Spritesheet.class.getName());
@@ -130,7 +131,7 @@ public final class Spritesheet implements Comparable<Spritesheet> {
     return this.getSprite(index, 0, 0);
   }
 
-  public BufferedImage getSprite(final int index, final int margin, final int spacing) {
+  @NullUnmarked public BufferedImage getSprite(final int index, final int margin, final int spacing) {
     if (this.emptySprites.contains(index) || this.sprites.length == 0) {
       return null;
     }

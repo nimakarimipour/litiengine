@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.util.Objects;
 
 public class SpeechBubbleAppearance extends Appearance {
-  private Color borderColor;
+  @SuppressWarnings("NullAway.Init") private Color borderColor;
   private float padding;
   private boolean renderIndicator = true;
 

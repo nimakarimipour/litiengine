@@ -8,6 +8,7 @@ import java.util.function.IntConsumer;
 import de.gurkenlabs.litiengine.Align;
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.input.Input;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class DropdownListField extends GuiComponent {
   public static final FontIcon ARROW_DOWN = new FontIcon(ICON_FONT, "\uE804");
@@ -16,12 +17,12 @@ public class DropdownListField extends GuiComponent {
   private final List<IntConsumer> changeConsumer;
   private final Object[] content;
 
-  private ListField contentList;
+  @SuppressWarnings("NullAway.Init") private ListField contentList;
   /** The drop down button. */
-  private ImageComponent dropDownButton;
-  private ImageComponent chosenElementComponent;
-  private Spritesheet entrySprite;
-  private Spritesheet buttonSprite;
+  @SuppressWarnings("NullAway.Init") private ImageComponent dropDownButton;
+  @SuppressWarnings("NullAway.Init") private ImageComponent chosenElementComponent;
+  @SuppressWarnings("NullAway.Init") private Spritesheet entrySprite;
+  @SuppressWarnings("NullAway.Init") private Spritesheet buttonSprite;
   private boolean isDroppedDown;
 
   private final int numberOfShownElements;
@@ -74,7 +75,7 @@ public class DropdownListField extends GuiComponent {
     return this.getContentList().getSelectionRow();
   }
 
-  public Object getSelectedObject() {
+  @NullUnmarked public Object getSelectedObject() {
     if (this.getContentArray().length == 0) {
       return null;
     }
@@ -94,7 +95,7 @@ public class DropdownListField extends GuiComponent {
     this.getChangeConsumer().add(c);
   }
 
-  @Override
+  @NullUnmarked @Override
   public void prepare() {
     this.contentList = new ListField(this.getX(), this.getY(), this.getWidth(), this.getHeight(), this.getContentArray(), this.numberOfShownElements);
     this.contentList.setButtonSprite(this.buttonSprite);

@@ -2,7 +2,7 @@ package de.gurkenlabs.litiengine.entities.behavior;
 
 public abstract class Transition implements Comparable<Transition> {
   private final int priority;
-  private State state;
+  @SuppressWarnings("NullAway.Init") private State state;
 
   protected Transition(final int priority) {
     this.priority = priority;

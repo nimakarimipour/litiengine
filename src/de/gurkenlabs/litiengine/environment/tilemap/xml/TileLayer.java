@@ -12,15 +12,16 @@ import javax.xml.bind.annotation.XmlElement;
 import de.gurkenlabs.litiengine.environment.tilemap.ITile;
 import de.gurkenlabs.litiengine.environment.tilemap.ITileLayer;
 import de.gurkenlabs.litiengine.environment.tilemap.ITilesetEntry;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class TileLayer extends Layer implements ITileLayer {
 
-  @XmlElement
+  @SuppressWarnings("NullAway") @XmlElement
   private TileData data = null;
 
-  private transient List<ITile> tileList;
+  @SuppressWarnings("NullAway.Init") private transient List<ITile> tileList;
 
-  private transient Tile[][] tiles;
+  @SuppressWarnings("NullAway.Init") private transient Tile[][] tiles;
 
   /**
    * Instantiates a new {@code TileLayer} instance.
@@ -39,13 +40,13 @@ public class TileLayer extends Layer implements ITileLayer {
     this.data = data;
   }
 
-  @Override
+  @NullUnmarked @Override
   public ITile getTileByLocation(final Point2D location) {
     final Optional<ITile> tile = this.getTiles().stream().filter(x -> x.getTileCoordinate().equals(location)).findFirst();
     return tile.isPresent() ? tile.get() : null;
   }
 
-  @Override
+  @NullUnmarked @Override
   public ITile getTile(int x, int y) {
     this.getTiles();
 

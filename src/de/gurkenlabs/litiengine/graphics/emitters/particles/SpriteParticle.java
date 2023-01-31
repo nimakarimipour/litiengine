@@ -12,10 +12,10 @@ import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.graphics.animation.AnimationController;
 
 public class SpriteParticle extends Particle {
-  private AnimationController animation;
+  @SuppressWarnings("NullAway.Init") private AnimationController animation;
   private boolean animateSprite;
   private boolean loopSprite;
-  private BufferedImage currentImage;
+  @SuppressWarnings("NullAway.Init") private BufferedImage currentImage;
   private Spritesheet spritesheet;
 
   public SpriteParticle(final Spritesheet spritesheet) {

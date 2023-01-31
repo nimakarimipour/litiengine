@@ -4,10 +4,11 @@ import de.gurkenlabs.litiengine.abilities.Ability;
 import de.gurkenlabs.litiengine.entities.ICombatEntity;
 import de.gurkenlabs.litiengine.entities.IMobileEntity;
 import de.gurkenlabs.litiengine.physics.Force;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public abstract class ForceEffect extends Effect {
   private final float strength;
-  private Force appliedForce;
+  @SuppressWarnings("NullAway.Init") private Force appliedForce;
 
   protected ForceEffect(final Ability ability, final float strength, final EffectTarget... targets) {
     super(ability, targets);
@@ -41,7 +42,7 @@ public abstract class ForceEffect extends Effect {
 
   protected abstract Force applyForce(final IMobileEntity affectedEntity);
 
-  @Override
+  @NullUnmarked @Override
   protected void cease(final EffectApplication appliance) {
     super.cease(appliance);
     if (this.getAppliedForce() != null) {

@@ -39,6 +39,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.RenderOrder;
 import de.gurkenlabs.litiengine.environment.tilemap.StaggerAxis;
 import de.gurkenlabs.litiengine.environment.tilemap.StaggerIndex;
 import de.gurkenlabs.litiengine.util.io.FileUtilities;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 @XmlRootElement(name = "map")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -52,16 +53,16 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
   @XmlAttribute
   private double version;
 
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   private String tiledversion;
 
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   private String orientation;
 
-  @XmlTransient
+  @SuppressWarnings("NullAway.Init") @XmlTransient
   private IMapOrientation mapOrientation;
 
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   private RenderOrder renderorder;
 
   @XmlAttribute
@@ -79,32 +80,32 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
   @XmlAttribute
   private int infinite;
 
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   private Integer hexsidelength;
 
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   private StaggerAxis staggeraxis;
 
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   private StaggerIndex staggerindex;
 
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   @XmlJavaTypeAdapter(ColorAdapter.class)
   private Color backgroundcolor;
 
-  @XmlAttribute(name = "nextlayerid")
+  @SuppressWarnings("NullAway.Init") @XmlAttribute(name = "nextlayerid")
   private Integer nextLayerId;
 
-  @XmlAttribute(name = "nextobjectid")
+  @SuppressWarnings("NullAway.Init") @XmlAttribute(name = "nextobjectid")
   private Integer nextObjectId;
 
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   private String name;
 
-  @XmlElement(name = "tileset", type = Tileset.class)
+  @SuppressWarnings("NullAway.Init") @XmlElement(name = "tileset", type = Tileset.class)
   private List<ITileset> tilesets;
 
-  @XmlElements({
+  @SuppressWarnings("NullAway.Init") @XmlElements({
       @XmlElement(name = "imagelayer", type = ImageLayer.class),
       @XmlElement(name = "layer", type = TileLayer.class),
       @XmlElement(name = "objectgroup", type = MapObjectLayer.class),
@@ -112,7 +113,7 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
   })
   private List<ILayer> layers;
 
-  @XmlTransient
+  @SuppressWarnings("NullAway.Init") @XmlTransient
   private URL path;
 
   private transient List<ITileLayer> rawTileLayers = new CopyOnWriteArrayList<>();
@@ -215,7 +216,7 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
     return this.tilesets;
   }
 
-  @Override
+  @NullUnmarked @Override
   public ITilesetEntry getTilesetEntry(int gid) {
     for (ITileset tileset : this.getTilesets()) {
       if (tileset.containsTile(gid)) {
@@ -332,7 +333,7 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
     }
   }
 
-  @Override
+  @NullUnmarked @Override
   public void removeLayer(ILayer layer) {
     this.layers.remove(layer);
     this.removeRawLayer(layer);
@@ -341,7 +342,7 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
     }
   }
 
-  @Override
+  @NullUnmarked @Override
   public void removeLayer(int index) {
     ILayer removed = this.layers.remove(index);
     this.removeRawLayer(removed);

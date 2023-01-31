@@ -69,6 +69,7 @@ import de.gurkenlabs.litiengine.physics.IMovementController;
 import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.util.TimeUtilities;
 import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public final class Environment implements IRenderable {
   private static final Map<String, IMapObjectLoader> mapObjectLoaders = new ConcurrentHashMap<>();
@@ -101,11 +102,11 @@ public final class Environment implements IRenderable {
   private final Collection<MapArea> mapAreas = ConcurrentHashMap.newKeySet();
   private final Collection<Trigger> triggers = ConcurrentHashMap.newKeySet();
 
-  private AmbientLight ambientLight;
-  private StaticShadowLayer staticShadowLayer;
+  @SuppressWarnings("NullAway.Init") private AmbientLight ambientLight;
+  @SuppressWarnings("NullAway.Init") private StaticShadowLayer staticShadowLayer;
   private boolean loaded;
   private boolean initialized;
-  private IMap map;
+  @SuppressWarnings("NullAway.Init") private IMap map;
 
   private int gravity;
 
@@ -251,7 +252,7 @@ public final class Environment implements IRenderable {
    * @param listener
    *          The listener to add.
    */
-  public void onRendered(RenderType renderType, EnvironmentRenderedListener listener) {
+  @NullUnmarked public void onRendered(RenderType renderType, EnvironmentRenderedListener listener) {
     this.renderListeners.get(renderType).add(listener);
   }
 
@@ -319,7 +320,7 @@ public final class Environment implements IRenderable {
    * @see IEntity#loaded(Environment)
    * @see EnvironmentEntityListener#entityAdded(IEntity)
    */
-  public void add(IEntity entity) {
+  @NullUnmarked public void add(IEntity entity) {
     if (entity == null) {
       return;
     }
@@ -419,7 +420,7 @@ public final class Environment implements IRenderable {
    * @see #render(Graphics2D)
    * @see RenderEngine#renderEntity(Graphics2D, IEntity)
    */
-  public void add(IRenderable renderable, RenderType renderType) {
+  @NullUnmarked public void add(IRenderable renderable, RenderType renderType) {
     this.renderables.get(renderType).add(renderable);
   }
 
@@ -462,7 +463,7 @@ public final class Environment implements IRenderable {
   /**
    * Clears all loaded entities and renderable instances from this environment.
    */
-  public void clear() {
+  @NullUnmarked public void clear() {
     Game.physics().clear();
 
     this.combatEntities.clear();
@@ -619,7 +620,7 @@ public final class Environment implements IRenderable {
    *          The map ID of the entity.
    * @return The entity with the specified map ID or null if no entity could be found.
    */
-  public IEntity get(final int mapId) {
+  @NullUnmarked public IEntity get(final int mapId) {
     return this.allEntities.get(mapId);
   }
 
@@ -657,7 +658,7 @@ public final class Environment implements IRenderable {
    *          The map ID of the entity.
    * @return The strongly typed entity with the specified map ID or null if no entity could be found or if the defined type doesn't match.
    */
-  public <T extends IEntity> T get(Class<T> clss, int mapId) {
+  @NullUnmarked public <T extends IEntity> T get(Class<T> clss, int mapId) {
     IEntity ent = this.get(mapId);
     if (ent == null || !clss.isInstance(ent)) {
       return null;
@@ -673,7 +674,7 @@ public final class Environment implements IRenderable {
    *          The name of the entity.
    * @return The entity with the specified name or null if no entity could be found or if the defined type doesn't match.
    */
-  public IEntity get(final String name) {
+  @NullUnmarked public IEntity get(final String name) {
     if (name == null || name.isEmpty()) {
       return null;
     }
@@ -698,7 +699,7 @@ public final class Environment implements IRenderable {
    *          The name of the entity.
    * @return The strongly typed entity with the specified name or null if no entity could be found or if the defined type doesn't match.
    */
-  public <T extends IEntity> T get(Class<T> clss, String name) {
+  @NullUnmarked public <T extends IEntity> T get(Class<T> clss, String name) {
     IEntity ent = this.get(name);
     if (ent == null || !clss.isInstance(ent)) {
       return null;
@@ -1183,7 +1184,7 @@ public final class Environment implements IRenderable {
    * @see IEntity#getRenderType()
    * @see ILayer#getRenderType()
    */
-  public Collection<IEntity> getEntities(final RenderType renderType) {
+  @NullUnmarked public Collection<IEntity> getEntities(final RenderType renderType) {
     return Collections.unmodifiableCollection(this.miscEntities.get(renderType).values());
   }
 
@@ -2063,7 +2064,7 @@ public final class Environment implements IRenderable {
    *          The entity that attempts to interacts with triggers.
    * @return The trigger that the source entity was able to interact with or null.
    */
-  public Trigger interact(ICollisionEntity source) {
+  @NullUnmarked public Trigger interact(ICollisionEntity source) {
     return this.interact(source, null);
   }
 
@@ -2079,7 +2080,7 @@ public final class Environment implements IRenderable {
    * 
    * @see Trigger#canTrigger(ICollisionEntity)
    */
-  public Trigger interact(ICollisionEntity source, Predicate<Trigger> condition) {
+  @NullUnmarked public Trigger interact(ICollisionEntity source, Predicate<Trigger> condition) {
     for (final Trigger trigger : this.triggers) {
       if (trigger.canTrigger(source) && (condition == null || condition.test(trigger))) {
         boolean result = trigger.interact(source);
@@ -2398,7 +2399,7 @@ public final class Environment implements IRenderable {
     return this.rendering;
   }
 
-  private static <T extends IEntity> T getById(Collection<T> entities, int mapId) {
+  @NullUnmarked private static <T extends IEntity> T getById(Collection<T> entities, int mapId) {
     for (final T m : entities) {
       if (m.getMapId() == mapId) {
         return m;
@@ -2408,7 +2409,7 @@ public final class Environment implements IRenderable {
     return null;
   }
 
-  private static <T extends IEntity> T getByName(Collection<T> entities, String name) {
+  @NullUnmarked private static <T extends IEntity> T getByName(Collection<T> entities, String name) {
     if (name == null || name.isEmpty()) {
       return null;
     }
@@ -2451,7 +2452,7 @@ public final class Environment implements IRenderable {
     }
   }
 
-  private void render(Graphics2D g, RenderType renderType) {
+  @NullUnmarked private void render(Graphics2D g, RenderType renderType) {
     long renderStart = System.nanoTime();
 
     // 1. Render map layers
@@ -2711,7 +2712,7 @@ public final class Environment implements IRenderable {
     }
   }
 
-  private void fireRenderEvent(Graphics2D g, RenderType type) {
+  @NullUnmarked private void fireRenderEvent(Graphics2D g, RenderType type) {
     for (EnvironmentRenderedListener listener : this.renderListeners.get(type)) {
       listener.rendered(g, type);
     }

@@ -14,6 +14,7 @@ import de.gurkenlabs.litiengine.Valign;
 import de.gurkenlabs.litiengine.entities.IEntity;
 import de.gurkenlabs.litiengine.graphics.animation.IAnimationController;
 import de.gurkenlabs.litiengine.util.MathUtilities;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class Camera implements ICamera {
   private final Collection<ZoomChangedListener> zoomListeners = ConcurrentHashMap.newKeySet();
@@ -41,7 +42,7 @@ public class Camera implements ICamera {
 
   private long zoomTick;
 
-  private Point2D targetFocus;
+  @SuppressWarnings("NullAway.Init") private Point2D targetFocus;
   private int panTime = 0;
 
   private boolean clampToMap;
@@ -194,7 +195,7 @@ public class Camera implements ICamera {
     this.shakeDuration = shakeDuration;
   }
 
-  @Override
+  @NullUnmarked @Override
   public void update() {
     if (Game.world().camera() != null && !Game.world().camera().equals(this)) {
       return;

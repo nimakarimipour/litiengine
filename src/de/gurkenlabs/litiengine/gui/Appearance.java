@@ -8,15 +8,16 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Consumer;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class Appearance {
   private final List<Consumer<Appearance>> changedConsumer;
 
-  private Color foreColor;
-  private Color backgroundColor1;
-  private Color backgroundColor2;
-  private Color borderColor;
-  private Stroke borderStyle;
+  @SuppressWarnings("NullAway.Init") private Color foreColor;
+  @SuppressWarnings("NullAway.Init") private Color backgroundColor1;
+  @SuppressWarnings("NullAway.Init") private Color backgroundColor2;
+  @SuppressWarnings("NullAway.Init") private Color borderColor;
+  @SuppressWarnings("NullAway.Init") private Stroke borderStyle;
   private float borderRadius;
   private boolean horizontalBackgroundGradient;
   private boolean transparentBackground;
@@ -74,7 +75,7 @@ public class Appearance {
     return this.backgroundColor2;
   }
 
-  public Paint getBackgroundPaint(double width, double height) {
+  @NullUnmarked public Paint getBackgroundPaint(double width, double height) {
     if (this.isTransparentBackground()) {
       return null;
     }

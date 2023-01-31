@@ -12,7 +12,7 @@ public class Force {
   private Point2D location;
   private final float size;
   private float strength;
-  private String identifier;
+  @SuppressWarnings("NullAway.Init") private String identifier;
 
   /**
    * Instantiates a new force.

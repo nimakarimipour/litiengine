@@ -31,9 +31,9 @@ public class Animation implements IUpdateable, ILaunchable {
   private final String name;
   private Spritesheet spritesheet;
 
-  private KeyFrame currentFrame;
+  @SuppressWarnings("NullAway.Init") private KeyFrame currentFrame;
   private long lastFrameUpdate;
-  private KeyFrame firstFrame;
+  @SuppressWarnings("NullAway.Init") private KeyFrame firstFrame;
   private int frameDuration = DEFAULT_FRAME_DURATION;
 
   private boolean loop;

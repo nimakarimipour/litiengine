@@ -5,6 +5,7 @@ import java.awt.geom.Point2D;
 import java.util.List;
 
 import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /**
  * The Class Path.
@@ -20,7 +21,7 @@ public class Path {
   /** The target. */
   private final Point2D target;
 
-  public Path(final Path2D path) {
+  @NullUnmarked public Path(final Path2D path) {
     this.path2D = path;
     this.points = GeometricUtilities.getPoints(this.path2D);
     if (!this.points.isEmpty()) {

@@ -14,14 +14,15 @@ import de.gurkenlabs.litiengine.Align;
 import de.gurkenlabs.litiengine.graphics.ShapeRenderer;
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.input.Input;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /**
  * The Class ListField.
  */
 public class ListField extends GuiComponent {
   private boolean arrowKeyNavigation;
-  private Spritesheet buttonSprite;
-  private Spritesheet entrySprite;
+  @SuppressWarnings("NullAway.Init") private Spritesheet buttonSprite;
+  @SuppressWarnings("NullAway.Init") private Spritesheet entrySprite;
   private final List<IntConsumer> changeConsumer;
   private final CopyOnWriteArrayList<CopyOnWriteArrayList<ImageComponent>> listEntries;
   private final Object[][] content;
@@ -33,7 +34,7 @@ public class ListField extends GuiComponent {
   private int verticalLowerBound = 0;
   private int horizontalLowerBound = 0;
 
-  private ImageComponent selectedComponent;
+  @SuppressWarnings("NullAway.Init") private ImageComponent selectedComponent;
 
   private int selectionColumn = -1;
   private int selectionRow = -1;
@@ -41,8 +42,8 @@ public class ListField extends GuiComponent {
   private boolean selectEntireColumn = false;
   private boolean selectEntireRow = false;
 
-  private VerticalSlider verticalSlider;
-  private HorizontalSlider horizontalSlider;
+  @SuppressWarnings("NullAway.Init") private VerticalSlider verticalSlider;
+  @SuppressWarnings("NullAway.Init") private HorizontalSlider horizontalSlider;
   private boolean sliderInside = false;
 
   /**
@@ -127,7 +128,7 @@ public class ListField extends GuiComponent {
    * <br>
    * The ListField will then show no selection.
    */
-  public void deselect() {
+  @NullUnmarked public void deselect() {
     this.selectionColumn = -1;
     this.selectionRow = -1;
     this.selectedComponent = null;
@@ -180,7 +181,7 @@ public class ListField extends GuiComponent {
    *          the row
    * @return ImageComponent at [column,row]
    */
-  public ImageComponent getListEntry(final int column, final int row) {
+  @NullUnmarked public ImageComponent getListEntry(final int column, final int row) {
     if (column < 0 || row < 0 || column >= this.listEntries.size() || row >= this.listEntries.get(column).size()) {
       return null;
     }
@@ -215,7 +216,7 @@ public class ListField extends GuiComponent {
     return this.selectedComponent;
   }
 
-  public Object getSelectedObject() {
+  @NullUnmarked public Object getSelectedObject() {
     if (this.getSelectedComponent() == null) {
       return null;
     }
@@ -259,7 +260,7 @@ public class ListField extends GuiComponent {
     this.getChangeConsumer().add(c);
   }
 
-  public void refresh() {
+  @NullUnmarked public void refresh() {
     for (int column = 0; column < this.getNumberOfShownColumns(); column++) {
       for (int row = 0; row < this.getNumberOfShownRows(); row++) {
         if (this.getContent()[column].length <= row) {
@@ -513,7 +514,7 @@ public class ListField extends GuiComponent {
     });
   }
 
-  private void initContentList() {
+  @NullUnmarked private void initContentList() {
     final double columnWidth = this.getWidth() / this.getNumberOfShownColumns();
     final double rowHeight = this.getHeight() / this.getNumberOfShownRows();
     for (int column = 0; column < this.getNumberOfShownColumns(); column++) {

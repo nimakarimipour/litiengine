@@ -15,6 +15,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import de.gurkenlabs.litiengine.environment.tilemap.ICustomProperty;
 import de.gurkenlabs.litiengine.environment.tilemap.ITile;
 import de.gurkenlabs.litiengine.environment.tilemap.ITilesetEntry;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Tile extends CustomPropertyProvider implements ITile {
@@ -25,12 +26,12 @@ public class Tile extends CustomPropertyProvider implements ITile {
   protected static final int FLIPPED_DIAGONALLY_FLAG = 0x20000000;
   private static final AffineTransform TX_DIAGONAL_FLIP = new AffineTransform(0.0, 1.0, 1.0, 0.0, 0.0, 0.0);
 
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   private Integer gid;
 
-  private transient Point tileCoordinate;
+  @SuppressWarnings("NullAway.Init") private transient Point tileCoordinate;
 
-  private transient ITilesetEntry tilesetEntry;
+  @SuppressWarnings("NullAway.Init") private transient ITilesetEntry tilesetEntry;
 
   private transient boolean flippedDiagonally;
   private transient boolean flippedHorizontally;
@@ -118,7 +119,7 @@ public class Tile extends CustomPropertyProvider implements ITile {
     return this.flipped;
   }
 
-  @Override
+  @NullUnmarked @Override
   public BufferedImage getImage() {
     if (this.tilesetEntry == null) { // happens if the tile is empty
       return null;
@@ -215,7 +216,7 @@ public class Tile extends CustomPropertyProvider implements ITile {
     this.tileCoordinate = tileCoordinate;
   }
 
-  @SuppressWarnings("unused")
+  @NullUnmarked @SuppressWarnings("unused")
   private void beforeMarshal(Marshaller m) {
     if (this.gid != null && this.gid == 0) {
       this.gid = null;

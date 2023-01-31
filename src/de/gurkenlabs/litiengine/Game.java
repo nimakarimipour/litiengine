@@ -40,6 +40,7 @@ import de.gurkenlabs.litiengine.sound.SoundPlayback;
 import de.gurkenlabs.litiengine.tweening.TweenEngine;
 import de.gurkenlabs.litiengine.util.ArrayUtilities;
 import de.gurkenlabs.litiengine.util.io.XmlUtilities;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /***
  * <p>
@@ -83,9 +84,9 @@ public final class Game {
   private static GameInfo gameInfo = new GameInfo();
   private static final TweenEngine tweenEngine = new TweenEngine();
 
-  private static GameLoop gameLoop;
-  private static ScreenManager screenManager;
-  private static GameWindow gameWindow;
+  @SuppressWarnings("NullAway.Init") private static GameLoop gameLoop;
+  @SuppressWarnings("NullAway.Init") private static ScreenManager screenManager;
+  @SuppressWarnings("NullAway.Init") private static GameWindow gameWindow;
 
   private static GameWorld world = new GameWorld();
 
@@ -599,7 +600,7 @@ public final class Game {
     setInfo(Resources.getLocation(gameInfoFile));
   }
 
-  public static void setInfo(final URL gameInfoFile) {
+  @NullUnmarked public static void setInfo(final URL gameInfoFile) {
     GameInfo info;
     try {
       info = XmlUtilities.read(GameInfo.class, gameInfoFile);
@@ -626,7 +627,7 @@ public final class Game {
     return true;
   }
 
-  static synchronized void terminate() {
+  @NullUnmarked static synchronized void terminate() {
     if (!initialized) {
       return;
     }

@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public final class ArrayUtilities {
   public static final String DEFAULT_STRING_DELIMITER = ",";
@@ -552,7 +553,7 @@ public final class ArrayUtilities {
 
   // general method for joining an array
   // encapsulated for type safety
-  private static String joinArray(Object arr, String separator) {
+  @NullUnmarked private static String joinArray(Object arr, String separator) {
     if (arr == null) {
       return null;
     }

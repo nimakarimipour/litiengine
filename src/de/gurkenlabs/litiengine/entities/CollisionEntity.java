@@ -45,7 +45,7 @@ public abstract class CollisionEntity extends Entity implements ICollisionEntity
   @TmxProperty(name = MapObjectProperty.COLLISION_TYPE)
   private Collision collisionType;
 
-  private Rectangle2D collisionBox;
+  @SuppressWarnings("NullAway.Init") private Rectangle2D collisionBox;
 
   protected CollisionEntity() {
     super();
