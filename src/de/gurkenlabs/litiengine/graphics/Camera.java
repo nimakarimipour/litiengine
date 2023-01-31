@@ -14,6 +14,7 @@ import de.gurkenlabs.litiengine.Valign;
 import de.gurkenlabs.litiengine.entities.IEntity;
 import de.gurkenlabs.litiengine.graphics.animation.IAnimationController;
 import de.gurkenlabs.litiengine.util.MathUtilities;
+import javax.annotation.Nullable;
 
 public class Camera implements ICamera {
   private final Collection<ZoomChangedListener> zoomListeners = ConcurrentHashMap.newKeySet();
@@ -41,7 +42,7 @@ public class Camera implements ICamera {
 
   private long zoomTick;
 
-  private Point2D targetFocus;
+  @Nullable private Point2D targetFocus;
   private int panTime = 0;
 
   private boolean clampToMap;
@@ -132,7 +133,7 @@ public class Camera implements ICamera {
   }
 
   @Override
-  public void setFocus(final Point2D focus) {
+  public void setFocus(@Nullable final Point2D focus) {
     this.focus = this.clampToMap(focus);
 
     // dunno why but without the factor of 0.01 sometimes everything starts to

@@ -18,6 +18,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.ITileset;
 import de.gurkenlabs.litiengine.environment.tilemap.ITilesetEntry;
 import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.util.ArrayUtilities;
+import javax.annotation.Nullable;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TilesetEntry extends CustomPropertyProvider implements ITilesetEntry {
@@ -26,16 +27,16 @@ public class TilesetEntry extends CustomPropertyProvider implements ITilesetEntr
 
   private transient ITerrain[] terrains;
 
-  @XmlAttribute
+  @Nullable @XmlAttribute
   private Integer id;
 
-  @XmlAttribute
+  @Nullable @XmlAttribute
   private String terrain;
 
   @XmlElement
   private TileAnimation animation;
 
-  @XmlElement
+  @Nullable @XmlElement
   private MapImage image;
 
   @XmlAttribute

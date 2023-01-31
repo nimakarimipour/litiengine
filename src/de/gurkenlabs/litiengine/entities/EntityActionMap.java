@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import javax.annotation.Nullable;
 
 public final class EntityActionMap {
   private final Map<String, EntityAction> actions;
@@ -12,7 +13,7 @@ public final class EntityActionMap {
     this.actions = new ConcurrentHashMap<>();
   }
 
-  public EntityAction register(String name, Runnable action) {
+  @Nullable public EntityAction register(String name, Runnable action) {
     if (name == null || name.isEmpty() || action == null) {
       return null;
     }

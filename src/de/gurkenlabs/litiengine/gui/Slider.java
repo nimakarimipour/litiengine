@@ -7,6 +7,7 @@ import java.util.function.Consumer;
 
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.input.Input;
+import javax.annotation.Nullable;
 
 public abstract class Slider extends GuiComponent {
   private ImageComponent button1;

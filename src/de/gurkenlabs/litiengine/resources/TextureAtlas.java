@@ -15,6 +15,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import de.gurkenlabs.litiengine.util.io.FileUtilities;
 import de.gurkenlabs.litiengine.util.io.XmlUtilities;
+import javax.annotation.Nullable;
 
 @XmlRootElement(name = "TextureAtlas")
 public class TextureAtlas {
@@ -29,7 +30,7 @@ public class TextureAtlas {
   @XmlAttribute
   private int height;
 
-  @XmlElement(name = "sprite")
+  @Nullable @XmlElement(name = "sprite")
   private List<Sprite> sprites;
 
   private String absoluteImagePath;
@@ -38,7 +39,7 @@ public class TextureAtlas {
     // keep for serialization
   }
 
-  public static TextureAtlas read(String textureAtlasFile) {
+  @Nullable public static TextureAtlas read(String textureAtlasFile) {
     try {
       TextureAtlas atlas = XmlUtilities.read(TextureAtlas.class, Resources.getLocation(textureAtlasFile));
       if (atlas == null) {
@@ -78,7 +79,7 @@ public class TextureAtlas {
     return this.sprites;
   }
 
-  public Sprite getSprite(String name) {
+  @Nullable public Sprite getSprite(String name) {
     if (name == null || name.isEmpty()) {
       return null;
     }
@@ -104,7 +105,7 @@ public class TextureAtlas {
 
   @XmlRootElement(name = "sprite")
   public static class Sprite {
-    @XmlAttribute(name = "n")
+    @Nullable @XmlAttribute(name = "n")
     private String name;
 
     @XmlAttribute()
@@ -125,7 +126,7 @@ public class TextureAtlas {
     @XmlAttribute(name = "oY")
     private int offsetY;
 
-    @XmlAttribute(name = "r")
+    @Nullable @XmlAttribute(name = "r")
     @XmlJavaTypeAdapter(CustomBooleanAdapter.class)
     private Boolean rotated;
 

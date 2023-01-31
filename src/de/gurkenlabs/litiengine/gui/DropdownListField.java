@@ -8,6 +8,7 @@ import java.util.function.IntConsumer;
 import de.gurkenlabs.litiengine.Align;
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.input.Input;
+import javax.annotation.Nullable;
 
 public class DropdownListField extends GuiComponent {
   public static final FontIcon ARROW_DOWN = new FontIcon(ICON_FONT, "\uE804");
@@ -74,7 +75,7 @@ public class DropdownListField extends GuiComponent {
     return this.getContentList().getSelectionRow();
   }
 
-  public Object getSelectedObject() {
+  @Nullable public Object getSelectedObject() {
     if (this.getContentArray().length == 0) {
       return null;
     }

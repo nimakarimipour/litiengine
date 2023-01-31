@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 import de.gurkenlabs.litiengine.graphics.ImageRenderer;
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.graphics.animation.AnimationController;
+import javax.annotation.Nullable;
 
 public class SpriteParticle extends Particle {
   private AnimationController animation;

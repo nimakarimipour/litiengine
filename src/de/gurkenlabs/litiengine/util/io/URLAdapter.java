@@ -8,6 +8,7 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import javax.annotation.Nullable;
 
 /**
  * This class allows for absolute and relative URLs to be unmarshalled as Java URL objects.
@@ -38,7 +39,7 @@ public class URLAdapter extends XmlAdapter<String, URL> {
     this.base = base;
   }
 
-  @Override
+  @Nullable @Override
   public URL unmarshal(String v) throws MalformedURLException {
     if (v == null) {
       return null;
@@ -51,7 +52,7 @@ public class URLAdapter extends XmlAdapter<String, URL> {
   }
 
   // TODO make a unit test for this
-  @Override
+  @Nullable @Override
   public String marshal(URL v) {
     if (v == null) {
       return null;

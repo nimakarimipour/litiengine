@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.GameListener;
+import javax.annotation.Nullable;
 
 /**
  * An abstract implementation for all classes that provide a certain type of resources.
@@ -364,7 +365,7 @@ public abstract class ResourcesContainer<T> {
     return this.tryGet(resourceName);
   }
 
-  protected abstract T load(URL resourceName) throws Exception;
+  @Nullable protected abstract T load(URL resourceName) throws Exception;
 
   /**
    * Gets an alias for the specified resourceName. Note that the process of providing an alias is up to the ResourceContainer implementation.
@@ -375,7 +376,7 @@ public abstract class ResourcesContainer<T> {
    *          The resource.
    * @return An alias for the specified resource.
    */
-  protected String getAlias(String resourceName, T resource) {
+  @Nullable protected String getAlias(String resourceName, T resource) {
     return null;
   }
 
@@ -383,7 +384,7 @@ public abstract class ResourcesContainer<T> {
     return this.resources;
   }
 
-  private T loadResource(String identifier) {
+  @Nullable private T loadResource(String identifier) {
     T newResource;
     try {
       newResource = this.load(Resources.getLocation(identifier));

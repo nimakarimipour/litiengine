@@ -5,18 +5,19 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 
 import de.gurkenlabs.litiengine.environment.tilemap.ITerrain;
+import javax.annotation.Nullable;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Terrain extends CustomPropertyProvider implements ITerrain {
   public static final int NONE = -1;
 
-  @XmlAttribute
+  @Nullable @XmlAttribute
   private String name;
 
   @XmlAttribute
   private int tile;
 
-  @Override
+  @Nullable @Override
   public String getName() {
     return this.name;
   }

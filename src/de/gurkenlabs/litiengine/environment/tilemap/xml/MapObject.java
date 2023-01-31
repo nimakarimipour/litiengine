@@ -18,15 +18,16 @@ import de.gurkenlabs.litiengine.environment.tilemap.IMapObjectLayer;
 import de.gurkenlabs.litiengine.environment.tilemap.IMapObjectText;
 import de.gurkenlabs.litiengine.environment.tilemap.IPolyShape;
 import de.gurkenlabs.litiengine.environment.tilemap.ITilesetEntry;
+import javax.annotation.Nullable;
 
 public class MapObject extends CustomPropertyProvider implements IMapObject {
   @XmlAttribute
   private int id;
 
-  @XmlAttribute
+  @Nullable @XmlAttribute
   private Integer gid;
 
-  @XmlAttribute
+  @Nullable @XmlAttribute
   private String name;
 
   @XmlAttribute
@@ -51,22 +52,22 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
   @XmlTransient
   private ITilesetEntry tile;
 
-  @XmlElement(name = "polyline")
+  @Nullable @XmlElement(name = "polyline")
   private PolyShape polyline;
 
-  @XmlElement(name = "polygon")
+  @Nullable @XmlElement(name = "polygon")
   private PolyShape polygon;
 
-  @XmlElement
+  @Nullable @XmlElement
   private String point;
 
-  @XmlElement
+  @Nullable @XmlElement
   private String ellipse;
 
   @XmlElement
   private Text text;
 
-  private transient MapObjectLayer layer;
+  @Nullable private transient MapObjectLayer layer;
 
   /**
    * Instantiates a new {@code MapObject} instance.
@@ -205,17 +206,17 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
     return this.type;
   }
 
-  @Override
+  @Nullable @Override
   public IPolyShape getPolyline() {
     return this.polyline;
   }
 
-  @Override
+  @Nullable @Override
   public IPolyShape getPolygon() {
     return this.polygon;
   }
 
-  @Override
+  @Nullable @Override
   public Ellipse2D getEllipse() {
     if (!this.isEllipse()) {
       return null;
@@ -417,7 +418,7 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
     }
   }
 
-  protected void setLayer(MapObjectLayer layer) {
+  protected void setLayer(@Nullable MapObjectLayer layer) {
     this.layer = layer;
   }
 

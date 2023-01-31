@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Consumer;
+import javax.annotation.Nullable;
 
 public class Appearance {
   private final List<Consumer<Appearance>> changedConsumer;
@@ -74,7 +75,7 @@ public class Appearance {
     return this.backgroundColor2;
   }
 
-  public Paint getBackgroundPaint(double width, double height) {
+  @Nullable public Paint getBackgroundPaint(double width, double height) {
     if (this.isTransparentBackground()) {
       return null;
     }

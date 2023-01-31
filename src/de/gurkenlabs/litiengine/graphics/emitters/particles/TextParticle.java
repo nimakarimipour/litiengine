@@ -9,9 +9,10 @@ import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import javax.annotation.Nullable;
 
 public class TextParticle extends Particle {
-  private Font font;
+  @Nullable private Font font;
   private final String text;
 
   public TextParticle(final String text) {
@@ -19,7 +20,7 @@ public class TextParticle extends Particle {
     this.text = text;
   }
 
-  public Font getFont() {
+  @Nullable public Font getFont() {
     return this.font;
   }
 
