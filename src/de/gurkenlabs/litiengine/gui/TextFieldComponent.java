@@ -16,6 +16,7 @@ import de.gurkenlabs.litiengine.Align;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.input.Input;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class TextFieldComponent extends ImageComponent {
   public static final String DOUBLE_FORMAT = "[-+]?[0-9]*\\.?[0-9]*([eE][-+]?[0-9]*)?";
@@ -64,7 +65,7 @@ public class TextFieldComponent extends ImageComponent {
     return this.fullText;
   }
 
-  public void handleTypedKey(final KeyEvent event) {
+  @NullUnmarked public void handleTypedKey(final KeyEvent event) {
     if (this.isSuspended() || !this.isSelected() || !this.isVisible() || !this.isEnabled()) {
       return;
     }
@@ -124,7 +125,7 @@ public class TextFieldComponent extends ImageComponent {
     this.fullText = text;
   }
 
-  private void handleBackSpace() {
+  @NullUnmarked private void handleBackSpace() {
     if (Input.keyboard().isPressed(KeyEvent.VK_SHIFT)) {
       while (this.getText().length() >= 1 && this.getText().charAt(this.getText().length() - 1) == ' ') {
         this.setText(this.getText().substring(0, this.getText().length() - 1));
@@ -142,7 +143,7 @@ public class TextFieldComponent extends ImageComponent {
     }
   }
 
-  private void handleNormalTyping(KeyEvent event) {
+  @NullUnmarked private void handleNormalTyping(KeyEvent event) {
     if (this.getMaxLength() > 0 && this.getText().length() >= this.getMaxLength()) {
       return;
     }

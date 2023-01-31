@@ -15,6 +15,7 @@ import de.gurkenlabs.litiengine.graphics.IRenderable;
 import de.gurkenlabs.litiengine.physics.Collision;
 import de.gurkenlabs.litiengine.util.MathUtilities;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class AStarGrid implements IRenderable {
   public static final double PENALTY_STATIC_PROP = 5;
@@ -101,7 +102,7 @@ public class AStarGrid implements IRenderable {
     return newNeighbors;
   }
 
-  public AStarNode getNode(final Point2D point) {
+  @NullUnmarked public AStarNode getNode(final Point2D point) {
     return this.getNode(point.getX(), point.getY());
   }
 

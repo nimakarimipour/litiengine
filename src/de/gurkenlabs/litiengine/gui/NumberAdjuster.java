@@ -7,6 +7,7 @@ import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class NumberAdjuster extends TextFieldComponent {
   public static final FontIcon ARROW_DOWN = new FontIcon(ICON_FONT, "\uE84A");
@@ -32,7 +33,7 @@ public class NumberAdjuster extends TextFieldComponent {
     this.setCurrentValue(this.getCurrentValue().subtract(this.getStepSize()));
   }
 
-  public BigDecimal getCurrentValue() {
+  @NullUnmarked public BigDecimal getCurrentValue() {
     return this.currentValue;
   }
 

@@ -8,10 +8,11 @@ import java.util.function.Consumer;
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.input.Input;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public abstract class Slider extends GuiComponent {
-  private ImageComponent button1;
-  private ImageComponent button2;
+  @SuppressWarnings("NullAway.Init") private ImageComponent button1;
+  @SuppressWarnings("NullAway.Init") private ImageComponent button2;
   @Nullable private ImageComponent sliderComponent;
 
   @Nullable private Spritesheet buttonSprite;
@@ -23,7 +24,7 @@ public abstract class Slider extends GuiComponent {
   private final float maxValue;
   private float stepSize;
 
-  protected Slider(final double x, final double y, final double width, final double height, final float minValue, final float maxValue, final float stepSize) {
+  @NullUnmarked protected Slider(final double x, final double y, final double width, final double height, final float minValue, final float maxValue, final float stepSize) {
     super(x, y, width, height);
     this.changeConsumer = new CopyOnWriteArrayList<>();
     this.minValue = minValue;

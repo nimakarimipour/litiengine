@@ -10,6 +10,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 import de.gurkenlabs.litiengine.util.io.StreamUtilities;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /**
  * This class implements all required functionality to load sounds from the file
@@ -66,7 +67,7 @@ public final class Sound {
    * 
    * @return The audio format of this instance.
    */
-  public AudioFormat getFormat() {
+  @NullUnmarked public AudioFormat getFormat() {
     return this.format;
   }
 

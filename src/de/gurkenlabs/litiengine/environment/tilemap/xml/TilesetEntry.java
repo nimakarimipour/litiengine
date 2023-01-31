@@ -19,10 +19,11 @@ import de.gurkenlabs.litiengine.environment.tilemap.ITilesetEntry;
 import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.util.ArrayUtilities;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TilesetEntry extends CustomPropertyProvider implements ITilesetEntry {
-  @XmlTransient
+  @SuppressWarnings("NullAway.Init") @XmlTransient
   private Tileset tileset;
 
   @Nullable private transient ITerrain[] terrains;
@@ -83,7 +84,7 @@ public class TilesetEntry extends CustomPropertyProvider implements ITilesetEntr
     return this.animation;
   }
 
-  @Nullable @Override
+  @NullUnmarked @Nullable @Override
   public BufferedImage getImage() {
     if (this.animation == null) {
       return this.getBasicImage();
@@ -91,7 +92,7 @@ public class TilesetEntry extends CustomPropertyProvider implements ITilesetEntr
     return this.tileset.getTile(this.animation.getCurrentFrame().getTileId()).getBasicImage();
   }
 
-  @Nullable @Override
+  @NullUnmarked @Nullable @Override
   public BufferedImage getBasicImage() {
     if (this.image != null) {
       return Resources.images().get(this.image.getAbsoluteSourcePath());

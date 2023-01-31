@@ -11,6 +11,7 @@ import javax.xml.bind.JAXBException;
 import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.util.io.XmlUtilities;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class EmitterLoader {
   private static final Map<String, EmitterData> loadedEmitters;
@@ -31,7 +32,7 @@ public class EmitterLoader {
     return load(Resources.getLocation(emitterXml));
   }
 
-  @Nullable public static EmitterData load(@Nullable URL emitterXml) {
+  @NullUnmarked @Nullable public static EmitterData load(@Nullable URL emitterXml) {
     final String name = emitterXml.getFile();
     if (loadedEmitters.containsKey(name)) {
       return loadedEmitters.get(name);
@@ -48,7 +49,7 @@ public class EmitterLoader {
     return load(loaded);
   }
 
-  public static EmitterData load(@Nullable EmitterData emitterData) {
+  @NullUnmarked public static EmitterData load(@Nullable EmitterData emitterData) {
     if (loadedEmitters.containsKey(emitterData.getName())) {
       return loadedEmitters.get(emitterData.getName());
     }

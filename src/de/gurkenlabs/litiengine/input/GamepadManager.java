@@ -19,6 +19,7 @@ import net.java.games.input.Controller;
 import net.java.games.input.Controller.Type;
 import net.java.games.input.ControllerEnvironment;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /**
  * The {@code GamepadManager} provides access to all gamepad input devices.
@@ -157,7 +158,7 @@ public final class GamepadManager extends GamepadEvents implements ILaunchable {
    * @see #getAll()
    * @see #current()
    */
-  public Gamepad get(final int index) {
+  @NullUnmarked public Gamepad get(final int index) {
     if (this.gamePads.isEmpty()) {
       return null;
     }

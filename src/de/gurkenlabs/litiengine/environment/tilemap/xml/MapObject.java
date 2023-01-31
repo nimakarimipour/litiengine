@@ -19,6 +19,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.IMapObjectText;
 import de.gurkenlabs.litiengine.environment.tilemap.IPolyShape;
 import de.gurkenlabs.litiengine.environment.tilemap.ITilesetEntry;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class MapObject extends CustomPropertyProvider implements IMapObject {
   @XmlAttribute
@@ -211,7 +212,7 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
     return this.polyline;
   }
 
-  @Nullable @Override
+  @NullUnmarked @Nullable @Override
   public IPolyShape getPolygon() {
     return this.polygon;
   }
@@ -271,7 +272,7 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
     this.width = Math.max(width, 0);
   }
 
-  @Override
+  @NullUnmarked @Override
   @XmlTransient
   public void setX(float x) {
     if (this.isInfiniteMap()) {
@@ -283,7 +284,7 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
     this.x = x;
   }
 
-  @Override
+  @NullUnmarked @Override
   @XmlTransient
   public void setY(float y) {
     if (this.isInfiniteMap()) {
@@ -323,7 +324,7 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
     return sb.toString();
   }
 
-  @Override
+  @NullUnmarked @Override
   public float getX() {
     if (this.isInfiniteMap()) {
       TmxMap map = (TmxMap) this.getLayer().getMap();
@@ -333,7 +334,7 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
     return this.x == null ? 0 : this.x;
   }
 
-  @Override
+  @NullUnmarked @Override
   public float getY() {
     if (this.isInfiniteMap()) {
       TmxMap map = (TmxMap) this.getLayer().getMap();
@@ -365,7 +366,7 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
     return this.height;
   }
 
-  @Override
+  @NullUnmarked @Override
   public IMapObjectLayer getLayer() {
     return this.layer;
   }
@@ -410,7 +411,7 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
     }
   }
 
-  @Override
+  @NullUnmarked @Override
   void finish(@Nullable URL location) throws TmxException {
     super.finish(location);
     if (this.gid != null) {

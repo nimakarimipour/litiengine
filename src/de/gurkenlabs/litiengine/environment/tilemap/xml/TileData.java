@@ -26,6 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import de.gurkenlabs.litiengine.util.ArrayUtilities;
 import de.gurkenlabs.litiengine.util.io.Codec;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public class TileData {
   private static final Logger log = Logger.getLogger(TileData.class.getName());
@@ -56,7 +57,7 @@ public class TileData {
     }
   }
 
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   private String encoding;
 
   @Nullable @XmlAttribute
@@ -69,7 +70,7 @@ public class TileData {
   @Nullable @XmlTransient
   private String value;
 
-  @XmlTransient
+  @SuppressWarnings("NullAway.Init") @XmlTransient
   private List<TileChunk> chunks;
 
   @Nullable @XmlTransient
@@ -276,7 +277,7 @@ public class TileData {
     return this.offsetY;
   }
 
-  protected static List<Tile> parseBase64Data(@Nullable String value, @Nullable String compression) throws InvalidTileLayerException {
+  @NullUnmarked protected static List<Tile> parseBase64Data(@Nullable String value, @Nullable String compression) throws InvalidTileLayerException {
     List<Tile> parsed = new ArrayList<>();
 
     String enc = value.trim();
@@ -329,7 +330,7 @@ public class TileData {
     return parsed;
   }
 
-  protected static List<Tile> parseCsvData(@Nullable String value) throws InvalidTileLayerException {
+  @NullUnmarked protected static List<Tile> parseCsvData(@Nullable String value) throws InvalidTileLayerException {
 
     List<Tile> parsed = new ArrayList<>();
 

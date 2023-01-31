@@ -18,6 +18,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import de.gurkenlabs.litiengine.environment.tilemap.ICustomProperty;
 import de.gurkenlabs.litiengine.environment.tilemap.ICustomPropertyProvider;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class CustomPropertyProvider implements ICustomPropertyProvider {
@@ -58,7 +59,7 @@ public class CustomPropertyProvider implements ICustomPropertyProvider {
     return property.getType();
   }
 
-  @Override
+  @NullUnmarked @Override
   public void setTypeOfProperty(String propertyName, String type) {
     this.getProperty(propertyName).setType(type);
   }
@@ -75,7 +76,7 @@ public class CustomPropertyProvider implements ICustomPropertyProvider {
     }
   }
 
-  @Nullable @Override
+  @NullUnmarked @Nullable @Override
   public String getStringValue(String propertyName) {
     return this.getStringValue(propertyName, null);
   }
@@ -183,7 +184,7 @@ public class CustomPropertyProvider implements ICustomPropertyProvider {
     return property.getAsDouble();
   }
 
-  @Override
+  @NullUnmarked @Override
   public Color getColorValue(String propertyName) {
     return this.getColorValue(propertyName, null);
   }
@@ -203,7 +204,7 @@ public class CustomPropertyProvider implements ICustomPropertyProvider {
     return value;
   }
 
-  @Override
+  @NullUnmarked @Override
   public <T extends Enum<T>> T getEnumValue(String propertyName, Class<T> enumType) {
     return this.getEnumValue(propertyName, enumType, null);
   }

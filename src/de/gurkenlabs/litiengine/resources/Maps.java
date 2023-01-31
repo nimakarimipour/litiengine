@@ -29,6 +29,7 @@ import de.gurkenlabs.litiengine.graphics.RenderType;
 import de.gurkenlabs.litiengine.util.io.FileUtilities;
 import de.gurkenlabs.litiengine.util.io.XmlUtilities;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public final class Maps extends ResourcesContainer<IMap> {
   private static final Logger log = Logger.getLogger(Maps.class.getName());
@@ -263,7 +264,7 @@ public final class Maps extends ResourcesContainer<IMap> {
      *          The mapObject to be added to the specified {@code MapObjectLayer}.
      * @return The added map object.
      */
-    public IMapObject add(@Nullable IMapObjectLayer layer, IMapObject mapObject) {
+    @NullUnmarked public IMapObject add(@Nullable IMapObjectLayer layer, IMapObject mapObject) {
       layer.addMapObject(mapObject);
       return mapObject;
     }

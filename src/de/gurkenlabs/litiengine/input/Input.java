@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.GameListener;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /**
  * The static {@code Input} class is the LITIENGINE's access point to devices that capture physical player input.
@@ -45,7 +46,7 @@ public final class Input {
    * @see GamepadManager#current()
    * @see GamepadManager#get(int)
    */
-  public static GamepadManager gamepads() {
+  @NullUnmarked public static GamepadManager gamepads() {
     if (!Game.config().input().isGamepadSupport()) {
       log.log(Level.SEVERE, "Cannot access gamepads because gamepad support is disabled in the configuration.");
     }
@@ -58,7 +59,7 @@ public final class Input {
    * 
    * @return The keyboard input device.
    */
-  public static IKeyboard keyboard() {
+  @NullUnmarked public static IKeyboard keyboard() {
     return keyboard;
   }
 
@@ -67,7 +68,7 @@ public final class Input {
    * 
    * @return The mouse input device.
    */
-  public static IMouse mouse() {
+  @NullUnmarked public static IMouse mouse() {
     return mouse;
   }
 

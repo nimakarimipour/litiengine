@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 public final class FileUtilities {
   private static final Logger log = Logger.getLogger(FileUtilities.class.getName());
@@ -105,7 +106,7 @@ public final class FileUtilities {
     }
   }
 
-  public static String getFileName(@Nullable URL path) {
+  @NullUnmarked public static String getFileName(@Nullable URL path) {
     return getFileName(path.getPath());
   }
 
@@ -169,7 +170,7 @@ public final class FileUtilities {
    *          The parts of the path to be constructed.
    * @return The combined path.
    */
-  public static String combine(String basePath, @Nullable final String... paths) {
+  @NullUnmarked public static String combine(String basePath, @Nullable final String... paths) {
     basePath = basePath.replace(FILE_SEPARATOR_WIN, FILE_SEPARATOR);
     try {
 

@@ -19,6 +19,7 @@ import de.gurkenlabs.litiengine.physics.IMovementController;
 import de.gurkenlabs.litiengine.physics.MovementController;
 import de.gurkenlabs.litiengine.tweening.TweenType;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /**
  * TODO: Add idle event
@@ -152,7 +153,7 @@ public class Creature extends CombatEntity implements IMobileEntity {
     return Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG) * 0.001F * this.getVelocity().get() * Game.loop().getTimeScale();
   }
 
-  @Override
+  @NullUnmarked @Override
   public Attribute<Float> getVelocity() {
     return this.velocity;
   }

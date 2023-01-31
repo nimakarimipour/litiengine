@@ -17,6 +17,7 @@ import de.gurkenlabs.litiengine.input.Input;
 import de.gurkenlabs.litiengine.input.Mouse;
 import de.gurkenlabs.litiengine.util.Imaging;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /**
  * The visual representation of the {@code Mouse} in the LITIENGINE.<br>
@@ -24,7 +25,7 @@ import javax.annotation.Nullable;
  * 
  * @see Mouse
  */
-public final class MouseCursor implements IRenderable {
+@NullUnmarked public final class MouseCursor implements IRenderable {
 
   private static final Cursor DEFAULT_CURSOR = new Cursor(Cursor.DEFAULT_CURSOR);
   private static final Cursor BLANK_CURSOR;

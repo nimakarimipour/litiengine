@@ -41,6 +41,7 @@ import de.gurkenlabs.litiengine.tweening.TweenEngine;
 import de.gurkenlabs.litiengine.util.ArrayUtilities;
 import de.gurkenlabs.litiengine.util.io.XmlUtilities;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /***
  * <p>
@@ -84,7 +85,7 @@ public final class Game {
   @Nullable private static GameInfo gameInfo = new GameInfo();
   private static final TweenEngine tweenEngine = new TweenEngine();
 
-  private static GameLoop gameLoop;
+  @SuppressWarnings("NullAway.Init") private static GameLoop gameLoop;
   @Nullable private static ScreenManager screenManager;
   @Nullable private static GameWindow gameWindow;
 
@@ -279,7 +280,7 @@ public final class Game {
    * @see GameWindow#setIcon(java.awt.Image)
    * @see GameWindow#cursor()
    */
-  public static GameWindow window() {
+  @NullUnmarked public static GameWindow window() {
     return gameWindow;
   }
 
@@ -627,7 +628,7 @@ public final class Game {
     return true;
   }
 
-  static synchronized void terminate() {
+  @NullUnmarked static synchronized void terminate() {
     if (!initialized) {
       return;
     }

@@ -15,6 +15,7 @@ import de.gurkenlabs.litiengine.graphics.ShapeRenderer;
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.input.Input;
 import javax.annotation.Nullable;
+import de.gurkenlabs.litiengine.NullUnmarked;
 
 /**
  * The Class ListField.
@@ -260,7 +261,7 @@ public class ListField extends GuiComponent {
     this.getChangeConsumer().add(c);
   }
 
-  public void refresh() {
+  @NullUnmarked public void refresh() {
     for (int column = 0; column < this.getNumberOfShownColumns(); column++) {
       for (int row = 0; row < this.getNumberOfShownRows(); row++) {
         if (this.getContent()[column].length <= row) {
@@ -514,7 +515,7 @@ public class ListField extends GuiComponent {
     });
   }
 
-  private void initContentList() {
+  @NullUnmarked private void initContentList() {
     final double columnWidth = this.getWidth() / this.getNumberOfShownColumns();
     final double rowHeight = this.getHeight() / this.getNumberOfShownRows();
     for (int column = 0; column < this.getNumberOfShownColumns(); column++) {
@@ -579,7 +580,7 @@ public class ListField extends GuiComponent {
     }
   }
 
-  private void initSliders() {
+  @NullUnmarked private void initSliders() {
     final double sliderSize = this.getHeight() / 5;
     final int maxNbOfRows = this.getMaxRows() - this.getNumberOfShownRows();
     if (this.getNumberOfShownColumns() < this.getContent().length) {
