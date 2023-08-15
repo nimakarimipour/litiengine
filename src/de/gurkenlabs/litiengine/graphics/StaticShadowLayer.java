@@ -9,6 +9,7 @@ import java.awt.geom.Rectangle2D;
 
 import de.gurkenlabs.litiengine.entities.StaticShadow;
 import de.gurkenlabs.litiengine.environment.Environment;
+import javax.annotation.Nullable;
 
 public class StaticShadowLayer extends ColorLayer {
 

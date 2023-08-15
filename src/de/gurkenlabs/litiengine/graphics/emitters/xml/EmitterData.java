@@ -24,13 +24,14 @@ import de.gurkenlabs.litiengine.physics.Collision;
 import de.gurkenlabs.litiengine.resources.Resource;
 import de.gurkenlabs.litiengine.util.ColorHelper;
 import de.gurkenlabs.litiengine.util.MathUtilities;
+import javax.annotation.Nullable;
 
 @XmlRootElement(name = "emitter")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class EmitterData implements Serializable, Resource {
   private static final long serialVersionUID = 50238884097993529L;
 
-  public static final Color DEFAULT_COLOR = ColorHelper.decode("#CC00a5bc");
+  @Nullable public static final Color DEFAULT_COLOR = ColorHelper.decode("#CC00a5bc");
 
   public static final String DEFAULT_SPRITESHEET = "";
   public static final String DEFAULT_NAME = "Custom Emitter";
@@ -111,7 +112,7 @@ public class EmitterData implements Serializable, Resource {
   @XmlElement
   private float colorVariance;
 
-  @XmlElementWrapper
+  @Nullable @XmlElementWrapper
   @XmlElement(name = "color")
   private List<String> colors;
 
@@ -160,7 +161,7 @@ public class EmitterData implements Serializable, Resource {
   @XmlAttribute
   private int maxParticles;
 
-  @XmlAttribute
+  @Nullable @XmlAttribute
   private String name;
 
   @XmlElement
@@ -175,7 +176,7 @@ public class EmitterData implements Serializable, Resource {
   @XmlElement
   private ParticleParameter particleTTL;
 
-  @XmlElementWrapper
+  @Nullable @XmlElementWrapper
   @XmlElement(name = "text")
   private List<String> texts;
 
@@ -191,7 +192,7 @@ public class EmitterData implements Serializable, Resource {
   @XmlAttribute
   private int spawnRate;
 
-  @XmlElement
+  @Nullable @XmlElement
   private String spritesheet;
 
   @XmlAttribute
@@ -249,7 +250,7 @@ public class EmitterData implements Serializable, Resource {
     return this.colorVariance;
   }
 
-  @XmlTransient
+  @Nullable @XmlTransient
   public List<String> getColors() {
     return this.colors;
   }
@@ -309,7 +310,7 @@ public class EmitterData implements Serializable, Resource {
     return this.maxParticles;
   }
 
-  @XmlTransient
+  @Nullable @XmlTransient
   @Override
   public String getName() {
     return this.name;
@@ -369,7 +370,7 @@ public class EmitterData implements Serializable, Resource {
     return this.spawnRate;
   }
 
-  @XmlTransient
+  @Nullable @XmlTransient
   public String getSpritesheet() {
     return this.spritesheet;
   }
@@ -428,7 +429,7 @@ public class EmitterData implements Serializable, Resource {
     this.requiredQuality = minQuality;
   }
 
-  public void setColor(final Color color) {
+  public void setColor(@Nullable final Color color) {
     final List<String> tmpList = new ArrayList<>();
     tmpList.add(ColorHelper.encode(color));
     this.colors = tmpList;
@@ -548,7 +549,7 @@ public class EmitterData implements Serializable, Resource {
   }
 
   @Override
-  public void setName(final String name) {
+  public void setName(@Nullable final String name) {
     this.name = name;
   }
 

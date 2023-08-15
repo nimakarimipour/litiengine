@@ -9,6 +9,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import de.gurkenlabs.litiengine.util.io.StreamUtilities;
+import javax.annotation.Nullable;
 
 /**
  * This class implements all required functionality to load sounds from the file
@@ -16,13 +17,13 @@ import de.gurkenlabs.litiengine.util.io.StreamUtilities;
  */
 public final class Sound {
 
-  private AudioFormat format;
+  @Nullable private AudioFormat format;
 
-  private final String name;
+  @Nullable private final String name;
 
-  private AudioInputStream stream;
+  @Nullable private AudioInputStream stream;
 
-  private byte[] streamData;
+  @Nullable private byte[] streamData;
 
   private byte[] data;
 
@@ -43,7 +44,7 @@ public final class Sound {
    * @throws UnsupportedAudioFileException
    *           If the audio format is not supported
    */
-  public Sound(InputStream is, String name) throws IOException, UnsupportedAudioFileException {
+  public Sound(InputStream is, @Nullable String name) throws IOException, UnsupportedAudioFileException {
     this.name = name;
 
     this.data = StreamUtilities.getBytes(is);
@@ -74,7 +75,7 @@ public final class Sound {
    * 
    * @return The name of this sound.
    */
-  public String getName() {
+  @Nullable public String getName() {
     return this.name;
   }
 
@@ -105,7 +106,7 @@ public final class Sound {
     return new AudioFormat(AudioFormat.Encoding.PCM_SIGNED, rate, 16, ch, ch * 2, rate, false);
   }
 
-  @Override
+  @Nullable @Override
   public String toString() {
     return this.getName();
   }

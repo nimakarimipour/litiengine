@@ -13,18 +13,19 @@ import de.gurkenlabs.litiengine.environment.tilemap.MapObjectProperty;
 import de.gurkenlabs.litiengine.environment.tilemap.MapObjectType;
 import de.gurkenlabs.litiengine.environment.tilemap.TmxProperty;
 import de.gurkenlabs.litiengine.environment.tilemap.TmxType;
+import javax.annotation.Nullable;
 
 @TmxType(MapObjectType.SPAWNPOINT)
 public class Spawnpoint extends Entity {
   private final Collection<EntitySpawnedListener> spawnedListeners = ConcurrentHashMap.newKeySet();
 
-  @TmxProperty(name = MapObjectProperty.SPAWN_DIRECTION)
+  @Nullable @TmxProperty(name = MapObjectProperty.SPAWN_DIRECTION)
   private Direction direction;
 
-  @TmxProperty(name = MapObjectProperty.SPAWN_INFO)
+  @Nullable @TmxProperty(name = MapObjectProperty.SPAWN_INFO)
   private String spawnInfo;
 
-  @TmxProperty(name = MapObjectProperty.SPAWN_PIVOT)
+  @Nullable @TmxProperty(name = MapObjectProperty.SPAWN_PIVOT)
   private EntityPivotType spawnPivotType;
 
   @TmxProperty(name = MapObjectProperty.SPAWN_PIVOT_OFFSETX)
@@ -166,7 +167,7 @@ public class Spawnpoint extends Entity {
     this.spawnedListeners.remove(listener);
   }
 
-  public Direction getDirection() {
+  @Nullable public Direction getDirection() {
     return direction;
   }
 
@@ -174,7 +175,7 @@ public class Spawnpoint extends Entity {
     this.direction = direction;
   }
 
-  public String getSpawnInfo() {
+  @Nullable public String getSpawnInfo() {
     return spawnInfo;
   }
 
@@ -182,7 +183,7 @@ public class Spawnpoint extends Entity {
     this.spawnInfo = spawnInfo;
   }
 
-  public EntityPivotType getSpawnPivotType() {
+  @Nullable public EntityPivotType getSpawnPivotType() {
     return this.spawnPivotType;
   }
 

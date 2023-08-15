@@ -32,6 +32,7 @@ import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.util.io.FileUtilities;
 import de.gurkenlabs.litiengine.util.io.XmlUtilities;
+import javax.annotation.Nullable;
 
 @XmlRootElement(name = "tileset")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -42,50 +43,50 @@ public class Tileset extends CustomPropertyProvider implements ITileset {
   @XmlAttribute
   private int firstgid;
 
-  @XmlElement
+  @Nullable @XmlElement
   private MapImage image;
 
-  @XmlAttribute
+  @Nullable @XmlAttribute
   private Integer margin;
 
-  @XmlAttribute
+  @Nullable @XmlAttribute
   private String name;
 
-  @XmlAttribute
+  @Nullable @XmlAttribute
   private Integer tilewidth;
 
-  @XmlAttribute
+  @Nullable @XmlAttribute
   private Integer tileheight;
 
-  @XmlElement(name = "tileoffset")
+  @Nullable @XmlElement(name = "tileoffset")
   private TileOffset tileoffset;
 
-  @XmlAttribute
+  @Nullable @XmlAttribute
   private Integer tilecount;
 
-  @XmlAttribute
+  @Nullable @XmlAttribute
   private Integer columns;
 
-  @XmlAttribute
+  @Nullable @XmlAttribute
   private Integer spacing;
 
-  @XmlAttribute
+  @Nullable @XmlAttribute
   private String source;
 
-  @XmlElementWrapper(name = "terraintypes")
+  @Nullable @XmlElementWrapper(name = "terraintypes")
   @XmlElement(name = "terrain")
   private List<Terrain> terrainTypes = null;
 
-  @XmlElement(name = "tile")
+  @Nullable @XmlElement(name = "tile")
   private List<TilesetEntry> tiles = null;
 
-  @XmlTransient
+  @Nullable @XmlTransient
   private List<TilesetEntry> allTiles;
 
-  @XmlTransient
+  @Nullable @XmlTransient
   protected Tileset sourceTileset;
 
-  private transient Spritesheet spriteSheet;
+  @Nullable private transient Spritesheet spriteSheet;
 
   public Tileset() {
     Resources.images().addClearedListener(() -> this.spriteSheet = null);
@@ -107,7 +108,7 @@ public class Tileset extends CustomPropertyProvider implements ITileset {
     return this.firstgid;
   }
 
-  @Override
+  @Nullable @Override
   public IMapImage getImage() {
     return this.sourceTileset != null ? this.sourceTileset.getImage() : this.image;
   }
@@ -130,13 +131,13 @@ public class Tileset extends CustomPropertyProvider implements ITileset {
     return this.margin;
   }
 
-  @Override
+  @Nullable @Override
   public String getName() {
     return this.sourceTileset != null ? this.sourceTileset.getName() : this.name;
   }
 
   @Override
-  public void setName(String name) {
+  public void setName(@Nullable String name) {
     this.name = name;
   }
 
@@ -158,7 +159,7 @@ public class Tileset extends CustomPropertyProvider implements ITileset {
     return this.spacing;
   }
 
-  @Override
+  @Nullable @Override
   @XmlTransient
   public Spritesheet getSpritesheet() {
     if (this.spriteSheet == null && this.getImage() != null) {
@@ -251,7 +252,7 @@ public class Tileset extends CustomPropertyProvider implements ITileset {
     return this.sourceTileset != null ? this.sourceTileset.getColumns() : this.columns;
   }
 
-  @Override
+  @Nullable @Override
   public ITileOffset getTileOffset() {
     return this.sourceTileset != null ? this.sourceTileset.getTileOffset() : this.tileoffset;
   }
@@ -265,7 +266,7 @@ public class Tileset extends CustomPropertyProvider implements ITileset {
     return this.tilecount != null ? this.tilecount : 0;
   }
 
-  @Override
+  @Nullable @Override
   public ITilesetEntry getTile(int id) {
     if (this.sourceTileset != null) {
       return this.sourceTileset.getTile(id);
@@ -303,7 +304,7 @@ public class Tileset extends CustomPropertyProvider implements ITileset {
   }
 
   @Override
-  public void finish(URL location) throws TmxException {
+  public void finish(@Nullable URL location) throws TmxException {
     super.finish(location);
     if (this.source != null) {
       // don't reload the source if it's already been loaded in a resource bundle
