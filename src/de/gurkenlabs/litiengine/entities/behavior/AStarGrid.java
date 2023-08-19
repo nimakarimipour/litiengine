@@ -14,6 +14,7 @@ import de.gurkenlabs.litiengine.entities.Prop;
 import de.gurkenlabs.litiengine.graphics.IRenderable;
 import de.gurkenlabs.litiengine.physics.Collision;
 import de.gurkenlabs.litiengine.util.MathUtilities;
+import org.jspecify.annotations.NullUnmarked;
 
 public class AStarGrid implements IRenderable {
   public static final double PENALTY_STATIC_PROP = 5;
@@ -104,7 +105,7 @@ public class AStarGrid implements IRenderable {
     return this.getNode(point.getX(), point.getY());
   }
 
-  public AStarNode getNode(final double x, final double y) {
+  @NullUnmarked public AStarNode getNode(final double x, final double y) {
     int xNode = (int) (x / this.nodeSize);
     int yNode = (int) (y / this.nodeSize);
 
@@ -214,7 +215,7 @@ public class AStarGrid implements IRenderable {
     return MathUtilities.clamp(y, 0, this.getGrid()[0].length - 1);
   }
 
-  private AStarNode getNode(final int x, final int y) {
+  @NullUnmarked private AStarNode getNode(final int x, final int y) {
     if (x >= 0 && x < this.getGrid().length && y >= 0 && y < this.getGrid()[0].length) {
       return this.getGrid()[x][y];
     }

@@ -18,13 +18,13 @@ import de.gurkenlabs.litiengine.environment.tilemap.TmxType;
 public class Spawnpoint extends Entity {
   private final Collection<EntitySpawnedListener> spawnedListeners = ConcurrentHashMap.newKeySet();
 
-  @TmxProperty(name = MapObjectProperty.SPAWN_DIRECTION)
+  @SuppressWarnings("NullAway.Init") @TmxProperty(name = MapObjectProperty.SPAWN_DIRECTION)
   private Direction direction;
 
-  @TmxProperty(name = MapObjectProperty.SPAWN_INFO)
+  @SuppressWarnings("NullAway.Init") @TmxProperty(name = MapObjectProperty.SPAWN_INFO)
   private String spawnInfo;
 
-  @TmxProperty(name = MapObjectProperty.SPAWN_PIVOT)
+  @SuppressWarnings("NullAway.Init") @TmxProperty(name = MapObjectProperty.SPAWN_PIVOT)
   private EntityPivotType spawnPivotType;
 
   @TmxProperty(name = MapObjectProperty.SPAWN_PIVOT_OFFSETX)

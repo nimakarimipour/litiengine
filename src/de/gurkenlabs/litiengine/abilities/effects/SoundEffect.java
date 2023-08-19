@@ -8,6 +8,7 @@ import de.gurkenlabs.litiengine.abilities.Ability;
 import de.gurkenlabs.litiengine.entities.ICombatEntity;
 import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.sound.Sound;
+import org.jspecify.annotations.NullUnmarked;
 
 public class SoundEffect extends Effect {
   private final Sound[] sounds;
@@ -40,7 +41,7 @@ public class SoundEffect extends Effect {
     Game.audio().playSound(this.getRandomSound(), entity);
   }
 
-  private Sound getRandomSound() {
+  @NullUnmarked private Sound getRandomSound() {
     if (this.sounds.length == 0) {
       return null;
     }

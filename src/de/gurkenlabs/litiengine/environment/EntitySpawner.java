@@ -19,8 +19,8 @@ public abstract class EntitySpawner<T extends IEntity> implements IEntitySpawner
   private long lastSpawnWave;
   private int spawnDelay;
   private SpawnMode spawnMode;
-  private List<Spawnpoint> spawnpoints;
-  private Function<IEntitySpawner<T>, List<Spawnpoint>> customSpawnpoints;
+  @SuppressWarnings("NullAway.Init") private List<Spawnpoint> spawnpoints;
+  @SuppressWarnings("NullAway.Init") private Function<IEntitySpawner<T>, List<Spawnpoint>> customSpawnpoints;
 
   public EntitySpawner(final int interval, final int amount) {
     this.spawnDelay = 1000;

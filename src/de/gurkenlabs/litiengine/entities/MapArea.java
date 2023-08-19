@@ -3,6 +3,7 @@ package de.gurkenlabs.litiengine.entities;
 import de.gurkenlabs.litiengine.environment.tilemap.MapObjectType;
 import de.gurkenlabs.litiengine.environment.tilemap.TmxType;
 import de.gurkenlabs.litiengine.graphics.RenderType;
+import org.jspecify.annotations.NullUnmarked;
 
 @EntityInfo(renderType = RenderType.NONE)
 @TmxType(MapObjectType.AREA)
@@ -26,7 +27,7 @@ public class MapArea extends Entity {
    * @param height
    *          The height of this instance.
    */
-  public MapArea(final double x, final double y, final double width, final double height) {
+  @NullUnmarked public MapArea(final double x, final double y, final double width, final double height) {
     this(0, null, x, y, width, height);
   }
 

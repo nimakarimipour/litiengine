@@ -4,7 +4,7 @@ public class EntityAction {
   private final String name;
   private final Runnable action;
 
-  private String description;
+  @SuppressWarnings("NullAway.Init") private String description;
 
   EntityAction(String name, Runnable action) {
     this.name = name;

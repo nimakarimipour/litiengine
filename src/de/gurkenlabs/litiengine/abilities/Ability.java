@@ -22,6 +22,7 @@ import de.gurkenlabs.litiengine.entities.Creature;
 import de.gurkenlabs.litiengine.entities.EntityPivot;
 import de.gurkenlabs.litiengine.graphics.IRenderable;
 import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
+import org.jspecify.annotations.NullUnmarked;
 
 @AbilityInfo
 public abstract class Ability implements IRenderable {
@@ -37,7 +38,7 @@ public abstract class Ability implements IRenderable {
   private boolean multiTarget;
   private CastType castType;
 
-  private AbilityExecution currentExecution;
+  @SuppressWarnings("NullAway.Init") private AbilityExecution currentExecution;
 
   /**
    * Initializes a new instance of the {@code Ability} class.
@@ -113,7 +114,7 @@ public abstract class Ability implements IRenderable {
    * @return An {@link AbilityExecution} object that wraps all information about
    *         this execution of the ability.
    */
-  public AbilityExecution cast() {
+  @NullUnmarked public AbilityExecution cast() {
     if (!this.canCast()) {
       return null;
     }

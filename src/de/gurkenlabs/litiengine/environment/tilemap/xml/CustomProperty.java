@@ -6,12 +6,13 @@ import java.util.Objects;
 
 import de.gurkenlabs.litiengine.environment.tilemap.ICustomProperty;
 import de.gurkenlabs.litiengine.util.ColorHelper;
+import org.jspecify.annotations.NullUnmarked;
 
 public class CustomProperty implements ICustomProperty {
 
   private String type;
   private String value;
-  private URL location;
+  @SuppressWarnings("NullAway.Init") private URL location;
 
   /**
    * Instantiates a new {@code CustomProperty} instance.
@@ -79,43 +80,43 @@ public class CustomProperty implements ICustomProperty {
     this.location = location;
   }
 
-  @Override
+  @NullUnmarked @Override
   public void setValue(String value) {
     this.value = Objects.requireNonNull(value);
     this.location = null;
   }
 
-  @Override
+  @NullUnmarked @Override
   public void setValue(char value) {
     this.value = Character.toString(value);
     this.location = null;
   }
 
-  @Override
+  @NullUnmarked @Override
   public void setValue(Enum<?> value) {
     this.value = value.name();
     this.location = null;
   }
 
-  @Override
+  @NullUnmarked @Override
   public void setValue(long value) {
     this.value = Long.toString(value);
     this.location = null;
   }
 
-  @Override
+  @NullUnmarked @Override
   public void setValue(double value) {
     this.value = Double.toString(value);
     this.location = null;
   }
 
-  @Override
+  @NullUnmarked @Override
   public void setValue(boolean value) {
     this.value = Boolean.toString(value);
     this.location = null;
   }
 
-  @Override
+  @NullUnmarked @Override
   public void setValue(Color value) {
     this.value = ColorHelper.encode(Objects.requireNonNull(value));
     this.location = null;
@@ -171,7 +172,7 @@ public class CustomProperty implements ICustomProperty {
     return Long.parseLong(this.value);
   }
 
-  @Override
+  @NullUnmarked @Override
   public <T extends Enum<T>> T getAsEnum(Class<T> enumType) {
     try {
       return Enum.valueOf(enumType, this.value);

@@ -10,20 +10,21 @@ import de.gurkenlabs.litiengine.environment.tilemap.MapObjectProperty;
 import de.gurkenlabs.litiengine.environment.tilemap.TmxProperty;
 import de.gurkenlabs.litiengine.graphics.RenderType;
 import de.gurkenlabs.litiengine.graphics.StaticShadowType;
+import org.jspecify.annotations.NullUnmarked;
 
 @EntityInfo(renderType = RenderType.OVERLAY)
 public class StaticShadow extends MapArea {
   public static final Color DEFAULT_COLOR = new Color(0, 0, 0, 75);
   public static final int DEFAULT_OFFSET = 10;
 
-  @TmxProperty(name = MapObjectProperty.SHADOW_TYPE)
+  @SuppressWarnings("NullAway.Init") @TmxProperty(name = MapObjectProperty.SHADOW_TYPE)
   private StaticShadowType shadowType;
 
   @TmxProperty(name = MapObjectProperty.SHADOW_OFFSET)
   private int shadowOffset;
 
   private final CollisionBox origin;
-  private Area area;
+  @SuppressWarnings("NullAway.Init") private Area area;
 
   /**
    * Instantiates a new {@code StaticShadow} entity.
@@ -33,7 +34,7 @@ public class StaticShadow extends MapArea {
    * @param offset
    *          The offset for the shadow.
    */
-  public StaticShadow(StaticShadowType shadowType, int offset) {
+  @NullUnmarked public StaticShadow(StaticShadowType shadowType, int offset) {
     this.shadowType = shadowType;
     this.shadowOffset = offset;
     this.origin = null;
@@ -45,7 +46,7 @@ public class StaticShadow extends MapArea {
    * @param shadowType
    *          The type of the static shadow.
    */
-  public StaticShadow(StaticShadowType shadowType) {
+  @NullUnmarked public StaticShadow(StaticShadowType shadowType) {
     this.shadowType = shadowType;
     this.shadowOffset = DEFAULT_OFFSET;
     this.origin = null;
@@ -65,7 +66,7 @@ public class StaticShadow extends MapArea {
    * @param shadowType
    *          The type of the static shadow.
    */
-  public StaticShadow(double x, double y, float width, float height, StaticShadowType shadowType) {
+  @NullUnmarked public StaticShadow(double x, double y, float width, float height, StaticShadowType shadowType) {
     this(0, null, x, y, width, height, shadowType);
   }
 
@@ -85,7 +86,7 @@ public class StaticShadow extends MapArea {
    * @param shadowType
    *          The type of the static shadow.
    */
-  public StaticShadow(int id, double x, double y, float width, float height, StaticShadowType shadowType) {
+  @NullUnmarked public StaticShadow(int id, double x, double y, float width, float height, StaticShadowType shadowType) {
     this(id, null, x, y, width, height, shadowType);
   }
 
@@ -107,7 +108,7 @@ public class StaticShadow extends MapArea {
    * @param shadowType
    *          The type of the static shadow.
    */
-  public StaticShadow(int id, String name, double x, double y, float width, float height, StaticShadowType shadowType) {
+  @NullUnmarked public StaticShadow(int id, String name, double x, double y, float width, float height, StaticShadowType shadowType) {
     super(id, name, x, y, width, height);
     this.setShadowType(shadowType);
     this.origin = null;
@@ -120,7 +121,7 @@ public class StaticShadow extends MapArea {
    * @param collisionBox
    *          The collision box from which this shadow instance originates from.
    */
-  public StaticShadow(CollisionBox collisionBox) {
+  @NullUnmarked public StaticShadow(CollisionBox collisionBox) {
     super(0, null, collisionBox.getX(), collisionBox.getY(), collisionBox.getWidth(), collisionBox.getHeight());
     this.setShadowType(StaticShadowType.NONE);
     this.origin = collisionBox;
@@ -131,36 +132,36 @@ public class StaticShadow extends MapArea {
     return this.shadowType;
   }
 
-  public void setShadowType(final StaticShadowType shadowType) {
+  @NullUnmarked public void setShadowType(final StaticShadowType shadowType) {
     this.shadowType = shadowType;
     this.area = null;
   }
 
-  @Override
+  @NullUnmarked @Override
   public void setX(double x) {
     super.setX(x);
     this.area = null;
   }
 
-  @Override
+  @NullUnmarked @Override
   public void setY(double y) {
     super.setY(y);
     this.area = null;
   }
 
-  @Override
+  @NullUnmarked @Override
   public void setWidth(final double width) {
     super.setWidth(width);
     this.area = null;
   }
 
-  @Override
+  @NullUnmarked @Override
   public void setHeight(final double height) {
     super.setHeight(height);
     this.area = null;
   }
 
-  @Override
+  @NullUnmarked @Override
   public void setLocation(final Point2D location) {
     super.setLocation(location);
     this.area = null;
@@ -188,7 +189,7 @@ public class StaticShadow extends MapArea {
     return this.getArea().getBounds2D();
   }
 
-  public Area getArea() {
+  @NullUnmarked public Area getArea() {
     if (this.getShadowType() == StaticShadowType.NONE) {
       return null;
     }
@@ -264,7 +265,7 @@ public class StaticShadow extends MapArea {
     return shadowOffset;
   }
 
-  public void setOffset(int shadowOffset) {
+  @NullUnmarked public void setOffset(int shadowOffset) {
     this.shadowOffset = shadowOffset;
     this.area = null;
   }

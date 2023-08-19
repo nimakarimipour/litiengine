@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.GameListener;
+import org.jspecify.annotations.NullUnmarked;
 
 /**
  * An abstract implementation for all classes that provide a certain type of resources.
@@ -255,7 +256,7 @@ public abstract class ResourcesContainer<T> {
    *          If set to true, cached resource (if existing) will be discarded and the resource will be freshly loaded.
    * @return The game resource or null if not found.
    */
-  public T get(String resourceName, boolean forceLoad) {
+  @NullUnmarked public T get(String resourceName, boolean forceLoad) {
     if (resourceName == null) {
       return null;
     }
@@ -375,7 +376,7 @@ public abstract class ResourcesContainer<T> {
    *          The resource.
    * @return An alias for the specified resource.
    */
-  protected String getAlias(String resourceName, T resource) {
+  @NullUnmarked protected String getAlias(String resourceName, T resource) {
     return null;
   }
 

@@ -9,12 +9,12 @@ import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.input.Input;
 
 public abstract class Slider extends GuiComponent {
-  private ImageComponent button1;
-  private ImageComponent button2;
-  private ImageComponent sliderComponent;
+  @SuppressWarnings("NullAway.Init") private ImageComponent button1;
+  @SuppressWarnings("NullAway.Init") private ImageComponent button2;
+  @SuppressWarnings("NullAway.Init") private ImageComponent sliderComponent;
 
-  private Spritesheet buttonSprite;
-  private Spritesheet sliderSprite;
+  @SuppressWarnings("NullAway.Init") private Spritesheet buttonSprite;
+  @SuppressWarnings("NullAway.Init") private Spritesheet sliderSprite;
   private final List<Consumer<Float>> changeConsumer;
   private float currentValue;
   private boolean isDragging;

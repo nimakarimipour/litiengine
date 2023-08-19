@@ -13,7 +13,7 @@ public class GuiProperties {
   private static Appearance defaultAppearanceDisabled = new Appearance(new Color(136, 136, 136));
   private static Appearance defaultAppearanceHovered = new Appearance(new Color(200, 200, 200));
   
-  private static Font defaultFont;
+  @SuppressWarnings("NullAway.Init") private static Font defaultFont;
 
   private GuiProperties() {
   }

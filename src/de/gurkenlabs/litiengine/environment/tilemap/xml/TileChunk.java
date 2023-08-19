@@ -22,7 +22,7 @@ public class TileChunk implements Comparable<TileChunk> {
   @XmlAttribute
   private int height;
 
-  @XmlValue
+  @SuppressWarnings("NullAway.Init") @XmlValue
   private String value;
 
   @XmlTransient

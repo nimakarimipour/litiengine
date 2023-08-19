@@ -23,9 +23,9 @@ public class TextFieldComponent extends ImageComponent {
   private final List<Consumer<String>> changeConfirmedConsumers;
   private boolean cursorVisible;
   private final int flickerDelay;
-  private String format;
+  @SuppressWarnings("NullAway.Init") private String format;
 
-  private String fullText;
+  @SuppressWarnings("NullAway.Init") private String fullText;
   private long lastToggled;
   private int maxLength = 0;
 

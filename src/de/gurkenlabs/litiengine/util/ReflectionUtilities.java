@@ -16,6 +16,7 @@ import java.util.EventListener;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.jspecify.annotations.NullUnmarked;
 
 public final class ReflectionUtilities {
   private static final Logger log = Logger.getLogger(ReflectionUtilities.class.getName());
@@ -28,7 +29,7 @@ public final class ReflectionUtilities {
     return getField(cls, fieldName, true);
   }
 
-  public static <T> Field getField(Class<T> cls, final String fieldName, boolean recursive) {
+  @NullUnmarked public static <T> Field getField(Class<T> cls, final String fieldName, boolean recursive) {
     for (final Field field : cls.getDeclaredFields()) {
       if (field.getName().equalsIgnoreCase(fieldName)) {
         return field;
@@ -46,7 +47,7 @@ public final class ReflectionUtilities {
     return null;
   }
 
-  @SuppressWarnings("unchecked")
+  @NullUnmarked @SuppressWarnings("unchecked")
   public static <V> V getStaticValue(Class<?> cls, String fieldName) {
     Field keyField = ReflectionUtilities.getField(cls, fieldName);
     if (keyField == null) {
@@ -85,7 +86,7 @@ public final class ReflectionUtilities {
    * @param parameterTypes The types of the parameters defined by the method declaration.
    * @return The found method or null if no such method exists.
    */
-  public static Method getMethod(String name, Class<?> type, Class<?>... parameterTypes) {
+  @NullUnmarked public static Method getMethod(String name, Class<?> type, Class<?>... parameterTypes) {
     Method method = null;
     try {
       method = type.getDeclaredMethod(name, parameterTypes);
@@ -137,7 +138,7 @@ public final class ReflectionUtilities {
     return false;
   }
 
-  public static <T> Method getSetter(Class<T> cls, final String fieldName) {
+  @NullUnmarked public static <T> Method getSetter(Class<T> cls, final String fieldName) {
     for (final Method method : getSetters(cls)) {
       if (method.getName().equalsIgnoreCase("set" + fieldName)) {
         return method;

@@ -12,6 +12,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.util.ArrayUtilities;
 import de.gurkenlabs.litiengine.util.io.Codec;
+import org.jspecify.annotations.NullUnmarked;
 
 @XmlRootElement(name = "sprite")
 public class SpritesheetResource extends NamedResource implements Serializable {
@@ -23,13 +24,13 @@ public class SpritesheetResource extends NamedResource implements Serializable {
   @XmlAttribute(name = "height")
   private int height;
 
-  @XmlAttribute(name = "imageformat")
+  @SuppressWarnings("NullAway.Init") @XmlAttribute(name = "imageformat")
   private ImageFormat imageformat;
 
-  @XmlElement(required = false)
+  @SuppressWarnings("NullAway.Init") @XmlElement(required = false)
   private String image;
 
-  @XmlElement(required = false)
+  @SuppressWarnings("NullAway.Init") @XmlElement(required = false)
   private String keyframes;
 
   public SpritesheetResource() {
@@ -104,7 +105,7 @@ public class SpritesheetResource extends NamedResource implements Serializable {
     this.keyframes = ArrayUtilities.join(keyframes);
   }
 
-  @SuppressWarnings("unused")
+  @NullUnmarked @SuppressWarnings("unused")
   private void beforeMarshal(Marshaller m) {
     if (this.keyframes != null && this.keyframes.isEmpty()) {
       this.keyframes = null;

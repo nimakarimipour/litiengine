@@ -27,6 +27,7 @@ import java.util.function.UnaryOperator;
 import de.gurkenlabs.litiengine.entities.Rotation;
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
+import org.jspecify.annotations.NullUnmarked;
 
 public final class Imaging {
   public static final int CROP_ALIGN_CENTER = 0;
@@ -38,7 +39,7 @@ public final class Imaging {
   public static final int CROP_VALIGN_TOP = 1;
   public static final int CROP_VALIGN_TOPCENTER = 2;
 
-  private static GraphicsConfiguration graphicsConfig;
+  @SuppressWarnings("NullAway.Init") private static GraphicsConfiguration graphicsConfig;
 
   private Imaging() {
     throw new UnsupportedOperationException();
@@ -280,7 +281,7 @@ public final class Imaging {
    *          the flash color
    * @return the buffered image
    */
-  public static BufferedImage flashVisiblePixels(final Image image, final Color flashColor) {
+  @NullUnmarked public static BufferedImage flashVisiblePixels(final Image image, final Color flashColor) {
     final BufferedImage bimage = getCompatibleImage(image.getWidth(null), image.getHeight(null));
     if (bimage == null) {
       return null;
@@ -325,7 +326,7 @@ public final class Imaging {
     return new BufferedImage(cm, raster, isAlphaPremultiplied, null);
   }
 
-  public static BufferedImage getCompatibleImage(final int width, final int height) {
+  @NullUnmarked public static BufferedImage getCompatibleImage(final int width, final int height) {
     if (width == 0 || height == 0) {
       return null;
     }
@@ -472,7 +473,7 @@ public final class Imaging {
     return scale(image, factor, false);
   }
 
-  public static BufferedImage scale(final BufferedImage image, final double factor, boolean keepRatio) {
+  @NullUnmarked public static BufferedImage scale(final BufferedImage image, final double factor, boolean keepRatio) {
     if (image == null) {
       return null;
     }
@@ -503,7 +504,7 @@ public final class Imaging {
     return scale(image, width, height, keepRatio, true);
   }
 
-  public static BufferedImage scale(final BufferedImage image, final int width, final int height, final boolean keepRatio, final boolean fill) {
+  @NullUnmarked public static BufferedImage scale(final BufferedImage image, final int width, final int height, final boolean keepRatio, final boolean fill) {
     if (width == 0 || height == 0 || image == null) {
       return null;
     }
@@ -548,7 +549,7 @@ public final class Imaging {
     return newImg;
   }
 
-  public static BufferedImage setOpacity(final Image img, final float opacity) {
+  @NullUnmarked public static BufferedImage setOpacity(final Image img, final float opacity) {
     if (img == null)
       return null;
     final BufferedImage bimage = getCompatibleImage(img.getWidth(null), img.getHeight(null));
@@ -565,7 +566,7 @@ public final class Imaging {
     return bimage;
   }
 
-  public static BufferedImage toBufferedImage(final Image img) {
+  @NullUnmarked public static BufferedImage toBufferedImage(final Image img) {
     if (img == null) {
       return null;
     }
@@ -586,7 +587,7 @@ public final class Imaging {
     return bimage;
   }
 
-  public static BufferedImage toCompatibleImage(final BufferedImage image) {
+  @NullUnmarked public static BufferedImage toCompatibleImage(final BufferedImage image) {
     if (image == null || image.getWidth() == 0 || image.getHeight() == 0) {
       return image;
     }
@@ -600,7 +601,7 @@ public final class Imaging {
     return compatibleImg;
   }
 
-  private static BufferedImage flipSprites(final Spritesheet sprite, UnaryOperator<BufferedImage> flipFunction) {
+  @NullUnmarked private static BufferedImage flipSprites(final Spritesheet sprite, UnaryOperator<BufferedImage> flipFunction) {
     final BufferedImage flippedSprite = Imaging.getCompatibleImage(sprite.getSpriteWidth() * sprite.getColumns(), sprite.getSpriteHeight() * sprite.getRows());
     if (flippedSprite == null) {
       return null;

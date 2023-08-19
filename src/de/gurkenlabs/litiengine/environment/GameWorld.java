@@ -15,6 +15,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.IMap;
 import de.gurkenlabs.litiengine.graphics.Camera;
 import de.gurkenlabs.litiengine.graphics.ICamera;
 import de.gurkenlabs.litiengine.resources.Resources;
+import org.jspecify.annotations.NullUnmarked;
 
 /**
  * The {@code GameWorld} class is a global environment manager that contains all {@code Environments}
@@ -48,8 +49,8 @@ public final class GameWorld implements IUpdateable {
 
   private final Map<String, Environment> environments = new ConcurrentHashMap<>();
 
-  private Environment environment;
-  private ICamera camera;
+  @SuppressWarnings("NullAway.Init") private Environment environment;
+  @SuppressWarnings("NullAway.Init") private ICamera camera;
   private int gravity;
 
   /**
@@ -276,7 +277,7 @@ public final class GameWorld implements IUpdateable {
    * Clears the currently active camera and environment, removes all previously loaded environments
    * and clears all listener lists.
    */
-  public void clear() {
+  @NullUnmarked public void clear() {
     this.unloadEnvironment();
     this.environments.clear();
     this.setCamera(null);
@@ -308,7 +309,7 @@ public final class GameWorld implements IUpdateable {
    *          The map name by which the environment is identified.
    * @return The environment for the map name or null if no such map can be found.
    */
-  public Environment getEnvironment(String mapName) {
+  @NullUnmarked public Environment getEnvironment(String mapName) {
     if (mapName == null || mapName.isEmpty()) {
       return null;
     }
@@ -325,7 +326,7 @@ public final class GameWorld implements IUpdateable {
    *          The map by which the environment is identified.
    * @return The environment for the map or null if no such map can be found.
    */
-  public Environment getEnvironment(IMap map) {
+  @NullUnmarked public Environment getEnvironment(IMap map) {
     if (map == null || map.getName() == null || map.getName().isEmpty()) {
       return null;
     }
@@ -447,7 +448,7 @@ public final class GameWorld implements IUpdateable {
   /**
    * Unloads the current {@code Environment} and sets it to null.
    */
-  public void unloadEnvironment() {
+  @NullUnmarked public void unloadEnvironment() {
     if (this.environment() != null) {
       this.environment().unload();
 
@@ -482,7 +483,7 @@ public final class GameWorld implements IUpdateable {
    * @see GameWorld#getEnvironment(String)
    * @see GameWorld#reset(IMap)
    */
-  public Environment reset(String mapName) {
+  @NullUnmarked public Environment reset(String mapName) {
     if (mapName == null || mapName.isEmpty()) {
       return null;
     }
@@ -505,7 +506,7 @@ public final class GameWorld implements IUpdateable {
    * @see GameWorld#getEnvironment(String)
    * @see GameWorld#reset(IMap)
    */
-  public Environment reset(IMap map) {
+  @NullUnmarked public Environment reset(IMap map) {
     if (map == null) {
       return null;
     }
@@ -590,7 +591,7 @@ public final class GameWorld implements IUpdateable {
     listeners.get(mapIdentifier).remove(listener);
   }
 
-  private static String getMapName(Environment env) {
+  @NullUnmarked private static String getMapName(Environment env) {
     if (env.getMap() != null && env.getMap().getName() != null) {
       return env.getMap().getName().toLowerCase();
     }

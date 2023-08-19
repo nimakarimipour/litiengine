@@ -25,6 +25,7 @@ import de.gurkenlabs.litiengine.graphics.animation.IEntityAnimationController;
 import de.gurkenlabs.litiengine.tweening.TweenType;
 import de.gurkenlabs.litiengine.tweening.Tweenable;
 import de.gurkenlabs.litiengine.util.ReflectionUtilities;
+import org.jspecify.annotations.NullUnmarked;
 
 @EntityInfo
 public abstract class Entity implements IEntity, EntityRenderListener, Tweenable {
@@ -40,18 +41,18 @@ public abstract class Entity implements IEntity, EntityRenderListener, Tweenable
   private final EntityActionMap actions = new EntityActionMap();
   private final ICustomPropertyProvider properties = new CustomPropertyProvider();
 
-  private Environment environment;
+  @SuppressWarnings("NullAway.Init") private Environment environment;
   private boolean loaded;
 
   private double angle;
 
-  private Rectangle2D boundingBox;
+  @SuppressWarnings("NullAway.Init") private Rectangle2D boundingBox;
 
   private int mapId;
 
   private Point2D mapLocation;
 
-  private String name;
+  @SuppressWarnings("NullAway.Init") private String name;
 
   private double width;
 
@@ -304,7 +305,7 @@ public abstract class Entity implements IEntity, EntityRenderListener, Tweenable
     return this.actions.register(name, action);
   }
 
-  @Override
+  @NullUnmarked @Override
   public String sendMessage(final Object sender, final String message) {
     EntityMessageEvent event = this.fireMessageReceived(sender, ANY_MESSAGE, message, null);
     this.fireMessageReceived(sender, message, message, event);
@@ -312,7 +313,7 @@ public abstract class Entity implements IEntity, EntityRenderListener, Tweenable
     return null;
   }
 
-  @Override
+  @NullUnmarked @Override
   public void setHeight(final double height) {
     this.height = height;
     this.boundingBox = null;
@@ -330,7 +331,7 @@ public abstract class Entity implements IEntity, EntityRenderListener, Tweenable
    * @param location
    *          the new map location
    */
-  @Override
+  @NullUnmarked @Override
   public void setLocation(final Point2D location) {
     this.mapLocation = location;
     this.boundingBox = null;
@@ -356,7 +357,7 @@ public abstract class Entity implements IEntity, EntityRenderListener, Tweenable
     this.renderType = renderType;
   }
 
-  @Override
+  @NullUnmarked @Override
   public void setSize(final double width, final double height) {
     this.width = width;
     this.height = height;
@@ -364,7 +365,7 @@ public abstract class Entity implements IEntity, EntityRenderListener, Tweenable
     this.fireSizeChangedEvent();
   }
 
-  @Override
+  @NullUnmarked @Override
   public void setWidth(final double width) {
     this.width = width;
     this.boundingBox = null;
@@ -401,7 +402,7 @@ public abstract class Entity implements IEntity, EntityRenderListener, Tweenable
     }
   }
 
-  @Override
+  @NullUnmarked @Override
   public void removeTag(String tag) {
     this.getTags().remove(tag);
     if (Game.world().environment() == null) {
@@ -500,7 +501,7 @@ public abstract class Entity implements IEntity, EntityRenderListener, Tweenable
     }
   }
 
-  @Override
+  @NullUnmarked @Override
   public void removed(Environment environment) {
     this.loaded = false;
 

@@ -5,6 +5,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.IntConsumer;
 
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
+import org.jspecify.annotations.NullUnmarked;
 
 /**
  * The Class Menu.
@@ -16,11 +17,11 @@ public class Menu extends ImageComponentList {
   private final String[] items;
   private final List<IntConsumer> selectionChangeConsumers;
 
-  public Menu(final double x, final double y, final double width, final double height, final String... items) {
+  @NullUnmarked public Menu(final double x, final double y, final double width, final double height, final String... items) {
     this(x, y, width, height, null, items);
   }
 
-  public Menu(final double x, final double y, final double width, final double height, final Spritesheet background, final String... items) {
+  @NullUnmarked public Menu(final double x, final double y, final double width, final double height, final Spritesheet background, final String... items) {
     super(x, y, width, height, items.length, 1, null, background);
     this.items = items;
     this.selectionChangeConsumers = new CopyOnWriteArrayList<>();

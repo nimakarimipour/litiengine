@@ -33,7 +33,7 @@ public class RenderComponent extends Canvas {
   private final transient List<IntConsumer> fpsChangedConsumer;
   private final transient List<Consumer<Graphics2D>> renderedConsumer;
 
-  private transient BufferStrategy currentBufferStrategy;
+  @SuppressWarnings("NullAway.Init") private transient BufferStrategy currentBufferStrategy;
 
   private float currentAlpha;
 

@@ -12,36 +12,37 @@ import de.gurkenlabs.litiengine.environment.tilemap.ILayer;
 import de.gurkenlabs.litiengine.environment.tilemap.IMap;
 import de.gurkenlabs.litiengine.environment.tilemap.LayerProperty;
 import de.gurkenlabs.litiengine.graphics.RenderType;
+import org.jspecify.annotations.NullUnmarked;
 
 public abstract class Layer extends CustomPropertyProvider implements ILayer {
 
   @XmlAttribute
   private int id;
 
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   private String name;
 
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   private Integer width;
 
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   private Integer height;
 
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   private Float opacity;
 
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   @XmlJavaTypeAdapter(BooleanIntegerAdapter.class)
   private Boolean visible;
 
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   private Integer offsetx;
 
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   private Integer offsety;
 
-  private transient TmxMap parentMap;
-  private transient RenderType renderType;
+  @SuppressWarnings("NullAway.Init") private transient TmxMap parentMap;
+  @SuppressWarnings("NullAway.Init") private transient RenderType renderType;
   private transient boolean renderTypeLoaded;
 
   public Layer() {
@@ -212,7 +213,7 @@ public abstract class Layer extends CustomPropertyProvider implements ILayer {
     this.parentMap = map;
   }
 
-  protected void afterUnmarshal(Unmarshaller u, Object parent) {
+  @NullUnmarked protected void afterUnmarshal(Unmarshaller u, Object parent) {
     if (parent instanceof TmxMap) {
       this.parentMap = (TmxMap) parent;
     }

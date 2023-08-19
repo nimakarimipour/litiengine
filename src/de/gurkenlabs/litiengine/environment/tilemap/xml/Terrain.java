@@ -10,7 +10,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.ITerrain;
 public class Terrain extends CustomPropertyProvider implements ITerrain {
   public static final int NONE = -1;
 
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   private String name;
 
   @XmlAttribute

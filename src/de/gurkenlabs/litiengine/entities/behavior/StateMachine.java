@@ -6,7 +6,7 @@ import java.util.List;
 import de.gurkenlabs.litiengine.IUpdateable;
 
 public class StateMachine implements IUpdateable {
-  private State currentState;
+  @SuppressWarnings("NullAway.Init") private State currentState;
 
   protected StateMachine() {
   }

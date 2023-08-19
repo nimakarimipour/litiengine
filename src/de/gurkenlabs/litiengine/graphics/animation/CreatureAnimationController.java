@@ -11,6 +11,7 @@ import de.gurkenlabs.litiengine.graphics.CreatureAnimationState;
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.util.Imaging;
+import org.jspecify.annotations.NullUnmarked;
 
 /**
  * This {@link AnimationController} implementation provides animation rules that
@@ -36,7 +37,7 @@ import de.gurkenlabs.litiengine.util.Imaging;
  */
 public class CreatureAnimationController<T extends Creature> extends EntityAnimationController<T> {
   private String[] customDeathAnimations;
-  private String randomDeathSprite;
+  @SuppressWarnings("NullAway.Init") private String randomDeathSprite;
 
   /**
    * Initializes a new instance of the {@code CreatureAnimationController} class.
@@ -172,7 +173,7 @@ public class CreatureAnimationController<T extends Creature> extends EntityAnima
     return this.getIdleSpriteName(this.getEntity().getFacingDirection());
   }
 
-  private String getDeathAnimationName() {
+  @NullUnmarked private String getDeathAnimationName() {
     if (this.customDeathAnimations.length > 0) {
       if (this.randomDeathSprite != null) {
         return this.randomDeathSprite;
@@ -272,7 +273,7 @@ public class CreatureAnimationController<T extends Creature> extends EntityAnima
     return getFallbackSpriteName(state, dir);
   }
 
-  private String getFallbackSpriteName(CreatureAnimationState state, Direction dir) {
+  @NullUnmarked private String getFallbackSpriteName(CreatureAnimationState state, Direction dir) {
     String fallbackStateName = this.getSpriteName(state.getOpposite(), dir);
     if (this.hasAnimation(fallbackStateName)) {
       return fallbackStateName;

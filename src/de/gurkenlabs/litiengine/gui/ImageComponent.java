@@ -15,6 +15,7 @@ import de.gurkenlabs.litiengine.graphics.ImageRenderer;
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.util.Imaging;
+import org.jspecify.annotations.NullUnmarked;
 
 public class ImageComponent extends GuiComponent {
   public static final int BACKGROUND_INDEX = 0;
@@ -22,10 +23,10 @@ public class ImageComponent extends GuiComponent {
   public static final int BACKGROUND_PRESSED_INDEX = 2;
   public static final int BACKGROUND_DISABLED_INDEX = 3;
 
-  private BufferedImage baseImage;
-  private BufferedImage scaledImage;
+  @SuppressWarnings("NullAway.Init") private BufferedImage baseImage;
+  @SuppressWarnings("NullAway.Init") private BufferedImage scaledImage;
 
-  private Spritesheet spritesheet;
+  @SuppressWarnings("NullAway.Init") private Spritesheet spritesheet;
 
   private ImageScaleMode imageScaleMode = ImageScaleMode.NORMAL;
   private Align imageAlign = Align.CENTER;
@@ -65,7 +66,7 @@ public class ImageComponent extends GuiComponent {
     }
   }
 
-  public Image getBackground() {
+  @NullUnmarked public Image getBackground() {
     if (this.getSpritesheet() == null) {
       return null;
     }

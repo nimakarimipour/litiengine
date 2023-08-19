@@ -4,6 +4,7 @@ import java.util.EventObject;
 
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.abilities.Ability;
+import org.jspecify.annotations.NullUnmarked;
 
 public class EntityHitEvent extends EventObject {
   private static final long serialVersionUID = 1582822545149624579L;
@@ -15,7 +16,7 @@ public class EntityHitEvent extends EventObject {
   private final transient Ability ability;
   private final long time;
 
-  EntityHitEvent(final ICombatEntity hitEntity, final Ability ability, final int damage, final boolean kill) {
+  @NullUnmarked EntityHitEvent(final ICombatEntity hitEntity, final Ability ability, final int damage, final boolean kill) {
     super(hitEntity);
     this.executor = ability != null ? ability.getExecutor() : null;
     this.hitEntity = hitEntity;

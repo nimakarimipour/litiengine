@@ -15,6 +15,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.MapObjectType;
 import de.gurkenlabs.litiengine.environment.tilemap.TmxProperty;
 import de.gurkenlabs.litiengine.graphics.RenderType;
 import de.gurkenlabs.litiengine.util.ReflectionUtilities;
+import org.jspecify.annotations.NullUnmarked;
 
 public abstract class MapObjectLoader implements IMapObjectLoader {
   private static final Logger log = Logger.getLogger(MapObjectLoader.class.getName());
@@ -101,7 +102,7 @@ public abstract class MapObjectLoader implements IMapObjectLoader {
     return true;
   }
 
-  private static void loadCustomMapObjectProperties(IEntity entity, IMapObject mapObject) {
+  @NullUnmarked private static void loadCustomMapObjectProperties(IEntity entity, IMapObject mapObject) {
     for (final Field field : ReflectionUtilities.getAllFields(new ArrayList<Field>(), entity.getClass())) {
       TmxProperty property = field.getAnnotation(TmxProperty.class);
 

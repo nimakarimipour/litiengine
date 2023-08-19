@@ -8,6 +8,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.xml.Blueprint;
 import de.gurkenlabs.litiengine.environment.tilemap.xml.TmxException;
 import de.gurkenlabs.litiengine.util.io.FileUtilities;
 import de.gurkenlabs.litiengine.util.io.XmlUtilities;
+import org.jspecify.annotations.NullUnmarked;
 
 public class Blueprints extends ResourcesContainer<Blueprint> {
 
@@ -31,7 +32,7 @@ public class Blueprints extends ResourcesContainer<Blueprint> {
     return blueprint;
   }
   
-  @Override
+  @NullUnmarked @Override
   protected String getAlias(String resourceName, Blueprint resource) {
     if (resource == null || resource.getName() == null || resource.getName().isEmpty() || resource.getName().equalsIgnoreCase(resourceName)) {
       return null;

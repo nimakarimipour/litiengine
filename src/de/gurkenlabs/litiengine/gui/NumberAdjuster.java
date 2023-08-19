@@ -14,7 +14,7 @@ public class NumberAdjuster extends TextFieldComponent {
   private BigDecimal step;
   private BigDecimal lowerBound;
   private BigDecimal upperBound;
-  private BigDecimal currentValue;
+  @SuppressWarnings("NullAway.Init") private BigDecimal currentValue;
   private final List<Consumer<BigDecimal>> valueChangeConsumers;
 
   public NumberAdjuster(final double x, final double y, final double width, final double height,  final double lowerBound, final double upperBound, final double startValue, final double stepSize) {

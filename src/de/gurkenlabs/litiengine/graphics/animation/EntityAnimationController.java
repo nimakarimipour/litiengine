@@ -15,7 +15,7 @@ import de.gurkenlabs.litiengine.resources.Resources;
 public class EntityAnimationController<T extends IEntity> extends AnimationController implements IEntityAnimationController<T> {
   private final List<AnimationRule<T>> animationRules = new CopyOnWriteArrayList<>();
   private final T entity;
-  private String spritePrefix;
+  @SuppressWarnings("NullAway.Init") private String spritePrefix;
   private boolean autoScaling;
 
   /**

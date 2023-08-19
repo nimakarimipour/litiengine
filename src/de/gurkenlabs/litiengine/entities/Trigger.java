@@ -17,6 +17,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.TmxProperty;
 import de.gurkenlabs.litiengine.environment.tilemap.TmxType;
 import de.gurkenlabs.litiengine.graphics.RenderType;
 import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
+import org.jspecify.annotations.NullUnmarked;
 
 /**
  * TODO: Triggers should be able to call entity actions (similar to the current message approach)
@@ -66,7 +67,7 @@ public class Trigger extends CollisionEntity implements IUpdateable {
    * @param message
    *          The message that gets sent by this trigger upon activation.
    */
-  public Trigger(final TriggerActivation activation, final String message) {
+  @NullUnmarked public Trigger(final TriggerActivation activation, final String message) {
     this(activation, null, message);
   }
 

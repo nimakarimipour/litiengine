@@ -2,6 +2,7 @@ package de.gurkenlabs.litiengine.entities.behavior;
 
 import java.awt.Point;
 import java.awt.Rectangle;
+import org.jspecify.annotations.NullUnmarked;
 
 public class AStarNode {
   // diagonal length: 1 * Math.sqrt(2) ~ 1.4
@@ -13,7 +14,7 @@ public class AStarNode {
   private double hCost;
 
   private double penalty;
-  private AStarNode predecessor;
+  @SuppressWarnings("NullAway.Init") private AStarNode predecessor;
   private boolean walkable;
 
   public AStarNode(final boolean walkable, final Rectangle bound, final int gridX, final int gridY) {
@@ -113,7 +114,7 @@ public class AStarNode {
   /**
    * Clears the assigned costs and the predecessor.
    */
-  public void clear() {
+  @NullUnmarked public void clear() {
     this.setGCost(0);
     this.setHCost(0);
     this.setPredecessor(null);

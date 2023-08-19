@@ -18,6 +18,7 @@ import de.gurkenlabs.litiengine.graphics.animation.IEntityAnimationController;
 import de.gurkenlabs.litiengine.physics.IMovementController;
 import de.gurkenlabs.litiengine.physics.MovementController;
 import de.gurkenlabs.litiengine.tweening.TweenType;
+import org.jspecify.annotations.NullUnmarked;
 
 /**
  * TODO: Add idle event
@@ -37,10 +38,10 @@ public class Creature extends CombatEntity implements IMobileEntity {
   @TmxProperty(name = MapObjectProperty.MOVEMENT_TURNONMOVE)
   private boolean turnOnMove;
 
-  @TmxProperty(name = MapObjectProperty.MOVEMENT_VELOCITY)
+  @SuppressWarnings("NullAway.Init") @TmxProperty(name = MapObjectProperty.MOVEMENT_VELOCITY)
   private Attribute<Float> velocity;
 
-  @TmxProperty(name = MapObjectProperty.SPRITESHEETNAME)
+  @SuppressWarnings("NullAway.Init") @TmxProperty(name = MapObjectProperty.SPRITESHEETNAME)
   private String spritesheetName;
 
   @TmxProperty(name = MapObjectProperty.SCALE_SPRITE)
@@ -48,7 +49,7 @@ public class Creature extends CombatEntity implements IMobileEntity {
 
   private long lastMoved;
 
-  public Creature() {
+  @NullUnmarked public Creature() {
     this(null);
   }
 

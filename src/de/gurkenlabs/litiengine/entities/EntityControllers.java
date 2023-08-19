@@ -5,6 +5,7 @@ import de.gurkenlabs.litiengine.graphics.animation.IEntityAnimationController;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
+import org.jspecify.annotations.NullUnmarked;
 
 /**
  * This class holds all controllers for the entities in the game. It is used as
@@ -12,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public final class EntityControllers {
   private Map<Class<? extends IEntityController>, IEntityController> controllers;
-  private IEntityAnimationController animationController;
+  @SuppressWarnings("NullAway.Init") private IEntityAnimationController animationController;
 
   EntityControllers() {
     this.controllers = new ConcurrentHashMap<>();
@@ -26,7 +27,7 @@ public final class EntityControllers {
     return this.animationController;
   }
 
-  @SuppressWarnings("unchecked")
+  @NullUnmarked @SuppressWarnings("unchecked")
   public <T extends IEntityController> T getController(Class<T> clss) {
     T explicitController = this.getExplicitController(clss);
     if (explicitController != null) {
@@ -43,7 +44,7 @@ public final class EntityControllers {
     return null;
   }
 
-  public <T extends IEntityController> void clearControllers(Class<T> clss) {
+  @NullUnmarked public <T extends IEntityController> void clearControllers(Class<T> clss) {
     Optional<Class<? extends IEntityController>> typeKey = this.controllers.keySet().stream().filter(x -> clss.isAssignableFrom(clss)).findFirst();
     if (typeKey.isPresent()) {
       IEntityController controller = this.controllers.get(typeKey.get());
@@ -53,7 +54,7 @@ public final class EntityControllers {
     }
   }
 
-  public <T extends IEntityController> void addController(T controller) {
+  @NullUnmarked public <T extends IEntityController> void addController(T controller) {
     controllers.put(controller.getClass(), controller);
 
     if (controller.getEntity().isLoaded()) {
@@ -63,7 +64,7 @@ public final class EntityControllers {
     this.animationController = null;
   }
 
-  public <T extends IEntityController> void setController(Class<T> clss, T controller) {
+  @NullUnmarked public <T extends IEntityController> void setController(Class<T> clss, T controller) {
     this.clearControllers(clss);
     this.addController(controller);
     this.animationController = null;
@@ -81,7 +82,7 @@ public final class EntityControllers {
     }
   }
 
-  @SuppressWarnings("unchecked")
+  @NullUnmarked @SuppressWarnings("unchecked")
   private <T extends IEntityController> T getExplicitController(Class<T> clss) {
     // if there's an exact match, return it
     if (this.controllers.containsKey(clss)) {

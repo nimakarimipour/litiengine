@@ -17,6 +17,7 @@ import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.tweening.TweenFunction;
 import de.gurkenlabs.litiengine.tweening.TweenType;
 import de.gurkenlabs.litiengine.tweening.Tweenable;
+import org.jspecify.annotations.NullUnmarked;
 
 /**
  * The {@code SoundPlayback} class is a wrapper {@code SourceDataLine} on which a {@code Sound} playback can be carried out.
@@ -161,7 +162,7 @@ public abstract class SoundPlayback implements Runnable {
   /**
    * Attempts to cancel the playback of this audio. If the playback was successfully cancelled, it will notify listeners.
    */
-  public synchronized void cancel() {
+  @NullUnmarked public synchronized void cancel() {
     if (!this.started) {
       throw new IllegalStateException("not started");
     }
@@ -247,7 +248,7 @@ public abstract class SoundPlayback implements Runnable {
   /**
    * Finishes the playback. If this playback was not cancelled in the process, it will notify listeners.
    */
-  void finish() {
+  @NullUnmarked void finish() {
     this.line.drain();
     synchronized (this) {
       this.line.close();

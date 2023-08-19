@@ -16,13 +16,13 @@ import de.gurkenlabs.litiengine.util.io.StreamUtilities;
  */
 public final class Sound {
 
-  private AudioFormat format;
+  @SuppressWarnings("NullAway.Init") private AudioFormat format;
 
   private final String name;
 
-  private AudioInputStream stream;
+  @SuppressWarnings("NullAway.Init") private AudioInputStream stream;
 
-  private byte[] streamData;
+  @SuppressWarnings("NullAway.Init") private byte[] streamData;
 
   private byte[] data;
 

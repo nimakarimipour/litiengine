@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import de.gurkenlabs.litiengine.environment.tilemap.xml.CustomPropertyProvider;
+import org.jspecify.annotations.NullUnmarked;
 
 /**
  * The {@code GameInfo} class contains basic information about a LITIENGINE game.
@@ -45,7 +46,7 @@ public class GameInfo extends CustomPropertyProvider {
   @XmlElement
   private String company;
 
-  @XmlElement
+  @SuppressWarnings("NullAway.Init") @XmlElement
   private String publisher;
 
   @XmlElement(name = "developer")
@@ -103,7 +104,7 @@ public class GameInfo extends CustomPropertyProvider {
    * @see URL
    * @see #getWebsite()
    */
-  @XmlTransient
+  @NullUnmarked @XmlTransient
   public URL getWebsiteURL() {
     if (this.getWebsite() == null || this.getWebsite().isEmpty()) {
       return null;

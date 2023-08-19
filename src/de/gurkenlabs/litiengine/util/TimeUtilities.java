@@ -1,6 +1,7 @@
 package de.gurkenlabs.litiengine.util;
 
 import java.util.concurrent.TimeUnit;
+import org.jspecify.annotations.NullUnmarked;
 
 public final class TimeUtilities {
   public enum TimerFormat {
@@ -19,7 +20,7 @@ public final class TimeUtilities {
 
     private final String formatString;
 
-    TimerFormat(String formatString){
+    @NullUnmarked TimerFormat(String formatString){
       this.formatString = formatString;
     }
 

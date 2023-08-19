@@ -14,10 +14,11 @@ import de.gurkenlabs.litiengine.environment.tilemap.IImageLayer;
 import de.gurkenlabs.litiengine.environment.tilemap.ILayer;
 import de.gurkenlabs.litiengine.environment.tilemap.IMapObjectLayer;
 import de.gurkenlabs.litiengine.environment.tilemap.ITileLayer;
+import org.jspecify.annotations.NullUnmarked;
 
 public class GroupLayer extends Layer implements IGroupLayer {
 
-  @XmlElements({
+  @SuppressWarnings("NullAway.Init") @XmlElements({
       @XmlElement(name = "imagelayer", type = ImageLayer.class),
       @XmlElement(name = "layer", type = TileLayer.class),
       @XmlElement(name = "objectgroup", type = MapObjectLayer.class),
@@ -63,7 +64,7 @@ public class GroupLayer extends Layer implements IGroupLayer {
     }
   }
 
-  @Override
+  @NullUnmarked @Override
   public void removeLayer(ILayer layer) {
     this.layers.remove(layer);
     this.layerRemoved(layer);
@@ -72,7 +73,7 @@ public class GroupLayer extends Layer implements IGroupLayer {
     }
   }
 
-  @Override
+  @NullUnmarked @Override
   public void removeLayer(int index) {
     ILayer removed = this.layers.remove(index);
     this.layerRemoved(removed);

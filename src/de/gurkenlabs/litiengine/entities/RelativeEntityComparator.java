@@ -3,7 +3,7 @@ package de.gurkenlabs.litiengine.entities;
 import java.util.Comparator;
 
 public abstract class RelativeEntityComparator implements Comparator<IEntity> {
-  private IEntity relativeEntity;
+  @SuppressWarnings("NullAway.Init") private IEntity relativeEntity;
 
   protected RelativeEntityComparator() {
   }

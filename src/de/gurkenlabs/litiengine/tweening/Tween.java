@@ -10,7 +10,7 @@ import de.gurkenlabs.litiengine.Game;
  */
 public class Tween {
   private int duration;
-  private TweenEquation equation;
+  @SuppressWarnings("NullAway.Init") private TweenEquation equation;
   private long started;
   private final float[] startValues;
   private boolean stopped;

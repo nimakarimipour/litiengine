@@ -111,7 +111,7 @@ public class EmitterData implements Serializable, Resource {
   @XmlElement
   private float colorVariance;
 
-  @XmlElementWrapper
+  @SuppressWarnings("NullAway.Init") @XmlElementWrapper
   @XmlElement(name = "color")
   private List<String> colors;
 
@@ -160,7 +160,7 @@ public class EmitterData implements Serializable, Resource {
   @XmlAttribute
   private int maxParticles;
 
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   private String name;
 
   @XmlElement
@@ -175,7 +175,7 @@ public class EmitterData implements Serializable, Resource {
   @XmlElement
   private ParticleParameter particleTTL;
 
-  @XmlElementWrapper
+  @SuppressWarnings("NullAway.Init") @XmlElementWrapper
   @XmlElement(name = "text")
   private List<String> texts;
 
@@ -191,7 +191,7 @@ public class EmitterData implements Serializable, Resource {
   @XmlAttribute
   private int spawnRate;
 
-  @XmlElement
+  @SuppressWarnings("NullAway.Init") @XmlElement
   private String spritesheet;
 
   @XmlAttribute

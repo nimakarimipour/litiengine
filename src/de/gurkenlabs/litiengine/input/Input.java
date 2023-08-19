@@ -18,9 +18,9 @@ import de.gurkenlabs.litiengine.GameListener;
 public final class Input {
   private static final Logger log = Logger.getLogger(Input.class.getName());
 
-  private static GamepadManager gamePadManager;
-  private static IKeyboard keyboard;
-  private static IMouse mouse;
+  @SuppressWarnings("NullAway.Init") private static GamepadManager gamePadManager;
+  @SuppressWarnings("NullAway.Init") private static IKeyboard keyboard;
+  @SuppressWarnings("NullAway.Init") private static IMouse mouse;
 
   private Input() {
     throw new UnsupportedOperationException();

@@ -25,6 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import de.gurkenlabs.litiengine.util.ArrayUtilities;
 import de.gurkenlabs.litiengine.util.io.Codec;
+import org.jspecify.annotations.NullUnmarked;
 
 public class TileData {
   private static final Logger log = Logger.getLogger(TileData.class.getName());
@@ -44,7 +45,7 @@ public class TileData {
   public static class Compression {
     public static final String GZIP = "gzip";
     public static final String ZLIB = "zlib";
-    public static final String NONE = null;
+    @SuppressWarnings("NullAway") public static final String NONE = null;
 
     private Compression() {
     }
@@ -55,23 +56,23 @@ public class TileData {
     }
   }
 
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   private String encoding;
 
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   private String compression;
 
-  @XmlMixed
+  @SuppressWarnings("NullAway.Init") @XmlMixed
   @XmlElementRef(type = TileChunk.class, name = "chunk")
   private List<Object> rawValue;
 
-  @XmlTransient
+  @SuppressWarnings("NullAway.Init") @XmlTransient
   private String value;
 
-  @XmlTransient
+  @SuppressWarnings("NullAway.Init") @XmlTransient
   private List<TileChunk> chunks;
 
-  @XmlTransient
+  @SuppressWarnings("NullAway.Init") @XmlTransient
   private List<Tile> tiles;
 
   @XmlTransient
@@ -170,7 +171,7 @@ public class TileData {
     return this.tiles;
   }
 
-  public static String encode(TileData data) throws IOException {
+  @NullUnmarked public static String encode(TileData data) throws IOException {
     if (data.getEncoding() == null) {
       return null;
     }
@@ -374,7 +375,7 @@ public class TileData {
    * This method processes the {@link XmlMixed} contents that were unmarshalled and extract either the string value containing the information
    * about the layer of a set of {@link TileChunk}s if the map is infinite.
    */
-  private void processMixedData() {
+  @NullUnmarked private void processMixedData() {
     if (this.rawValue == null || this.rawValue.isEmpty()) {
       return;
     }

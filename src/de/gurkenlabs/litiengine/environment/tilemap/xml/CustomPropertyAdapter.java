@@ -20,6 +20,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import de.gurkenlabs.litiengine.environment.tilemap.ICustomProperty;
 import de.gurkenlabs.litiengine.util.io.URLAdapter;
+import org.jspecify.annotations.NullUnmarked;
 
 public class CustomPropertyAdapter extends XmlAdapter<CustomPropertyAdapter.PropertyList, Map<String, ICustomProperty>> {
   private static class PropertyType {
@@ -47,21 +48,21 @@ public class CustomPropertyAdapter extends XmlAdapter<CustomPropertyAdapter.Prop
 
   @XmlAccessorType(XmlAccessType.FIELD)
   static class Property implements Comparable<Property> {
-    @XmlAttribute
+    @SuppressWarnings("NullAway.Init") @XmlAttribute
     String name;
-    @XmlAttribute
+    @SuppressWarnings("NullAway.Init") @XmlAttribute
     String type;
-    @XmlAttribute
+    @SuppressWarnings("NullAway.Init") @XmlAttribute
     String value;
-    @XmlValue
+    @SuppressWarnings("NullAway.Init") @XmlValue
     String contents;
-    @XmlTransient
+    @SuppressWarnings("NullAway.Init") @XmlTransient
     URL location;
 
-    Property() {
+    @NullUnmarked Property() {
     }
 
-    Property(String name, String type) {
+    @NullUnmarked Property(String name, String type) {
       this.name = name;
       this.type = type == null || !PropertyType.isValid(type) ? PropertyType.STRING : type;
     }
@@ -76,7 +77,7 @@ public class CustomPropertyAdapter extends XmlAdapter<CustomPropertyAdapter.Prop
       }
     }
 
-    @SuppressWarnings("unused")
+    @NullUnmarked @SuppressWarnings("unused")
     private void beforeMarshal(Marshaller m) throws URISyntaxException {
       if (this.type.equals(PropertyType.STRING)) {
         this.type = null;
@@ -106,10 +107,10 @@ public class CustomPropertyAdapter extends XmlAdapter<CustomPropertyAdapter.Prop
 
   @XmlAccessorType(XmlAccessType.FIELD)
   static class PropertyList {
-    @XmlElement(name = "property")
+    @SuppressWarnings("NullAway.Init") @XmlElement(name = "property")
     List<Property> properties;
 
-    PropertyList() {
+    @NullUnmarked PropertyList() {
     }
 
     PropertyList(List<Property> properties) {
@@ -130,7 +131,7 @@ public class CustomPropertyAdapter extends XmlAdapter<CustomPropertyAdapter.Prop
     return map;
   }
 
-  @Override
+  @NullUnmarked @Override
   public PropertyList marshal(Map<String, ICustomProperty> v) {
     if (v.isEmpty()) {
       return null;

@@ -21,27 +21,27 @@ import de.gurkenlabs.litiengine.util.ArrayUtilities;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TilesetEntry extends CustomPropertyProvider implements ITilesetEntry {
-  @XmlTransient
+  @SuppressWarnings("NullAway.Init") @XmlTransient
   private Tileset tileset;
 
-  private transient ITerrain[] terrains;
+  @SuppressWarnings("NullAway.Init") private transient ITerrain[] terrains;
 
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   private Integer id;
 
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   private String terrain;
 
-  @XmlElement
+  @SuppressWarnings("NullAway.Init") @XmlElement
   private TileAnimation animation;
 
-  @XmlElement
+  @SuppressWarnings("NullAway.Init") @XmlElement
   private MapImage image;
 
-  @XmlAttribute
+  @SuppressWarnings("NullAway.Init") @XmlAttribute
   private String type;
 
-  @XmlElement(name="objectgroup")
+  @SuppressWarnings("NullAway.Init") @XmlElement(name="objectgroup")
   private MapObjectLayer collisionData;
 
   /**

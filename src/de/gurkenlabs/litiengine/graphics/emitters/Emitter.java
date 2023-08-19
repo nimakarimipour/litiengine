@@ -33,6 +33,7 @@ import de.gurkenlabs.litiengine.graphics.emitters.xml.EmitterData;
 import de.gurkenlabs.litiengine.graphics.emitters.xml.EmitterLoader;
 import de.gurkenlabs.litiengine.graphics.emitters.xml.ParticleParameter;
 import de.gurkenlabs.litiengine.resources.Resources;
+import org.jspecify.annotations.NullUnmarked;
 
 /**
  * A standard implementation for emitters that provide a particle effect.
@@ -193,7 +194,7 @@ public class Emitter extends Entity implements IUpdateable, ITimeToLive, IRender
     return new Point2D.Double(this.getX() + this.data().getOriginAlign().getValue(this.getWidth()), this.getY() + this.data().getOriginValign().getValue(this.getHeight()));
   }
 
-  public IRenderable getRenderable(RenderType type) {
+  @NullUnmarked public IRenderable getRenderable(RenderType type) {
     if (type == RenderType.NONE) {
       return null;
     }
@@ -345,7 +346,7 @@ public class Emitter extends Entity implements IUpdateable, ITimeToLive, IRender
    *
    * @return the particle
    */
-  protected Particle createNewParticle() {
+  @NullUnmarked protected Particle createNewParticle() {
 
     float width = (float) this.data().getParticleWidth().get();
     float height = (float) this.data().getParticleHeight().get();

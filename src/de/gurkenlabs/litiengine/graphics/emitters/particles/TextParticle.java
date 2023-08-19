@@ -11,7 +11,7 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
 public class TextParticle extends Particle {
-  private Font font;
+  @SuppressWarnings("NullAway.Init") private Font font;
   private final String text;
 
   public TextParticle(final String text) {
