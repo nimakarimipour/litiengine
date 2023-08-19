@@ -8,6 +8,8 @@ import java.util.function.Function;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.entities.IEntity;
 import de.gurkenlabs.litiengine.entities.Spawnpoint;
+import javax.annotation.Nullable;
+import org.jspecify.annotations.NullUnmarked;
 
 /**
  * TODO: Implement spawn event/listener
@@ -19,8 +21,8 @@ public abstract class EntitySpawner<T extends IEntity> implements IEntitySpawner
   private long lastSpawnWave;
   private int spawnDelay;
   private SpawnMode spawnMode;
-  private List<Spawnpoint> spawnpoints;
-  private Function<IEntitySpawner<T>, List<Spawnpoint>> customSpawnpoints;
+  @Nullable private List<Spawnpoint> spawnpoints;
+  @Nullable private Function<IEntitySpawner<T>, List<Spawnpoint>> customSpawnpoints;
 
   public EntitySpawner(final int interval, final int amount) {
     this.spawnDelay = 1000;
@@ -98,7 +100,7 @@ public abstract class EntitySpawner<T extends IEntity> implements IEntitySpawner
     return this.spawnMode;
   }
 
-  @Override
+  @NullUnmarked @Override
   public List<Spawnpoint> getSpawnPoints() {
     return this.spawnpoints;
   }
@@ -180,7 +182,7 @@ public abstract class EntitySpawner<T extends IEntity> implements IEntitySpawner
     }
   }
 
-  private void spawn(final Spawnpoint spawnpoint, final int amount) {
+  @NullUnmarked private void spawn(@Nullable final Spawnpoint spawnpoint, final int amount) {
     if (spawnpoint.getEnvironment() == null || !spawnpoint.getEnvironment().isLoaded()) {
       return;
     }

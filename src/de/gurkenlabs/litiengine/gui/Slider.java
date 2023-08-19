@@ -7,14 +7,16 @@ import java.util.function.Consumer;
 
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.input.Input;
+import javax.annotation.Nullable;
+import org.jspecify.annotations.NullUnmarked;
 
 public abstract class Slider extends GuiComponent {
-  private ImageComponent button1;
-  private ImageComponent button2;
-  private ImageComponent sliderComponent;
+  @SuppressWarnings("NullAway.Init") private ImageComponent button1;
+  @SuppressWarnings("NullAway.Init") private ImageComponent button2;
+  @Nullable private ImageComponent sliderComponent;
 
-  private Spritesheet buttonSprite;
-  private Spritesheet sliderSprite;
+  @Nullable private Spritesheet buttonSprite;
+  @Nullable private Spritesheet sliderSprite;
   private final List<Consumer<Float>> changeConsumer;
   private float currentValue;
   private boolean isDragging;
@@ -22,7 +24,7 @@ public abstract class Slider extends GuiComponent {
   private final float maxValue;
   private float stepSize;
 
-  protected Slider(final double x, final double y, final double width, final double height, final float minValue, final float maxValue, final float stepSize) {
+  @NullUnmarked protected Slider(final double x, final double y, final double width, final double height, final float minValue, final float maxValue, final float stepSize) {
     super(x, y, width, height);
     this.changeConsumer = new CopyOnWriteArrayList<>();
     this.minValue = minValue;
@@ -39,7 +41,7 @@ public abstract class Slider extends GuiComponent {
     return this.button2;
   }
 
-  public Spritesheet getButtonSpritesheet() {
+  @Nullable public Spritesheet getButtonSpritesheet() {
     return this.buttonSprite;
   }
 
@@ -61,11 +63,11 @@ public abstract class Slider extends GuiComponent {
 
   public abstract Point2D getRelativeSliderPosition();
 
-  public ImageComponent getSliderComponent() {
+  @NullUnmarked public ImageComponent getSliderComponent() {
     return this.sliderComponent;
   }
 
-  public Spritesheet getSliderSpritesheet() {
+  @Nullable public Spritesheet getSliderSpritesheet() {
     return this.sliderSprite;
   }
 

@@ -14,6 +14,8 @@ import de.gurkenlabs.litiengine.graphics.emitters.xml.EmitterData;
 import de.gurkenlabs.litiengine.physics.Collision;
 import de.gurkenlabs.litiengine.util.ColorHelper;
 import de.gurkenlabs.litiengine.util.MathUtilities;
+import javax.annotation.Nullable;
+import org.jspecify.annotations.NullUnmarked;
 
 public abstract class Particle implements ITimeToLive {
   private long aliveTick;
@@ -22,7 +24,7 @@ public abstract class Particle implements ITimeToLive {
   private float deltaAngle;
 
   private Collision collisionType;
-  private Color color;
+  @Nullable private Color color;
   private float deltaHeight;
   private float deltaWidth;
   /**
@@ -105,7 +107,7 @@ public abstract class Particle implements ITimeToLive {
     return this.collisionType;
   }
 
-  public Color getColor() {
+  @NullUnmarked public Color getColor() {
     return this.color;
   }
 
@@ -234,7 +236,7 @@ public abstract class Particle implements ITimeToLive {
     this.stopOnCollision = stopOnCollision;
   }
 
-  public Particle setColor(final Color color) {
+  public Particle setColor(@Nullable final Color color) {
     if (color != null) {
       this.color = color;
     }

@@ -15,6 +15,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.MapObjectType;
 import de.gurkenlabs.litiengine.environment.tilemap.TmxProperty;
 import de.gurkenlabs.litiengine.graphics.RenderType;
 import de.gurkenlabs.litiengine.util.ReflectionUtilities;
+import org.jspecify.annotations.NullUnmarked;
 
 public abstract class MapObjectLoader implements IMapObjectLoader {
   private static final Logger log = Logger.getLogger(MapObjectLoader.class.getName());
@@ -92,7 +93,7 @@ public abstract class MapObjectLoader implements IMapObjectLoader {
     }
   }
 
-  protected boolean isMatchingType(IMapObject mapObject) {
+  @NullUnmarked protected boolean isMatchingType(IMapObject mapObject) {
     if (!mapObject.getType().equalsIgnoreCase(this.getMapObjectType())) {
       log.log(Level.SEVERE, "Cannot load a mapobject of the type [{0}] with a loader of type [{1}].", new Object[]{mapObject.getType(), this.getClass()});
       return false;

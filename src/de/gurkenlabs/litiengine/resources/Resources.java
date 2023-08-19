@@ -25,6 +25,8 @@ import de.gurkenlabs.litiengine.graphics.emitters.xml.EmitterData;
 import de.gurkenlabs.litiengine.graphics.emitters.xml.EmitterLoader;
 import de.gurkenlabs.litiengine.sound.Sound;
 import de.gurkenlabs.litiengine.util.TimeUtilities;
+import javax.annotation.Nullable;
+import org.jspecify.annotations.NullUnmarked;
 
 /**
  * This class is the engines entry point for accessing any kind of resources. A resource is any non-executable data that is deployed with your game.
@@ -167,7 +169,7 @@ public final class Resources {
    * @param gameResourceFile
    *          The URL to the game resource file
    */
-  public static void load(final URL gameResourceFile) {
+  public static void load(@Nullable final URL gameResourceFile) {
     final long loadStart = System.nanoTime();
 
     final ResourceBundle file = ResourceBundle.load(gameResourceFile);
@@ -240,7 +242,7 @@ public final class Resources {
    * @return The contents of the specified file as {@code InputStream}.
    * @see Resources
    */
-  public static InputStream get(String file) {
+  @Nullable public static InputStream get(String file) {
     return get(getLocation(file));
   }
 
@@ -252,7 +254,7 @@ public final class Resources {
    * @return The contents of the specified file as {@code InputStream}.
    * @see Resources
    */
-  public static InputStream get(URL file) {
+  @Nullable public static InputStream get(@Nullable URL file) {
     InputStream stream = getResource(file);
     if (stream == null) {
       return null;
@@ -269,7 +271,7 @@ public final class Resources {
    *          The path to the file.
    * @return The contents of the specified file as {@code String}
    */
-  public static String read(String file) {
+  @Nullable public static String read(String file) {
     return read(file, StandardCharsets.UTF_8);
   }
 
@@ -282,7 +284,7 @@ public final class Resources {
    *          The charset that is used to read the String from the file.
    * @return The contents of the specified file as {@code String}
    */
-  public static String read(String file, Charset charset) {
+  @Nullable public static String read(String file, Charset charset) {
     final URL location = getLocation(file);
     if (location == null) {
       return null;
@@ -299,7 +301,7 @@ public final class Resources {
    *          The path to the file.
    * @return The contents of the specified file as {@code String}
    */
-  public static String read(URL file) {
+  @Nullable public static String read(URL file) {
     return read(file, StandardCharsets.UTF_8);
   }
 
@@ -312,7 +314,7 @@ public final class Resources {
    *          The charset that is used to read the String from the file.
    * @return The contents of the specified file as {@code String}
    */
-  public static String read(URL file, Charset charset) {
+  @Nullable public static String read(URL file, Charset charset) {
     try (Scanner scanner = new Scanner(file.openStream(), charset.toString())) {
       scanner.useDelimiter("\\A");
       return scanner.hasNext() ? scanner.next() : null;
@@ -334,7 +336,7 @@ public final class Resources {
     spritesheets().clear();
   }
 
-  public static URL getLocation(String name) {
+  @Nullable public static URL getLocation(String name) {
     URL fromClass = ClassLoader.getSystemResource(name);
     if (fromClass != null) {
       return fromClass;
@@ -350,7 +352,7 @@ public final class Resources {
     }
   }
 
-  private static InputStream getResource(final URL file) {
+  @NullUnmarked @Nullable private static InputStream getResource(@Nullable final URL file) {
     try {
       return file.openStream();
     } catch (IOException e) {

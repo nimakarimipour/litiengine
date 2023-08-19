@@ -9,15 +9,17 @@ import javax.xml.bind.annotation.XmlElement;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.environment.tilemap.ITileAnimation;
 import de.gurkenlabs.litiengine.environment.tilemap.ITileAnimationFrame;
+import javax.annotation.Nullable;
+import org.jspecify.annotations.NullUnmarked;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TileAnimation implements ITileAnimation {
-  @XmlElement(name = "frame", type = Frame.class)
+  @Nullable @XmlElement(name = "frame", type = Frame.class)
   private List<ITileAnimationFrame> frames;
 
   private transient int totalDuration;
 
-  @Override
+  @NullUnmarked @Override
   public List<ITileAnimationFrame> getFrames() {
     return this.frames;
   }

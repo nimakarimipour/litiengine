@@ -15,6 +15,8 @@ import java.util.regex.Pattern;
 import de.gurkenlabs.litiengine.Align;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.input.Input;
+import javax.annotation.Nullable;
+import org.jspecify.annotations.NullUnmarked;
 
 public class TextFieldComponent extends ImageComponent {
   public static final String DOUBLE_FORMAT = "[-+]?[0-9]*\\.?[0-9]*([eE][-+]?[0-9]*)?";
@@ -23,9 +25,9 @@ public class TextFieldComponent extends ImageComponent {
   private final List<Consumer<String>> changeConfirmedConsumers;
   private boolean cursorVisible;
   private final int flickerDelay;
-  private String format;
+  @Nullable private String format;
 
-  private String fullText;
+  @Nullable private String fullText;
   private long lastToggled;
   private int maxLength = 0;
 
@@ -50,7 +52,7 @@ public class TextFieldComponent extends ImageComponent {
     this.setTextAlign(Align.LEFT);
   }
 
-  public String getFormat() {
+  @Nullable public String getFormat() {
     return this.format;
   }
 
@@ -58,7 +60,7 @@ public class TextFieldComponent extends ImageComponent {
     return this.maxLength;
   }
 
-  @Override
+  @NullUnmarked @Override
   public String getText() {
     return this.fullText;
   }
@@ -119,7 +121,7 @@ public class TextFieldComponent extends ImageComponent {
   }
 
   @Override
-  public void setText(final String text) {
+  public void setText(@Nullable final String text) {
     this.fullText = text;
   }
 

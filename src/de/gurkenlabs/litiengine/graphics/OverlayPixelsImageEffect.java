@@ -5,6 +5,8 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import de.gurkenlabs.litiengine.util.Imaging;
+import javax.annotation.Nullable;
+import org.jspecify.annotations.NullUnmarked;
 
 public class OverlayPixelsImageEffect extends ImageEffect {
   private final Color color;
@@ -22,7 +24,7 @@ public class OverlayPixelsImageEffect extends ImageEffect {
     this.color = color;
   }
 
-  @Override
+  @NullUnmarked @Override
   public BufferedImage apply(final BufferedImage image) {
     final BufferedImage bimage = Imaging.getCompatibleImage(image.getWidth(null), image.getHeight(null));
 

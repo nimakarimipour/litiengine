@@ -40,6 +40,8 @@ import de.gurkenlabs.litiengine.sound.SoundPlayback;
 import de.gurkenlabs.litiengine.tweening.TweenEngine;
 import de.gurkenlabs.litiengine.util.ArrayUtilities;
 import de.gurkenlabs.litiengine.util.io.XmlUtilities;
+import javax.annotation.Nullable;
+import org.jspecify.annotations.NullUnmarked;
 
 /***
  * <p>
@@ -80,12 +82,12 @@ public final class Game {
   private static final GameLog log = new GameLog();
   private static final GameTime gameTime = new GameTime();
   private static final GameRandom random = new GameRandom();
-  private static GameInfo gameInfo = new GameInfo();
+  @Nullable private static GameInfo gameInfo = new GameInfo();
   private static final TweenEngine tweenEngine = new TweenEngine();
 
-  private static GameLoop gameLoop;
-  private static ScreenManager screenManager;
-  private static GameWindow gameWindow;
+  @SuppressWarnings("NullAway.Init") private static GameLoop gameLoop;
+  @Nullable private static ScreenManager screenManager;
+  @Nullable private static GameWindow gameWindow;
 
   private static GameWorld world = new GameWorld();
 
@@ -202,7 +204,7 @@ public final class Game {
    * @see GameInfo#setName(String)
    * @see GameInfo#setValue(String, String)
    */
-  public static GameInfo info() {
+  @Nullable public static GameInfo info() {
     return gameInfo;
   }
 
@@ -278,7 +280,7 @@ public final class Game {
    * @see GameWindow#setIcon(java.awt.Image)
    * @see GameWindow#cursor()
    */
-  public static GameWindow window() {
+  @NullUnmarked public static GameWindow window() {
     return gameWindow;
   }
 
@@ -404,7 +406,7 @@ public final class Game {
    * @see GameWorld#environment()
    * @see Game#world()
    */
-  public static ScreenManager screens() {
+  @Nullable public static ScreenManager screens() {
     return screenManager;
   }
 
@@ -581,7 +583,7 @@ public final class Game {
    * @see Game#info()
    * @see GameInfo
    */
-  public static void setInfo(final GameInfo info) {
+  public static void setInfo(@Nullable final GameInfo info) {
     gameInfo = info;
   }
 
@@ -599,7 +601,7 @@ public final class Game {
     setInfo(Resources.getLocation(gameInfoFile));
   }
 
-  public static void setInfo(final URL gameInfoFile) {
+  public static void setInfo(@Nullable final URL gameInfoFile) {
     GameInfo info;
     try {
       info = XmlUtilities.read(GameInfo.class, gameInfoFile);
@@ -626,7 +628,7 @@ public final class Game {
     return true;
   }
 
-  static synchronized void terminate() {
+  @NullUnmarked static synchronized void terminate() {
     if (!initialized) {
       return;
     }

@@ -5,6 +5,8 @@ import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 
 import de.gurkenlabs.litiengine.util.Imaging;
+import javax.annotation.Nullable;
+import org.jspecify.annotations.NullUnmarked;
 
 public class RotationImageEffect extends ImageEffect {
   private final float angle;
@@ -22,7 +24,7 @@ public class RotationImageEffect extends ImageEffect {
     this.angle = angle;
   }
 
-  @Override
+  @NullUnmarked @Nullable @Override
   public BufferedImage apply(final BufferedImage image) {
     if (image == null) {
       return null;

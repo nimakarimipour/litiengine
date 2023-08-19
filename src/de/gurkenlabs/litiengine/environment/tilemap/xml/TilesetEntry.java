@@ -18,30 +18,32 @@ import de.gurkenlabs.litiengine.environment.tilemap.ITileset;
 import de.gurkenlabs.litiengine.environment.tilemap.ITilesetEntry;
 import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.util.ArrayUtilities;
+import javax.annotation.Nullable;
+import org.jspecify.annotations.NullUnmarked;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TilesetEntry extends CustomPropertyProvider implements ITilesetEntry {
-  @XmlTransient
+  @SuppressWarnings("NullAway.Init") @XmlTransient
   private Tileset tileset;
 
-  private transient ITerrain[] terrains;
+  @Nullable private transient ITerrain[] terrains;
 
-  @XmlAttribute
+  @Nullable @XmlAttribute
   private Integer id;
 
-  @XmlAttribute
+  @Nullable @XmlAttribute
   private String terrain;
 
-  @XmlElement
+  @Nullable @XmlElement
   private TileAnimation animation;
 
-  @XmlElement
+  @Nullable @XmlElement
   private MapImage image;
 
-  @XmlAttribute
+  @Nullable @XmlAttribute
   private String type;
 
-  @XmlElement(name="objectgroup")
+  @Nullable @XmlElement(name="objectgroup")
   private MapObjectLayer collisionData;
 
   /**
@@ -72,17 +74,17 @@ public class TilesetEntry extends CustomPropertyProvider implements ITilesetEntr
     return this.id;
   }
 
-  @Override
+  @Nullable @Override
   public ITerrain[] getTerrain() {
     return this.terrains;
   }
 
-  @Override
+  @Nullable @Override
   public ITileAnimation getAnimation() {
     return this.animation;
   }
 
-  @Override
+  @NullUnmarked @Nullable @Override
   public BufferedImage getImage() {
     if (this.animation == null) {
       return this.getBasicImage();
@@ -90,7 +92,7 @@ public class TilesetEntry extends CustomPropertyProvider implements ITilesetEntr
     return this.tileset.getTile(this.animation.getCurrentFrame().getTileId()).getBasicImage();
   }
 
-  @Override
+  @NullUnmarked @Nullable @Override
   public BufferedImage getBasicImage() {
     if (this.image != null) {
       return Resources.images().get(this.image.getAbsoluteSourcePath());
@@ -103,12 +105,12 @@ public class TilesetEntry extends CustomPropertyProvider implements ITilesetEntr
     return this.tileset;
   }
 
-  @Override
+  @Nullable @Override
   public String getType() {
     return this.type;
   }
 
-  @Override
+  @Nullable @Override
   public IMapObjectLayer getCollisionInfo() {
     return this.collisionData;
   }
@@ -139,7 +141,7 @@ public class TilesetEntry extends CustomPropertyProvider implements ITilesetEntr
   }
 
   @Override
-  void finish(URL location) throws TmxException {
+  void finish(@Nullable URL location) throws TmxException {
     super.finish(location);
     if (this.image != null) {
       this.image.finish(location);

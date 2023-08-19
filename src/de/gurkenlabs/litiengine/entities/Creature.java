@@ -18,6 +18,8 @@ import de.gurkenlabs.litiengine.graphics.animation.IEntityAnimationController;
 import de.gurkenlabs.litiengine.physics.IMovementController;
 import de.gurkenlabs.litiengine.physics.MovementController;
 import de.gurkenlabs.litiengine.tweening.TweenType;
+import javax.annotation.Nullable;
+import org.jspecify.annotations.NullUnmarked;
 
 /**
  * TODO: Add idle event
@@ -37,10 +39,10 @@ public class Creature extends CombatEntity implements IMobileEntity {
   @TmxProperty(name = MapObjectProperty.MOVEMENT_TURNONMOVE)
   private boolean turnOnMove;
 
-  @TmxProperty(name = MapObjectProperty.MOVEMENT_VELOCITY)
+  @Nullable @TmxProperty(name = MapObjectProperty.MOVEMENT_VELOCITY)
   private Attribute<Float> velocity;
 
-  @TmxProperty(name = MapObjectProperty.SPRITESHEETNAME)
+  @Nullable @TmxProperty(name = MapObjectProperty.SPRITESHEETNAME)
   private String spritesheetName;
 
   @TmxProperty(name = MapObjectProperty.SCALE_SPRITE)
@@ -60,7 +62,7 @@ public class Creature extends CombatEntity implements IMobileEntity {
    * 
    * @see CreatureAnimationController#getSpriteName(Creature, de.gurkenlabs.litiengine.graphics.CreatureAnimationState)
    */
-  public Creature(String spritesheetName) {
+  public Creature(@Nullable String spritesheetName) {
     super();
     final MovementInfo movementInfo = this.getClass().getAnnotation(MovementInfo.class);
     if (movementInfo != null) {
@@ -123,7 +125,7 @@ public class Creature extends CombatEntity implements IMobileEntity {
     return Direction.fromAngle(this.getAngle());
   }
 
-  @Override
+  @Nullable @Override
   public IMovementController movement() {
     return this.getController(IMovementController.class);
   }
@@ -140,7 +142,7 @@ public class Creature extends CombatEntity implements IMobileEntity {
    * 
    * @return The current spritesheet name of this instance.
    */
-  public String getSpritesheetName() {
+  @Nullable public String getSpritesheetName() {
     return this.spritesheetName;
   }
 
@@ -151,7 +153,7 @@ public class Creature extends CombatEntity implements IMobileEntity {
     return Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG) * 0.001F * this.getVelocity().get() * Game.loop().getTimeScale();
   }
 
-  @Override
+  @NullUnmarked @Override
   public Attribute<Float> getVelocity() {
     return this.velocity;
   }

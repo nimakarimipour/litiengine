@@ -6,6 +6,7 @@ import java.util.Objects;
 import javax.sound.sampled.AudioFormat;
 
 import de.gurkenlabs.litiengine.resources.Resources;
+import javax.annotation.Nullable;
 
 public class LoopedTrack implements Track, Iterator<Sound> {
   private Sound track;

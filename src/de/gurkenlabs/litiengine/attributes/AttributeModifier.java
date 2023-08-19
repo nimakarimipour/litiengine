@@ -1,4 +1,6 @@
 package de.gurkenlabs.litiengine.attributes;
+import javax.annotation.Nullable;
+import org.jspecify.annotations.NullUnmarked;
 
 /**
  * An attribute modifier allows to modify attributes by the
@@ -105,7 +107,7 @@ public class AttributeModifier<T extends Number> implements Comparable<Attribute
     this.active = active;
   }
 
-  @SuppressWarnings("unchecked")
+  @NullUnmarked @SuppressWarnings("unchecked")
   private T ensureType(final Double modValue, final T originalValue) {
     if (originalValue instanceof Double) {
       return (T) modValue;

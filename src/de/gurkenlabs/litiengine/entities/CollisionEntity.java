@@ -16,6 +16,8 @@ import de.gurkenlabs.litiengine.environment.tilemap.TmxProperty;
 import de.gurkenlabs.litiengine.physics.Collision;
 import de.gurkenlabs.litiengine.physics.CollisionEvent;
 import de.gurkenlabs.litiengine.tweening.TweenType;
+import javax.annotation.Nullable;
+import org.jspecify.annotations.NullUnmarked;
 
 @CollisionInfo(collision = true)
 public abstract class CollisionEntity extends Entity implements ICollisionEntity {
@@ -45,7 +47,7 @@ public abstract class CollisionEntity extends Entity implements ICollisionEntity
   @TmxProperty(name = MapObjectProperty.COLLISION_TYPE)
   private Collision collisionType;
 
-  private Rectangle2D collisionBox;
+  @Nullable private Rectangle2D collisionBox;
 
   protected CollisionEntity() {
     super();
@@ -80,7 +82,7 @@ public abstract class CollisionEntity extends Entity implements ICollisionEntity
    *
    * @return the collision box
    */
-  @Override
+  @NullUnmarked @Override
   public Rectangle2D getCollisionBox() {
     return this.collisionBox;
   }

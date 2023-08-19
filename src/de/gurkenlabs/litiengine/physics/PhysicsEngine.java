@@ -21,6 +21,8 @@ import de.gurkenlabs.litiengine.entities.IMobileEntity;
 import de.gurkenlabs.litiengine.util.ArrayUtilities;
 import de.gurkenlabs.litiengine.util.MathUtilities;
 import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
+import javax.annotation.Nullable;
+import org.jspecify.annotations.NullUnmarked;
 
 /**
  * This class is used to hold all collision aware instances and static collision boxes.
@@ -31,7 +33,7 @@ import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
  * Also, there's an overload that takes a {@code Line2D} to perform a basic raycast check.
  */
 public final class PhysicsEngine implements IUpdateable {
-  private Rectangle2D environmentBounds;
+  @Nullable private Rectangle2D environmentBounds;
 
   private final Map<Collision, List<ICollisionEntity>> collisionEntities = new ConcurrentHashMap<>();
   private final Map<Collision, List<Rectangle2D>> collisionBoxes = new ConcurrentHashMap<>();
@@ -71,7 +73,7 @@ public final class PhysicsEngine implements IUpdateable {
    * @see ICollisionEntity#getCollisionBox()
    * @see PhysicsEngine#remove(ICollisionEntity)
    */
-  public void add(final ICollisionEntity entity) {
+  @NullUnmarked public void add(final ICollisionEntity entity) {
     if (entity.getCollisionType() == null) {
       return;
     }
@@ -95,7 +97,7 @@ public final class PhysicsEngine implements IUpdateable {
    * @param entity
    *          The entity that is about to be removed.
    */
-  public void remove(final ICollisionEntity entity) {
+  @NullUnmarked public void remove(final ICollisionEntity entity) {
     if (entity.getCollisionType() == null) {
       return;
     }
@@ -116,7 +118,7 @@ public final class PhysicsEngine implements IUpdateable {
    * Clears all previously registered participants in the collision process from this instance.
    * This includes all entities, static collision boxes and the map boundaries.
    */
-  public void clear() {
+  @NullUnmarked public void clear() {
     for (Collision type : Collision.values()) {
       if (type == Collision.NONE) {
         continue;
@@ -184,7 +186,7 @@ public final class PhysicsEngine implements IUpdateable {
    * 
    * @return The {@code Rectangle2D} confining the operation area of the {@code PhysicsEngine}.
    */
-  public Rectangle2D getBounds() {
+  @Nullable public Rectangle2D getBounds() {
     return this.environmentBounds;
   }
 
@@ -194,7 +196,7 @@ public final class PhysicsEngine implements IUpdateable {
    * @param environmentBounds
    *          The {@code Rectangle2D} confining the operation area of the {@code PhysicsEngine}.
    */
-  public void setBounds(final Rectangle2D environmentBounds) {
+  public void setBounds(@Nullable final Rectangle2D environmentBounds) {
     this.environmentBounds = environmentBounds;
   }
 
@@ -254,7 +256,7 @@ public final class PhysicsEngine implements IUpdateable {
    * @see Collision
    * @see ICollisionEntity
    */
-  public boolean collides(final Line2D line, Collision collision, ICollisionEntity entity) {
+  public boolean collides(final Line2D line, Collision collision, @Nullable ICollisionEntity entity) {
     return this.collides(entity, collision, e -> GeometricUtilities.getIntersectionPoint(line, e.getCollisionBox()) != null);
   }
 
@@ -312,7 +314,7 @@ public final class PhysicsEngine implements IUpdateable {
    * @see Collision
    * @see ICollisionEntity
    */
-  public boolean collides(Rectangle2D rect, Collision collision, ICollisionEntity entity) {
+  public boolean collides(Rectangle2D rect, Collision collision, @Nullable ICollisionEntity entity) {
     if (this.environmentBounds != null && !this.environmentBounds.intersects(rect)) {
       return true;
     }
@@ -374,7 +376,7 @@ public final class PhysicsEngine implements IUpdateable {
    * @see Collision
    * @see ICollisionEntity
    */
-  public boolean collides(Point2D location, Collision collision, ICollisionEntity entity) {
+  public boolean collides(Point2D location, Collision collision, @Nullable ICollisionEntity entity) {
     if (this.environmentBounds != null && !this.environmentBounds.contains(location)) {
       return true;
     }
@@ -463,7 +465,7 @@ public final class PhysicsEngine implements IUpdateable {
    *          The angle in degrees.
    * @return A {@code RaycastHit} determining the hit point, ray length, and corresponding {@code ICollisionEntity}, if the ray hit something.
    */
-  public RaycastHit raycast(Point2D start, double angle) {
+  @Nullable public RaycastHit raycast(Point2D start, double angle) {
     double diameter = GeometricUtilities.getDiagonal(this.environmentBounds);
     return raycast(start, GeometricUtilities.project(start, angle, diameter));
   }
@@ -477,7 +479,7 @@ public final class PhysicsEngine implements IUpdateable {
    *          The end point of the raycast.
    * @return A {@code RaycastHit} determining the hit point, ray length, and corresponding {@code ICollisionEntity}, if the ray hit something.
    */
-  public RaycastHit raycast(Point2D start, Point2D target) {
+  @Nullable public RaycastHit raycast(Point2D start, Point2D target) {
     return raycast(start, target, Collision.ANY);
   }
 
@@ -492,7 +494,7 @@ public final class PhysicsEngine implements IUpdateable {
    *          The {@code Collision} type to check for collision.
    * @return A {@code RaycastHit} determining the hit point, ray length, and corresponding {@code ICollisionEntity}, if the ray hit something.
    */
-  public RaycastHit raycast(Point2D start, Point2D target, Collision collision) {
+  @Nullable public RaycastHit raycast(Point2D start, Point2D target, Collision collision) {
     final Line2D line = new Line2D.Double(start.getX(), start.getY(), target.getX(), target.getY());
     return raycast(line, collision, null);
   }
@@ -504,7 +506,7 @@ public final class PhysicsEngine implements IUpdateable {
    *          The line along which the ray is cast.
    * @return A {@code RaycastHit} determining the hit point, ray length, and corresponding {@code ICollisionEntity}, if the ray hit something.
    */
-  public RaycastHit raycast(Line2D line) {
+  @Nullable public RaycastHit raycast(Line2D line) {
     return raycast(line, Collision.ANY, null);
   }
 
@@ -517,7 +519,7 @@ public final class PhysicsEngine implements IUpdateable {
    *          The {@code Collision} type to check for collision.
    * @return A {@code RaycastHit} determining the hit point, ray length, and corresponding {@code ICollisionEntity}, if the ray hit something.
    */
-  public RaycastHit raycast(Line2D line, Collision collision) {
+  @Nullable public RaycastHit raycast(Line2D line, Collision collision) {
     return raycast(line, collision, null);
   }
 
@@ -530,7 +532,7 @@ public final class PhysicsEngine implements IUpdateable {
    *          The {@code ICollisionEntity} type to check for collision.
    * @return A {@code RaycastHit} determining the hit point, ray length, and corresponding {@code ICollisionEntity}.
    */
-  public RaycastHit raycast(Line2D line, ICollisionEntity entity) {
+  @Nullable public RaycastHit raycast(Line2D line, ICollisionEntity entity) {
     return raycast(line, Collision.ANY, entity);
   }
 
@@ -546,7 +548,7 @@ public final class PhysicsEngine implements IUpdateable {
    *          The {@code ICollisionEntity} type to check for collision.
    * @return A {@code RaycastHit} determining the hit point, ray length, and corresponding {@code ICollisionEntity}.
    */
-  public RaycastHit raycast(Line2D line, Collision collision, ICollisionEntity entity) {
+  @NullUnmarked @Nullable public RaycastHit raycast(Line2D line, Collision collision, @Nullable ICollisionEntity entity) {
     final Point2D rayCastSource = new Point2D.Double(line.getX1(), line.getY1());
 
     for (final ICollisionEntity collisionEntity : this.collisionEntities.get(collision)) {
@@ -700,7 +702,7 @@ public final class PhysicsEngine implements IUpdateable {
    * Clears all collision boxes registered on the {@code PhysicsEngine} once per tick and re-adds them with their updated positions.
    *
    */
-  @Override
+  @NullUnmarked @Override
   public void update() {
     // retrieve all collision box rectangles once per update
     for (Collision type : Collision.values()) {
@@ -722,7 +724,7 @@ public final class PhysicsEngine implements IUpdateable {
    *          The second entity to check for collision
    * @return {@code true} if the entities can collide, {@code false} otherwise.
    */
-  private static boolean canCollide(ICollisionEntity entity, ICollisionEntity otherEntity) {
+  private static boolean canCollide(@Nullable ICollisionEntity entity, ICollisionEntity otherEntity) {
     if (otherEntity == null || !otherEntity.hasCollision()) {
       return false;
     }
@@ -750,7 +752,7 @@ public final class PhysicsEngine implements IUpdateable {
    *          The {@code Rectangle2D} to check for intersection.
    * @return The {@code Intersection} area.
    */
-  private Intersection getIntersection(final ICollisionEntity entity, final Rectangle2D rect) {
+  @Nullable private Intersection getIntersection(final ICollisionEntity entity, final Rectangle2D rect) {
     Intersection result = null;
     for (final ICollisionEntity otherEntity : this.getCollisionEntities()) {
       if (!canCollide(entity, otherEntity)) {
@@ -770,7 +772,7 @@ public final class PhysicsEngine implements IUpdateable {
     return result;
   }
 
-  private boolean collides(final ICollisionEntity entity, Collision type, Predicate<ICollisionEntity> check) {
+  private boolean collides(@Nullable final ICollisionEntity entity, Collision type, Predicate<ICollisionEntity> check) {
     for (final ICollisionEntity otherEntity : this.getCollisionEntities(type)) {
       if (!canCollide(entity, otherEntity)) {
         continue;
@@ -845,7 +847,7 @@ public final class PhysicsEngine implements IUpdateable {
     return resolvedPosition;
   }
 
-  private Point2D clamptoMap(IMobileEntity entity, Point2D newLocation) {
+  @NullUnmarked private Point2D clamptoMap(IMobileEntity entity, Point2D newLocation) {
     double collisionLocationX = entity.getCollisionBoxAlign().getLocation(entity.getWidth(), entity.getCollisionBoxWidth());
     double leftBoundX = this.getBounds().getMinX() - collisionLocationX;
     double deltaX = entity.getWidth() - entity.getCollisionBoxWidth() - collisionLocationX;
@@ -881,7 +883,7 @@ public final class PhysicsEngine implements IUpdateable {
     return this.collides(line, Collision.ANY, entity);
   }
 
-  private static void fireCollisionEvents(ICollisionEntity collider, Intersection... intersections) {
+  @NullUnmarked private static void fireCollisionEvents(ICollisionEntity collider, @Nullable Intersection... intersections) {
     // aggregate the involved entities of all intersections
     ICollisionEntity[] involvedEntities = null;
     for (Intersection inter : intersections) {

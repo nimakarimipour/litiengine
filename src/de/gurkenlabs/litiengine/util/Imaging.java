@@ -27,6 +27,8 @@ import java.util.function.UnaryOperator;
 import de.gurkenlabs.litiengine.entities.Rotation;
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
+import javax.annotation.Nullable;
+import org.jspecify.annotations.NullUnmarked;
 
 public final class Imaging {
   public static final int CROP_ALIGN_CENTER = 0;
@@ -38,7 +40,7 @@ public final class Imaging {
   public static final int CROP_VALIGN_TOP = 1;
   public static final int CROP_VALIGN_TOPCENTER = 2;
 
-  private static GraphicsConfiguration graphicsConfig;
+  @Nullable private static GraphicsConfiguration graphicsConfig;
 
   private Imaging() {
     throw new UnsupportedOperationException();
@@ -107,7 +109,7 @@ public final class Imaging {
    *          the color
    * @return the image
    */
-  public static BufferedImage applyAlphaChannel(final BufferedImage img, final Color color) {
+  @Nullable public static BufferedImage applyAlphaChannel(final BufferedImage img, final Color color) {
     if (color == null || img == null) {
       return img;
     }
@@ -280,7 +282,7 @@ public final class Imaging {
    *          the flash color
    * @return the buffered image
    */
-  public static BufferedImage flashVisiblePixels(final Image image, final Color flashColor) {
+  @Nullable public static BufferedImage flashVisiblePixels(final Image image, final Color flashColor) {
     final BufferedImage bimage = getCompatibleImage(image.getWidth(null), image.getHeight(null));
     if (bimage == null) {
       return null;
@@ -303,11 +305,11 @@ public final class Imaging {
     return bimage;
   }
 
-  public static BufferedImage flipSpritesHorizontally(final Spritesheet sprite) {
+  @Nullable public static BufferedImage flipSpritesHorizontally(final Spritesheet sprite) {
     return flipSprites(sprite, Imaging::horizontalFlip);
   }
 
-  public static BufferedImage flipSpritesVertically(final Spritesheet sprite) {
+  @Nullable public static BufferedImage flipSpritesVertically(final Spritesheet sprite) {
     return flipSprites(sprite, Imaging::verticalFlip);
   }
 
@@ -325,7 +327,7 @@ public final class Imaging {
     return new BufferedImage(cm, raster, isAlphaPremultiplied, null);
   }
 
-  public static BufferedImage getCompatibleImage(final int width, final int height) {
+  @Nullable public static BufferedImage getCompatibleImage(final int width, final int height) {
     if (width == 0 || height == 0) {
       return null;
     }
@@ -375,7 +377,7 @@ public final class Imaging {
    *          The image to be flipped.
    * @return The flipped image.
    */
-  public static BufferedImage horizontalFlip(final BufferedImage img) {
+  @NullUnmarked public static BufferedImage horizontalFlip(final BufferedImage img) {
     final int w = img.getWidth();
     final int h = img.getHeight();
     if (w == 0 || h == 0) {
@@ -396,7 +398,7 @@ public final class Imaging {
    *          The image to be flipped.
    * @return The flipped image.
    */
-  public static BufferedImage verticalFlip(final BufferedImage img) {
+  @NullUnmarked public static BufferedImage verticalFlip(final BufferedImage img) {
     final int w = img.getWidth();
     final int h = img.getHeight();
     if (w == 0 || h == 0) {
@@ -463,16 +465,16 @@ public final class Imaging {
     return bimg;
   }
 
-  public static BufferedImage scale(final BufferedImage image, final int max) {
+  @NullUnmarked @Nullable public static BufferedImage scale(final BufferedImage image, final int max) {
     Dimension2D newDimension = GeometricUtilities.scaleWithRatio(image.getWidth(), image.getHeight(), max);
     return scale(image, (int) newDimension.getWidth(), (int) newDimension.getHeight());
   }
 
-  public static BufferedImage scale(final BufferedImage image, final double factor) {
+  @Nullable public static BufferedImage scale(final BufferedImage image, final double factor) {
     return scale(image, factor, false);
   }
 
-  public static BufferedImage scale(final BufferedImage image, final double factor, boolean keepRatio) {
+  @Nullable public static BufferedImage scale(final BufferedImage image, final double factor, boolean keepRatio) {
     if (image == null) {
       return null;
     }
@@ -495,15 +497,15 @@ public final class Imaging {
    *          the height
    * @return the buffered image
    */
-  public static BufferedImage scale(final BufferedImage image, final int width, final int height) {
+  @Nullable public static BufferedImage scale(final BufferedImage image, final int width, final int height) {
     return scale(image, width, height, false);
   }
 
-  public static BufferedImage scale(final BufferedImage image, final int width, final int height, final boolean keepRatio) {
+  @Nullable public static BufferedImage scale(final BufferedImage image, final int width, final int height, final boolean keepRatio) {
     return scale(image, width, height, keepRatio, true);
   }
 
-  public static BufferedImage scale(final BufferedImage image, final int width, final int height, final boolean keepRatio, final boolean fill) {
+  @NullUnmarked @Nullable public static BufferedImage scale(final BufferedImage image, final int width, final int height, final boolean keepRatio, final boolean fill) {
     if (width == 0 || height == 0 || image == null) {
       return null;
     }
@@ -548,7 +550,7 @@ public final class Imaging {
     return newImg;
   }
 
-  public static BufferedImage setOpacity(final Image img, final float opacity) {
+  @Nullable public static BufferedImage setOpacity(final Image img, final float opacity) {
     if (img == null)
       return null;
     final BufferedImage bimage = getCompatibleImage(img.getWidth(null), img.getHeight(null));
@@ -565,7 +567,7 @@ public final class Imaging {
     return bimage;
   }
 
-  public static BufferedImage toBufferedImage(final Image img) {
+  @Nullable public static BufferedImage toBufferedImage(final Image img) {
     if (img == null) {
       return null;
     }
@@ -586,7 +588,7 @@ public final class Imaging {
     return bimage;
   }
 
-  public static BufferedImage toCompatibleImage(final BufferedImage image) {
+  @Nullable public static BufferedImage toCompatibleImage(@Nullable final BufferedImage image) {
     if (image == null || image.getWidth() == 0 || image.getHeight() == 0) {
       return image;
     }
@@ -600,7 +602,7 @@ public final class Imaging {
     return compatibleImg;
   }
 
-  private static BufferedImage flipSprites(final Spritesheet sprite, UnaryOperator<BufferedImage> flipFunction) {
+  @Nullable private static BufferedImage flipSprites(final Spritesheet sprite, UnaryOperator<BufferedImage> flipFunction) {
     final BufferedImage flippedSprite = Imaging.getCompatibleImage(sprite.getSpriteWidth() * sprite.getColumns(), sprite.getSpriteHeight() * sprite.getRows());
     if (flippedSprite == null) {
       return null;

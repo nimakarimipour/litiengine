@@ -6,6 +6,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.ILaunchable;
 import de.gurkenlabs.litiengine.IUpdateable;
+import javax.annotation.Nullable;
+import org.jspecify.annotations.NullUnmarked;
 
 /**
  * The TweenEngine is the central manager for Tweens. It tracks all current Tween instances and applies their {@code TweenEquation} with every
@@ -30,7 +32,7 @@ public class TweenEngine implements IUpdateable, ILaunchable {
    * @param duration the duration of the Tween in milliseconds.
    * @return the Tween instance
    */
-  public Tween begin(final Tweenable target, final TweenType type, final int duration) {
+  @NullUnmarked public Tween begin(final Tweenable target, final TweenType type, final int duration) {
     Tween tween = this.getTween(target, type);
     if (tween == null) {
       tween = new Tween(target, type, duration).ease(TweenFunction.QUAD_INOUT);
@@ -49,7 +51,7 @@ public class TweenEngine implements IUpdateable, ILaunchable {
    * @param type   the {@code TweenType} determining which values of the target object will be modified.
    * @return the Tween instance
    */
-  public Tween getTween(final Tweenable target, final TweenType type) {
+  @Nullable public Tween getTween(final Tweenable target, final TweenType type) {
     if (this.getTweens().get(target) == null) {
       this.getTweens().put(target, new ConcurrentHashMap<>());
     }
@@ -74,7 +76,7 @@ public class TweenEngine implements IUpdateable, ILaunchable {
    * @param type   the {@code TweenType} determining which values of the target object will be modified.
    * @return the Tween instance
    */
-  public Tween reset(final Tweenable target, final TweenType type) {
+  @Nullable public Tween reset(final Tweenable target, final TweenType type) {
     final Tween tween = this.getTween(target, type);
     if (tween != null) {
       tween.stop();
@@ -90,7 +92,7 @@ public class TweenEngine implements IUpdateable, ILaunchable {
    * @param type   the {@code TweenType} determining which values of the target object will be modified.
    * @return the Tween instance
    */
-  public Tween resume(final Tweenable target, final TweenType type) {
+  @Nullable public Tween resume(final Tweenable target, final TweenType type) {
     final Tween tween = this.getTween(target, type);
     if (tween != null) {
       tween.resume();
@@ -112,7 +114,7 @@ public class TweenEngine implements IUpdateable, ILaunchable {
    * @param target the {@code Tweenable} target object
    * @param type   the {@code TweenType} determining which values of the target object will be modified.
    */
-  public void remove(final Tweenable target, final TweenType type) {
+  @NullUnmarked public void remove(final Tweenable target, final TweenType type) {
     final Tween tween = this.getTween(target, type);
     if (tween != null) {
       this.getTweens().get(target).remove(type);
@@ -126,7 +128,7 @@ public class TweenEngine implements IUpdateable, ILaunchable {
    * @param type   the {@code TweenType} determining which values of the target object will be modified.
    * @return the Tween instance
    */
-  public Tween stop(final Tweenable target, final TweenType type) {
+  @Nullable public Tween stop(final Tweenable target, final TweenType type) {
     final Tween tween = this.getTween(target, type);
     if (tween != null) {
       tween.stop();
@@ -145,7 +147,7 @@ public class TweenEngine implements IUpdateable, ILaunchable {
   /**
    * Updates all registered Tweens by applying the {@code TweenEquation}.
    */
-  @Override
+  @NullUnmarked @Override
   public void update() {
     for (final Tweenable target : this.getTweens().keySet()) {
       for (final Tween tween : this.getTweens().get(target).values()) {

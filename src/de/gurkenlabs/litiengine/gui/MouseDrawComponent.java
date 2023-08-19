@@ -11,10 +11,12 @@ import javax.swing.SwingUtilities;
 
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.util.Imaging;
+import javax.annotation.Nullable;
+import org.jspecify.annotations.NullUnmarked;
 
 public class MouseDrawComponent extends ImageComponent {
   private double brushSize = 2;
-  private BufferedImage drawingSpace;
+  @Nullable private BufferedImage drawingSpace;
   private Color drawingColor = Color.WHITE;
 
   public MouseDrawComponent(double x, double y, double width, double height, Spritesheet spritesheet, String text, Image image) {
@@ -40,7 +42,7 @@ public class MouseDrawComponent extends ImageComponent {
     this.drawingColor = color;
   }
 
-  @Override
+  @NullUnmarked @Override
   public void mouseDragged(MouseEvent e) {
     super.mouseDragged(e);
 
@@ -60,13 +62,13 @@ public class MouseDrawComponent extends ImageComponent {
     }
   }
 
-  public void clearDrawingSpace() {
+  @NullUnmarked public void clearDrawingSpace() {
     Graphics2D g = (Graphics2D) this.drawingSpace.getGraphics();
     g.setComposite(AlphaComposite.Clear);
     g.fillRect(0, 0, (int) this.getWidth(), (int) this.getHeight());
   }
 
-  public BufferedImage getDrawingSpace() {
+  @Nullable public BufferedImage getDrawingSpace() {
     return this.drawingSpace;
   }
 }

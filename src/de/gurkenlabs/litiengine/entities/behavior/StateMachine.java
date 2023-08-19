@@ -4,14 +4,16 @@ import java.util.Collections;
 import java.util.List;
 
 import de.gurkenlabs.litiengine.IUpdateable;
+import javax.annotation.Nullable;
+import org.jspecify.annotations.NullUnmarked;
 
 public class StateMachine implements IUpdateable {
-  private State currentState;
+  @Nullable private State currentState;
 
   protected StateMachine() {
   }
 
-  public State getCurrentState() {
+  @Nullable public State getCurrentState() {
     return this.currentState;
   }
 
@@ -24,7 +26,7 @@ public class StateMachine implements IUpdateable {
     this.currentState.enter();
   }
 
-  @Override
+  @NullUnmarked @Override
   public void update() {
     if (this.currentState == null) {
       return;

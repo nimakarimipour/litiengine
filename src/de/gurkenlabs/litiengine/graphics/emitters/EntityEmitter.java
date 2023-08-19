@@ -4,6 +4,8 @@ import java.awt.geom.Point2D;
 
 import de.gurkenlabs.litiengine.entities.IEntity;
 import de.gurkenlabs.litiengine.graphics.emitters.xml.EmitterData;
+import javax.annotation.Nullable;
+import org.jspecify.annotations.NullUnmarked;
 
 /**
  * A standard implementation for emitters that are bound to {@code IEntity.getLocation()}.
@@ -67,7 +69,7 @@ public class EntityEmitter extends Emitter {
     return this.dynamicLocation;
   }
 
-  @Override
+  @NullUnmarked @Nullable @Override
   public Point2D getLocation() {
     if (this.getEntity() == null) {
       return null;

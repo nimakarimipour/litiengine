@@ -11,6 +11,8 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.Nullable;
+import org.jspecify.annotations.NullUnmarked;
 
 public final class FileUtilities {
   private static final Logger log = Logger.getLogger(FileUtilities.class.getName());
@@ -92,7 +94,7 @@ public final class FileUtilities {
     return getExtension(file.getAbsolutePath());
   }
 
-  public static String getExtension(final String path) {
+  public static String getExtension(@Nullable final String path) {
     final String fileName = getFileName(path, true);
     if (!fileName.contains(".")) {
       return "";
@@ -104,15 +106,15 @@ public final class FileUtilities {
     }
   }
 
-  public static String getFileName(URL path) {
+  @NullUnmarked public static String getFileName(@Nullable URL path) {
     return getFileName(path.getPath());
   }
 
-  public static String getFileName(final String path) {
+  public static String getFileName(@Nullable final String path) {
     return getFileName(path, false);
   }
 
-  public static String getFileName(final String path, boolean extension) {
+  public static String getFileName(@Nullable final String path, boolean extension) {
     if (path == null || path.isEmpty() || path.endsWith(FILE_SEPARATOR_WIN) || path.endsWith(FILE_SEPARATOR)) {
       return "";
     }
@@ -168,7 +170,7 @@ public final class FileUtilities {
    *          The parts of the path to be constructed.
    * @return The combined path.
    */
-  public static String combine(String basePath, final String... paths) {
+  @NullUnmarked public static String combine(String basePath, @Nullable final String... paths) {
     basePath = basePath.replace(FILE_SEPARATOR_WIN, FILE_SEPARATOR);
     try {
 
