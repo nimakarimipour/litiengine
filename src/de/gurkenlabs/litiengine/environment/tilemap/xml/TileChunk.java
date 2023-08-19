@@ -26,7 +26,8 @@ public class TileChunk implements Comparable<TileChunk> {
   private String value;
 
   @XmlTransient
-  public String getValue() {
+  public String getValue() 
+  {
     return this.value;
   }
 

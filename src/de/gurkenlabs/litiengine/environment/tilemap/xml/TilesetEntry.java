@@ -83,19 +83,43 @@ public class TilesetEntry extends CustomPropertyProvider implements ITilesetEntr
   }
 
   @Override
-  public BufferedImage getImage() {
-    if (this.animation == null) {
-      return this.getBasicImage();
+  public BufferedImage getImage() 
+  {
+    if (this.animation == null) 
+    {
+      return this
+            .getBasicImage();
     }
-    return this.tileset.getTile(this.animation.getCurrentFrame().getTileId()).getBasicImage();
+    return this
+            .tileset
+            .getTile(
+              this
+              .animation
+              .getCurrentFrame()
+              .getTileId())
+              .getBasicImage();
   }
 
   @Override
-  public BufferedImage getBasicImage() {
-    if (this.image != null) {
-      return Resources.images().get(this.image.getAbsoluteSourcePath());
+  public BufferedImage getBasicImage() 
+  {
+    if (this.image != null) 
+    {
+      return Resources
+            .images()
+            .get(this
+                .image
+                .getAbsoluteSourcePath());
     }
-    return this.tileset.getSpritesheet().getSprite(this.getId(), this.tileset.getMargin(), this.tileset.getSpacing());
+    return this
+            .tileset
+            .getSpritesheet()
+            .getSprite(
+                  this.getId(), 
+                  this.tileset
+                  .getMargin(), 
+                  this.tileset
+                  .getSpacing());
   }
 
   @Override

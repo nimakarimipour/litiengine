@@ -172,29 +172,58 @@ public class AStarPathFinder extends PathFinder {
    *          The target node for the path.
    * @return The found {@link Path}
    */
-  private static Path retracePath(final AStarNode startNode, final AStarNode targetNode) {
+  private static Path retracePath(final AStarNode startNode, final AStarNode targetNode) 
+  {
     final List<AStarNode> path = new ArrayList<>();
-    AStarNode currentNode = targetNode.getPredecessor();
+    AStarNode currentNode = targetNode
+                              .getPredecessor();
 
     while (currentNode != startNode) {
       path.add(currentNode);
-      currentNode = currentNode.getPredecessor();
+      currentNode = currentNode
+                        .getPredecessor();
     }
     Collections.reverse(path);
 
-    final Path2D path2D = new GeneralPath(Path2D.WIND_NON_ZERO);
-    path2D.moveTo(startNode.getLocation().x, startNode.getLocation().y);
+    final Path2D path2D = new GeneralPath(Path2D
+                                            .WIND_NON_ZERO);
+    path2D.moveTo(startNode
+                    .getLocation()
+                    .x, 
+                    startNode
+                    .getLocation()
+                    .y);
 
     final List<Point2D> pointsOfPath = new ArrayList<>();
+
     for (int i = 0; i < path.size(); i++) {
       final AStarNode current = path.get(i);
-      final Point currentPoint = new Point(current.getLocation().x, current.getLocation().y);
+      final Point currentPoint = new Point(
+                                    current
+                                    .getLocation()
+                                    .x, 
+                                    current
+                                    .getLocation()
+                                    .y);
       pointsOfPath.add(currentPoint);
-      path2D.lineTo(currentPoint.x, currentPoint.y);
+      path2D.lineTo(
+          currentPoint.x, 
+          currentPoint.y);
     }
 
-    path2D.lineTo(targetNode.getLocation().x, targetNode.getLocation().y);
+    path2D.lineTo(targetNode
+                  .getLocation()
+                  .x, 
+                  targetNode
+                  .getLocation()
+                  .y
+                  );
 
-    return new Path(startNode.getLocation(), targetNode.getLocation(), path2D, pointsOfPath);
+    return new Path(startNode
+                    .getLocation(), 
+                    targetNode
+                    .getLocation(), 
+                    path2D, 
+                    pointsOfPath);
   }
 }

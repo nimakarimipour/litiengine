@@ -79,7 +79,8 @@ public abstract class EntitySpawner<T extends IEntity> implements IEntitySpawner
   }
 
   @Override
-  public int getSpawnAmount() {
+  public int getSpawnAmount() 
+  {
     return this.amount;
   }
 
@@ -180,13 +181,21 @@ public abstract class EntitySpawner<T extends IEntity> implements IEntitySpawner
     }
   }
 
-  private void spawn(final Spawnpoint spawnpoint, final int amount) {
-    if (spawnpoint.getEnvironment() == null || !spawnpoint.getEnvironment().isLoaded()) {
+  private void spawn(final Spawnpoint spawnpoint, final int amount) 
+  {
+    if (spawnpoint
+          .getEnvironment() == null 
+          || !spawnpoint
+              .getEnvironment()
+              .isLoaded())
+    {
       return;
     }
-    for (int i = 0; i < amount; i++) {
+    for (int i = 0; i < amount; i++) 
+    {
       final T newEntity = this.createNew();
-      spawnpoint.spawn(newEntity);
+      spawnpoint
+          .spawn(newEntity);
     }
   }
 }

@@ -60,18 +60,30 @@ public final class GameWindow {
   GameWindow() {
     this.hostControl = new JFrame();
 
-    this.resolutionChangedListeners = new CopyOnWriteArrayList<>();
+    this.resolutionChangedListeners = 
+              new CopyOnWriteArrayList<>();
 
-    this.renderCanvas = new RenderComponent(Game.config().graphics().getResolution());
+    this.renderCanvas = 
+              new RenderComponent(
+                  Game
+                  .config()
+                  .graphics()
+                  .getResolution());
     this.cursor = new MouseCursor();
     if (!Game.isInNoGUIMode()) {
-      this.hostControl.setBackground(Color.BLACK);
-      this.hostControl.add(this.renderCanvas);
+      this.hostControl
+          .setBackground(Color.BLACK);
+      this.hostControl
+          .add(this.renderCanvas);
 
       this.initializeEventListeners();
 
-      this.hostControl.setTitle(Game.info().getTitle());
-      this.hostControl.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+      this.hostControl
+          .setTitle(Game
+                    .info()
+                    .getTitle());
+      this.hostControl
+          .setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
       initializeWindowEventListeners(this.hostControl);
     }
   }

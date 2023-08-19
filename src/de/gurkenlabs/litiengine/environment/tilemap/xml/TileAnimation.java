@@ -18,7 +18,8 @@ public class TileAnimation implements ITileAnimation {
   private transient int totalDuration;
 
   @Override
-  public List<ITileAnimationFrame> getFrames() {
+  public List<ITileAnimationFrame> getFrames() 
+  {
     return this.frames;
   }
 

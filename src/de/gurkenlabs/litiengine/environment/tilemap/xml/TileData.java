@@ -484,14 +484,23 @@ public class TileData {
     }
   }
 
-  private List<Tile> parseData() throws InvalidTileLayerException {
+  private List<Tile> parseData() throws InvalidTileLayerException 
+  {
     List<Tile> tmpTiles;
-    if (this.getEncoding().equals(Encoding.BASE64)) {
-      tmpTiles = parseBase64Data(this.value, this.compression);
-    } else if (this.getEncoding().equals(Encoding.CSV)) {
+    if (this
+        .getEncoding()
+        .equals(Encoding.BASE64)) {
+      tmpTiles = parseBase64Data(
+          this.value, 
+          this.compression);
+    } else if (this
+              .getEncoding()
+              .equals(Encoding.CSV)) {
       tmpTiles = parseCsvData(this.value);
     } else {
-      throw new IllegalArgumentException("Unsupported tile layer encoding " + this.getEncoding());
+      throw new IllegalArgumentException(
+        "Unsupported tile layer encoding " 
+        + this.getEncoding());
     }
 
     return tmpTiles;

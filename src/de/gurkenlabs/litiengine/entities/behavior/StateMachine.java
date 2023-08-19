@@ -25,22 +25,38 @@ public class StateMachine implements IUpdateable {
   }
 
   @Override
-  public void update() {
-    if (this.currentState == null) {
+  public void update() 
+  {
+    if (this.currentState == null)
+    {
       return;
     }
 
-    this.currentState.perform();
-    final List<Transition> transitions = this.currentState.getTransitions();
+    this.currentState
+        .perform();
+    final List<Transition> transitions = this
+                                          .currentState
+                                          .getTransitions();
     Collections.sort(transitions);
 
     for (final Transition transition : transitions) {
-      if (transition.conditionsFullfilled()) {
-        this.currentState.exit();
-        this.currentState = transition.getNextState();
-        this.currentState.enter();
+
+      if (transition
+            .conditionsFullfilled()) 
+            {
+        this
+            .currentState
+            .exit();
+        this.currentState = 
+            transition
+            .getNextState();
+
+        this
+          .currentState
+          .enter();
         return;
       }
+
     }
   }
 }
