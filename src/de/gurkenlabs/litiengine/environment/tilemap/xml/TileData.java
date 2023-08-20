@@ -25,6 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import de.gurkenlabs.litiengine.util.ArrayUtilities;
 import de.gurkenlabs.litiengine.util.io.Codec;
+import javax.annotation.Nullable;
 
 public class TileData {
   private static final Logger log = Logger.getLogger(TileData.class.getName());
@@ -44,7 +45,7 @@ public class TileData {
   public static class Compression {
     public static final String GZIP = "gzip";
     public static final String ZLIB = "zlib";
-    public static final String NONE = null;
+    @Nullable public static final String NONE = null;
 
     private Compression() {
     }
@@ -61,7 +62,7 @@ public class TileData {
   @XmlAttribute
   private String compression;
 
-  @XmlMixed
+  @Nullable @XmlMixed
   @XmlElementRef(type = TileChunk.class, name = "chunk")
   private List<Object> rawValue;
 
@@ -71,7 +72,7 @@ public class TileData {
   @XmlTransient
   private List<TileChunk> chunks;
 
-  @XmlTransient
+  @Nullable @XmlTransient
   private List<Tile> tiles;
 
   @XmlTransient
@@ -138,7 +139,7 @@ public class TileData {
     this.compression = compression;
   }
 
-  public void setValue(String value) {
+  public void setValue(@Nullable String value) {
     this.value = value;
     if (this.rawValue == null) {
       this.rawValue = new CopyOnWriteArrayList<>();
@@ -170,7 +171,7 @@ public class TileData {
     return this.tiles;
   }
 
-  public static String encode(TileData data) throws IOException {
+  @Nullable public static String encode(TileData data) throws IOException {
     if (data.getEncoding() == null) {
       return null;
     }

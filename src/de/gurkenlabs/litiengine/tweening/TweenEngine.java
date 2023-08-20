@@ -6,6 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.ILaunchable;
 import de.gurkenlabs.litiengine.IUpdateable;
+import javax.annotation.Nullable;
 
 /**
  * The TweenEngine is the central manager for Tweens. It tracks all current Tween instances and applies their {@code TweenEquation} with every

@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 
 import de.gurkenlabs.litiengine.entities.Rotation;
 import de.gurkenlabs.litiengine.util.Imaging;
+import javax.annotation.Nullable;
 
 public final class Images extends ResourcesContainer<BufferedImage> {
   Images() {
@@ -44,7 +45,7 @@ public final class Images extends ResourcesContainer<BufferedImage> {
    * 
    * @return the image
    */
-  @Override
+  @Nullable @Override
   protected BufferedImage load(URL resourceName) throws IOException {
     BufferedImage img = ImageIO.read(resourceName);
 

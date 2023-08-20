@@ -12,6 +12,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import de.gurkenlabs.litiengine.environment.tilemap.IMapImage;
+import javax.annotation.Nullable;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class MapImage extends CustomPropertyProvider implements IMapImage {

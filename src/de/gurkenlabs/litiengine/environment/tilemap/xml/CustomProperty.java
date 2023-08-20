@@ -6,12 +6,13 @@ import java.util.Objects;
 
 import de.gurkenlabs.litiengine.environment.tilemap.ICustomProperty;
 import de.gurkenlabs.litiengine.util.ColorHelper;
+import javax.annotation.Nullable;
 
 public class CustomProperty implements ICustomProperty {
 
   private String type;
   private String value;
-  private URL location;
+  @Nullable private URL location;
 
   /**
    * Instantiates a new {@code CustomProperty} instance.
@@ -171,7 +172,7 @@ public class CustomProperty implements ICustomProperty {
     return Long.parseLong(this.value);
   }
 
-  @Override
+  @Nullable @Override
   public <T extends Enum<T>> T getAsEnum(Class<T> enumType) {
     try {
       return Enum.valueOf(enumType, this.value);
@@ -187,7 +188,7 @@ public class CustomProperty implements ICustomProperty {
     return null;
   }
 
-  @Override
+  @Nullable @Override
   public URL getAsFile() {
     return this.location;
   }

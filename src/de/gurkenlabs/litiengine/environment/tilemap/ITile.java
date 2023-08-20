@@ -2,6 +2,7 @@ package de.gurkenlabs.litiengine.environment.tilemap;
 
 import java.awt.Point;
 import java.awt.image.BufferedImage;
+import javax.annotation.Nullable;
 
 public interface ITile extends ICustomPropertyProvider {
 
@@ -12,7 +13,7 @@ public interface ITile extends ICustomPropertyProvider {
    */
   public int getGridId();
 
-  public BufferedImage getImage();
+  @Nullable public BufferedImage getImage();
 
   /**
    * Gets the tile coordinate.

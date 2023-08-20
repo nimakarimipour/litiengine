@@ -11,6 +11,7 @@ import de.gurkenlabs.litiengine.graphics.CreatureAnimationState;
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.util.Imaging;
+import javax.annotation.Nullable;
 
 /**
  * This {@link AnimationController} implementation provides animation rules that
@@ -36,7 +37,7 @@ import de.gurkenlabs.litiengine.util.Imaging;
  */
 public class CreatureAnimationController<T extends Creature> extends EntityAnimationController<T> {
   private String[] customDeathAnimations;
-  private String randomDeathSprite;
+  @Nullable private String randomDeathSprite;
 
   /**
    * Initializes a new instance of the {@code CreatureAnimationController} class.
@@ -150,7 +151,7 @@ public class CreatureAnimationController<T extends Creature> extends EntityAnima
    * 
    * @return The name of the current animation that should be played
    */
-  protected String getCurrentAnimationName() {
+  @Nullable protected String getCurrentAnimationName() {
     if (this.getEntity().isDead()) {
       return this.getDeathAnimationName();
     }
@@ -172,7 +173,7 @@ public class CreatureAnimationController<T extends Creature> extends EntityAnima
     return this.getIdleSpriteName(this.getEntity().getFacingDirection());
   }
 
-  private String getDeathAnimationName() {
+  @Nullable private String getDeathAnimationName() {
     if (this.customDeathAnimations.length > 0) {
       if (this.randomDeathSprite != null) {
         return this.randomDeathSprite;
@@ -272,7 +273,7 @@ public class CreatureAnimationController<T extends Creature> extends EntityAnima
     return getFallbackSpriteName(state, dir);
   }
 
-  private String getFallbackSpriteName(CreatureAnimationState state, Direction dir) {
+  @Nullable private String getFallbackSpriteName(CreatureAnimationState state, Direction dir) {
     String fallbackStateName = this.getSpriteName(state.getOpposite(), dir);
     if (this.hasAnimation(fallbackStateName)) {
       return fallbackStateName;

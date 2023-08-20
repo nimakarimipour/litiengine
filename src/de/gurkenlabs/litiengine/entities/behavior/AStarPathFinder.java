@@ -11,6 +11,7 @@ import java.util.List;
 
 import de.gurkenlabs.litiengine.entities.IMobileEntity;
 import de.gurkenlabs.litiengine.environment.tilemap.IMap;
+import javax.annotation.Nullable;
 
 public class AStarPathFinder extends PathFinder {
 
@@ -32,7 +33,7 @@ public class AStarPathFinder extends PathFinder {
     this(map.getSizeInPixels(), map.getTileSize().width);
   }
 
-  @Override
+  @Nullable @Override
   public Path findPath(final IMobileEntity entity, final Point2D target) {
     // if there is no collision between the start and the target return a direct
     // path
@@ -74,7 +75,7 @@ public class AStarPathFinder extends PathFinder {
     return this.grid;
   }
 
-  private Path findAStarPath(AStarNode startNode, AStarNode targetNode) {
+  @Nullable private Path findAStarPath(AStarNode startNode, AStarNode targetNode) {
     final List<AStarNode> opened = new ArrayList<>();
     final List<AStarNode> closed = new ArrayList<>();
     opened.add(startNode);

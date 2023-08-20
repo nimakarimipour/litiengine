@@ -15,6 +15,7 @@ import java.util.regex.Pattern;
 import de.gurkenlabs.litiengine.Align;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.input.Input;
+import javax.annotation.Nullable;
 
 public class TextFieldComponent extends ImageComponent {
   public static final String DOUBLE_FORMAT = "[-+]?[0-9]*\\.?[0-9]*([eE][-+]?[0-9]*)?";

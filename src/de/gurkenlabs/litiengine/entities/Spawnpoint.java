@@ -13,6 +13,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.MapObjectProperty;
 import de.gurkenlabs.litiengine.environment.tilemap.MapObjectType;
 import de.gurkenlabs.litiengine.environment.tilemap.TmxProperty;
 import de.gurkenlabs.litiengine.environment.tilemap.TmxType;
+import javax.annotation.Nullable;
 
 @TmxType(MapObjectType.SPAWNPOINT)
 public class Spawnpoint extends Entity {

@@ -5,6 +5,7 @@ import de.gurkenlabs.litiengine.graphics.animation.IEntityAnimationController;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
+import javax.annotation.Nullable;
 
 /**
  * This class holds all controllers for the entities in the game. It is used as
@@ -12,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public final class EntityControllers {
   private Map<Class<? extends IEntityController>, IEntityController> controllers;
-  private IEntityAnimationController animationController;
+  @Nullable private IEntityAnimationController animationController;
 
   EntityControllers() {
     this.controllers = new ConcurrentHashMap<>();
@@ -81,7 +82,7 @@ public final class EntityControllers {
     }
   }
 
-  @SuppressWarnings("unchecked")
+  @Nullable @SuppressWarnings("unchecked")
   private <T extends IEntityController> T getExplicitController(Class<T> clss) {
     // if there's an exact match, return it
     if (this.controllers.containsKey(clss)) {

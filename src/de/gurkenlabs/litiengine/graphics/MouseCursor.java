@@ -16,6 +16,7 @@ import de.gurkenlabs.litiengine.Valign;
 import de.gurkenlabs.litiengine.input.Input;
 import de.gurkenlabs.litiengine.input.Mouse;
 import de.gurkenlabs.litiengine.util.Imaging;
+import javax.annotation.Nullable;
 
 /**
  * The visual representation of the {@code Mouse} in the LITIENGINE.<br>

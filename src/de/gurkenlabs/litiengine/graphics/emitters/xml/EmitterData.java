@@ -24,6 +24,7 @@ import de.gurkenlabs.litiengine.physics.Collision;
 import de.gurkenlabs.litiengine.resources.Resource;
 import de.gurkenlabs.litiengine.util.ColorHelper;
 import de.gurkenlabs.litiengine.util.MathUtilities;
+import javax.annotation.Nullable;
 
 @XmlRootElement(name = "emitter")
 @XmlAccessorType(XmlAccessType.FIELD)
