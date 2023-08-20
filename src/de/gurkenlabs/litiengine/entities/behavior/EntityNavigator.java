@@ -15,6 +15,7 @@ import de.gurkenlabs.litiengine.entities.EntityMovedEvent;
 import de.gurkenlabs.litiengine.entities.IMobileEntity;
 import de.gurkenlabs.litiengine.graphics.IRenderable;
 import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
+import javax.annotation.Nullable;
 
 public class EntityNavigator implements IUpdateable, IRenderable {
 
@@ -27,7 +28,7 @@ public class EntityNavigator implements IUpdateable, IRenderable {
   private final PathFinder pathFinder;
 
   private int currentSegment;
-  private Path path;
+  @Nullable private Path path;
   private float acceptableError;
 
   /**
@@ -65,7 +66,7 @@ public class EntityNavigator implements IUpdateable, IRenderable {
     return this.entity;
   }
 
-  public Path getPath() {
+  @Nullable public Path getPath() {
     return this.path;
   }
 

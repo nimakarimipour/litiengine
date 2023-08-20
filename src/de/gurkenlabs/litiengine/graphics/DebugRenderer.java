@@ -26,6 +26,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.ITile;
 import de.gurkenlabs.litiengine.environment.tilemap.MapUtilities;
 import de.gurkenlabs.litiengine.input.Input;
 import de.gurkenlabs.litiengine.physics.Collision;
+import javax.annotation.Nullable;
 
 /**
  * The {@code DebugRenderer} class implements default debug rendering and exposes extension points to reder your own
