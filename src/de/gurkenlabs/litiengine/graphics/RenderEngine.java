@@ -27,6 +27,7 @@ import de.gurkenlabs.litiengine.environment.GameWorld;
 import de.gurkenlabs.litiengine.graphics.animation.IAnimationController;
 import de.gurkenlabs.litiengine.graphics.animation.IEntityAnimationController;
 import de.gurkenlabs.litiengine.graphics.emitters.Emitter;
+import javax.annotation.Nullable;
 
 /**
  * The 2D Render Engine is used to render texts, shapes and entities at their location in the
@@ -276,7 +277,7 @@ public final class RenderEngine {
    * @param shape
    *          The shape to be rendered.
    */
-  public void renderOutline(final Graphics2D g, final Shape shape) {
+  public void renderOutline(final Graphics2D g, @Nullable final Shape shape) {
     renderOutline(g, shape, new BasicStroke(1 / Game.world().camera().getRenderScale()));
   }
 
@@ -306,7 +307,7 @@ public final class RenderEngine {
    * 
    * @see Stroke
    */
-  public void renderOutline(final Graphics2D g, final Shape shape, final Stroke stroke) {
+  public void renderOutline(final Graphics2D g, @Nullable final Shape shape, final Stroke stroke) {
     this.renderOutline(g, shape, stroke, false);
   }
 
@@ -324,7 +325,7 @@ public final class RenderEngine {
    * 
    * @see Stroke
    */
-  public void renderOutline(final Graphics2D g, final Shape shape, final Stroke stroke, boolean antialiasing) {
+  public void renderOutline(final Graphics2D g, @Nullable final Shape shape, final Stroke stroke, boolean antialiasing) {
     renderOutline(g, shape, stroke, antialiasing, 0);
   }
 
@@ -343,7 +344,7 @@ public final class RenderEngine {
    *          The angle by which the shape will be rotated.
    * @see Stroke
    */
-  public void renderOutline(final Graphics2D g, final Shape shape, final Stroke stroke, boolean antialiasing, double angle) {
+  public void renderOutline(final Graphics2D g, @Nullable final Shape shape, final Stroke stroke, boolean antialiasing, double angle) {
     if (shape == null) {
       return;
     }

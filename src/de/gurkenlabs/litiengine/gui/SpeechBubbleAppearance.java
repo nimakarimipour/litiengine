@@ -2,9 +2,10 @@ package de.gurkenlabs.litiengine.gui;
 
 import java.awt.Color;
 import java.util.Objects;
+import javax.annotation.Nullable;
 
 public class SpeechBubbleAppearance extends Appearance {
-  private Color borderColor;
+  @Nullable private Color borderColor;
   private float padding;
   private boolean renderIndicator = true;
 
@@ -20,17 +21,17 @@ public class SpeechBubbleAppearance extends Appearance {
     super(foreColor, backColor);
   }
 
-  public SpeechBubbleAppearance(Color foreColor, Color backColor, Color borderColor) {
+  public SpeechBubbleAppearance(@Nullable Color foreColor, @Nullable Color backColor, @Nullable Color borderColor) {
     super(foreColor, backColor);
     this.borderColor = borderColor;
   }
 
-  public SpeechBubbleAppearance(Color foreColor, Color backColor, Color borderColor, float padding) {
+  public SpeechBubbleAppearance(@Nullable Color foreColor, @Nullable Color backColor, @Nullable Color borderColor, float padding) {
     this(foreColor, backColor, borderColor);
     this.padding = padding;
   }
 
-  @Override
+  @Nullable @Override
   public Color getBorderColor() {
     return this.borderColor;
   }

@@ -8,15 +8,16 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Consumer;
+import javax.annotation.Nullable;
 
 public class Appearance {
   private final List<Consumer<Appearance>> changedConsumer;
 
-  private Color foreColor;
-  private Color backgroundColor1;
-  private Color backgroundColor2;
-  private Color borderColor;
-  private Stroke borderStyle;
+  @Nullable private Color foreColor;
+  @Nullable private Color backgroundColor1;
+  @Nullable private Color backgroundColor2;
+  @Nullable private Color borderColor;
+  @Nullable private Stroke borderStyle;
   private float borderRadius;
   private boolean horizontalBackgroundGradient;
   private boolean transparentBackground;
@@ -31,7 +32,7 @@ public class Appearance {
     this.setTransparentBackground(true);
   }
 
-  public Appearance(Color foreColor, Color backColor) {
+  public Appearance(@Nullable Color foreColor, @Nullable Color backColor) {
     this();
     this.foreColor = foreColor;
     this.backgroundColor1 = backColor;
@@ -62,19 +63,19 @@ public class Appearance {
         this.borderColor, this.borderStyle, this.backgroundColor1, this.backgroundColor2, this.foreColor);
   }
 
-  public Color getForeColor() {
+  @Nullable public Color getForeColor() {
     return this.foreColor;
   }
 
-  public Color getBackgroundColor1() {
+  @Nullable public Color getBackgroundColor1() {
     return this.backgroundColor1;
   }
 
-  public Color getBackgroundColor2() {
+  @Nullable public Color getBackgroundColor2() {
     return this.backgroundColor2;
   }
 
-  public Paint getBackgroundPaint(double width, double height) {
+  @Nullable public Paint getBackgroundPaint(double width, double height) {
     if (this.isTransparentBackground()) {
       return null;
     }
@@ -91,11 +92,11 @@ public class Appearance {
     }
   }
 
-  public Color getBorderColor() {
+  @Nullable public Color getBorderColor() {
     return this.borderColor;
   }
 
-  public Stroke getBorderStyle() {
+  @Nullable public Stroke getBorderStyle() {
     return this.borderStyle;
   }
 
@@ -111,17 +112,17 @@ public class Appearance {
     return transparentBackground;
   }
 
-  public void setForeColor(Color foreColor) {
+  public void setForeColor(@Nullable Color foreColor) {
     this.foreColor = foreColor;
     this.fireOnChangeEvent();
   }
 
-  public void setBackgroundColor1(Color backColor1) {
+  public void setBackgroundColor1(@Nullable Color backColor1) {
     this.backgroundColor1 = backColor1;
     this.fireOnChangeEvent();
   }
 
-  public void setBackgroundColor2(Color backColor2) {
+  public void setBackgroundColor2(@Nullable Color backColor2) {
     this.backgroundColor2 = backColor2;
     this.fireOnChangeEvent();
   }

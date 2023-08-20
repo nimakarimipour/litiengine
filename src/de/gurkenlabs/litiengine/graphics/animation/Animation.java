@@ -11,6 +11,7 @@ import de.gurkenlabs.litiengine.ILaunchable;
 import de.gurkenlabs.litiengine.IUpdateable;
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.resources.Resources;
+import javax.annotation.Nullable;
 
 /**
  * The {@code Animation} class keeps track of the current keyframe which is used to animate a visual element.
@@ -29,11 +30,11 @@ public class Animation implements IUpdateable, ILaunchable {
 
   private final List<KeyFrame> keyframes;
   private final String name;
-  private Spritesheet spritesheet;
+  @Nullable private Spritesheet spritesheet;
 
-  private KeyFrame currentFrame;
+  @Nullable private KeyFrame currentFrame;
   private long lastFrameUpdate;
-  private KeyFrame firstFrame;
+  @Nullable private KeyFrame firstFrame;
   private int frameDuration = DEFAULT_FRAME_DURATION;
 
   private boolean loop;
@@ -72,7 +73,7 @@ public class Animation implements IUpdateable, ILaunchable {
    * @param keyFrameDurations
    *          The duration of each keyframe.
    */
-  public Animation(final Spritesheet spritesheet, final boolean loop, final boolean randomizeStart, final int... keyFrameDurations) {
+  public Animation(@Nullable final Spritesheet spritesheet, final boolean loop, final boolean randomizeStart, final int... keyFrameDurations) {
     this(spritesheet.getName(), spritesheet, loop, randomizeStart, keyFrameDurations);
   }
 
@@ -173,7 +174,7 @@ public class Animation implements IUpdateable, ILaunchable {
     return this.name;
   }
 
-  public Spritesheet getSpritesheet() {
+  @Nullable public Spritesheet getSpritesheet() {
     // in case the previously sprite sheet was unloaded (removed from the loaded sprite sheets),
     // try to find an updated one by the name of the previously used sprite
     if (this.spritesheet != null && !this.spritesheet.isLoaded()) {
@@ -348,7 +349,7 @@ public class Animation implements IUpdateable, ILaunchable {
     this.lastFrameUpdate = Game.loop().getTicks();
   }
 
-  KeyFrame getCurrentKeyFrame() {
+  @Nullable KeyFrame getCurrentKeyFrame() {
     return this.currentFrame;
   }
 

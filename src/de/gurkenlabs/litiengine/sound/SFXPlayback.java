@@ -7,13 +7,14 @@ import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 
 import de.gurkenlabs.litiengine.Game;
+import javax.annotation.Nullable;
 
 /**
  * A {@code SoundPlayback} implementation for the playback of sound effects.
  */
 public class SFXPlayback extends SoundPlayback {
   private Sound sound;
-  private FloatControl panControl;
+  @Nullable private FloatControl panControl;
   private Supplier<Point2D> source;
   private int range;
   private float volumeModifier;

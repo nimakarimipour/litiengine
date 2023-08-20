@@ -11,14 +11,15 @@ import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.environment.Environment;
 import de.gurkenlabs.litiengine.util.Imaging;
 import de.gurkenlabs.litiengine.util.MathUtilities;
+import javax.annotation.Nullable;
 
 public abstract class ColorLayer implements IRenderable {
   private final Environment environment;
-  private final BufferedImage layer;
+  @Nullable private final BufferedImage layer;
 
-  private Color color;
+  @Nullable private Color color;
 
-  protected ColorLayer(Environment env, final Color color) {
+  protected ColorLayer(Environment env, @Nullable final Color color) {
     this.environment = env;
     this.color = color;
 
@@ -33,7 +34,7 @@ public abstract class ColorLayer implements IRenderable {
     ImageRenderer.render(g, this.layer, -viewport.getX(), -viewport.getY());
   }
 
-  public Color getColor() {
+  @Nullable public Color getColor() {
     return this.color;
   }
 

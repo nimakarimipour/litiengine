@@ -9,6 +9,7 @@ import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.IUpdateable;
 import de.gurkenlabs.litiengine.Valign;
 import de.gurkenlabs.litiengine.entities.IEntity;
+import javax.annotation.Nullable;
 
 /**
  * The Interface ICamera defines methods that allow to determine where entities
@@ -130,7 +131,7 @@ public interface ICamera extends IUpdateable {
    *          the point
    * @return the screen location
    */
-  default Point2D getViewportLocation(Point2D point) {
+  default Point2D getViewportLocation(@Nullable Point2D point) {
     return getViewportLocation(point.getX(), point.getY());
   }
 

@@ -16,6 +16,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.TmxProperty;
 import de.gurkenlabs.litiengine.physics.Collision;
 import de.gurkenlabs.litiengine.physics.CollisionEvent;
 import de.gurkenlabs.litiengine.tweening.TweenType;
+import javax.annotation.Nullable;
 
 @CollisionInfo(collision = true)
 public abstract class CollisionEntity extends Entity implements ICollisionEntity {
@@ -45,7 +46,7 @@ public abstract class CollisionEntity extends Entity implements ICollisionEntity
   @TmxProperty(name = MapObjectProperty.COLLISION_TYPE)
   private Collision collisionType;
 
-  private Rectangle2D collisionBox;
+  @Nullable private Rectangle2D collisionBox;
 
   protected CollisionEntity() {
     super();
@@ -59,7 +60,7 @@ public abstract class CollisionEntity extends Entity implements ICollisionEntity
     this.refreshCollisionBox();
   }
 
-  public static Rectangle2D getCollisionBox(final Point2D location, final double entityWidth, final double entityHeight, final double collisionBoxWidth, final double collisionBoxHeight, final Align align, final Valign valign) {
+  public static Rectangle2D getCollisionBox(@Nullable final Point2D location, final double entityWidth, final double entityHeight, final double collisionBoxWidth, final double collisionBoxHeight, final Align align, final Valign valign) {
     double x = location.getX() + align.getLocation(entityWidth, collisionBoxWidth);
     double y = location.getY() + valign.getLocation(entityHeight, collisionBoxHeight);
     return new Rectangle2D.Double(x, y, collisionBoxWidth, collisionBoxHeight);
@@ -80,7 +81,7 @@ public abstract class CollisionEntity extends Entity implements ICollisionEntity
    *
    * @return the collision box
    */
-  @Override
+  @Nullable @Override
   public Rectangle2D getCollisionBox() {
     return this.collisionBox;
   }
@@ -92,7 +93,7 @@ public abstract class CollisionEntity extends Entity implements ICollisionEntity
    * @return the collision box
    */
   @Override
-  public Rectangle2D getCollisionBox(final Point2D location) {
+  public Rectangle2D getCollisionBox(@Nullable final Point2D location) {
     final double newCollisionBoxWidth = this.getCollisionBoxWidth() != -1 ? this.getCollisionBoxWidth() : this.getWidth() * WIDTH_FACTOR;
     final double newCollisionBoxHeight = this.getCollisionBoxHeight() != -1 ? this.getCollisionBoxHeight() : this.getHeight() * HEIGHT_FACTOR;
 
@@ -201,7 +202,7 @@ public abstract class CollisionEntity extends Entity implements ICollisionEntity
   }
 
   @Override
-  public void setLocation(final Point2D location) {
+  public void setLocation(@Nullable final Point2D location) {
     super.setLocation(location);
     this.refreshCollisionBox();
   }

@@ -4,13 +4,14 @@ import java.awt.Graphics2D;
 import java.util.EventObject;
 
 import de.gurkenlabs.litiengine.environment.tilemap.IMap;
+import javax.annotation.Nullable;
 
 public class MapRenderedEvent extends EventObject {
   private static final long serialVersionUID = -562565518335076236L;
-  private final transient IMap map;
+  @Nullable private final transient IMap map;
   private final transient Graphics2D graphics;
 
-  MapRenderedEvent(final Graphics2D graphics, final IMap map) {
+  MapRenderedEvent(final Graphics2D graphics, @Nullable final IMap map) {
     super(map);
     this.graphics = graphics;
     this.map = map;
@@ -30,7 +31,7 @@ public class MapRenderedEvent extends EventObject {
    * 
    * @return The map involved with the rendering process.
    */
-  public IMap getMap() {
+  @Nullable public IMap getMap() {
     return map;
   }
 }

@@ -12,14 +12,15 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import de.gurkenlabs.litiengine.environment.tilemap.IMapImage;
+import javax.annotation.Nullable;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class MapImage extends CustomPropertyProvider implements IMapImage {
 
-  @XmlAttribute
+  @Nullable @XmlAttribute
   private String source;
 
-  @XmlAttribute(name = "trans")
+  @Nullable @XmlAttribute(name = "trans")
   @XmlJavaTypeAdapter(ColorAdapter.class)
   private Color transparentcolor;
 
@@ -29,7 +30,7 @@ public class MapImage extends CustomPropertyProvider implements IMapImage {
   @XmlAttribute
   private int height;
 
-  @XmlTransient
+  @Nullable @XmlTransient
   private URL absolutePath;
 
   /**
@@ -64,7 +65,7 @@ public class MapImage extends CustomPropertyProvider implements IMapImage {
     this.absolutePath = original.getAbsoluteSourcePath();
   }
 
-  @Override
+  @Nullable @Override
   public URL getAbsoluteSourcePath() {
     return this.absolutePath;
   }
@@ -84,12 +85,12 @@ public class MapImage extends CustomPropertyProvider implements IMapImage {
     return this.height;
   }
 
-  @Override
+  @Nullable @Override
   public String getSource() {
     return this.source;
   }
 
-  @Override
+  @Nullable @Override
   public Color getTransparentColor() {
     return this.transparentcolor;
   }
@@ -105,7 +106,7 @@ public class MapImage extends CustomPropertyProvider implements IMapImage {
   }
 
   @Override
-  void finish(URL location) throws TmxException {
+  void finish(@Nullable URL location) throws TmxException {
     super.finish(location);
     try {
       this.absolutePath = new URL(location, this.source);

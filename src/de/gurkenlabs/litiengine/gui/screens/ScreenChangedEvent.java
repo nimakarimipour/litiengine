@@ -1,23 +1,24 @@
 package de.gurkenlabs.litiengine.gui.screens;
 
 import java.util.EventObject;
+import javax.annotation.Nullable;
 
 public class ScreenChangedEvent extends EventObject {
   private static final long serialVersionUID = 6145911214616836674L;
-  private final transient Screen previous;
-  private final transient Screen changed;
+  @Nullable private final transient Screen previous;
+  @Nullable private final transient Screen changed;
 
-  public ScreenChangedEvent(Screen changed, Screen previous) {
+  public ScreenChangedEvent(@Nullable Screen changed, @Nullable Screen previous) {
     super(changed);
     this.previous = previous;
     this.changed = changed;
   }
 
-  public Screen getPrevious() {
+  @Nullable public Screen getPrevious() {
     return this.previous;
   }
 
-  public Screen getChanged() {
+  @Nullable public Screen getChanged() {
     return this.changed;
   }
 }
