@@ -7,5 +7,4 @@ crash.txt
 game.log*
 hs_err_pid*.log
 /.idea
-/out
 /utiliti/out
