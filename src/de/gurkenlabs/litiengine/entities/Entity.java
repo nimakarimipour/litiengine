@@ -409,6 +409,9 @@ public abstract class Entity implements IEntity, EntityRenderListener, Tweenable
     if (Game.world().environment() == null) {
       return;
     }
+    if(this.getEnvironment().getEntitiesByTag().get(tag) == null){
+      return;
+    }
     this.getEnvironment().getEntitiesByTag().get(tag).remove(this);
     if (this.getEnvironment().getEntitiesByTag().get(tag).isEmpty()) {
       this.getEnvironment().getEntitiesByTag().remove(tag);

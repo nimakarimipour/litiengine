@@ -1,0 +1,4 @@
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/entities/Entity.java:412: error: [NullAway] dereferenced expression this.getEnvironment().getEntitiesByTag().get(tag) is @Nullable
+    this.getEnvironment().getEntitiesByTag().get(tag).remove(this);
+                                                     ^
+    (see http://t.uber.com/nullaway )
