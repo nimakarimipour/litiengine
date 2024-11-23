@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import de.gurkenlabs.litiengine.Game;
+import de.gurkenlabs.litiengine.Nullability;
 import de.gurkenlabs.litiengine.entities.behavior.IBehaviorController;
 import de.gurkenlabs.litiengine.environment.Environment;
 import de.gurkenlabs.litiengine.environment.tilemap.ICustomPropertyProvider;
@@ -297,7 +298,7 @@ public abstract class Entity implements IEntity, EntityRenderListener, Tweenable
       return;
     }
 
-    this.actions.get(actionName).perform();
+    Nullability.castToNonnull(this.actions.get(actionName)).perform();
   }
 
   @Nullable @Override
