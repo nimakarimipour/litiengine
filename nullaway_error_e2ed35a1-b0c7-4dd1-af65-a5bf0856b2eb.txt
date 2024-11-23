@@ -1,4 +1,0 @@
-/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/Environment.java:256: error: [NullAway] dereferenced expression this.renderListeners.get(renderType) is @Nullable
-    this.renderListeners.get(renderType).add(listener);
-                                        ^
-    (see http://t.uber.com/nullaway )

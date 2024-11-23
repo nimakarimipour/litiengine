@@ -1,0 +1,4 @@
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/Environment.java:325: error: [NullAway] dereferenced expression this.miscEntities.get(entity.getRenderType()) is @Nullable
+    this.miscEntities.get(entity.getRenderType()).put(entity.getMapId(), entity);
+                                                 ^
+    (see http://t.uber.com/nullaway )
