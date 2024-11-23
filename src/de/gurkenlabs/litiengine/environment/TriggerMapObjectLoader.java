@@ -10,6 +10,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.IMapObject;
 import de.gurkenlabs.litiengine.environment.tilemap.MapObjectProperty;
 import de.gurkenlabs.litiengine.environment.tilemap.MapObjectType;
 import de.gurkenlabs.litiengine.util.ArrayUtilities;
+import javax.annotation.Nullable;
 
 public class TriggerMapObjectLoader extends MapObjectLoader {
 
@@ -38,7 +39,7 @@ public class TriggerMapObjectLoader extends MapObjectLoader {
     return entities;
   }
 
-  protected Trigger createTrigger(IMapObject mapObject, TriggerActivation act, String message, boolean oneTime, int coolDown) {
+  protected Trigger createTrigger(IMapObject mapObject, TriggerActivation act, @Nullable String message, boolean oneTime, int coolDown) {
     return new Trigger(act, message, oneTime, coolDown);
   }
 

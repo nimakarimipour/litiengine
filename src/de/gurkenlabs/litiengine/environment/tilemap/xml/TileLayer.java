@@ -12,10 +12,12 @@ import javax.xml.bind.annotation.XmlElement;
 import de.gurkenlabs.litiengine.environment.tilemap.ITile;
 import de.gurkenlabs.litiengine.environment.tilemap.ITileLayer;
 import de.gurkenlabs.litiengine.environment.tilemap.ITilesetEntry;
+import com.uber.nullaway.annotations.Initializer;
+import javax.annotation.Nullable;
 
 public class TileLayer extends Layer implements ITileLayer {
 
-  @XmlElement
+  @Nullable @XmlElement
   private TileData data = null;
 
   private transient List<ITile> tileList;
@@ -39,13 +41,13 @@ public class TileLayer extends Layer implements ITileLayer {
     this.data = data;
   }
 
-  @Override
+  @Nullable @Override
   public ITile getTileByLocation(final Point2D location) {
     final Optional<ITile> tile = this.getTiles().stream().filter(x -> x.getTileCoordinate().equals(location)).findFirst();
     return tile.isPresent() ? tile.get() : null;
   }
 
-  @Override
+  @Nullable @Override
   public ITile getTile(int x, int y) {
     this.getTiles();
 
@@ -113,12 +115,12 @@ public class TileLayer extends Layer implements ITileLayer {
     return this.data.getTiles();
   }
 
-  protected TileData getRawTileData() {
+  @Nullable protected TileData getRawTileData() {
     return this.data;
   }
 
-  @Override
-  void finish(URL location) throws TmxException {
+  @Initializer @Override
+  void finish(@Nullable URL location) throws TmxException {
     super.finish(location);
     this.tileList = new CopyOnWriteArrayList<>(this.getData());
     this.tiles = new Tile[this.getHeight()][this.getWidth()];

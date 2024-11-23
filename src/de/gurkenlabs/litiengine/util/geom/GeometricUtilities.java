@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import javax.annotation.Nullable;
 
 public class GeometricUtilities {
   private static final double RAYCAST_EPSILON = 0.01;
@@ -205,7 +206,7 @@ public class GeometricUtilities {
    *          the line b
    * @return the intersection point
    */
-  public static Point2D getIntersectionPoint(final Line2D lineA, final Line2D lineB) {
+  @Nullable public static Point2D getIntersectionPoint(final Line2D lineA, final Line2D lineB) {
 
     final double x1 = lineA.getX1();
     final double y1 = lineA.getY1();
@@ -241,7 +242,7 @@ public class GeometricUtilities {
    *          the rectangle
    * @return the point2 d
    */
-  public static Point2D getIntersectionPoint(final Line2D line, final Rectangle2D rectangle) {
+  @Nullable public static Point2D getIntersectionPoint(final Line2D line, final Rectangle2D rectangle) {
     final List<Point2D> intersectionPoints = getIntersectionPoints(line, rectangle);
     for (final Point2D p : intersectionPoints) {
       if (p != null && !p.equals(line.getP1()) && contains(rectangle, p)) {
@@ -312,7 +313,7 @@ public class GeometricUtilities {
     return lines;
   }
 
-  public static double getDiagonal(Rectangle2D rect) {
+  public static double getDiagonal(@Nullable Rectangle2D rect) {
     if (rect == null) {
       return 0;
     }
@@ -358,11 +359,11 @@ public class GeometricUtilities {
     return new Ellipse2D.Double(center.getX() - radius, center.getY() - radius, radius * 2, radius * 2);
   }
 
-  public static Point2D getAveragePosition(Collection<Point2D> points) {
+  @Nullable public static Point2D getAveragePosition(Collection<Point2D> points) {
     return getAveragePosition(points.toArray(new Point2D[points.size()]));
   }
 
-  public static Point2D getAveragePosition(Point2D... points) {
+  @Nullable public static Point2D getAveragePosition(Point2D... points) {
     if (points.length == 0) {
       return null;
     }
@@ -586,7 +587,7 @@ public class GeometricUtilities {
     return transform.createTransformedShape(shape);
   }
 
-  public static Dimension2D scaleWithRatio(final double width, final double height, final int max) {
+  @Nullable public static Dimension2D scaleWithRatio(final double width, final double height, final int max) {
     if (width == 0 || height == 0) {
       return null;
     }

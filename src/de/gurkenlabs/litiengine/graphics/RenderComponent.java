@@ -24,6 +24,7 @@ import de.gurkenlabs.litiengine.resources.ImageFormat;
 import de.gurkenlabs.litiengine.util.MathUtilities;
 import de.gurkenlabs.litiengine.util.TimeUtilities;
 import de.gurkenlabs.litiengine.util.io.ImageSerializer;
+import javax.annotation.Nullable;
 
 @SuppressWarnings("serial")
 public class RenderComponent extends Canvas {
@@ -33,7 +34,7 @@ public class RenderComponent extends Canvas {
   private final transient List<IntConsumer> fpsChangedConsumer;
   private final transient List<Consumer<Graphics2D>> renderedConsumer;
 
-  private transient BufferStrategy currentBufferStrategy;
+  @Nullable private transient BufferStrategy currentBufferStrategy;
 
   private float currentAlpha;
 

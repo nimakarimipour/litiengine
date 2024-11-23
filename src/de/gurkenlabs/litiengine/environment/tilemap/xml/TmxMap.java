@@ -39,6 +39,8 @@ import de.gurkenlabs.litiengine.environment.tilemap.RenderOrder;
 import de.gurkenlabs.litiengine.environment.tilemap.StaggerAxis;
 import de.gurkenlabs.litiengine.environment.tilemap.StaggerIndex;
 import de.gurkenlabs.litiengine.util.io.FileUtilities;
+import com.uber.nullaway.annotations.Initializer;
+import javax.annotation.Nullable;
 
 @XmlRootElement(name = "map")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -82,13 +84,13 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
   @XmlAttribute
   private Integer hexsidelength;
 
-  @XmlAttribute
+  @Nullable @XmlAttribute
   private StaggerAxis staggeraxis;
 
-  @XmlAttribute
+  @Nullable @XmlAttribute
   private StaggerIndex staggerindex;
 
-  @XmlAttribute
+  @Nullable @XmlAttribute
   @XmlJavaTypeAdapter(ColorAdapter.class)
   private Color backgroundcolor;
 
@@ -98,7 +100,7 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
   @XmlAttribute(name = "nextobjectid")
   private Integer nextObjectId;
 
-  @XmlAttribute
+  @Nullable @XmlAttribute
   private String name;
 
   @XmlElement(name = "tileset", type = Tileset.class)
@@ -112,7 +114,7 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
   })
   private List<ILayer> layers;
 
-  @XmlTransient
+  @Nullable @XmlTransient
   private URL path;
 
   private transient List<ITileLayer> rawTileLayers = new CopyOnWriteArrayList<>();
@@ -169,7 +171,7 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
     return this.mapOrientation;
   }
 
-  @Override
+  @Nullable @Override
   @XmlTransient
   public URL getPath() {
     return this.path;
@@ -215,7 +217,7 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
     return this.tilesets;
   }
 
-  @Override
+  @Nullable @Override
   public ITilesetEntry getTilesetEntry(int gid) {
     for (ITileset tileset : this.getTilesets()) {
       if (tileset.containsTile(gid)) {
@@ -255,7 +257,7 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
     return this.groupLayers;
   }
 
-  @Override
+  @Nullable @Override
   public String getName() {
     return this.name;
   }
@@ -280,12 +282,12 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
     return this.hexsidelength;
   }
 
-  @Override
+  @Nullable @Override
   public StaggerAxis getStaggerAxis() {
     return this.staggeraxis;
   }
 
-  @Override
+  @Nullable @Override
   public StaggerIndex getStaggerIndex() {
     return this.staggerindex;
   }
@@ -295,7 +297,7 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
   }
 
   @Override
-  public void finish(URL location) throws TmxException {
+  public void finish(@Nullable URL location) throws TmxException {
     super.finish(location);
     if (this.name == null) {
       this.name = FileUtilities.getFileName(location);
@@ -461,7 +463,7 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
     return externalTilesets;
   }
 
-  @Override
+  @Nullable @Override
   public Color getBackgroundColor() {
     return this.backgroundcolor;
   }
@@ -479,7 +481,7 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
     return this.chunkOffsetY;
   }
 
-  @SuppressWarnings("unused")
+  @Initializer @SuppressWarnings("unused")
   private void afterUnmarshal(Unmarshaller u, Object parent) throws TmxException {
     this.checkVersion();
 

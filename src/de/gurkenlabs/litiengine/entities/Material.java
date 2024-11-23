@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import de.gurkenlabs.litiengine.environment.tilemap.xml.CustomPropertyProvider;
+import javax.annotation.Nullable;
 
 public class Material extends CustomPropertyProvider {
   private static final Map<String, Material> materials = new ConcurrentHashMap<>();
@@ -30,7 +31,7 @@ public class Material extends CustomPropertyProvider {
     materials.put(name.toLowerCase(), this);
   }
 
-  public static Material get(String name) {
+  public static Material get(@Nullable String name) {
     if (name == null || name.isEmpty()) {
       return UNDEFINED;
     }
