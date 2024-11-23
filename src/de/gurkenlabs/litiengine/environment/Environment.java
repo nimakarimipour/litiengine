@@ -472,8 +472,8 @@ public final class Environment implements IRenderable {
 
     for (RenderType renderType : RenderType.values()) {
       Nullability.castToNonnull(this.miscEntities.get(renderType)).clear();
-      this.renderListeners.get(renderType).clear();
-      this.renderables.get(renderType).clear();
+      Nullability.castToNonnull(this.renderListeners.get(renderType)).clear();
+      Nullability.castToNonnull(this.renderables.get(renderType)).clear();
     }
 
     dispose(this.allEntities.values());
@@ -1182,7 +1182,7 @@ public final class Environment implements IRenderable {
    * @see ILayer#getRenderType()
    */
   public Collection<IEntity> getEntities(final RenderType renderType) {
-    return Collections.unmodifiableCollection(this.miscEntities.get(renderType).values());
+    return Collections.unmodifiableCollection(Nullability.castToNonnull(this.miscEntities.get(renderType)).values());
   }
 
   /**
@@ -1457,7 +1457,7 @@ public final class Environment implements IRenderable {
    * @see #removeRenderable(IRenderable)
    */
   public Collection<IRenderable> getRenderables(RenderType renderType) {
-    return Collections.unmodifiableCollection(this.renderables.get(renderType));
+    return Collections.unmodifiableCollection(Nullability.castToNonnull(this.renderables.get(renderType)));
   }
 
   /**
@@ -2463,7 +2463,7 @@ public final class Environment implements IRenderable {
     }
 
     // 3. Render entities
-    Game.graphics().renderEntities(g, this.miscEntities.get(renderType).values(), renderType == RenderType.NORMAL);
+    Game.graphics().renderEntities(g, Nullability.castToNonnull(this.miscEntities.get(renderType)).values(), renderType == RenderType.NORMAL);
 
     // 4. fire event
     this.fireRenderEvent(g, renderType);
@@ -2473,7 +2473,7 @@ public final class Environment implements IRenderable {
       Game.metrics().trackRenderTime(renderType.toString().toLowerCase(), renderTime,
           new GameMetrics.RenderInfo("layers", this.getMap().getRenderLayers().stream().filter(m -> m.getRenderType() == renderType).count()),
           new GameMetrics.RenderInfo("renderables", this.getRenderables(renderType).size()),
-          new GameMetrics.RenderInfo("entities", this.miscEntities.get(renderType).size()));
+          new GameMetrics.RenderInfo("entities", Nullability.castToNonnull(this.miscEntities.get(renderType)).size()));
     }
   }
 
@@ -2686,7 +2686,7 @@ public final class Environment implements IRenderable {
 
       IRenderable renderable = emitter.getRenderable(renderType);
       if (renderable != null) {
-        cons.accept(this.renderables.get(renderType), renderable);
+        cons.accept(Nullability.castToNonnull(this.renderables.get(renderType)), renderable);
       }
     }
 
@@ -2710,7 +2710,7 @@ public final class Environment implements IRenderable {
   }
 
   private void fireRenderEvent(Graphics2D g, RenderType type) {
-    for (EnvironmentRenderedListener listener : this.renderListeners.get(type)) {
+    for (EnvironmentRenderedListener listener : Nullability.castToNonnull(this.renderListeners.get(type))) {
       listener.rendered(g, type);
     }
   }
