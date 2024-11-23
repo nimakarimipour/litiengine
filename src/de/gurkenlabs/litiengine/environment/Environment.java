@@ -26,10 +26,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-import de.gurkenlabs.litiengine.Direction;
-import de.gurkenlabs.litiengine.Game;
-import de.gurkenlabs.litiengine.GameMetrics;
-import de.gurkenlabs.litiengine.IUpdateable;
+import de.gurkenlabs.litiengine.*;
 import de.gurkenlabs.litiengine.configuration.Quality;
 import de.gurkenlabs.litiengine.entities.CollisionBox;
 import de.gurkenlabs.litiengine.entities.Creature;
@@ -253,7 +250,7 @@ public final class Environment implements IRenderable {
    *          The listener to add.
    */
   public void onRendered(RenderType renderType, EnvironmentRenderedListener listener) {
-    this.renderListeners.get(renderType).add(listener);
+    Nullability.castToNonnull(this.renderListeners.get(renderType)).add(listener);
   }
 
   /**

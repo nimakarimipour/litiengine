@@ -1,4 +1,0 @@
-/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/entities/EntityControllers.java:51: error: [NullAway] dereferenced expression controller is @Nullable
-      controller.detach();
-                ^
-    (see http://t.uber.com/nullaway )
