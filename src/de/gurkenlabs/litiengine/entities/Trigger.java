@@ -328,6 +328,9 @@ public class Trigger extends CollisionEntity implements IUpdateable {
 
     // if we actually have a trigger target, we send the message to the target
     for (final int target : triggerTargets) {
+      if(this.getEnvironment() == null){
+        continue;
+      }
       final IEntity entity = this.getEnvironment().get(target);
       if (entity == null) {
         log.log(Level.WARNING, "trigger [{0}] was activated, but the trigger target [{1}] could not be found on the environment", new Object[] { this, target });
@@ -342,7 +345,7 @@ public class Trigger extends CollisionEntity implements IUpdateable {
       listener.activated(te);
     }
 
-    if (this.isOneTimeTrigger) {
+    if (this.isOneTimeTrigger && this.getEnvironment() != null) {
       this.getEnvironment().remove(this);
     }
 

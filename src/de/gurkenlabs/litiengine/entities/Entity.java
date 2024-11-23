@@ -409,6 +409,9 @@ public abstract class Entity implements IEntity, EntityRenderListener, Tweenable
     if (Game.world().environment() == null) {
       return;
     }
+    if(this.getEnvironment() == null){
+      return;
+    }
     if(this.getEnvironment().getEntitiesByTag().get(tag) == null){
       return;
     }
@@ -490,6 +493,7 @@ public abstract class Entity implements IEntity, EntityRenderListener, Tweenable
   }
 
   @Override
+  @Nullable
   public Environment getEnvironment() {
     return this.environment;
   }
