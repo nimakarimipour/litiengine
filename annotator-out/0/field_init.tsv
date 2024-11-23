@@ -1,4 +1,5 @@
 kind	class	method	param	index	uri	field
+METHOD	de.gurkenlabs.litiengine.entities.Entity	setLocation(java.awt.geom.Point2D)	null	null	/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/entities/Entity.java	mapLocation
 METHOD	de.gurkenlabs.litiengine.entities.Entity	setRenderType(de.gurkenlabs.litiengine.graphics.RenderType)	null	null	/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/entities/Entity.java	renderType
 METHOD	de.gurkenlabs.litiengine.graphics.ImageEffect	setName(java.lang.String)	null	null	/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/graphics/ImageEffect.java	name
 METHOD	de.gurkenlabs.litiengine.physics.Force	setLocation(java.awt.geom.Point2D)	null	null	/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/physics/Force.java	location
