@@ -2302,7 +2302,9 @@ public final class Environment implements IRenderable {
 
       long shadowRenderStart = System.nanoTime();
       if (this.getStaticShadows().stream().anyMatch(x -> x.getShadowType() != StaticShadowType.NONE)) {
-        this.getStaticShadowLayer().render(g);
+        if(this.getStaticShadowLayer() != null){
+          this.getStaticShadowLayer().render(g);
+        }
       }
 
       final double shadowTime = TimeUtilities.nanoToMs(System.nanoTime() - shadowRenderStart);
