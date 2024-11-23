@@ -1,4 +1,0 @@
-/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/Environment.java:421: error: [NullAway] dereferenced expression this.renderables.get(renderType) is @Nullable
-    this.renderables.get(renderType).add(renderable);
-                                    ^
-    (see http://t.uber.com/nullaway )
