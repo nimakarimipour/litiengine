@@ -103,7 +103,7 @@ public final class Environment implements IRenderable {
   @Nullable private StaticShadowLayer staticShadowLayer;
   private boolean loaded;
   private boolean initialized;
-  @Nullable private IMap map;
+  private IMap map;
 
   private int gravity;
 
@@ -129,7 +129,11 @@ public final class Environment implements IRenderable {
    *          The map that defines this environment.
    */
   public Environment(final IMap map) {
-    this();
+    for (RenderType renderType : RenderType.values()) {
+      this.miscEntities.put(renderType, new ConcurrentHashMap<>());
+      this.renderListeners.put(renderType, ConcurrentHashMap.newKeySet());
+      this.renderables.put(renderType, ConcurrentHashMap.newKeySet());
+    }
     this.map = map;
     if (this.getMap() != null) {
       Game.physics().setBounds(this.getMap().getBounds());
@@ -145,14 +149,6 @@ public final class Environment implements IRenderable {
    */
   public Environment(final String mapPath) {
     this(Resources.maps().get(mapPath));
-  }
-
-  private Environment() {
-    for (RenderType renderType : RenderType.values()) {
-      this.miscEntities.put(renderType, new ConcurrentHashMap<>());
-      this.renderListeners.put(renderType, ConcurrentHashMap.newKeySet());
-      this.renderables.put(renderType, ConcurrentHashMap.newKeySet());
-    }
   }
 
   /**

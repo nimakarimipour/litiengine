@@ -1,0 +1,4 @@
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/Environment.java:1918: error: [NullAway] dereferenced expression this.getMap() is @Nullable
+    return new Point2D.Double(this.getMap().getSizeInPixels().getWidth() / 2.0, this.getMap().getSizeInPixels().getHeight() / 2.0);
+                                           ^
+    (see http://t.uber.com/nullaway )
