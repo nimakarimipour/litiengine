@@ -1,4 +1,0 @@
-/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/Environment.java:2305: error: [NullAway] dereferenced expression this.getStaticShadowLayer() is @Nullable
-        this.getStaticShadowLayer().render(g);
-                                   ^
-    (see http://t.uber.com/nullaway )
