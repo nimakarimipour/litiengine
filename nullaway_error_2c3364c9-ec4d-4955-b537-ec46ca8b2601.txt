@@ -1,0 +1,4 @@
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/graphics/Spritesheet.java:194: error: [NullAway] dereferenced expression Resources.spritesheets().get(this.getName()) is @Nullable
+    return Resources.spritesheets().contains(this.getName()) && Resources.spritesheets().get(this.getName()).equals(this);
+                                                                                                            ^
+    (see http://t.uber.com/nullaway )

@@ -1,4 +1,0 @@
-/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/graphics/Spritesheet.java:105: error: [NullAway] returning @Nullable expression from method with @NonNull return type
-    return this.image;
-    ^
-    (see http://t.uber.com/nullaway )

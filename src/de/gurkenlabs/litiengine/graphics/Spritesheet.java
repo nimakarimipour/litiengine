@@ -9,6 +9,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Logger;
 
 import de.gurkenlabs.litiengine.Game;
+import de.gurkenlabs.litiengine.Nullability;
 import de.gurkenlabs.litiengine.resources.ImageFormat;
 import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.util.AlphanumComparator;
@@ -191,7 +192,7 @@ public final class Spritesheet implements Comparable<Spritesheet> {
   }
 
   public boolean isLoaded() {
-    return Resources.spritesheets().contains(this.getName()) && Resources.spritesheets().get(this.getName()).equals(this);
+    return Resources.spritesheets().contains(this.getName()) && Nullability.castToNonnull(Resources.spritesheets().get(this.getName())).equals(this);
   }
 
   public void setSpriteHeight(final int spriteHeight) {
