@@ -17,7 +17,7 @@ public class StaticShadow extends MapArea {
   public static final Color DEFAULT_COLOR = new Color(0, 0, 0, 75);
   public static final int DEFAULT_OFFSET = 10;
 
-  @Nullable @TmxProperty(name = MapObjectProperty.SHADOW_TYPE)
+  @TmxProperty(name = MapObjectProperty.SHADOW_TYPE)
   private StaticShadowType shadowType;
 
   @TmxProperty(name = MapObjectProperty.SHADOW_OFFSET)
@@ -108,6 +108,7 @@ public class StaticShadow extends MapArea {
    * @param shadowType
    *          The type of the static shadow.
    */
+  @SuppressWarnings("NullAway")
   public StaticShadow(int id, @Nullable String name, double x, double y, float width, float height, StaticShadowType shadowType) {
     super(id, name, x, y, width, height);
     this.setShadowType(shadowType);
@@ -128,7 +129,7 @@ public class StaticShadow extends MapArea {
     this.shadowOffset = DEFAULT_OFFSET;
   }
 
-  @Nullable public StaticShadowType getShadowType() {
+  public StaticShadowType getShadowType() {
     return this.shadowType;
   }
 
