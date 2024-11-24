@@ -1,4 +1,0 @@
-/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/graphics/animation/Animation.java:77: error: [NullAway] dereferenced expression spritesheet is @Nullable
-    this(spritesheet.getName(), spritesheet, loop, randomizeStart, keyFrameDurations);
-                    ^
-    (see http://t.uber.com/nullaway )

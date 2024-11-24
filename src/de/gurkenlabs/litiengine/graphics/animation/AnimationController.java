@@ -13,6 +13,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.ILoop;
+import de.gurkenlabs.litiengine.Nullability;
 import de.gurkenlabs.litiengine.graphics.ImageEffect;
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.resources.Resources;
@@ -100,8 +101,9 @@ public class AnimationController implements IAnimationController {
   }
 
   public static Animation flipAnimation(Animation anim, String newSpriteName) {
-    final BufferedImage flippedImage = Imaging.flipSpritesHorizontally(anim.getSpritesheet());
-    Spritesheet flippedSpritesheet = Resources.spritesheets().load(flippedImage, newSpriteName, anim.getSpritesheet().getSpriteWidth(), anim.getSpritesheet().getSpriteHeight());
+    Spritesheet spritesheet = Nullability.castToNonnull(anim.getSpritesheet());
+    final BufferedImage flippedImage = Imaging.flipSpritesHorizontally(spritesheet);
+    Spritesheet flippedSpritesheet = Resources.spritesheets().load(flippedImage, newSpriteName, spritesheet.getSpriteWidth(), spritesheet.getSpriteHeight());
     return new Animation(flippedSpritesheet, anim.isLooping(), anim.getKeyFrameDurations());
   }
 
