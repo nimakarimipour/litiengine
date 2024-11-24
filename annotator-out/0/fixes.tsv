@@ -1,5 +1,4 @@
 kind	class	method	param	index	uri	reason	annotation	rootClass	rootMethod
-METHOD	de.gurkenlabs.litiengine.entities.CollisionEntity	getCollisionBox()	null	null	/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/entities/CollisionEntity.java	RETURN_NULLABLE	nullable	de.gurkenlabs.litiengine.entities.CollisionEntity	getCollisionBox()
 METHOD	de.gurkenlabs.litiengine.entities.Creature	getVelocity()	null	null	/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/entities/Creature.java	RETURN_NULLABLE	nullable	de.gurkenlabs.litiengine.entities.Creature	getVelocity()
 FIELD	de.gurkenlabs.litiengine.entities.SoundSource	null	sound	null	/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/entities/SoundSource.java	METHOD_NO_INIT	nullable	de.gurkenlabs.litiengine.entities.SoundSource	null
 FIELD	de.gurkenlabs.litiengine.entities.SoundSource	null	playback	null	/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/entities/SoundSource.java	METHOD_NO_INIT	nullable	de.gurkenlabs.litiengine.entities.SoundSource	null
