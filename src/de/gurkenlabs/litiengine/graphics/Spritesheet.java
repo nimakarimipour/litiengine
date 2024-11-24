@@ -14,6 +14,8 @@ import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.util.AlphanumComparator;
 import de.gurkenlabs.litiengine.util.Imaging;
 import de.gurkenlabs.litiengine.util.io.FileUtilities;
+import org.jetbrains.annotations.Contract;
+
 import javax.annotation.Nullable;
 
 public final class Spritesheet implements Comparable<Spritesheet> {
@@ -21,7 +23,7 @@ public final class Spritesheet implements Comparable<Spritesheet> {
 
   private final List<Integer> emptySprites = new CopyOnWriteArrayList<>();
 
-  @Nullable private final BufferedImage image;
+  private final BufferedImage image;
   private final String name;
   private final ImageFormat imageFormat;
 
@@ -224,6 +226,7 @@ public final class Spritesheet implements Comparable<Spritesheet> {
     }
   }
 
+  @Contract("null,_->fail")
   private static void checkImage(@Nullable BufferedImage image, @Nullable String name) {
     if (image == null) {
       throw new IllegalArgumentException("The image for the spritesheet '" + name + "' is null!");
