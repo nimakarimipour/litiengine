@@ -1,6 +1,5 @@
 kind	class	method	param	index	uri	reason	annotation	rootClass	rootMethod
 FIELD	de.gurkenlabs.litiengine.entities.StaticShadow	null	shadowType	null	/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/entities/StaticShadow.java	METHOD_NO_INIT	nullable	de.gurkenlabs.litiengine.entities.StaticShadow	null
-FIELD	de.gurkenlabs.litiengine.entities.StaticShadow	null	shadowType	null	/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/entities/StaticShadow.java	METHOD_NO_INIT	nullable	de.gurkenlabs.litiengine.entities.StaticShadow	null
 FIELD	de.gurkenlabs.litiengine.entities.SoundSource	null	sound	null	/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/entities/SoundSource.java	METHOD_NO_INIT	nullable	de.gurkenlabs.litiengine.entities.SoundSource	null
 FIELD	de.gurkenlabs.litiengine.entities.SoundSource	null	playback	null	/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/entities/SoundSource.java	METHOD_NO_INIT	nullable	de.gurkenlabs.litiengine.entities.SoundSource	null
 FIELD	de.gurkenlabs.litiengine.entities.SoundSource	null	sound	null	/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/entities/SoundSource.java	METHOD_NO_INIT	nullable	de.gurkenlabs.litiengine.entities.SoundSource	null

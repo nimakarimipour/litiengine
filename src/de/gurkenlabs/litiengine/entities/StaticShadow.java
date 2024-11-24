@@ -122,6 +122,7 @@ public class StaticShadow extends MapArea {
    * @param collisionBox
    *          The collision box from which this shadow instance originates from.
    */
+  @SuppressWarnings("NullAway")
   public StaticShadow(CollisionBox collisionBox) {
     super(0, null, collisionBox.getX(), collisionBox.getY(), collisionBox.getWidth(), collisionBox.getHeight());
     this.setShadowType(StaticShadowType.NONE);

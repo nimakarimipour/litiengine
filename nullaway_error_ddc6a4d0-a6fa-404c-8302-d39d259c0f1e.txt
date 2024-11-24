@@ -1,4 +1,0 @@
-/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/entities/StaticShadow.java:111: error: [NullAway] initializer method does not guarantee @NonNull field shadowType (line 20) is initialized along all control-flow paths (remember to check for exceptions or early returns).
-  public StaticShadow(int id, @Nullable String name, double x, double y, float width, float height, StaticShadowType shadowType) {
-         ^
-    (see http://t.uber.com/nullaway )
