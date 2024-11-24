@@ -1,0 +1,4 @@
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/entities/CollisionEntity.java:86: error: [NullAway] returning @Nullable expression from method with @NonNull return type
+    return this.collisionBox;
+    ^
+    (see http://t.uber.com/nullaway )

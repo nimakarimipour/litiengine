@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 import de.gurkenlabs.litiengine.Align;
 import de.gurkenlabs.litiengine.Game;
+import de.gurkenlabs.litiengine.Initializer;
 import de.gurkenlabs.litiengine.Valign;
 import de.gurkenlabs.litiengine.environment.tilemap.IMapObject;
 import de.gurkenlabs.litiengine.environment.tilemap.MapObjectProperty;
@@ -46,7 +47,7 @@ public abstract class CollisionEntity extends Entity implements ICollisionEntity
   @TmxProperty(name = MapObjectProperty.COLLISION_TYPE)
   private Collision collisionType;
 
-  @Nullable private Rectangle2D collisionBox;
+  private Rectangle2D collisionBox;
 
   protected CollisionEntity() {
     super();
@@ -259,6 +260,7 @@ public abstract class CollisionEntity extends Entity implements ICollisionEntity
     }
   }
 
+  @Initializer
   protected void refreshCollisionBox() {
     this.collisionBox = this.getCollisionBox(this.getLocation());
   }

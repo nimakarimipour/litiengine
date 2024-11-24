@@ -1,4 +1,0 @@
-/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/graphics/emitters/Emitter.java:374: error: [NullAway] dereferenced expression this.data().getTexts() is @Nullable
-        if (this.data().getTexts().isEmpty()) {
-                                  ^
-    (see http://t.uber.com/nullaway )
