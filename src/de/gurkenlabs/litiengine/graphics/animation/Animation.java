@@ -73,6 +73,7 @@ public class Animation implements IUpdateable, ILaunchable {
    * @param keyFrameDurations
    *          The duration of each keyframe.
    */
+  @SuppressWarnings("NullAway")
   public Animation(@Nullable final Spritesheet spritesheet, final boolean loop, final boolean randomizeStart, final int... keyFrameDurations) {
     this(spritesheet.getName(), spritesheet, loop, randomizeStart, keyFrameDurations);
   }

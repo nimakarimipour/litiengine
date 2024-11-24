@@ -1,4 +1,0 @@
-/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/Environment.java:2532: error: [NullAway] dereferenced expression entity.movement() is @Nullable
-      entity.movement().apply(force);
-                       ^
-    (see http://t.uber.com/nullaway )
