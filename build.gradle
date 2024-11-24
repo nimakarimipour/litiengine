@@ -69,6 +69,8 @@ dependencies {
     errorprone "com.google.errorprone:error_prone_core:2.3.2"
     errorproneJavac "com.google.errorprone:javac:9+181-r4173-1"
     compileOnly "com.uber.nullaway:nullaway-annotations:0.10.20"
+
+    implementation "org.jetbrains:annotations:24.0.1"
 }
 
 def scanner_path = project.rootProject.projectDir.toString() + "/annotator-out/scanner.xml"

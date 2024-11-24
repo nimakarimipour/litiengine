@@ -1,4 +1,0 @@
-/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/graphics/animation/Animation.java:332: error: [NullAway] dereferenced expression this.getCurrentKeyFrame() is @Nullable
-    if (!this.isPlaying() || Game.time().since(this.lastFrameUpdate) < this.getCurrentKeyFrame().getDuration()) {
-                                                                                                ^
-    (see http://t.uber.com/nullaway )
