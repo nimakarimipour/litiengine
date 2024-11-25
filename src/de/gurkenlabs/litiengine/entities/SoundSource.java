@@ -25,8 +25,9 @@ public class SoundSource extends Entity {
   private int range;
 
   private boolean loop;
+  @Nullable
   private Sound sound;
-  private SFXPlayback playback;
+  @Nullable private SFXPlayback playback;
 
   /**
    * An empty constructor that just calls the super constructor of {@link Entity}.
@@ -131,7 +132,7 @@ public class SoundSource extends Entity {
    * 
    * @return the sound instance used for playback.
    */
-  public Sound getSound() {
+  @Nullable public Sound getSound() {
     return sound;
   }
 
@@ -150,7 +151,7 @@ public class SoundSource extends Entity {
    * @return A String containing the sound name.
    */
   @Nullable public String getSoundName() {
-    return this.sound.getName();
+    return this.sound == null ? null : this.sound.getName();
   }
 
   /**
