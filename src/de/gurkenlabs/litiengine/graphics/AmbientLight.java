@@ -80,7 +80,9 @@ public class AmbientLight extends ColorLayer {
 
     // render the basic am
     final Area ambientArea = new Area(new Rectangle2D.Double(0, 0, width, height));
-    g.setColor(this.getColor());
+    if(this.getColor() != null){
+      g.setColor(this.getColor());
+    }
     g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_IN, 1));
     g.fill(ambientArea);
   }
