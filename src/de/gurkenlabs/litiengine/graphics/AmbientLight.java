@@ -14,6 +14,7 @@ import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
+import de.gurkenlabs.litiengine.Nullability;
 import de.gurkenlabs.litiengine.entities.LightSource;
 import de.gurkenlabs.litiengine.entities.StaticShadow;
 import de.gurkenlabs.litiengine.environment.Environment;
@@ -151,8 +152,8 @@ public class AmbientLight extends ColorLayer {
 
     // render parts that lie within the shadow with a gradient from the light
     // color to transparent
-    final Shape lightShape = light.getLightShape();
-
+    Shape lightShape = light.getLightShape();
+    lightShape = Nullability.castToNonnull(lightShape);
     final double radius = lightShape.getBounds2D().getWidth() > lightShape.getBounds2D().getHeight() ? lightShape.getBounds2D().getWidth() : lightShape.getBounds2D().getHeight();
     final Color[] transColors = new Color[] { light.getColor(), new Color(light.getColor().getRed(), light.getColor().getGreen(), light.getColor().getBlue(), 0) };
     final Point2D center = new Point2D.Double(lightShape.getBounds2D().getCenterX() - section.getX(), lightShape.getBounds2D().getCenterY() - section.getY());

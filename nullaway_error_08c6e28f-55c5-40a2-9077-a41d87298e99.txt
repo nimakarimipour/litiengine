@@ -1,0 +1,4 @@
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/graphics/AmbientLight.java:156: error: [NullAway] dereferenced expression lightShape is @Nullable
+    final double radius = lightShape.getBounds2D().getWidth() > lightShape.getBounds2D().getHeight() ? lightShape.getBounds2D().getWidth() : lightShape.getBounds2D().getHeight();
+                                    ^
+    (see http://t.uber.com/nullaway )
