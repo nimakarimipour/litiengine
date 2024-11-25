@@ -62,6 +62,9 @@ public abstract class ColorLayer implements IRenderable {
     int maxY = (int) Math.ceil(section.getMaxY());
     Rectangle aligned = new Rectangle(minX, minY, maxX - minX, maxY - minY);
 
+    if(this.layer == null){
+      return;
+    }
     final Graphics2D g = this.layer.createGraphics();
     this.clearSection(g, aligned);
     g.setClip(aligned.x, aligned.y, aligned.width, aligned.height);
