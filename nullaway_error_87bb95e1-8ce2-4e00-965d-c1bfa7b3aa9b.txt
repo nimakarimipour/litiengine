@@ -1,4 +1,0 @@
-/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/entities/SoundSource.java:34: error: [NullAway] initializer method does not guarantee @NonNull fields sound (line 28), playback (line 29) are initialized along all control-flow paths (remember to check for exceptions or early returns).
-  public SoundSource() {
-         ^
-    (see http://t.uber.com/nullaway )

@@ -141,7 +141,7 @@ public class SoundSource extends Entity {
    * 
    * @return the playback instance.
    */
-  public SFXPlayback getPlayback() {
+  @Nullable public SFXPlayback getPlayback() {
     return this.playback;
   }
 
@@ -211,7 +211,10 @@ public class SoundSource extends Entity {
    * @see SFXPlayback#pausePlayback()
    */
   public void pause() {
-    this.getPlayback().pausePlayback();
+    SFXPlayback playback = this.getPlayback();
+    if (playback != null) {
+      playback.pausePlayback();
+    }
   }
 
   /**
@@ -220,7 +223,10 @@ public class SoundSource extends Entity {
    * @see SFXPlayback#resumePlayback()
    */
   public void resume() {
-    this.getPlayback().resumePlayback();
+    SFXPlayback playback = this.getPlayback();
+    if (playback != null) {
+      playback.resumePlayback();
+    }
   }
 
   /**
@@ -229,7 +235,10 @@ public class SoundSource extends Entity {
    * @see SFXPlayback#cancel()
    */
   public void stop() {
-    this.getPlayback().cancel();
+    SFXPlayback playback = this.getPlayback();
+    if (playback != null) {
+      playback.cancel();
+    }
   }
 
 }
