@@ -1,4 +1,0 @@
-/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/tilemap/xml/CustomPropertyProvider.java:66: error: [NullAway] dereferenced expression this.getProperty(propertyName) is @Nullable
-    this.getProperty(propertyName).setType(type);
-                                  ^
-    (see http://t.uber.com/nullaway )

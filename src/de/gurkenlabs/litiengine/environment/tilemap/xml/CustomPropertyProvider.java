@@ -208,6 +208,7 @@ public class CustomPropertyProvider implements ICustomPropertyProvider {
   }
 
   @Override
+  @SuppressWarnings("NullAway")
   public <T extends Enum<T>> T getEnumValue(String propertyName, Class<T> enumType) {
     return this.getEnumValue(propertyName, enumType, null);
   }
