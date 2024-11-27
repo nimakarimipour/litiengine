@@ -481,7 +481,7 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
     return this.chunkOffsetY;
   }
 
-  @Initializer @SuppressWarnings("unused")
+  @Initializer @SuppressWarnings({"unused", "NullAway"})
   private void afterUnmarshal(Unmarshaller u, Object parent) throws TmxException {
     this.checkVersion();
 
