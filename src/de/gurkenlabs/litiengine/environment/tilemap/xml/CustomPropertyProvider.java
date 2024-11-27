@@ -60,10 +60,11 @@ public class CustomPropertyProvider implements ICustomPropertyProvider {
 
   @Override
   public void setTypeOfProperty(String propertyName, String type) {
-    if(this.getProperty(propertyName) == null){
+    ICustomProperty customProperty = this.getProperty(propertyName);
+    if(customProperty == null){
       return;
     }
-    this.getProperty(propertyName).setType(type);
+    customProperty.setType(type);
   }
 
   @Nullable @Override
