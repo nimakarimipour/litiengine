@@ -212,7 +212,7 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
   }
 
   @Nullable @Override
-  public IPolyShape getPolygon() {
+  @SuppressWarnings("NullAway") public IPolyShape getPolygon() {
     return this.polygon;
   }
 
