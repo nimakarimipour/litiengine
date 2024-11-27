@@ -1,0 +1,4 @@
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/tilemap/xml/MapObject.java:376: error: [NullAway] returning @Nullable expression from method with @NonNull return type
+    return this.layer;
+    ^
+    (see http://t.uber.com/nullaway )

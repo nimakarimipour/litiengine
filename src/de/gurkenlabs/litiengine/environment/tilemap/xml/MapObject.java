@@ -18,6 +18,8 @@ import de.gurkenlabs.litiengine.environment.tilemap.IMapObjectLayer;
 import de.gurkenlabs.litiengine.environment.tilemap.IMapObjectText;
 import de.gurkenlabs.litiengine.environment.tilemap.IPolyShape;
 import de.gurkenlabs.litiengine.environment.tilemap.ITilesetEntry;
+import org.jetbrains.annotations.Contract;
+
 import javax.annotation.Nullable;
 
 public class MapObject extends CustomPropertyProvider implements IMapObject {
@@ -372,6 +374,7 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
   }
 
   @Override
+  @SuppressWarnings("NullAway")
   public IMapObjectLayer getLayer() {
     return this.layer;
   }
@@ -428,6 +431,7 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
     this.layer = layer;
   }
 
+  @Contract()
   private boolean isInfiniteMap() {
     return this.getLayer() != null && this.getLayer().getMap() != null && this.getLayer().getMap().isInfinite() && this.getLayer().getMap() instanceof TmxMap;
   }
