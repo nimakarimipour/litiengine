@@ -1,10 +1,6 @@
 package de.gurkenlabs.litiengine.environment.tilemap;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import de.gurkenlabs.litiengine.environment.Environment;
 import javax.annotation.Nullable;
@@ -70,7 +66,7 @@ public interface ILayerList extends ICustomPropertyProvider {
   }
 
   @Nullable public default IMapObjectLayer getMapObjectLayer(String layerName) {
-    Optional<IMapObjectLayer> layer = this.getMapObjectLayers().stream().filter(x -> x.getName().equals(layerName)).findFirst();
+    Optional<IMapObjectLayer> layer = this.getMapObjectLayers().stream().filter(x -> Objects.equals(x.getName(),(layerName))).findFirst();
     return layer.orElse(null);
   }
 

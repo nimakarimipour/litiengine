@@ -1,0 +1,4 @@
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/tilemap/ILayerList.java:73: error: [NullAway] dereferenced expression x.getName() is @Nullable
+    Optional<IMapObjectLayer> layer = this.getMapObjectLayers().stream().filter(x -> x.getName().equals(layerName)).findFirst();
+                                                                                                ^
+    (see http://t.uber.com/nullaway )
