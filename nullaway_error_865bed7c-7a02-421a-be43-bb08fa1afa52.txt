@@ -1,0 +1,4 @@
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/tilemap/xml/TmxMap.java:485: error: [NullAway] initializer method does not guarantee @NonNull fields renderorder (line 66), hexsidelength (line 84), nextLayerId (line 97), nextObjectId (line 100) are initialized along all control-flow paths (remember to check for exceptions or early returns).
+  private void afterUnmarshal(Unmarshaller u, Object parent) throws TmxException {
+               ^
+    (see http://t.uber.com/nullaway )

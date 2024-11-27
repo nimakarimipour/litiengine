@@ -13,6 +13,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import de.gurkenlabs.litiengine.Game;
+import de.gurkenlabs.litiengine.Nullability;
 import de.gurkenlabs.litiengine.environment.tilemap.IMapObject;
 import de.gurkenlabs.litiengine.environment.tilemap.IMapObjectLayer;
 import de.gurkenlabs.litiengine.environment.tilemap.IMapObjectText;
@@ -278,6 +279,7 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
   public void setX(float x) {
     if (this.isInfiniteMap()) {
       TmxMap map = (TmxMap) this.getLayer().getMap();
+      map = Nullability.castToNonnull(map);
       this.x = x + map.getChunkOffsetX() * map.getTileWidth();
       return;
     }
@@ -290,6 +292,7 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
   public void setY(float y) {
     if (this.isInfiniteMap()) {
       TmxMap map = (TmxMap) this.getLayer().getMap();
+      map = Nullability.castToNonnull(map);
       this.y = y + map.getChunkOffsetY() * map.getTileHeight();
       return;
     }
@@ -332,6 +335,7 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
       if(this.x == null){
         return 0;
       }
+      map = Nullability.castToNonnull(map);
       return this.x - map.getChunkOffsetX() * map.getTileWidth();
     }
 
@@ -345,6 +349,7 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
       if(this.y == null){
         return 0;
       }
+      map = Nullability.castToNonnull(map);
       return this.y - map.getChunkOffsetY() * map.getTileHeight();
     }
 
@@ -422,7 +427,7 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
   @Override
   void finish(@Nullable URL location) throws TmxException {
     super.finish(location);
-    if (this.gid != null) {
+    if (this.gid != null && this.getLayer().getMap() != null) {
       this.tile = this.getLayer().getMap().getTilesetEntry(this.gid);
     }
   }

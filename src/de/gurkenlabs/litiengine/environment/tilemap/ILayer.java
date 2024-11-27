@@ -52,7 +52,7 @@ public interface ILayer extends ICustomPropertyProvider {
    */
   public Dimension getSizeInTiles();
 
-  public IMap getMap();
+  @Nullable public IMap getMap();
 
   /**
    * Checks if is visible.

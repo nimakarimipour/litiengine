@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import de.gurkenlabs.litiengine.Nullability;
 import de.gurkenlabs.litiengine.environment.tilemap.IImageLayer;
 import de.gurkenlabs.litiengine.environment.tilemap.IMapImage;
 import javax.annotation.Nullable;
@@ -34,6 +35,7 @@ public class ImageLayer extends Layer implements IImageLayer {
   public int getOffsetX() {
     if (this.isInfiniteMap()) {
       TmxMap map = (TmxMap) this.getMap();
+      map = Nullability.castToNonnull(map);
       return super.getOffsetX() - map.getChunkOffsetX() * map.getTileWidth();
     }
 
@@ -44,6 +46,7 @@ public class ImageLayer extends Layer implements IImageLayer {
   public int getOffsetY() {
     if (this.isInfiniteMap()) {
       TmxMap map = (TmxMap) this.getMap();
+      map = Nullability.castToNonnull(map);
       return super.getOffsetX() - map.getChunkOffsetY() * map.getTileHeight();
     }
 

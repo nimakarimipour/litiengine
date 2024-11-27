@@ -160,7 +160,7 @@ public abstract class Layer extends CustomPropertyProvider implements ILayer {
   }
 
   @Override
-  public IMap getMap() {
+  @Nullable public IMap getMap() {
     return this.parentMap;
   }
 
