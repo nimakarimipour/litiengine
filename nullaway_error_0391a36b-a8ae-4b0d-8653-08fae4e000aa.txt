@@ -1,4 +1,0 @@
-/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/tilemap/xml/MapObject.java:215: error: [NullAway] method returns @Nullable, but superclass method de.gurkenlabs.litiengine.environment.tilemap.IMapObject.getPolygon() returns @NonNull
-  public IPolyShape getPolygon() {
-                    ^
-    (see http://t.uber.com/nullaway )

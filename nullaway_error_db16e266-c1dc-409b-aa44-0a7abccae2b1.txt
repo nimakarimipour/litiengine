@@ -1,0 +1,4 @@
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/tilemap/xml/MapObject.java:330: error: [NullAway] unboxing of a @Nullable value
+      return this.x - map.getChunkOffsetX() * map.getTileWidth();
+                 ^
+    (see http://t.uber.com/nullaway )
