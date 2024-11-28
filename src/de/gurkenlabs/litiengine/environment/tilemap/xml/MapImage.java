@@ -38,6 +38,7 @@ public class MapImage extends CustomPropertyProvider implements IMapImage {
   /**
    * Instantiates a new {@code MapImage} instance.
    */
+  @SuppressWarnings("NullAway")
   public MapImage() {
     super();
   }
