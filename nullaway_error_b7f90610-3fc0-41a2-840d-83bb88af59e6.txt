@@ -1,0 +1,4 @@
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/tilemap/xml/Tileset.java:281: error: [NullAway] dereferenced expression this.allTiles is @Nullable
+    return this.allTiles.get(id);
+                        ^
+    (see http://t.uber.com/nullaway )

@@ -277,7 +277,9 @@ public class Tileset extends CustomPropertyProvider implements ITileset {
     if (id < 0 || id >= this.getTileCount()) {
       return null;
     }
-
+    if(this.allTiles == null){
+      return null;
+    }
     return this.allTiles.get(id);
   }
 
