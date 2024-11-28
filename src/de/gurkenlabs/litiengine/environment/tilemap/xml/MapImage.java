@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Objects;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -22,6 +23,7 @@ public class MapImage extends CustomPropertyProvider implements IMapImage {
 
   @XmlAttribute(name = "trans")
   @XmlJavaTypeAdapter(ColorAdapter.class)
+  @Nullable
   private Color transparentcolor;
 
   @XmlAttribute
@@ -91,6 +93,7 @@ public class MapImage extends CustomPropertyProvider implements IMapImage {
   }
 
   @Override
+  @Nullable
   public Color getTransparentColor() {
     return this.transparentcolor;
   }
@@ -141,7 +144,7 @@ public class MapImage extends CustomPropertyProvider implements IMapImage {
     }
 
     IMapImage other = (IMapImage) anObject;
-    return this.getTransparentColor().equals(other.getTransparentColor()) && this.getAbsoluteSourcePath().equals(other.getAbsoluteSourcePath());
+    return Objects.equals(this.getTransparentColor(),other.getTransparentColor()) && this.getAbsoluteSourcePath().equals(other.getAbsoluteSourcePath());
   }
 
   /**
@@ -153,7 +156,7 @@ public class MapImage extends CustomPropertyProvider implements IMapImage {
    */
   @Override
   public int hashCode() {
-    return this.getAbsoluteSourcePath().hashCode() ^ this.getTransparentColor().hashCode();
+    return this.getAbsoluteSourcePath().hashCode() ^ Objects.hashCode(this.getTransparentColor());
   }
 
   @Override

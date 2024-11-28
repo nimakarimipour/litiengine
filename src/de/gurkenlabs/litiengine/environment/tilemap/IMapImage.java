@@ -42,7 +42,7 @@ public interface IMapImage extends ICustomPropertyProvider {
    *
    * @return the transparent color
    */
-  public Color getTransparentColor();
+  @Nullable public Color getTransparentColor();
 
   /**
    * Tests for equality between two map images. Two map images
