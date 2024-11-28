@@ -21,6 +21,7 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import de.gurkenlabs.litiengine.Nullability;
 import de.gurkenlabs.litiengine.environment.tilemap.ICustomProperty;
 import de.gurkenlabs.litiengine.environment.tilemap.IMapImage;
 import de.gurkenlabs.litiengine.environment.tilemap.ITerrain;
@@ -230,6 +231,7 @@ public class Tileset extends CustomPropertyProvider implements ITileset {
     }
 
     TilesetEntry tile = this.allTiles.get(tileId);
+    tile = Nullability.castToNonnull(tile);
     int[] tileTerrains = tile.getTerrainIds();
     for (int i = 0; i < 4; i++) {
       if (tileTerrains[i] < 0 || tileTerrains[i] >= this.getTerrainTypes().size()) {
