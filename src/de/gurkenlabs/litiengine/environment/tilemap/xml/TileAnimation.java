@@ -14,6 +14,7 @@ import javax.annotation.Nullable;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TileAnimation implements ITileAnimation {
   @XmlElement(name = "frame", type = Frame.class)
+  @SuppressWarnings("NullAway.Init")
   private List<ITileAnimationFrame> frames;
 
   private transient int totalDuration;
