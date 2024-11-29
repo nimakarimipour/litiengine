@@ -125,6 +125,9 @@ public class Tile extends CustomPropertyProvider implements ITile {
       return null;
     }
     BufferedImage base = this.getTilesetEntry().getImage();
+    if(base == null){
+      return null;
+    }
     if (!this.isFlipped()) {
       return base;
     }

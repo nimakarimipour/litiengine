@@ -1,0 +1,4 @@
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/tilemap/xml/TilesetEntry.java:87: error: [NullAway] method returns @Nullable, but superclass method de.gurkenlabs.litiengine.environment.tilemap.ITilesetEntry.getImage() returns @NonNull
+  public BufferedImage getImage() {
+                       ^
+    (see http://t.uber.com/nullaway )
