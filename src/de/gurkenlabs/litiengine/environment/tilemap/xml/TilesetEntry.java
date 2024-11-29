@@ -48,7 +48,7 @@ public class TilesetEntry extends CustomPropertyProvider implements ITilesetEntr
   /**
    * Instantiates a new {@code TilesetEntry}.
    */
-  public TilesetEntry() {
+  @SuppressWarnings("NullAway") public TilesetEntry() {
   }
 
   /**

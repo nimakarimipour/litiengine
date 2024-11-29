@@ -1,0 +1,4 @@
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/tilemap/xml/TilesetEntry.java:51: error: [NullAway] initializer method does not guarantee @NonNull field tileset (line 25) is initialized along all control-flow paths (remember to check for exceptions or early returns).
+  public TilesetEntry() {
+         ^
+    (see http://t.uber.com/nullaway )
