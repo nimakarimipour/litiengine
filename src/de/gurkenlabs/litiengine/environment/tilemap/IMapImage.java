@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 
 public interface IMapImage extends ICustomPropertyProvider {
 
+  @Nullable
   public URL getAbsoluteSourcePath(); // XXX merge with getSource
 
   /**

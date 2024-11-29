@@ -208,7 +208,7 @@ public abstract class ResourcesContainer<T> {
     return this.get(this.getIdentifier(resourceName), false);
   }
 
-  @Nullable public T get(URL resourceName) {
+  @Nullable public T get(@Nullable URL resourceName) {
     return this.get(resourceName, false);
   }
 
@@ -275,8 +275,8 @@ public abstract class ResourcesContainer<T> {
     }
   }
 
-  @Nullable public T get(URL resourceName, boolean forceLoad) {
-    return this.get(resourceName.toString(), forceLoad);
+  @Nullable public T get(@Nullable URL resourceName, boolean forceLoad) {
+    return this.get(resourceName == null ? null : resourceName.toString(), forceLoad);
   }
 
   /**

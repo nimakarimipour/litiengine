@@ -33,7 +33,7 @@ public class MapImage extends CustomPropertyProvider implements IMapImage {
   private int height;
 
   @XmlTransient
-  private URL absolutePath;
+  @Nullable private URL absolutePath;
 
   /**
    * Instantiates a new {@code MapImage} instance.
@@ -69,6 +69,7 @@ public class MapImage extends CustomPropertyProvider implements IMapImage {
   }
 
   @Override
+  @Nullable
   public URL getAbsoluteSourcePath() {
     return this.absolutePath;
   }
@@ -145,7 +146,7 @@ public class MapImage extends CustomPropertyProvider implements IMapImage {
     }
 
     IMapImage other = (IMapImage) anObject;
-    return Objects.equals(this.getTransparentColor(),other.getTransparentColor()) && this.getAbsoluteSourcePath().equals(other.getAbsoluteSourcePath());
+    return Objects.equals(this.getTransparentColor(),other.getTransparentColor()) && Objects.equals(this.getAbsoluteSourcePath(),other.getAbsoluteSourcePath());
   }
 
   /**
@@ -157,11 +158,11 @@ public class MapImage extends CustomPropertyProvider implements IMapImage {
    */
   @Override
   public int hashCode() {
-    return this.getAbsoluteSourcePath().hashCode() ^ Objects.hashCode(this.getTransparentColor());
+    return Objects.hashCode(this.getAbsoluteSourcePath()) ^ Objects.hashCode(this.getTransparentColor());
   }
 
   @Override
   public String toString() {
-    return this.getAbsoluteSourcePath().toExternalForm();
+    return this.getAbsoluteSourcePath() == null ? "null" : this.getAbsoluteSourcePath().toExternalForm();
   }
 }
