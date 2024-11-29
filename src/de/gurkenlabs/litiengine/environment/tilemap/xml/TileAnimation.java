@@ -13,7 +13,7 @@ import javax.annotation.Nullable;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TileAnimation implements ITileAnimation {
-  @Nullable @XmlElement(name = "frame", type = Frame.class)
+  @XmlElement(name = "frame", type = Frame.class)
   private List<ITileAnimationFrame> frames;
 
   private transient int totalDuration;

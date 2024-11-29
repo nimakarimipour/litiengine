@@ -1,4 +1,0 @@
-/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/tilemap/xml/TilesetEntry.java:100: error: [NullAway] dereferenced expression this.tileset.getSpritesheet() is @Nullable
-    return this.tileset.getSpritesheet().getSprite(this.getId(), this.tileset.getMargin(), this.tileset.getSpacing());
-                                        ^
-    (see http://t.uber.com/nullaway )
