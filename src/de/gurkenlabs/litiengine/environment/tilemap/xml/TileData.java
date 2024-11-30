@@ -97,6 +97,7 @@ public class TileData {
   /**
    * Instantiates a new {@code TileData} instance.
    */
+  @SuppressWarnings("NullAway")
   public TileData() {
     // keep for serialization
   }

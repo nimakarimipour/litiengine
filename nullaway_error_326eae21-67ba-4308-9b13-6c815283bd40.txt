@@ -1,4 +1,0 @@
-/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/tilemap/xml/TileData.java:100: error: [NullAway] initializer method does not guarantee @NonNull fields encoding (line 60), rawValue (line 66), chunks (line 73) are initialized along all control-flow paths (remember to check for exceptions or early returns).
-  public TileData() {
-         ^
-    (see http://t.uber.com/nullaway )
