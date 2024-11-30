@@ -174,12 +174,17 @@ public class AStarPathFinder extends PathFinder {
    * @return The found {@link Path}
    */
   private static Path retracePath(final AStarNode startNode, final AStarNode targetNode) {
+    if (startNode == null || targetNode == null) {
+      throw new IllegalArgumentException("Start node and target node must not be null.");
+    }
     final List<AStarNode> path = new ArrayList<>();
     AStarNode currentNode = targetNode.getPredecessor();
-
-    while (currentNode != startNode) {
+    while (currentNode != null && currentNode != startNode) {
       path.add(currentNode);
       currentNode = currentNode.getPredecessor();
+    }
+    if (currentNode == null) {
+      throw new IllegalStateException("Could not retrace the path back to the start node.");
     }
     Collections.reverse(path);
 
@@ -187,15 +192,12 @@ public class AStarPathFinder extends PathFinder {
     path2D.moveTo(startNode.getLocation().x, startNode.getLocation().y);
 
     final List<Point2D> pointsOfPath = new ArrayList<>();
-    for (int i = 0; i < path.size(); i++) {
-      final AStarNode current = path.get(i);
+    for (AStarNode current : path) {
       final Point currentPoint = new Point(current.getLocation().x, current.getLocation().y);
       pointsOfPath.add(currentPoint);
       path2D.lineTo(currentPoint.x, currentPoint.y);
     }
-
     path2D.lineTo(targetNode.getLocation().x, targetNode.getLocation().y);
-
     return new Path(startNode.getLocation(), targetNode.getLocation(), path2D, pointsOfPath);
   }
 }
