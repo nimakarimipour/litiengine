@@ -1,4 +1,0 @@
-/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/attributes/AttributeModifier.java:140: error: [NullAway] returning @Nullable expression from method with @NonNull return type
-    return null;
-    ^
-    (see http://t.uber.com/nullaway )

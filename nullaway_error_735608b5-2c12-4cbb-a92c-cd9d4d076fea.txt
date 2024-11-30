@@ -1,0 +1,4 @@
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/graphics/emitters/particles/Particle.java:110: error: [NullAway] returning @Nullable expression from method with @NonNull return type
+    return this.color;
+    ^
+    (see http://t.uber.com/nullaway )

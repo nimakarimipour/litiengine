@@ -8,6 +8,7 @@ import java.awt.geom.Rectangle2D;
 
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.ITimeToLive;
+import de.gurkenlabs.litiengine.Initializer;
 import de.gurkenlabs.litiengine.graphics.RenderType;
 import de.gurkenlabs.litiengine.graphics.emitters.Emitter;
 import de.gurkenlabs.litiengine.graphics.emitters.xml.EmitterData;
@@ -23,7 +24,7 @@ public abstract class Particle implements ITimeToLive {
   private float deltaAngle;
 
   private Collision collisionType;
-  @Nullable private Color color;
+  @SuppressWarnings("NullAway.Init") private Color color;
   private float deltaHeight;
   private float deltaWidth;
   /**
@@ -333,6 +334,7 @@ public abstract class Particle implements ITimeToLive {
     return this;
   }
 
+  @Initializer
   public Particle init(final EmitterData data) {
     this.setX((float) data.getParticleOffsetX().get());
     this.setY((float) data.getParticleOffsetY().get());
