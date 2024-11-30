@@ -140,7 +140,7 @@ public class TileData {
     this.compression = compression;
   }
 
-  @Initializer public void setValue(@Nullable String value) {
+  public void setValue(@Nullable String value) {
     this.value = value;
     if (this.rawValue == null) {
       this.rawValue = new CopyOnWriteArrayList<>();
