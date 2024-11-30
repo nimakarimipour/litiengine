@@ -1,4 +1,0 @@
-/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/tilemap/MapOrientations.java:89: error: [NullAway] returning @Nullable expression from method with @NonNull return type
-      return null;
-      ^
-    (see http://t.uber.com/nullaway )

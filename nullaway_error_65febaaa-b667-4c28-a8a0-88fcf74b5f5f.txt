@@ -1,0 +1,4 @@
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/tilemap/MapOrientations.java:110: error: [NullAway] method returns @Nullable, but superclass method de.gurkenlabs.litiengine.environment.tilemap.IMapOrientation.getBounds(java.awt.Point,de.gurkenlabs.litiengine.environment.tilemap.IMap) returns @NonNull
+    public Rectangle2D getBounds(Point tile, IMap map) {
+                       ^
+    (see http://t.uber.com/nullaway )

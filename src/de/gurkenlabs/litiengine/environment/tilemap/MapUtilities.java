@@ -68,9 +68,14 @@ public final class MapUtilities {
     int minTileY = map.getOrientation().getName().equals(MapOrientations.ISOMETRIC.getName()) ? minTilePoint.y : MathUtilities.clamp(minTilePoint.y, 0, map.getHeight() - 1);
     int maxTileX = map.getOrientation().getName().equals(MapOrientations.ISOMETRIC.getName()) ? maxTilePoint.x : MathUtilities.clamp(maxTilePoint.x, 0, map.getWidth() - 1);
     int maxTileY = map.getOrientation().getName().equals(MapOrientations.ISOMETRIC.getName()) ? maxTilePoint.y : MathUtilities.clamp(maxTilePoint.y, 0, map.getWidth() - 1);
-    final Rectangle2D minTileBounds = map.getOrientation().getBounds(new Point(MathUtilities.clamp(minTileX, 0, map.getWidth() - 1), MathUtilities.clamp(minTileY, 0, map.getHeight() - 1)), map);
-    final Rectangle2D maxTileBounds = map.getOrientation().getBounds(new Point(MathUtilities.clamp(maxTileX, 0, map.getWidth() - 1), MathUtilities.clamp(maxTileY, 0, map.getHeight() - 1)), map);
-
+    Rectangle2D minTileBounds = map.getOrientation().getBounds(new Point(MathUtilities.clamp(minTileX, 0, map.getWidth() - 1), MathUtilities.clamp(minTileY, 0, map.getHeight() - 1)), map);
+    Rectangle2D maxTileBounds = map.getOrientation().getBounds(new Point(MathUtilities.clamp(maxTileX, 0, map.getWidth() - 1), MathUtilities.clamp(maxTileY, 0, map.getHeight() - 1)), map);
+    if(minTileBounds == null){
+      minTileBounds = new Rectangle2D.Double();
+    }
+    if(maxTileBounds == null){
+      maxTileBounds = new Rectangle2D.Double();
+    }
     return new Rectangle2D.Double(minTileBounds.getX(), minTileBounds.getY(), maxTileBounds.getMaxX() - minTileBounds.getX(), maxTileBounds.getMaxY() - minTileBounds.getY());
   }
 
@@ -266,19 +271,19 @@ public final class MapUtilities {
     return map.getOrientation().getEnclosingTileBounds(mapLocation, map);
   }
 
-  public static Rectangle2D getTileBoundingBox(final int x, final int y) {
+  @Nullable public static Rectangle2D getTileBoundingBox(final int x, final int y) {
     return getTileBoundingBox(getCurrentMap(), x, y);
   }
 
-  public static Rectangle2D getTileBoundingBox(@Nullable final IMap map, final int x, final int y) {
+  @Nullable public static Rectangle2D getTileBoundingBox(@Nullable final IMap map, final int x, final int y) {
     return getTileBoundingBox(map, new Point(x, y));
   }
 
-  public static Rectangle2D getTileBoundingBox(final Point tile) {
+  @Nullable public static Rectangle2D getTileBoundingBox(final Point tile) {
     return getTileBoundingBox(getCurrentMap(), tile);
   }
 
-  public static Rectangle2D getTileBoundingBox(@Nullable final IMap map, final Point tile) {
+  @Nullable public static Rectangle2D getTileBoundingBox(@Nullable final IMap map, final Point tile) {
     if (map == null) {
       return new Rectangle2D.Double();
     }

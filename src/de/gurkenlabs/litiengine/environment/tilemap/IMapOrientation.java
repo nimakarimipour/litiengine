@@ -103,7 +103,7 @@ public interface IMapOrientation {
    *          The {@code IMap} that the tile is in
    * @return The bounding box of the tile
    */
-  public Rectangle2D getBounds(Point tile, IMap map);
+  @Nullable public Rectangle2D getBounds(Point tile, IMap map);
 
   /**
    * Returns the shape of the tile containing the given coordinates. A call to this method is equivalent to calling
