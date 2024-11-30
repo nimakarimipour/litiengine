@@ -6,6 +6,7 @@ import java.util.Objects;
 import java.util.function.Function;
 
 import de.gurkenlabs.litiengine.Game;
+import de.gurkenlabs.litiengine.Nullability;
 import de.gurkenlabs.litiengine.entities.IEntity;
 import de.gurkenlabs.litiengine.entities.Spawnpoint;
 import javax.annotation.Nullable;
@@ -156,15 +157,15 @@ public abstract class EntitySpawner<T extends IEntity> implements IEntitySpawner
     case ALLSPAWNPOINTS:
       for (int i = 0; i < this.getSpawnPoints().size(); i++) {
         final int index = i;
-        Game.loop().perform(this.getSpawnDelay() + this.getSpawnDelay() * i, () -> this.spawn(this.getSpawnPoints().get(index), this.getSpawnAmount()));
+        Game.loop().perform(this.getSpawnDelay() + this.getSpawnDelay() * i, () -> this.spawn(Nullability.castToNonnull(this.getSpawnPoints().get(index)), this.getSpawnAmount()));
       }
       break;
     case ONERANDOMSPAWNPOINT:
-      this.spawn(Game.random().choose(this.getSpawnPoints()), this.getSpawnAmount());
+      this.spawn(Nullability.castToNonnull(Game.random().choose(this.getSpawnPoints())), this.getSpawnAmount());
       break;
     case RANDOMSPAWNPOINTS:
       for (int i = 0; i < this.getSpawnAmount(); i++) {
-        Game.loop().perform(this.getSpawnDelay() + this.getSpawnDelay() * i, () -> this.spawn(Game.random().choose(this.getSpawnPoints()), 1));
+        Game.loop().perform(this.getSpawnDelay() + this.getSpawnDelay() * i, () -> this.spawn(Nullability.castToNonnull(Game.random().choose(this.getSpawnPoints())), 1));
       }
       break;
     case CUSTOMSPAWNPOINTS:
@@ -181,7 +182,7 @@ public abstract class EntitySpawner<T extends IEntity> implements IEntitySpawner
     }
   }
 
-  private void spawn(@Nullable final Spawnpoint spawnpoint, final int amount) {
+  private void spawn(final Spawnpoint spawnpoint, final int amount) {
     if (spawnpoint.getEnvironment() == null || !spawnpoint.getEnvironment().isLoaded()) {
       return;
     }
