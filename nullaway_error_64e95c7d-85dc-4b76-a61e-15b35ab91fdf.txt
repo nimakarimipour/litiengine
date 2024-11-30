@@ -1,0 +1,4 @@
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/EntitySpawner.java:185: error: [NullAway] dereferenced expression spawnpoint is @Nullable
+    if (spawnpoint.getEnvironment() == null || !spawnpoint.getEnvironment().isLoaded()) {
+                  ^
+    (see http://t.uber.com/nullaway )
