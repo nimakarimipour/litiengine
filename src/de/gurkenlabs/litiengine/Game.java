@@ -10,6 +10,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.uber.nullaway.annotations.Initializer;
 import de.gurkenlabs.litiengine.configuration.ClientConfiguration;
 import de.gurkenlabs.litiengine.configuration.DebugConfiguration;
 import de.gurkenlabs.litiengine.configuration.GameConfiguration;

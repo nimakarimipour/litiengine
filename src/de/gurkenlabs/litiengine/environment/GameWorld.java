@@ -249,6 +249,7 @@ public final class GameWorld implements IUpdateable {
    * 
    * @see ICamera
    */
+  @SuppressWarnings("NullAway")
   public ICamera camera() {
     return this.camera;
   }

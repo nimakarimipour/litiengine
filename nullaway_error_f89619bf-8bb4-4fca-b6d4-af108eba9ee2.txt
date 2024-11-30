@@ -1,4 +1,0 @@
-/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/MapObjectLoader.java:96: error: [NullAway] dereferenced expression mapObject.getType() is @Nullable
-    if (!mapObject.getType().equalsIgnoreCase(this.getMapObjectType())) {
-                            ^
-    (see http://t.uber.com/nullaway )
