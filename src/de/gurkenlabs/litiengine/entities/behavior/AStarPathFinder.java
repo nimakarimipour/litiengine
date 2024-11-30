@@ -44,7 +44,7 @@ public class AStarPathFinder extends PathFinder {
 
     final AStarNode startNode = this.getGrid().getNode(startLocation);
     AStarNode targetNode = this.getGrid().getNode(target);
-    if (startNode.equals(targetNode)) {
+    if (startNode == null || targetNode == null || startNode.equals(targetNode)) {
       return null;
     }
 

@@ -1,0 +1,4 @@
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/entities/behavior/AStarGrid.java:105: error: [NullAway] returning @Nullable expression from method with @NonNull return type
+    return this.getNode(point.getX(), point.getY());
+    ^
+    (see http://t.uber.com/nullaway )
