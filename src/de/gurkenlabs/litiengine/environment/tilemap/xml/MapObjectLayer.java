@@ -41,24 +41,6 @@ public class MapObjectLayer extends Layer implements IMapObjectLayer {
     super();
   }
 
-  /**
-   * Instantiates a new {@code MapObjectLayer} instance by copying from the specified original.
-   *
-   * @param original
-   *          the layer we want to copy
-   */
-  public MapObjectLayer(MapObjectLayer original) {
-    super(original);
-    int mapId = Game.world().environment().getNextMapId();
-    for (IMapObject obj : original.getMapObjects()) {
-      this.addMapObject(new MapObject((MapObject) obj, mapId));
-      mapId++;
-    }
-    if (original.getColor() != null) {
-      this.setColor(original.getColorHexString());
-    }
-  }
-
   private void loadMapObjects() {
     if (!this.added) {
       if (this.objects != null) {

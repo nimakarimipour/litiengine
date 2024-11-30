@@ -1,4 +1,0 @@
-/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/GameWorld.java:253: error: [NullAway] returning @Nullable expression from method with @NonNull return type
-    return this.camera;
-    ^
-    (see http://t.uber.com/nullaway )

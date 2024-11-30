@@ -1,0 +1,4 @@
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/CreatureMapObjectLoader.java:94: error: [NullAway] dereferenced expression spriteSheet is @Nullable
+        if (prefix != null && spriteSheet.equalsIgnoreCase(prefix)) {
+                                         ^
+    (see http://t.uber.com/nullaway )

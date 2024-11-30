@@ -38,50 +38,6 @@ public class Blueprint extends MapObject {
     super();
   }
 
-  /**
-   * Initializes a new instance of the {@code Blueprint} map object.
-   *
-   * @param name
-   *          The name of the blueprint.
-   * 
-   * @param mapObjects
-   *          The map objects to build the blueprint from.
-   */
-  public Blueprint(String name, MapObject... mapObjects) {
-    this(name, false, mapObjects);
-  }
-
-  /**
-   * Initializes a new instance of the {@code Blueprint} map object.
-   *
-   * @param name
-   *          The name of the blueprint.
-   * 
-   * @param keepIds
-   *          A flag indicating whether the IDs of the specified map objects should be kept.
-   * 
-   * @param mapObjects
-   *          The map objects to build the blueprint from.
-   */
-  public Blueprint(String name, boolean keepIds, MapObject... mapObjects) {
-    this.keepIds = keepIds;
-    this.setType(MapObjectType.AREA.toString());
-    if (name != null && !name.isEmpty()) {
-      this.setName(name);
-    }
-
-    final Rectangle2D bounds = MapObject.getBounds(mapObjects);
-    this.setWidth((float) bounds.getWidth());
-    this.setHeight((float) bounds.getHeight());
-
-    for (MapObject item : mapObjects) {
-      MapObject newItem = new MapObject(item, this.keepIds());
-      newItem.setX((float) (item.getX() - bounds.getX()));
-      newItem.setY((float) (item.getY() - bounds.getY()));
-      this.items.add(newItem);
-    }
-  }
-
   @XmlTransient
   public Iterable<MapObject> getItems() {
     return this.items;
@@ -96,27 +52,5 @@ public class Blueprint extends MapObject {
    */
   public boolean keepIds() {
     return this.keepIds;
-  }
-
-  public List<IMapObject> build(Point2D location) {
-    return this.build(Math.round((float) location.getX()), Math.round((float) location.getY()));
-  }
-
-  public List<IMapObject> build(float x, float y) {
-    List<IMapObject> builtObjects = new ArrayList<>();
-
-    int baseId = Game.world().environment().getNextMapId();
-    for (MapObject item : this.getItems()) {
-      MapObject newObject = new MapObject(item, this.keepIds());
-      if (!this.keepIds()) {
-        newObject.setId(baseId);
-        baseId++;
-      }
-      newObject.setX(newObject.getX() + x);
-      newObject.setY(newObject.getY() + y);
-      builtObjects.add(newObject);
-    }
-
-    return builtObjects;
   }
 }

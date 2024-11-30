@@ -193,7 +193,7 @@ public abstract class Effect implements IUpdateable {
   }
 
   protected Collection<ICombatEntity> getEntitiesInImpactArea(final Shape impactArea) {
-    return Game.world().environment().findCombatEntities(impactArea);
+    return Game.world().environment() == null ? List.of() : Game.world().environment().findCombatEntities(impactArea);
   }
 
   protected long getTotalDuration() {

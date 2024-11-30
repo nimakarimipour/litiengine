@@ -418,42 +418,6 @@ public final class Environment implements IRenderable {
   }
 
   /**
-   * Adds entities by the specified blueprint to this environment at the defined location.
-   * 
-   * @param blueprint
-   *          The blueprint, defining the map object to load the entities from.
-   * @param x
-   *          The x-coordinate of the location at which to spawn the entities.
-   * @param y
-   *          The y-coordinate of the location at which to spawn the entities.
-   * 
-   * @return A collection with all added entities.
-   */
-  public Collection<IEntity> build(Blueprint blueprint, double x, double y) {
-    return this.build(blueprint, new Point2D.Double(x, y));
-  }
-
-  /**
-   * Adds entities by the specified blueprint to this environment at the defined location.
-   * 
-   * @param blueprint
-   *          The blueprint, defining the map object to load the entities from.
-   * @param location
-   *          The location at which to spawn the entities.
-   * 
-   * @return A collection with all added entities.
-   */
-  public Collection<IEntity> build(Blueprint blueprint, Point2D location) {
-    Collection<IMapObject> mapObjects = blueprint.build(location);
-    Collection<IEntity> loadedEntities = new ArrayList<>();
-    for (IMapObject obj : mapObjects) {
-      loadedEntities.addAll(this.load(obj));
-    }
-
-    return loadedEntities;
-  }
-
-  /**
    * Clears all loaded entities and renderable instances from this environment.
    */
   public void clear() {

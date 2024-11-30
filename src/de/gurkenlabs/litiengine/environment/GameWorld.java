@@ -261,7 +261,7 @@ public final class GameWorld implements IUpdateable {
    * 
    * @see Environment
    */
-  public Environment environment() {
+  @Nullable public Environment environment() {
     return this.environment;
   }
 
