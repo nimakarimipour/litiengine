@@ -86,7 +86,7 @@ public class MapOrientations {
     } else if ("hexagonal".equals(name)) {
       return HEXAGONAL;
     } else {
-      return null;
+      throw new RuntimeException("Unknown name: " + name);
     }
   }
 
