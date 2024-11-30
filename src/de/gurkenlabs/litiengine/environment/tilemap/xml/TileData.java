@@ -65,7 +65,7 @@ public class TileData {
 
   @XmlMixed
   @XmlElementRef(type = TileChunk.class, name = "chunk")
-  private List<Object> rawValue;
+  @Nullable private List<Object> rawValue;
 
   @Nullable @XmlTransient
   private String value;
