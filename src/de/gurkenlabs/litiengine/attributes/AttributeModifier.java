@@ -123,7 +123,7 @@ public class AttributeModifier<T extends Number> implements Comparable<Attribute
   }
 
   @SuppressWarnings("unchecked")
-  private T ensureType(final Double modValue, final T originalValue) {
+  @Nullable private T ensureType(final Double modValue, final T originalValue) {
     if (originalValue instanceof Double) {
       return (T) modValue;
     } else if (originalValue instanceof Float) {
