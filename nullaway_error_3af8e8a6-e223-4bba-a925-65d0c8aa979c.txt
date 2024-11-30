@@ -1,4 +1,0 @@
-/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/sound/SoundEvent.java:33: error: [NullAway] dereferenced expression this.sound is @Nullable
-    return super.toString() + "[sound=" + this.sound.getName() + "]";
-                                                    ^
-    (see http://t.uber.com/nullaway )

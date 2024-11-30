@@ -73,29 +73,45 @@ public class AttributeModifier<T extends Number> implements Comparable<Attribute
   }
 
   public T modify(final T modvalue) {
-    if (!this.isActive()) {
+    if (modvalue == null || !this.isActive()) {
       return modvalue;
     }
 
+    T result = null;
+
     switch (this.getModification()) {
-    case ADD:
-      return this.ensureType(Double.valueOf(modvalue.doubleValue() + this.getModifyValue()), modvalue);
-    case SUBTRACT:
-      return this.ensureType(Double.valueOf(modvalue.doubleValue() - this.getModifyValue()), modvalue);
-    case MULTIPLY:
-      return this.ensureType(Double.valueOf(modvalue.doubleValue() * this.getModifyValue()), modvalue);
-    case DIVIDE:
-      return this.ensureType(Double.valueOf(modvalue.doubleValue() / this.getModifyValue()), modvalue);
-    case ADDPERCENT:
-      return this.ensureType(Double.valueOf(modvalue.doubleValue() + modvalue.doubleValue() / 100 * this.getModifyValue()), modvalue);
-    case SUBTRACTPERCENT:
-      return this.ensureType(Double.valueOf(modvalue.doubleValue() - modvalue.doubleValue() / 100 * this.getModifyValue()), modvalue);
-    case SET:
-      return this.ensureType(Double.valueOf(this.getModifyValue()), modvalue);
-    case UNKNOWN:
-    default:
-      return modvalue;
+      case ADD:
+        result = this.ensureType(Double.valueOf(modvalue.doubleValue() + this.getModifyValue()), modvalue);
+        break;
+      case SUBTRACT:
+        result = this.ensureType(Double.valueOf(modvalue.doubleValue() - this.getModifyValue()), modvalue);
+        break;
+      case MULTIPLY:
+        result = this.ensureType(Double.valueOf(modvalue.doubleValue() * this.getModifyValue()), modvalue);
+        break;
+      case DIVIDE:
+        // Prevent dividing by zero
+        double divisor = this.getModifyValue();
+        if (divisor != 0) {
+          result = this.ensureType(Double.valueOf(modvalue.doubleValue() / divisor), modvalue);
+        }
+        break;
+      case ADDPERCENT:
+        result = this.ensureType(Double.valueOf(modvalue.doubleValue() + modvalue.doubleValue() / 100 * this.getModifyValue()), modvalue);
+        break;
+      case SUBTRACTPERCENT:
+        result = this.ensureType(Double.valueOf(modvalue.doubleValue() - modvalue.doubleValue() / 100 * this.getModifyValue()), modvalue);
+        break;
+      case SET:
+        result = this.ensureType(Double.valueOf(this.getModifyValue()), modvalue);
+        break;
+      case UNKNOWN:
+      default:
+        return modvalue;
     }
+
+    // Return result if not null, otherwise return the original modvalue
+    return result != null ? result : modvalue;
   }
 
   public void setModifyValue(double value) {
@@ -121,7 +137,6 @@ public class AttributeModifier<T extends Number> implements Comparable<Attribute
     } else if (originalValue instanceof Integer) {
       return (T) Integer.valueOf(modValue.intValue());
     }
-
     return null;
   }
 }
