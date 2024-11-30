@@ -1,4 +1,0 @@
-/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/entities/behavior/StateMachine.java:42: error: [NullAway] dereferenced expression this.currentState is @Nullable
-        this.currentState.enter();
-                         ^
-    (see http://t.uber.com/nullaway )
