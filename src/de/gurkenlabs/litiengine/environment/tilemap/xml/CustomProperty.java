@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.net.URL;
 import java.util.Objects;
 
+import de.gurkenlabs.litiengine.Nullability;
 import de.gurkenlabs.litiengine.environment.tilemap.ICustomProperty;
 import de.gurkenlabs.litiengine.util.ColorHelper;
 import javax.annotation.Nullable;
@@ -118,7 +119,7 @@ public class CustomProperty implements ICustomProperty {
 
   @Override
   public void setValue(Color value) {
-    this.value = ColorHelper.encode(Objects.requireNonNull(value));
+    this.value = Nullability.castToNonnull(ColorHelper.encode(Objects.requireNonNull(value)));
     this.location = null;
   }
 
