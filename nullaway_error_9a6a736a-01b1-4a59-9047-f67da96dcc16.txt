@@ -1,0 +1,4 @@
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/tilemap/xml/TileChunk.java:27: error: [NullAway] @NonNull field value not initialized
+  private String value;
+                 ^
+    (see http://t.uber.com/nullaway )
