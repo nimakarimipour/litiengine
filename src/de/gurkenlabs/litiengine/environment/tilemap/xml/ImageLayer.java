@@ -15,7 +15,7 @@ import javax.annotation.Nullable;
 public class ImageLayer extends Layer implements IImageLayer {
 
   @XmlElement
-  private MapImage image;
+  @SuppressWarnings("NullAway.Init") private MapImage image;
 
   @Nullable @XmlAttribute
   @XmlJavaTypeAdapter(ColorAdapter.class)
