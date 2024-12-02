@@ -1,4 +1,0 @@
-/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/tilemap/xml/CustomProperty.java:121: error: [NullAway] assigning @Nullable expression to @NonNull field
-    this.value = ColorHelper.encode(Objects.requireNonNull(value));
-               ^
-    (see http://t.uber.com/nullaway )

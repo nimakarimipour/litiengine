@@ -1,0 +1,4 @@
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/tilemap/xml/TileLayer.java:46: error: [NullAway] dereferenced expression x.getTileCoordinate() is @Nullable
+    final Optional<ITile> tile = this.getTiles().stream().filter(x -> x.getTileCoordinate().equals(location)).findFirst();
+                                                                                           ^
+    (see http://t.uber.com/nullaway )

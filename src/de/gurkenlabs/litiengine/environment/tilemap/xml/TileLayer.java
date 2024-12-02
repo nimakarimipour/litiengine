@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.net.URL;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -43,7 +44,7 @@ public class TileLayer extends Layer implements ITileLayer {
 
   @Nullable @Override
   public ITile getTileByLocation(final Point2D location) {
-    final Optional<ITile> tile = this.getTiles().stream().filter(x -> x.getTileCoordinate().equals(location)).findFirst();
+    final Optional<ITile> tile = this.getTiles().stream().filter(x -> Objects.equals(x.getTileCoordinate(),location)).findFirst();
     return tile.isPresent() ? tile.get() : null;
   }
 
