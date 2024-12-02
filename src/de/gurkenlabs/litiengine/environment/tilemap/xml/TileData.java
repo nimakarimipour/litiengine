@@ -285,6 +285,10 @@ public class TileData {
   protected static List<Tile> parseBase64Data(@Nullable String value, @Nullable String compression) throws InvalidTileLayerException {
     List<Tile> parsed = new ArrayList<>();
 
+    if(value == null){
+      return parsed;
+    }
+
     String enc = value.trim();
     byte[] dec;
     try {
