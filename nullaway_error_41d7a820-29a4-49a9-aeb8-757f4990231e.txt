@@ -1,0 +1,4 @@
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/tilemap/xml/TileData.java:291: error: [NullAway] dereferenced expression value is @Nullable
+    String enc = value.trim();
+                      ^
+    (see http://t.uber.com/nullaway )

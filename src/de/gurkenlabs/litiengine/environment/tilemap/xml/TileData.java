@@ -23,9 +23,12 @@ import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlMixed;
 import javax.xml.bind.annotation.XmlTransient;
 
+import com.uber.nullaway.annotations.EnsuresNonNullIf;
+import com.uber.nullaway.annotations.RequiresNonNull;
 import de.gurkenlabs.litiengine.util.ArrayUtilities;
 import de.gurkenlabs.litiengine.util.io.Codec;
-import com.uber.nullaway.annotations.Initializer;
+import org.jetbrains.annotations.Contract;
+
 import javax.annotation.Nullable;
 
 public class TileData {
@@ -50,7 +53,7 @@ public class TileData {
 
     private Compression() {
     }
-
+    @Contract("null->true")
     public static boolean isValid(@Nullable String compression) {
       // null equals no compression which is an accepted value
       return compression == null || !compression.isEmpty() && (compression.equals(GZIP) || compression.equals(ZLIB));
@@ -71,7 +74,7 @@ public class TileData {
   private String value;
 
   @XmlTransient
-  private List<TileChunk> chunks;
+  @Nullable private List<TileChunk> chunks;
 
   @Nullable @XmlTransient
   private List<Tile> tiles;
@@ -250,6 +253,7 @@ public class TileData {
     this.minChunkOffsetYMap = y;
   }
 
+  @EnsuresNonNullIf("chunks")
   protected boolean isInfinite() {
     return this.chunks != null && !this.chunks.isEmpty();
   }
@@ -408,6 +412,7 @@ public class TileData {
   /**
    * For infinite maps, the size of a tile layer depends on the {@code TileChunks} it contains.
    */
+  @RequiresNonNull("chunks")
   private void updateDimensionsByTileData() {
     int minX = 0;
     int maxX = 0;
@@ -443,6 +448,7 @@ public class TileData {
     this.offsetY = minY;
   }
 
+  @RequiresNonNull("chunks")
   private List<Tile> parseChunkData() throws InvalidTileLayerException {
     // first fill a two-dimensional array with all the information of the chunks
     Tile[][] tileArr = new Tile[this.getHeight()][this.getWidth()];
