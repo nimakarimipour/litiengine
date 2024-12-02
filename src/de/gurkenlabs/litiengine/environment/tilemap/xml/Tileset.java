@@ -295,7 +295,7 @@ public class Tileset extends CustomPropertyProvider implements ITileset {
   }
 
   @Override
-  public boolean containsTile(ITilesetEntry entry) {
+  public boolean containsTile(@Nullable ITilesetEntry entry) {
     if (entry == null) {
       return false;
     }

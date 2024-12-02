@@ -1,0 +1,4 @@
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/tilemap/xml/Tile.java:167: error: [NullAway] returning @Nullable expression from method with @NonNull return type
+    return this.tilesetEntry;
+    ^
+    (see http://t.uber.com/nullaway )

@@ -121,7 +121,7 @@ public class Tile extends CustomPropertyProvider implements ITile {
 
   @Nullable @Override
   public BufferedImage getImage() {
-    if (this.tilesetEntry == null) { // happens if the tile is empty
+    if (this.tilesetEntry == null || this.getTilesetEntry() == null) { // happens if the tile is empty
       return null;
     }
     BufferedImage base = this.getTilesetEntry().getImage();
@@ -163,6 +163,7 @@ public class Tile extends CustomPropertyProvider implements ITile {
   }
 
   @Override
+  @Nullable
   public ITilesetEntry getTilesetEntry() {
     return this.tilesetEntry;
   }

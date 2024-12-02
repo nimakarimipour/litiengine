@@ -143,7 +143,7 @@ public class MapRenderer {
       return;
     }
     BufferedImage image = tile.getImage();
-    if (image != null) {
+    if (image != null && tile.getTilesetEntry() != null) {
       Point p = map.getOrientation().getLocation(x, y, map);
       p.y -= image.getHeight();
       ITileOffset offset = tile.getTilesetEntry().getTileset().getTileOffset();

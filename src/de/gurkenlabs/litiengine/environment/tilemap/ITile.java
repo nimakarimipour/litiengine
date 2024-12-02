@@ -22,7 +22,7 @@ public interface ITile extends ICustomPropertyProvider {
    */
   @Nullable public Point getTileCoordinate();
 
-  public ITilesetEntry getTilesetEntry();
+  @Nullable public ITilesetEntry getTilesetEntry();
 
   public boolean isFlippedHorizontally();
 
