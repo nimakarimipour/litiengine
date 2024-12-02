@@ -23,10 +23,10 @@ public class TileChunk implements Comparable<TileChunk> {
   @XmlAttribute
   private int height;
 
-  @Nullable @XmlValue
+  @XmlValue
   private String value;
 
-  @Nullable @XmlTransient
+  @XmlTransient
   public String getValue() {
     return this.value;
   }
