@@ -174,17 +174,11 @@ public class AStarPathFinder extends PathFinder {
    * @return The found {@link Path}
    */
   private static Path retracePath(final AStarNode startNode, final AStarNode targetNode) {
-    if (startNode == null || targetNode == null) {
-      throw new IllegalArgumentException("Start node and target node must not be null.");
-    }
     final List<AStarNode> path = new ArrayList<>();
     AStarNode currentNode = targetNode.getPredecessor();
     while (currentNode != null && currentNode != startNode) {
       path.add(currentNode);
       currentNode = currentNode.getPredecessor();
-    }
-    if (currentNode == null) {
-      throw new IllegalStateException("Could not retrace the path back to the start node.");
     }
     Collections.reverse(path);
 

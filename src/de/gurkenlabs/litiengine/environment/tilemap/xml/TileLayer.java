@@ -3,6 +3,7 @@ package de.gurkenlabs.litiengine.environment.tilemap.xml;
 import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.net.URL;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -113,7 +114,10 @@ public class TileLayer extends Layer implements ITileLayer {
   }
 
   protected List<Tile> getData() {
-    return this.data.getTiles();
+    if (this.data != null) {
+      return this.data.getTiles();
+    }
+    return Collections.emptyList(); // Or return null or another default value as needed
   }
 
   @Nullable protected TileData getRawTileData() {
