@@ -104,9 +104,10 @@ public class CustomPropertyAdapter extends XmlAdapter<CustomPropertyAdapter.Prop
 
   @XmlAccessorType(XmlAccessType.FIELD)
   static class PropertyList {
-    @Nullable @XmlElement(name = "property")
+    @XmlElement(name = "property")
     List<Property> properties;
 
+    @SuppressWarnings("NullAway")
     PropertyList() {
     }
 

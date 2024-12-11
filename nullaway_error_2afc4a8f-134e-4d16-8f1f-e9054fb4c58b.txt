@@ -1,4 +1,0 @@
-/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/tilemap/xml/CustomPropertyAdapter.java:82: error: [NullAway] dereferenced expression this.type is @Nullable
-      if (this.type.equals(PropertyType.STRING)) {
-                   ^
-    (see http://t.uber.com/nullaway )

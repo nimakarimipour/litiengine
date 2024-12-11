@@ -1,0 +1,4 @@
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/tilemap/MapUtilities.java:244: error: [NullAway] dereferenced expression mapObject.getPolyline() is @Nullable
+      return mapObject.getPolyline().getAbsolutePoints(mapObject.getLocation());
+                                    ^
+    (see http://t.uber.com/nullaway )
