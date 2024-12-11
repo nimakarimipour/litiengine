@@ -3,10 +3,7 @@ package de.gurkenlabs.litiengine.environment.tilemap.xml;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
@@ -79,7 +76,7 @@ public class CustomPropertyAdapter extends XmlAdapter<CustomPropertyAdapter.Prop
 
     @SuppressWarnings("unused")
     private void beforeMarshal(Marshaller m) throws URISyntaxException {
-      if (this.type.equals(PropertyType.STRING)) {
+      if (Objects.equals(this.type, PropertyType.STRING)) {
         this.type = null;
       }
       if (this.location != null) {

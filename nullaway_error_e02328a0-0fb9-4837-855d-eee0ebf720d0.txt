@@ -1,4 +1,0 @@
-/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/tilemap/xml/TileLayer.java:116: error: [NullAway] dereferenced expression this.data is @Nullable
-    return this.data.getTiles();
-                    ^
-    (see http://t.uber.com/nullaway )
