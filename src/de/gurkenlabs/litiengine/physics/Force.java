@@ -64,7 +64,8 @@ public class Force {
     return this.strength;
   }
 
-  @Nullable public String getIdentifier() {
+  @Nullable
+  public String getIdentifier() {
     return this.identifier;
   }
 
