@@ -81,8 +81,7 @@ public class Tween {
    *
    * @return the TweenEquation
    */
-  @Nullable
-  public TweenEquation getEquation() {
+  @Nullable public TweenEquation getEquation() {
     return this.equation;
   }
 
