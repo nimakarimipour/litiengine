@@ -34,7 +34,8 @@ public class TriggerEvent extends EventObject {
    *
    * @return The trigger's message.
    */
-  @Nullable public String getMessage() {
+  @Nullable
+  public String getMessage() {
     return this.message;
   }
 
