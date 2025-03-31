@@ -18,9 +18,11 @@ public interface IMapObjectLayer extends ILayer {
 
   public void removeMapObject(IMapObject mapObject);
 
-  @Nullable public Color getColor();
+  @Nullable
+  public Color getColor();
 
-  @Nullable public String getColorHexString();
+  @Nullable
+  public String getColorHexString();
 
   public void setColor(String colorHexString);
 
