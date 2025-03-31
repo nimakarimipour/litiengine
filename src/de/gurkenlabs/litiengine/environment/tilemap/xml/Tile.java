@@ -9,11 +9,11 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.util.Collections;
 import java.util.Objects;
+import javax.annotation.Nullable;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.annotation.Nullable;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Tile extends CustomPropertyProvider implements ITile {
@@ -118,17 +118,20 @@ public class Tile extends CustomPropertyProvider implements ITile {
     return this.flipped;
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public BufferedImage getImage() {
     if (this.tilesetEntry == null) { // happens if the tile is empty
       return null;
     }
-    BufferedImage base = this.getTilesetEntry().getImage();
+    TilesetEntry entry = this.getTilesetEntry();
+    if (entry == null) {
+      return null;
+    }
+    BufferedImage base = entry.getImage();
     if (!this.isFlipped()) {
       return base;
     }
-    // save some overhead by doing all the reflection at once
-    // affine transforms are confusing: this actually does represent the correct order
     AffineTransform tx = new AffineTransform();
     if (this.isFlippedHorizontally()) {
       tx.translate(base.getWidth(), 0.0);
@@ -153,11 +156,13 @@ public class Tile extends CustomPropertyProvider implements ITile {
     return this.gid;
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public Point getTileCoordinate() {
     return this.tileCoordinate;
   }
 
+  @Nullable
   @Override
   public ITilesetEntry getTilesetEntry() {
     return this.tilesetEntry;

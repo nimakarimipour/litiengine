@@ -13,15 +13,18 @@ public interface ITile extends ICustomPropertyProvider {
    */
   public int getGridId();
 
-  @Nullable public BufferedImage getImage();
+  @Nullable
+  public BufferedImage getImage();
 
   /**
    * Gets the tile coordinate.
    *
    * @return the tile coordinate
    */
-  @Nullable public Point getTileCoordinate();
+  @Nullable
+  public Point getTileCoordinate();
 
+  @Nullable
   public ITilesetEntry getTilesetEntry();
 
   public boolean isFlippedHorizontally();
