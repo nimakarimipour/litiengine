@@ -11,12 +11,12 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.net.URL;
 import java.util.Arrays;
+import javax.annotation.Nullable;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import javax.annotation.Nullable;
 
 public class MapObject extends CustomPropertyProvider implements IMapObject {
   @XmlAttribute private int id;
@@ -27,11 +27,13 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
 
   @Nullable @XmlAttribute private String type;
 
-  @Nullable @XmlAttribute
+  @Nullable
+  @XmlAttribute
   @XmlJavaTypeAdapter(value = DecimalFloatAdapter.class)
   private Float x;
 
-  @Nullable @XmlAttribute
+  @Nullable
+  @XmlAttribute
   @XmlJavaTypeAdapter(value = DecimalFloatAdapter.class)
   private Float y;
 
@@ -45,10 +47,12 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
 
   @Nullable @XmlTransient private ITilesetEntry tile;
 
-  @Nullable @XmlElement(name = "polyline")
+  @Nullable
+  @XmlElement(name = "polyline")
   private PolyShape polyline;
 
-  @Nullable @XmlElement(name = "polygon")
+  @Nullable
+  @XmlElement(name = "polygon")
   private PolyShape polygon;
 
   @Nullable @XmlElement private String point;
@@ -159,7 +163,8 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
     return this.gid;
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public ITilesetEntry getTile() {
     return this.tile;
   }
@@ -179,7 +184,8 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
     return new Point2D.Double(this.getX(), this.getY());
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public String getName() {
     return this.name;
   }
@@ -189,22 +195,26 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
    *
    * @return the type
    */
-  @Nullable @Override
+  @Nullable
+  @Override
   public String getType() {
     return this.type;
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public IPolyShape getPolyline() {
     return this.polyline;
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public IPolyShape getPolygon() {
     return this.polygon;
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public Ellipse2D getEllipse() {
     if (!this.isEllipse()) {
       return null;
@@ -213,7 +223,8 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
     return new Ellipse2D.Double(this.getX(), this.getY(), this.getWidth(), this.getHeight());
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public IMapObjectText getText() {
     return this.text;
   }

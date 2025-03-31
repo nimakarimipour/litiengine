@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.environment.tilemap.xml;
 
+import com.uber.nullaway.annotations.Initializer;
 import de.gurkenlabs.litiengine.util.ArrayUtilities;
 import de.gurkenlabs.litiengine.util.io.Codec;
 import java.io.ByteArrayInputStream;
@@ -17,14 +18,13 @@ import java.util.zip.DeflaterOutputStream;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 import java.util.zip.InflaterInputStream;
+import javax.annotation.Nullable;
 import javax.xml.bind.DatatypeConverter;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlMixed;
 import javax.xml.bind.annotation.XmlTransient;
-import com.uber.nullaway.annotations.Initializer;
-import javax.annotation.Nullable;
 
 public class TileData {
   private static final Logger log = Logger.getLogger(TileData.class.getName());
@@ -56,7 +56,7 @@ public class TileData {
     }
   }
 
-  @XmlAttribute private String encoding;
+  @Nullable @XmlAttribute private String encoding;
 
   @Nullable @XmlAttribute private String compression;
 
@@ -66,7 +66,7 @@ public class TileData {
 
   @Nullable @XmlTransient private String value;
 
-  @XmlTransient private List<TileChunk> chunks;
+  @Nullable @XmlTransient private List<TileChunk> chunks;
 
   @Nullable @XmlTransient private List<Tile> tiles;
 
@@ -87,7 +87,8 @@ public class TileData {
     // keep for serialization
   }
 
-  public TileData(List<Tile> tiles, int width, int height, String encoding, @Nullable String compression)
+  public TileData(
+      List<Tile> tiles, int width, int height, String encoding, @Nullable String compression)
       throws TmxException {
     if (!Encoding.isValid(encoding)) {
       throw new TmxException(
@@ -118,17 +119,20 @@ public class TileData {
     this.height = height;
   }
 
+  @Nullable
   @XmlTransient
   public String getEncoding() {
     return this.encoding;
   }
 
-  @Nullable @XmlTransient
+  @Nullable
+  @XmlTransient
   public String getCompression() {
     return this.compression;
   }
 
-  @Nullable @XmlTransient
+  @Nullable
+  @XmlTransient
   public String getValue() {
     return this.value;
   }
@@ -141,7 +145,8 @@ public class TileData {
     this.compression = compression;
   }
 
-  @Initializer public void setValue(@Nullable String value) {
+  @Initializer
+  public void setValue(@Nullable String value) {
     this.value = value;
     if (this.rawValue == null) {
       this.rawValue = new CopyOnWriteArrayList<>();
@@ -173,7 +178,8 @@ public class TileData {
     return this.tiles;
   }
 
-  @Nullable public static String encode(TileData data) throws IOException {
+  @Nullable
+  public static String encode(TileData data) throws IOException {
     if (data.getEncoding() == null) {
       return null;
     }
@@ -333,7 +339,8 @@ public class TileData {
     return parsed;
   }
 
-  protected static List<Tile> parseCsvData(@Nullable String value) throws InvalidTileLayerException {
+  protected static List<Tile> parseCsvData(@Nullable String value)
+      throws InvalidTileLayerException {
 
     List<Tile> parsed = new ArrayList<>();
 
@@ -410,6 +417,10 @@ public class TileData {
 
   /** For infinite maps, the size of a tile layer depends on the {@code TileChunks} it contains. */
   private void updateDimensionsByTileData() {
+    if (this.chunks == null || this.chunks.isEmpty()) {
+      return;
+    }
+
     int minX = 0;
     int maxX = 0;
     int minY = 0;
@@ -448,18 +459,23 @@ public class TileData {
     // first fill a two-dimensional array with all the information of the chunks
     Tile[][] tileArr = new Tile[this.getHeight()][this.getWidth()];
 
-    if (this.getEncoding().equals(Encoding.BASE64)) {
+    String encoding = this.getEncoding();
+    if (encoding == null || encoding.isEmpty()) {
+      throw new IllegalArgumentException("Encoding is not set");
+    }
+
+    if (encoding.equals(Encoding.BASE64)) {
       for (TileChunk chunk : this.chunks) {
         List<Tile> chunkTiles = parseBase64Data(chunk.getValue(), this.compression);
         this.addTiles(tileArr, chunk, chunkTiles);
       }
-    } else if (this.getEncoding().equals(Encoding.CSV)) {
+    } else if (encoding.equals(Encoding.CSV)) {
       for (TileChunk chunk : this.chunks) {
         List<Tile> chunkTiles = parseCsvData(chunk.getValue());
         this.addTiles(tileArr, chunk, chunkTiles);
       }
     } else {
-      throw new IllegalArgumentException("Unsupported tile layer encoding " + this.getEncoding());
+      throw new IllegalArgumentException("Unsupported tile layer encoding " + encoding);
     }
 
     // fill up the rest of the map with Tile.EMPTY
@@ -490,9 +506,9 @@ public class TileData {
 
   private List<Tile> parseData() throws InvalidTileLayerException {
     List<Tile> tmpTiles;
-    if (this.getEncoding().equals(Encoding.BASE64)) {
+    if (this.getEncoding() != null && this.getEncoding().equals(Encoding.BASE64)) {
       tmpTiles = parseBase64Data(this.value, this.compression);
-    } else if (this.getEncoding().equals(Encoding.CSV)) {
+    } else if (this.getEncoding() != null && this.getEncoding().equals(Encoding.CSV)) {
       tmpTiles = parseCsvData(this.value);
     } else {
       throw new IllegalArgumentException("Unsupported tile layer encoding " + this.getEncoding());
