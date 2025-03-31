@@ -46,8 +46,7 @@ public abstract class Slider extends GuiComponent {
     return this.button2;
   }
 
-  @Nullable
-  public Spritesheet getButtonSpritesheet() {
+  @Nullable public Spritesheet getButtonSpritesheet() {
     return this.buttonSprite;
   }
 
@@ -73,8 +72,7 @@ public abstract class Slider extends GuiComponent {
     return this.sliderComponent;
   }
 
-  @Nullable
-  public Spritesheet getSliderSpritesheet() {
+  @Nullable public Spritesheet getSliderSpritesheet() {
     return this.sliderSprite;
   }
 

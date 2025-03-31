@@ -4,20 +4,18 @@ import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.environment.tilemap.ITileAnimation;
 import de.gurkenlabs.litiengine.environment.tilemap.ITileAnimationFrame;
 import java.util.List;
-import javax.annotation.Nullable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.annotation.Nullable;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TileAnimation implements ITileAnimation {
-  @Nullable
-  @XmlElement(name = "frame", type = Frame.class)
+  @Nullable @XmlElement(name = "frame", type = Frame.class)
   private List<ITileAnimationFrame> frames;
 
   private transient int totalDuration;
 
-  @Nullable
   @Override
   public List<ITileAnimationFrame> getFrames() {
     return this.frames;
@@ -29,12 +27,11 @@ public class TileAnimation implements ITileAnimation {
       return this.totalDuration;
     }
 
-    List<ITileAnimationFrame> frames = this.getFrames();
-    if (frames == null || frames.isEmpty()) {
+    if (this.getFrames().isEmpty()) {
       return 0;
     }
 
-    for (ITileAnimationFrame frame : frames) {
+    for (ITileAnimationFrame frame : this.getFrames()) {
       if (frame != null) {
         this.totalDuration += frame.getDuration();
       }
@@ -46,11 +43,7 @@ public class TileAnimation implements ITileAnimation {
   @Override
   public ITileAnimationFrame getCurrentFrame() {
     long time = Game.time().sinceEnvironmentLoad() % this.getTotalDuration();
-    List<ITileAnimationFrame> frames = this.getFrames();
-    if (frames == null) {
-      throw new AssertionError("Frames cannot be null");
-    }
-    for (ITileAnimationFrame frame : frames) {
+    for (ITileAnimationFrame frame : this.getFrames()) {
       time -= frame.getDuration();
       if (time <= 0) {
         return frame;
