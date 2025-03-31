@@ -12,8 +12,8 @@ import java.awt.Image;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.util.Optional;
-import javax.annotation.Nullable;
 import javax.swing.JLabel;
+import javax.annotation.Nullable;
 
 public class ImageComponent extends GuiComponent {
   public static final int BACKGROUND_INDEX = 0;
@@ -72,8 +72,7 @@ public class ImageComponent extends GuiComponent {
     }
   }
 
-  @Nullable
-  public Image getBackground() {
+  @Nullable public Image getBackground() {
     if (this.getSpritesheet() == null) {
       return null;
     }
@@ -151,8 +150,7 @@ public class ImageComponent extends GuiComponent {
     Resources.images().add(cacheKey, this.scaledImage);
   }
 
-  @Nullable
-  public BufferedImage getImage() {
+  @Nullable public BufferedImage getImage() {
     if (this.scaledImage == null) {
       return this.baseImage;
     }
@@ -223,8 +221,7 @@ public class ImageComponent extends GuiComponent {
     this.rescaleImage();
   }
 
-  @Nullable
-  protected Spritesheet getSpritesheet() {
+  @Nullable protected Spritesheet getSpritesheet() {
     return this.spritesheet;
   }
 
