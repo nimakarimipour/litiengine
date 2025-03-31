@@ -3,7 +3,6 @@ package de.gurkenlabs.litiengine.graphics;
 import de.gurkenlabs.litiengine.environment.tilemap.IMap;
 import java.awt.Graphics2D;
 import java.util.EventObject;
-import javax.annotation.Nullable;
 
 public class MapRenderedEvent extends EventObject {
   private static final long serialVersionUID = -562565518335076236L;
