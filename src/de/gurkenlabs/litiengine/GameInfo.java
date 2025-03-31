@@ -5,10 +5,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.Nullable;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import javax.annotation.Nullable;
 
 /**
  * The {@code GameInfo} class contains basic information about a LITIENGINE game. The information
@@ -92,7 +92,8 @@ public class GameInfo extends CustomPropertyProvider {
    * @see URL
    * @see #getWebsite()
    */
-  @Nullable @XmlTransient
+  @Nullable
+  @XmlTransient
   public URL getWebsiteURL() {
     if (this.getWebsite() == null || this.getWebsite().isEmpty()) {
       return null;
@@ -131,7 +132,8 @@ public class GameInfo extends CustomPropertyProvider {
    *
    * @return The game's publisher.
    */
-  @Nullable @XmlTransient
+  @Nullable
+  @XmlTransient
   public String getPublisher() {
     return this.publisher;
   }

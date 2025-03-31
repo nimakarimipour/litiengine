@@ -5,12 +5,12 @@ import de.gurkenlabs.litiengine.util.ArrayUtilities;
 import de.gurkenlabs.litiengine.util.io.Codec;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
+import javax.annotation.Nullable;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import javax.annotation.Nullable;
 
 @XmlRootElement(name = "sprite")
 public class SpritesheetResource extends NamedResource implements Serializable {
@@ -23,13 +23,16 @@ public class SpritesheetResource extends NamedResource implements Serializable {
   @XmlAttribute(name = "height")
   private int height;
 
-  @Nullable @XmlAttribute(name = "imageformat")
+  @Nullable
+  @XmlAttribute(name = "imageformat")
   private ImageFormat imageformat;
 
-  @Nullable @XmlElement(required = false)
+  @Nullable
+  @XmlElement(required = false)
   private String image;
 
-  @Nullable @XmlElement(required = false)
+  @Nullable
+  @XmlElement(required = false)
   private String keyframes;
 
   public SpritesheetResource() {
@@ -61,7 +64,8 @@ public class SpritesheetResource extends NamedResource implements Serializable {
     return this.height;
   }
 
-  @Nullable @XmlTransient
+  @Nullable
+  @XmlTransient
   public String getImage() {
     return this.image;
   }
@@ -71,7 +75,8 @@ public class SpritesheetResource extends NamedResource implements Serializable {
     return this.width;
   }
 
-  @Nullable @XmlTransient
+  @Nullable
+  @XmlTransient
   public ImageFormat getImageFormat() {
     return this.imageformat;
   }
