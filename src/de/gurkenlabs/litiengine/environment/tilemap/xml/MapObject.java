@@ -11,12 +11,12 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.net.URL;
 import java.util.Arrays;
-import javax.annotation.Nullable;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import javax.annotation.Nullable;
 
 public class MapObject extends CustomPropertyProvider implements IMapObject {
   @XmlAttribute private int id;
@@ -27,13 +27,11 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
 
   @Nullable @XmlAttribute private String type;
 
-  @Nullable
-  @XmlAttribute
+  @Nullable @XmlAttribute
   @XmlJavaTypeAdapter(value = DecimalFloatAdapter.class)
   private Float x;
 
-  @Nullable
-  @XmlAttribute
+  @Nullable @XmlAttribute
   @XmlJavaTypeAdapter(value = DecimalFloatAdapter.class)
   private Float y;
 
@@ -47,12 +45,10 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
 
   @Nullable @XmlTransient private ITilesetEntry tile;
 
-  @Nullable
-  @XmlElement(name = "polyline")
+  @Nullable @XmlElement(name = "polyline")
   private PolyShape polyline;
 
-  @Nullable
-  @XmlElement(name = "polygon")
+  @Nullable @XmlElement(name = "polygon")
   private PolyShape polygon;
 
   @Nullable @XmlElement private String point;
@@ -163,8 +159,7 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
     return this.gid;
   }
 
-  @Nullable
-  @Override
+  @Nullable @Override
   public ITilesetEntry getTile() {
     return this.tile;
   }
@@ -184,8 +179,7 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
     return new Point2D.Double(this.getX(), this.getY());
   }
 
-  @Nullable
-  @Override
+  @Nullable @Override
   public String getName() {
     return this.name;
   }
@@ -195,26 +189,22 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
    *
    * @return the type
    */
-  @Nullable
-  @Override
+  @Nullable @Override
   public String getType() {
     return this.type;
   }
 
-  @Nullable
-  @Override
+  @Nullable @Override
   public IPolyShape getPolyline() {
     return this.polyline;
   }
 
-  @Nullable
-  @Override
+  @Nullable @Override
   public IPolyShape getPolygon() {
     return this.polygon;
   }
 
-  @Nullable
-  @Override
+  @Nullable @Override
   public Ellipse2D getEllipse() {
     if (!this.isEllipse()) {
       return null;
@@ -223,8 +213,7 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
     return new Ellipse2D.Double(this.getX(), this.getY(), this.getWidth(), this.getHeight());
   }
 
-  @Nullable
-  @Override
+  @Nullable @Override
   public IMapObjectText getText() {
     return this.text;
   }
@@ -273,9 +262,8 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
   @Override
   @XmlTransient
   public void setX(float x) {
-    IMapObjectLayer layer = this.getLayer();
-    if (layer != null && this.isInfiniteMap()) {
-      TmxMap map = (TmxMap) layer.getMap();
+    if (this.isInfiniteMap()) {
+      TmxMap map = (TmxMap) this.getLayer().getMap();
       this.x = x + map.getChunkOffsetX() * map.getTileWidth();
       return;
     }
@@ -287,14 +275,9 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
   @XmlTransient
   public void setY(float y) {
     if (this.isInfiniteMap()) {
-      IMapObjectLayer layer = this.getLayer();
-      if (layer != null) {
-        TmxMap map = (TmxMap) layer.getMap();
-        if (map != null) {
-          this.y = y + map.getChunkOffsetY() * map.getTileHeight();
-          return;
-        }
-      }
+      TmxMap map = (TmxMap) this.getLayer().getMap();
+      this.y = y + map.getChunkOffsetY() * map.getTileHeight();
+      return;
     }
 
     this.y = y;
@@ -331,18 +314,16 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
   @Override
   public float getX() {
     if (this.isInfiniteMap()) {
-      IMapObjectLayer layer = this.getLayer();
-      if (layer != null) {
-        TmxMap map = (TmxMap) layer.getMap();
-        return this.x - map.getChunkOffsetX() * map.getTileWidth();
-      }
+      TmxMap map = (TmxMap) this.getLayer().getMap();
+      return this.x - map.getChunkOffsetX() * map.getTileWidth();
     }
+
     return this.x == null ? 0 : this.x;
   }
 
   @Override
   public float getY() {
-    if (this.isInfiniteMap() && this.getLayer() != null) {
+    if (this.isInfiniteMap()) {
       TmxMap map = (TmxMap) this.getLayer().getMap();
       return this.y - map.getChunkOffsetY() * map.getTileHeight();
     }
@@ -372,7 +353,6 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
     return this.height;
   }
 
-  @Nullable
   @Override
   public IMapObjectLayer getLayer() {
     return this.layer;
@@ -420,9 +400,9 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
   }
 
   @Override
-  void finish(URL location) throws TmxException {
+  void finish(@Nullable URL location) throws TmxException {
     super.finish(location);
-    if (this.gid != null && this.getLayer() != null && this.getLayer().getMap() != null) {
+    if (this.gid != null) {
       this.tile = this.getLayer().getMap().getTilesetEntry(this.gid);
     }
   }
