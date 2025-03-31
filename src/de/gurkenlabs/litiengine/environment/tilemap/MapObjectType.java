@@ -1,5 +1,4 @@
 package de.gurkenlabs.litiengine.environment.tilemap;
-
 import javax.annotation.Nullable;
 
 public enum MapObjectType {
@@ -24,8 +23,7 @@ public enum MapObjectType {
     return values()[n];
   }
 
-  @Nullable
-  public static MapObjectType get(final String mapObjectType) {
+  @Nullable public static MapObjectType get(final String mapObjectType) {
     if (mapObjectType == null || mapObjectType.isEmpty()) {
       return null;
     }
