@@ -84,8 +84,7 @@ public class AStarNode {
     return this.penalty;
   }
 
-  @Nullable
-  public AStarNode getPredecessor() {
+  @Nullable public AStarNode getPredecessor() {
     return this.predecessor;
   }
 
