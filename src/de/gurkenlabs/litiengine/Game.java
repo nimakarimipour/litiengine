@@ -197,8 +197,7 @@ public final class Game {
    * @see GameInfo#setName(String)
    * @see GameInfo#setValue(String, String)
    */
-  @Nullable
-  public static GameInfo info() {
+  @Nullable public static GameInfo info() {
     return gameInfo;
   }
 
@@ -382,8 +381,7 @@ public final class Game {
    * @see GameWorld#environment()
    * @see Game#world()
    */
-  @Nullable
-  public static ScreenManager screens() {
+  @Nullable public static ScreenManager screens() {
     return screenManager;
   }
 
