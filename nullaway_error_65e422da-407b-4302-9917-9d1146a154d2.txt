@@ -1,4 +1,0 @@
-/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/entities/MapArea.java:30: error: [NullAway] passing @Nullable parameter 'null' where @NonNull is required
-    this(0, null, x, y, width, height);
-            ^
-    (see http://t.uber.com/nullaway )
