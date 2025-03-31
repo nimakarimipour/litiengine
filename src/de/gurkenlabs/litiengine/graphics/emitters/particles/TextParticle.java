@@ -20,11 +20,13 @@ public class TextParticle extends Particle {
     this.text = text;
   }
 
-  @Nullable public Font getFont() {
+  @Nullable
+  public Font getFont() {
     return this.font;
   }
 
-  @Nullable public String getText() {
+  @Nullable
+  public String getText() {
     return this.text;
   }
 
