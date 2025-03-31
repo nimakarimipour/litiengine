@@ -43,7 +43,11 @@ public class TriggerMapObjectLoader extends MapObjectLoader {
   }
 
   protected Trigger createTrigger(
-      IMapObject mapObject, TriggerActivation act, @Nullable String message, boolean oneTime, int coolDown) {
+      IMapObject mapObject,
+      TriggerActivation act,
+      @Nullable String message,
+      boolean oneTime,
+      int coolDown) {
     return new Trigger(act, message, oneTime, coolDown);
   }
 
