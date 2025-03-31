@@ -87,9 +87,7 @@ public class PropMapObjectLoader extends MapObjectLoader {
     return new Prop(spriteSheet);
   }
 
-  @Nullable
-  private static Prop createCustomProp(
-      Class<? extends Prop> customProp, @Nullable String spriteSheet) {
+  @Nullable private static Prop createCustomProp(Class<? extends Prop> customProp, @Nullable String spriteSheet) {
     try {
       return customProp.getConstructor(String.class).newInstance(spriteSheet);
     } catch (InstantiationException
