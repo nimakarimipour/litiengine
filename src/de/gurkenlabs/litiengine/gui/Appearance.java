@@ -70,23 +70,19 @@ public class Appearance {
         this.foreColor);
   }
 
-  @Nullable
-  public Color getForeColor() {
+  @Nullable public Color getForeColor() {
     return this.foreColor;
   }
 
-  @Nullable
-  public Color getBackgroundColor1() {
+  @Nullable public Color getBackgroundColor1() {
     return this.backgroundColor1;
   }
 
-  @Nullable
-  public Color getBackgroundColor2() {
+  @Nullable public Color getBackgroundColor2() {
     return this.backgroundColor2;
   }
 
-  @Nullable
-  public Paint getBackgroundPaint(double width, double height) {
+  @Nullable public Paint getBackgroundPaint(double width, double height) {
     if (this.isTransparentBackground()) {
       return null;
     }
@@ -105,13 +101,11 @@ public class Appearance {
     }
   }
 
-  @Nullable
-  public Color getBorderColor() {
+  @Nullable public Color getBorderColor() {
     return this.borderColor;
   }
 
-  @Nullable
-  public Stroke getBorderStyle() {
+  @Nullable public Stroke getBorderStyle() {
     return this.borderStyle;
   }
 
