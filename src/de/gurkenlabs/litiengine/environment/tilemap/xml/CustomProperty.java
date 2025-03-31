@@ -123,7 +123,7 @@ public class CustomProperty implements ICustomProperty {
   public char getAsChar() {
     return this.value.charAt(
         0); // TODO Is this enough? Should it check if it's the right length and throw an exception
-            // if it's not?
+    // if it's not?
   }
 
   @Override
@@ -131,7 +131,8 @@ public class CustomProperty implements ICustomProperty {
     return Boolean.parseBoolean(this.value);
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public Color getAsColor() {
     return ColorHelper.decode(this.value);
   }
@@ -166,7 +167,8 @@ public class CustomProperty implements ICustomProperty {
     return Long.parseLong(this.value);
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public <T extends Enum<T>> T getAsEnum(Class<T> enumType) {
     try {
       return Enum.valueOf(enumType, this.value);
@@ -182,7 +184,8 @@ public class CustomProperty implements ICustomProperty {
     return null;
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public URL getAsFile() {
     return this.location;
   }
