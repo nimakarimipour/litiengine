@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
 import javax.annotation.Nullable;
 
 public class SpriteParticle extends Particle {
-  @Nullable private AnimationController animation;
+  private AnimationController animation;
   private boolean animateSprite;
   private boolean loopSprite;
   @Nullable private BufferedImage currentImage;
@@ -32,7 +32,7 @@ public class SpriteParticle extends Particle {
   @Override
   public void render(final Graphics2D g, final Point2D emitterOrigin) {
     final Point2D renderLocation = getRenderLocation(emitterOrigin);
-    if (isAnimatingSprite() && animation != null) {
+    if (isAnimatingSprite()) {
       currentImage = animation.getCurrentImage();
     }
     Composite oldComp = g.getComposite();
@@ -48,9 +48,7 @@ public class SpriteParticle extends Particle {
   @Override
   public void update(Point2D emitterOrigin, float updateRatio) {
     super.update(emitterOrigin, updateRatio);
-    if (this.animation != null) {
-      this.animation.update();
-    }
+    this.animation.update();
   }
 
   @Override
@@ -79,8 +77,6 @@ public class SpriteParticle extends Particle {
 
   public void setLoopSprite(boolean loopSprite) {
     this.loopSprite = loopSprite;
-    if (this.animation != null) {
-      this.animation.getDefault().setLooping(loopSprite);
-    }
+    this.animation.getDefault().setLooping(loopSprite);
   }
 }
