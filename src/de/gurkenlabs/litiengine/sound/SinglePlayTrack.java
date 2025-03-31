@@ -3,8 +3,8 @@ package de.gurkenlabs.litiengine.sound;
 import de.gurkenlabs.litiengine.resources.Resources;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import javax.sound.sampled.AudioFormat;
 import javax.annotation.Nullable;
+import javax.sound.sampled.AudioFormat;
 
 /** A {@code Track} that plays a sound once and then stops. */
 public class SinglePlayTrack implements Track {
@@ -51,7 +51,8 @@ public class SinglePlayTrack implements Track {
     return new Iter();
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public AudioFormat getFormat() {
     return this.sound.getFormat();
   }

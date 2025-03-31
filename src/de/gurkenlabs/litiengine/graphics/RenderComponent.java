@@ -6,6 +6,7 @@ import de.gurkenlabs.litiengine.resources.ImageFormat;
 import de.gurkenlabs.litiengine.util.MathUtilities;
 import de.gurkenlabs.litiengine.util.TimeUtilities;
 import de.gurkenlabs.litiengine.util.io.ImageSerializer;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -125,7 +126,8 @@ public class RenderComponent extends Canvas {
                 ? RenderingHints.VALUE_INTERPOLATION_BILINEAR
                 : RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
 
-        final Screen currentScreen = Game.screens().current();
+        final Screen currentScreen =
+            Nullability.castToNonnull(Game.screens(), "reason...").current();
         if (currentScreen != null) {
           long renderStart = System.nanoTime();
           currentScreen.render(g);

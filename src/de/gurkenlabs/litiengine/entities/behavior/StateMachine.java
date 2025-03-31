@@ -10,7 +10,8 @@ public class StateMachine implements IUpdateable {
 
   protected StateMachine() {}
 
-  @Nullable public State getCurrentState() {
+  @Nullable
+  public State getCurrentState() {
     return this.currentState;
   }
 
