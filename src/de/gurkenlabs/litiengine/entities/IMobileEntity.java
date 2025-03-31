@@ -45,7 +45,6 @@ public interface IMobileEntity extends ICollisionEntity {
    *
    * @return the velocity in pixel per second.
    */
-  @Nullable
   Attribute<Float> getVelocity();
 
   /**
@@ -60,8 +59,7 @@ public interface IMobileEntity extends ICollisionEntity {
    *
    * @return the movement controller
    */
-  @Nullable
-  IMovementController movement();
+  @Nullable IMovementController movement();
 
   /**
    * Sets the acceleration for this entity. Acceleration is a value that defines how long it takes
