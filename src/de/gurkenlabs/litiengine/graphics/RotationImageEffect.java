@@ -20,7 +20,8 @@ public class RotationImageEffect extends ImageEffect {
     this.angle = angle;
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public BufferedImage apply(final BufferedImage image) {
     if (image == null) {
       return null;
