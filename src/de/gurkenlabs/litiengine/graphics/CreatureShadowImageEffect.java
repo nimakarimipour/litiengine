@@ -2,12 +2,12 @@ package de.gurkenlabs.litiengine.graphics;
 
 import de.gurkenlabs.litiengine.entities.Creature;
 import de.gurkenlabs.litiengine.util.Imaging;
-import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
+import javax.annotation.Nullable;
 
 public class CreatureShadowImageEffect extends ImageEffect {
   private static final Color DEFAULT_SHADOW_COLOR = new Color(124, 164, 174, 120);
@@ -69,7 +69,7 @@ public class CreatureShadowImageEffect extends ImageEffect {
 
     final BufferedImage buffer =
         Imaging.getCompatibleImage(image.getWidth() * 2 + 2, image.getHeight() * 2);
-    final Graphics2D graphics = Nullability.castToNonnull(buffer, "reason...").createGraphics();
+    final Graphics2D graphics = buffer.createGraphics();
     float x = image.getWidth() / 2.0f;
     float y = image.getHeight() / 2.0f;
 
