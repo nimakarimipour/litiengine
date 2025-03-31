@@ -78,8 +78,7 @@ public final class MapObjectSerializer {
     }
   }
 
-  @Nullable
-  private static String getPropertyValue(Field field, Object value) {
+  @Nullable private static String getPropertyValue(Field field, Object value) {
     if (field.getType().equals(Float.class) || field.getType().equals(Double.class)) {
       try {
         return new DecimalFloatAdapter().marshal((Float) value);
