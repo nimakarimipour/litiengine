@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 
 public interface IMapImage extends ICustomPropertyProvider {
 
+  @Nullable
   public URL getAbsoluteSourcePath(); // XXX merge with getSource
 
   /**
@@ -35,13 +36,15 @@ public interface IMapImage extends ICustomPropertyProvider {
    *
    * @return the source
    */
-  @Nullable public String getSource();
+  @Nullable
+  public String getSource();
 
   /**
    * Gets the transparent color.
    *
    * @return the transparent color
    */
+  @Nullable
   public Color getTransparentColor();
 
   /**
