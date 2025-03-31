@@ -3,8 +3,8 @@ package de.gurkenlabs.litiengine.sound;
 import de.gurkenlabs.litiengine.resources.Resources;
 import java.util.Iterator;
 import java.util.Objects;
-import javax.annotation.Nullable;
 import javax.sound.sampled.AudioFormat;
+import javax.annotation.Nullable;
 
 /** A {@code Track} that plays an intro sound and then loops the specified music sound. */
 public class IntroTrack implements Track {
@@ -80,8 +80,7 @@ public class IntroTrack implements Track {
     return new Iter();
   }
 
-  @Nullable
-  @Override
+  @Nullable @Override
   public AudioFormat getFormat() {
     return this.loop.getFormat();
   }
