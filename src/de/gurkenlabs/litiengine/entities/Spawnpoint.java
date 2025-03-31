@@ -18,16 +18,13 @@ import javax.annotation.Nullable;
 public class Spawnpoint extends Entity {
   private final Collection<EntitySpawnedListener> spawnedListeners = ConcurrentHashMap.newKeySet();
 
-  @Nullable
-  @TmxProperty(name = MapObjectProperty.SPAWN_DIRECTION)
+  @Nullable @TmxProperty(name = MapObjectProperty.SPAWN_DIRECTION)
   private Direction direction;
 
-  @Nullable
-  @TmxProperty(name = MapObjectProperty.SPAWN_INFO)
+  @Nullable @TmxProperty(name = MapObjectProperty.SPAWN_INFO)
   private String spawnInfo;
 
-  @Nullable
-  @TmxProperty(name = MapObjectProperty.SPAWN_PIVOT)
+  @Nullable @TmxProperty(name = MapObjectProperty.SPAWN_PIVOT)
   private EntityPivotType spawnPivotType;
 
   @TmxProperty(name = MapObjectProperty.SPAWN_PIVOT_OFFSETX)
@@ -150,8 +147,7 @@ public class Spawnpoint extends Entity {
     this.spawnedListeners.remove(listener);
   }
 
-  @Nullable
-  public Direction getDirection() {
+  @Nullable public Direction getDirection() {
     return direction;
   }
 
@@ -159,8 +155,7 @@ public class Spawnpoint extends Entity {
     this.direction = direction;
   }
 
-  @Nullable
-  public String getSpawnInfo() {
+  @Nullable public String getSpawnInfo() {
     return spawnInfo;
   }
 
@@ -168,8 +163,7 @@ public class Spawnpoint extends Entity {
     this.spawnInfo = spawnInfo;
   }
 
-  @Nullable
-  public EntityPivotType getSpawnPivotType() {
+  @Nullable public EntityPivotType getSpawnPivotType() {
     return this.spawnPivotType;
   }
 

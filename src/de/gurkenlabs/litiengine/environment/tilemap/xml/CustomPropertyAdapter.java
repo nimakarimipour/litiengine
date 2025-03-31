@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.annotation.Nullable;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -19,6 +18,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlValue;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
+import javax.annotation.Nullable;
 
 public class CustomPropertyAdapter
     extends XmlAdapter<CustomPropertyAdapter.PropertyList, Map<String, ICustomProperty>> {
@@ -100,8 +100,7 @@ public class CustomPropertyAdapter
 
   @XmlAccessorType(XmlAccessType.FIELD)
   static class PropertyList {
-    @Nullable
-    @XmlElement(name = "property")
+    @Nullable @XmlElement(name = "property")
     List<Property> properties;
 
     PropertyList() {}
@@ -113,9 +112,6 @@ public class CustomPropertyAdapter
 
   @Override
   public Map<String, ICustomProperty> unmarshal(PropertyList v) {
-    if (v == null || v.properties == null) {
-      return new HashMap<>();
-    }
     Map<String, ICustomProperty> map =
         new HashMap<>(v.properties.size()); // use hashtable to reject null keys/values
     for (Property property : v.properties) {
@@ -130,8 +126,7 @@ public class CustomPropertyAdapter
     return map;
   }
 
-  @Nullable
-  @Override
+  @Nullable @Override
   public PropertyList marshal(Map<String, ICustomProperty> v) {
     if (v.isEmpty()) {
       return null;
