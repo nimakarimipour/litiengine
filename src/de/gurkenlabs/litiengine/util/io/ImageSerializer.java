@@ -8,12 +8,12 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.Nullable;
 import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageWriteParam;
 import javax.imageio.ImageWriter;
 import javax.imageio.stream.FileImageOutputStream;
-import javax.annotation.Nullable;
 
 public final class ImageSerializer {
   private static final Logger log = Logger.getLogger(ImageSerializer.class.getName());
@@ -22,7 +22,8 @@ public final class ImageSerializer {
     throw new UnsupportedOperationException();
   }
 
-  @Nullable public static BufferedImage loadImage(final String fileName) {
+  @Nullable
+  public static BufferedImage loadImage(final String fileName) {
     final File file = new File(fileName);
     if (!file.exists()) {
       return null;
