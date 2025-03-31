@@ -12,7 +12,8 @@ public abstract class RelativeEntityComparator implements Comparator<IEntity> {
     this.relativeEntity = relativeEntity;
   }
 
-  @Nullable public IEntity getRelativeEntity() {
+  @Nullable
+  public IEntity getRelativeEntity() {
     return this.relativeEntity;
   }
 
