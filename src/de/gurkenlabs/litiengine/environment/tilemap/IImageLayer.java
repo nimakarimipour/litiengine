@@ -17,5 +17,6 @@ public interface IImageLayer extends ICustomPropertyProvider, ILayer {
    *
    * @return the transparent color
    */
-  @Nullable public Color getTransparentColor();
+  @Nullable
+  public Color getTransparentColor();
 }
