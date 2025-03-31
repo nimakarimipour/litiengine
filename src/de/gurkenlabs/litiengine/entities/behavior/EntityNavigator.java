@@ -62,8 +62,7 @@ public class EntityNavigator implements IUpdateable, IRenderable {
     return this.entity;
   }
 
-  @Nullable
-  public Path getPath() {
+  @Nullable public Path getPath() {
     return this.path;
   }
 
