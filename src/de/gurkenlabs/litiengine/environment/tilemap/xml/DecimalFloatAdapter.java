@@ -1,7 +1,7 @@
 package de.gurkenlabs.litiengine.environment.tilemap.xml;
 
-import javax.xml.bind.annotation.adapters.XmlAdapter;
 import javax.annotation.Nullable;
+import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
  * This adapter implementation ensures that the float value is serialized like an integer when it
@@ -14,7 +14,8 @@ public class DecimalFloatAdapter extends XmlAdapter<String, Float> {
     return Float.parseFloat(v);
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public String marshal(Float v) throws Exception {
     if (v == null) {
       return null;

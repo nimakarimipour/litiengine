@@ -13,7 +13,8 @@ public final class EntityActionMap {
     this.actions = new ConcurrentHashMap<>();
   }
 
-  @Nullable public EntityAction register(String name, Runnable action) {
+  @Nullable
+  public EntityAction register(String name, Runnable action) {
     if (name == null || name.isEmpty() || action == null) {
       return null;
     }
@@ -51,7 +52,8 @@ public final class EntityActionMap {
     return Collections.unmodifiableCollection(this.actions.values());
   }
 
-  @Nullable public EntityAction get(String actionName) {
+  @Nullable
+  public EntityAction get(String actionName) {
     return this.actions.getOrDefault(actionName, null);
   }
 
