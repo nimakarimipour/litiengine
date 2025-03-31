@@ -25,7 +25,8 @@ public final class CustomMapObjectLoader extends MapObjectLoader {
     this.invoke = invocation;
   }
 
-  @Nullable static ConstructorInvocation findConstructor(Class<? extends IEntity> entityType) {
+  @Nullable
+  static ConstructorInvocation findConstructor(Class<? extends IEntity> entityType) {
     ConstructorInvocation inv = null;
 
     int priority = 0; // env+mo, mo+env, mo, env, nullary
