@@ -251,8 +251,7 @@ public final class Resources {
    * @return The contents of the specified file as {@code InputStream}.
    * @see Resources
    */
-  @Nullable
-  public static InputStream get(String file) {
+  @Nullable public static InputStream get(String file) {
     return get(getLocation(file));
   }
 
@@ -263,8 +262,7 @@ public final class Resources {
    * @return The contents of the specified file as {@code InputStream}.
    * @see Resources
    */
-  @Nullable
-  public static InputStream get(@Nullable URL file) {
+  @Nullable public static InputStream get(@Nullable URL file) {
     InputStream stream = getResource(file);
     if (stream == null) {
       return null;
@@ -281,8 +279,7 @@ public final class Resources {
    * @param file The path to the file.
    * @return The contents of the specified file as {@code String}
    */
-  @Nullable
-  public static String read(String file) {
+  @Nullable public static String read(String file) {
     return read(file, StandardCharsets.UTF_8);
   }
 
@@ -293,8 +290,7 @@ public final class Resources {
    * @param charset The charset that is used to read the String from the file.
    * @return The contents of the specified file as {@code String}
    */
-  @Nullable
-  public static String read(String file, Charset charset) {
+  @Nullable public static String read(String file, Charset charset) {
     final URL location = getLocation(file);
     if (location == null) {
       return null;
@@ -311,8 +307,7 @@ public final class Resources {
    * @param file The path to the file.
    * @return The contents of the specified file as {@code String}
    */
-  @Nullable
-  public static String read(URL file) {
+  @Nullable public static String read(URL file) {
     return read(file, StandardCharsets.UTF_8);
   }
 
@@ -323,8 +318,7 @@ public final class Resources {
    * @param charset The charset that is used to read the String from the file.
    * @return The contents of the specified file as {@code String}
    */
-  @Nullable
-  public static String read(URL file, Charset charset) {
+  @Nullable public static String read(URL file, Charset charset) {
     try (Scanner scanner = new Scanner(file.openStream(), charset.toString())) {
       scanner.useDelimiter("\\A");
       return scanner.hasNext() ? scanner.next() : null;
@@ -344,8 +338,7 @@ public final class Resources {
     spritesheets().clear();
   }
 
-  @Nullable
-  public static URL getLocation(String name) {
+  @Nullable public static URL getLocation(String name) {
     URL fromClass = ClassLoader.getSystemResource(name);
     if (fromClass != null) {
       return fromClass;
@@ -361,8 +354,7 @@ public final class Resources {
     }
   }
 
-  @Nullable
-  private static InputStream getResource(@Nullable final URL file) {
+  @Nullable private static InputStream getResource(@Nullable final URL file) {
     try {
       return file.openStream();
     } catch (IOException e) {
