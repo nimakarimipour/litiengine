@@ -17,11 +17,13 @@ public interface ICustomPropertyProvider {
    */
   public boolean hasCustomProperty(String propertyName);
 
-  @Nullable public String getTypeOfProperty(String propertyName);
+  @Nullable
+  public String getTypeOfProperty(String propertyName);
 
   public void setTypeOfProperty(String propertyName, String type);
 
-  @Nullable public ICustomProperty getProperty(String propertyName);
+  @Nullable
+  public ICustomProperty getProperty(String propertyName);
 
   public void setValue(String propertyName, ICustomProperty value);
 
@@ -34,7 +36,8 @@ public interface ICustomPropertyProvider {
    * @return the string value of the custom property
    * @throws NoSuchElementException if the custom property does not exist
    */
-  @Nullable public String getStringValue(String propertyName);
+  @Nullable
+  public String getStringValue(String propertyName);
 
   /**
    * Gets the string value of the custom property with the provided name. If the value is null, the
@@ -45,7 +48,8 @@ public interface ICustomPropertyProvider {
    * @return the string value of the custom property, if present. Otherwise, the provided default
    *     value is returned.
    */
-  @Nullable public String getStringValue(String propertyName, @Nullable String defaultValue);
+  @Nullable
+  public String getStringValue(String propertyName, @Nullable String defaultValue);
 
   /**
    * Gets a list of strings stored in a single comma-separated property.
@@ -55,7 +59,8 @@ public interface ICustomPropertyProvider {
    * @return the list of comma-separated strings in the custom property, if present. Otherwise, the
    *     provided default value is returned.
    */
-  public List<String> getCommaSeparatedStringValues(String propertyName, @Nullable String defaultValue);
+  public List<String> getCommaSeparatedStringValues(
+      String propertyName, @Nullable String defaultValue);
 
   /**
    * Gets the int value of the custom property with the provided name.
@@ -221,7 +226,8 @@ public interface ICustomPropertyProvider {
    * @return the color value of the custom property
    * @throws NoSuchElementException if the custom property does not exist
    */
-  @Nullable public Color getColorValue(String propertyName);
+  @Nullable
+  public Color getColorValue(String propertyName);
 
   /**
    * Gets the color value of the custom property with the provided name. If the value is null, the
@@ -232,7 +238,8 @@ public interface ICustomPropertyProvider {
    * @return the color value of the custom property, if present. Otherwise, the provided default
    *     value is returned.
    */
-  @Nullable public Color getColorValue(String propertyName, Color defaultValue);
+  @Nullable
+  public Color getColorValue(String propertyName, Color defaultValue);
 
   /**
    * Gets the enum value of the custom property with the provided name.
@@ -265,7 +272,8 @@ public interface ICustomPropertyProvider {
    * @param propertyName the name of the custom property
    * @return the file value of the custom property, if present.
    */
-  @Nullable public URL getFileValue(String propertyName);
+  @Nullable
+  public URL getFileValue(String propertyName);
 
   /**
    * Gets the file value of the custom property with the provided name. If the value is null or the
@@ -276,7 +284,8 @@ public interface ICustomPropertyProvider {
    * @return the file value of the custom property, if present. Otherwise, the provided default
    *     value is returned.
    */
-  @Nullable public URL getFileValue(String propertyName, URL defaultValue);
+  @Nullable
+  public URL getFileValue(String propertyName, URL defaultValue);
 
   /**
    * Sets the value for the custom property with the given name to the given file.

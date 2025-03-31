@@ -5,8 +5,8 @@ import de.gurkenlabs.litiengine.util.Imaging;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
-import javax.imageio.ImageIO;
 import javax.annotation.Nullable;
+import javax.imageio.ImageIO;
 
 public final class Images extends ResourcesContainer<BufferedImage> {
   Images() {}
@@ -41,7 +41,8 @@ public final class Images extends ResourcesContainer<BufferedImage> {
    * @param resourceName The path to the image.
    * @return the image
    */
-  @Nullable @Override
+  @Nullable
+  @Override
   protected BufferedImage load(@Nullable URL resourceName) throws IOException {
     BufferedImage img = ImageIO.read(resourceName);
 
