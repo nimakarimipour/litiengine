@@ -26,9 +26,9 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.Nullable;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
+import javax.annotation.Nullable;
 
 /**
  * The {@code GameWindow} class is a wrapper for the game's visual window in which the {@code
