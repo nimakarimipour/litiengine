@@ -1,9 +1,5 @@
 package de.gurkenlabs.litiengine.entities;
 
-import java.awt.geom.Point2D;
-import java.util.Collection;
-import java.util.concurrent.ConcurrentHashMap;
-
 import de.gurkenlabs.litiengine.Direction;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.GameLoop;
@@ -18,10 +14,11 @@ import de.gurkenlabs.litiengine.graphics.animation.IEntityAnimationController;
 import de.gurkenlabs.litiengine.physics.IMovementController;
 import de.gurkenlabs.litiengine.physics.MovementController;
 import de.gurkenlabs.litiengine.tweening.TweenType;
+import java.awt.geom.Point2D;
+import java.util.Collection;
+import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * TODO: Add idle event
- */
+/** TODO: Add idle event */
 @MovementInfo
 @TmxType(MapObjectType.CREATURE)
 public class Creature extends CombatEntity implements IMobileEntity {
@@ -55,10 +52,9 @@ public class Creature extends CombatEntity implements IMobileEntity {
   /**
    * Instantiates a new {@code Creature} entity.
    *
-   * @param spritesheetName
-   *          The spritesheet name that identifies the sprites bound to this instance.
-   * 
-   * @see CreatureAnimationController#getSpriteName(Creature, de.gurkenlabs.litiengine.graphics.CreatureAnimationState)
+   * @param spritesheetName The spritesheet name that identifies the sprites bound to this instance.
+   * @see CreatureAnimationController#getSpriteName(Creature,
+   *     de.gurkenlabs.litiengine.graphics.CreatureAnimationState)
    */
   public Creature(String spritesheetName) {
     super();
@@ -74,7 +70,9 @@ public class Creature extends CombatEntity implements IMobileEntity {
     if (spritesheetName != null) {
       this.setSpritesheetName(spritesheetName);
     } else {
-      this.setSpritesheetName(Game.random().choose(EntityAnimationController.getDefaultSpritePrefixes(this.getClass())));
+      this.setSpritesheetName(
+          Game.random()
+              .choose(EntityAnimationController.getDefaultSpritePrefixes(this.getClass())));
     }
   }
 
@@ -91,21 +89,21 @@ public class Creature extends CombatEntity implements IMobileEntity {
   @Override
   public float[] getTweenValues(TweenType tweenType) {
     switch (tweenType) {
-    case VELOCITY:
-      return new float[] { this.getVelocity().get() };
-    default:
-      return super.getTweenValues(tweenType);
+      case VELOCITY:
+        return new float[] {this.getVelocity().get()};
+      default:
+        return super.getTweenValues(tweenType);
     }
   }
 
   @Override
   public void setTweenValues(TweenType tweenType, float[] newValues) {
     switch (tweenType) {
-    case VELOCITY:
-      this.getVelocity().setBaseValue(newValues[0]);
-      break;
-    default:
-      super.setTweenValues(tweenType, newValues);
+      case VELOCITY:
+        this.getVelocity().setBaseValue(newValues[0]);
+        break;
+      default:
+        super.setTweenValues(tweenType, newValues);
     }
   }
 
@@ -129,15 +127,13 @@ public class Creature extends CombatEntity implements IMobileEntity {
   }
 
   /**
-   * Gets the current spritesheet name of this instance. Overwriting this allows
-   * for a more sophisticated logic that determines the sprite to be used; e.g.
-   * This method could append certain properties of the creature (state, weapon,
-   * ...) to the default string. <br>
+   * Gets the current spritesheet name of this instance. Overwriting this allows for a more
+   * sophisticated logic that determines the sprite to be used; e.g. This method could append
+   * certain properties of the creature (state, weapon, ...) to the default string. <br>
    * <br>
-   * The value of this method will be used e.g. by the
-   * {@link CreatureAnimationController} to determine the animation that it
-   * should play.
-   * 
+   * The value of this method will be used e.g. by the {@link CreatureAnimationController} to
+   * determine the animation that it should play.
+   *
    * @return The current spritesheet name of this instance.
    */
   public String getSpritesheetName() {
@@ -148,7 +144,10 @@ public class Creature extends CombatEntity implements IMobileEntity {
   public float getTickVelocity() {
     // pixels per ms multiplied by the passed ms
     // ensure that entities don't travel too far in case of lag
-    return Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG) * 0.001F * this.getVelocity().get() * Game.loop().getTimeScale();
+    return Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG)
+        * 0.001F
+        * this.getVelocity().get()
+        * Game.loop().getTimeScale();
   }
 
   @Override
@@ -194,7 +193,9 @@ public class Creature extends CombatEntity implements IMobileEntity {
 
     if (Game.hasStarted() && this.isLoaded()) {
       this.lastMoved = Game.time().now();
-      this.fireMovedEvent(new EntityMovedEvent(this, this.getX() - oldLocation.getX(), this.getY() - oldLocation.getY()));
+      this.fireMovedEvent(
+          new EntityMovedEvent(
+              this, this.getX() - oldLocation.getX(), this.getY() - oldLocation.getY()));
     }
   }
 

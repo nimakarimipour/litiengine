@@ -2,12 +2,11 @@ package de.gurkenlabs.litiengine.core;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import de.gurkenlabs.litiengine.Align;
+import de.gurkenlabs.litiengine.Valign;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
-
-import de.gurkenlabs.litiengine.Align;
-import de.gurkenlabs.litiengine.Valign;
 
 public class AlignValignTests {
 
@@ -17,7 +16,7 @@ public class AlignValignTests {
     assertEquals(align, Align.get(align.name()));
     assertEquals(align, Align.get(align.name().toLowerCase()));
   }
-  
+
   @ParameterizedTest
   @EnumSource(Valign.class)
   public void testValign(Valign valign) {
@@ -26,19 +25,19 @@ public class AlignValignTests {
   }
 
   @Test
-  public void testAlignGetWithEmptyAlignString(){
+  public void testAlignGetWithEmptyAlignString() {
     assertEquals(Align.CENTER, Align.get(""));
     assertEquals(Align.CENTER, Align.get(null));
   }
 
   @Test
-  public void testGet(){
+  public void testGet() {
     assertEquals(Valign.DOWN, Valign.get(""));
     assertEquals(Valign.DOWN, Valign.get(null));
   }
 
   @Test
-  public void testAlignGetWithInvalidAlignString(){
+  public void testAlignGetWithInvalidAlignString() {
     assertEquals(Align.CENTER, Align.get("INVALID_ALIGN"));
   }
 }

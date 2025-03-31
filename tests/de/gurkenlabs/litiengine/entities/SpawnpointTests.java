@@ -6,18 +6,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.awt.Dimension;
-
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import de.gurkenlabs.litiengine.Direction;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.GameTest;
 import de.gurkenlabs.litiengine.environment.Environment;
 import de.gurkenlabs.litiengine.environment.tilemap.IMap;
+import java.awt.Dimension;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class SpawnpointTests {
   private Environment testEnvironment;
@@ -102,9 +100,10 @@ public class SpawnpointTests {
 
     Game.world().loadEnvironment(this.testEnvironment);
 
-    spawn.onSpawned(e -> {
-      eventCalled = true;
-    });
+    spawn.onSpawned(
+        e -> {
+          eventCalled = true;
+        });
 
     assertTrue(spawn.spawn(creature));
 

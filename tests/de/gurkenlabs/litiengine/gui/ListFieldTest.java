@@ -2,33 +2,30 @@ package de.gurkenlabs.litiengine.gui;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import de.gurkenlabs.litiengine.Game;
 import javax.swing.SwingUtilities;
-
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-import de.gurkenlabs.litiengine.Game;
-
 @ExtendWith(SwingTestSuite.class)
 class ListFieldTest {
 
-  private final String[] content_1D = new String[] {
-      "A", "B", "C", "D", "E", "F", "G"
-  };
+  private final String[] content_1D = new String[] {"A", "B", "C", "D", "E", "F", "G"};
   private final int content_1D_shownRows = 4;
 
-  private final String[][] content_2D = new String[][] {
-      { "A", "B", "C", "D", "E", "F", "G" },
-      { "H", "I", "J", "K", "L", "M", "N", "O" },
-      { "P", "Q", "R", "S", "T", "U", "V" },
-      { "W", "X", "Y", "Z" }
-  };
+  private final String[][] content_2D =
+      new String[][] {
+        {"A", "B", "C", "D", "E", "F", "G"},
+        {"H", "I", "J", "K", "L", "M", "N", "O"},
+        {"P", "Q", "R", "S", "T", "U", "V"},
+        {"W", "X", "Y", "Z"}
+      };
   private final int content_2D_shownRows = 7;
   private final int content_2D_shownColumns = 3;
 
@@ -45,7 +42,9 @@ class ListFieldTest {
   @Test
   void testInitialization() {
     ListField listField_1D = new ListField(0, 0, 100, 50, this.content_1D, content_1D_shownRows);
-    ListField listField_2D = new ListField(0, 0, 100, 50, this.content_2D, content_2D_shownRows, content_2D_shownColumns);
+    ListField listField_2D =
+        new ListField(
+            0, 0, 100, 50, this.content_2D, content_2D_shownRows, content_2D_shownColumns);
 
     assertNotNull(listField_1D);
     assertNotNull(listField_2D);
@@ -87,7 +86,9 @@ class ListFieldTest {
   @Test
   void initSliders_with2dSlider() {
     // arrange
-    ListField listField = new ListField(0, 0, 100, 50, this.content_2D, content_2D_shownRows, content_2D_shownColumns);
+    ListField listField =
+        new ListField(
+            0, 0, 100, 50, this.content_2D, content_2D_shownRows, content_2D_shownColumns);
 
     assertNotNull(listField.getHorizontalSlider());
     assertEquals(100, listField.getHorizontalSlider().getWidth());
@@ -107,7 +108,8 @@ class ListFieldTest {
   @Test
   void initSliders_nullHorizontalSlider() {
     // arrange
-    ListField listField = new ListField(0, 0, 100, 50, this.content_2D, content_2D_shownRows, content_2D.length);
+    ListField listField =
+        new ListField(0, 0, 100, 50, this.content_2D, content_2D_shownRows, content_2D.length);
 
     assertNull(listField.getHorizontalSlider());
     assertNotNull(listField.getVerticalSlider());

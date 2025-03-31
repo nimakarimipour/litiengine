@@ -1,4 +1,3 @@
 package de.gurkenlabs.litiengine;
 
-public @interface NullUnmarked {
-}
+public @interface NullUnmarked {}

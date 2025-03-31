@@ -11,13 +11,13 @@ public class CreatureTests {
   private IMobileEntity mobileEntity;
 
   @BeforeEach
-  public void setUp(){
+  public void setUp() {
     // arrange
     mobileEntity = new TestMobileEntity();
   }
 
   @Test
-  public void testInitializationByAnnotation_velocity(){
+  public void testInitializationByAnnotation_velocity() {
     // act
     int actualVelocity = mobileEntity.getVelocity().get().intValue();
 
@@ -26,7 +26,7 @@ public class CreatureTests {
   }
 
   @Test
-  public void testInitializationByAnnotation_acceleration(){
+  public void testInitializationByAnnotation_acceleration() {
     // act
     int actualAcceleration = mobileEntity.getAcceleration();
 
@@ -35,7 +35,7 @@ public class CreatureTests {
   }
 
   @Test
-  public void testInitializationByAnnotation_deceleration(){
+  public void testInitializationByAnnotation_deceleration() {
     // act
     int actualDeceleration = mobileEntity.getDeceleration();
 
@@ -44,7 +44,7 @@ public class CreatureTests {
   }
 
   @Test
-  public void testInitializationByAnnotation_turnOnMove(){
+  public void testInitializationByAnnotation_turnOnMove() {
     // act
     boolean canTurnOnMove = mobileEntity.turnOnMove();
 
@@ -53,7 +53,5 @@ public class CreatureTests {
   }
 
   @MovementInfo(velocity = 111, acceleration = 222, deceleration = 333, turnOnMove = false)
-  private class TestMobileEntity extends Creature {
-
-  }
+  private class TestMobileEntity extends Creature {}
 }

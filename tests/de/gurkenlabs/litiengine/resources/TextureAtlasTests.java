@@ -5,14 +5,14 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.awt.image.BufferedImage;
-
 import org.junit.jupiter.api.Test;
 
 public class TextureAtlasTests {
 
   @Test
   public void testReadTextureAtlasFromFile() {
-    TextureAtlas atlas = TextureAtlas.read("tests/de/gurkenlabs/litiengine/resources/gurk-nukem-atlas.xml");
+    TextureAtlas atlas =
+        TextureAtlas.read("tests/de/gurkenlabs/litiengine/resources/gurk-nukem-atlas.xml");
 
     assertNotNull(atlas);
     assertEquals(123, atlas.getWidth());
@@ -28,7 +28,7 @@ public class TextureAtlasTests {
     assertEquals(32, deanIdle.getHeight());
     assertTrue(deanIdle.isRotated());
 
-    // now load the image 
+    // now load the image
     BufferedImage image = Resources.images().get(atlas.getAbsoluteImagePath());
 
     assertNotNull(image);
@@ -38,7 +38,8 @@ public class TextureAtlasTests {
 
   @Test
   public void testTextureAtlasLoad() {
-    TextureAtlas atlas = TextureAtlas.read("tests/de/gurkenlabs/litiengine/resources/gurk-nukem-atlas.xml");
+    TextureAtlas atlas =
+        TextureAtlas.read("tests/de/gurkenlabs/litiengine/resources/gurk-nukem-atlas.xml");
     Resources.images().load(atlas);
 
     BufferedImage deanIdle = Resources.images().get("Dean-idle-left.png");
@@ -82,10 +83,10 @@ public class TextureAtlasTests {
 
     assertEquals(64, icon.getWidth());
     assertEquals(64, icon.getHeight());
-    
+
     assertEquals(10, propBarrel1.getWidth());
     assertEquals(12, propBarrel1.getHeight());
-    
+
     assertEquals(104, propBunker.getWidth());
     assertEquals(41, propBunker.getHeight());
   }

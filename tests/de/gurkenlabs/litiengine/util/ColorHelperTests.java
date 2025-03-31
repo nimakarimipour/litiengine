@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.awt.Color;
 import java.util.logging.Logger;
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -138,15 +137,15 @@ public class ColorHelperTests {
     assertEquals("#c80000ff", blueEncoded);
   }
 
-  @ParameterizedTest(name="testRgbBounds {0}, colorValue={1}, expectedRgb={2}")
+  @ParameterizedTest(name = "testRgbBounds {0}, colorValue={1}, expectedRgb={2}")
   @CsvSource({
-          "Negative, -10, 0",
-          "Zero, 0, 0",
-          "InRange, 158, 158",
-          "Max, 255, 255",
-          "OutOfRange, 300, 255"
+    "Negative, -10, 0",
+    "Zero, 0, 0",
+    "InRange, 158, 158",
+    "Max, 255, 255",
+    "OutOfRange, 300, 255"
   })
-  public void testRgbBounds(String rgbBound, int colorValue, int expectedRgb){
+  public void testRgbBounds(String rgbBound, int colorValue, int expectedRgb) {
     // arrange, act
     int actualRgb = ColorHelper.ensureColorValueRange(colorValue);
 

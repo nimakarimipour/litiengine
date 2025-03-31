@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Arrays;
 import java.util.Collections;
-
 import org.junit.jupiter.api.Test;
 
 class RangeAttributeTest {
@@ -19,65 +18,86 @@ class RangeAttributeTest {
 
   @Test
   void testAddMinModifierWithNewModifier() {
-    final RangeAttribute<Byte> testRangeAttributeByte = new RangeAttribute<>((byte) 10, (byte) 0, (byte) 5);
-    final AttributeModifier<Byte> multiplyAttributeModifier = new AttributeModifier<>(Modification.MULTIPLY, 2);
-    final AttributeModifier<Byte> addAttributeModifier = new AttributeModifier<>(Modification.ADD, 20);
+    final RangeAttribute<Byte> testRangeAttributeByte =
+        new RangeAttribute<>((byte) 10, (byte) 0, (byte) 5);
+    final AttributeModifier<Byte> multiplyAttributeModifier =
+        new AttributeModifier<>(Modification.MULTIPLY, 2);
+    final AttributeModifier<Byte> addAttributeModifier =
+        new AttributeModifier<>(Modification.ADD, 20);
 
     assertEquals(Collections.emptyList(), testRangeAttributeByte.getMinModifiers());
 
     testRangeAttributeByte.addMinModifier(multiplyAttributeModifier);
-    assertEquals(Arrays.asList(multiplyAttributeModifier), testRangeAttributeByte.getMinModifiers());
+    assertEquals(
+        Arrays.asList(multiplyAttributeModifier), testRangeAttributeByte.getMinModifiers());
 
     testRangeAttributeByte.addMinModifier(addAttributeModifier);
-    assertEquals(Arrays.asList(addAttributeModifier, multiplyAttributeModifier), testRangeAttributeByte.getMinModifiers());
+    assertEquals(
+        Arrays.asList(addAttributeModifier, multiplyAttributeModifier),
+        testRangeAttributeByte.getMinModifiers());
   }
 
   @Test
   void testAddMinModifierWithExistingModifier() {
-    final RangeAttribute<Byte> testRangeAttributeByte = new RangeAttribute<>((byte) 10, (byte) 0, (byte) 5);
-    final AttributeModifier<Byte> multiplyAttributeModifier = new AttributeModifier<>(Modification.MULTIPLY, 2);
+    final RangeAttribute<Byte> testRangeAttributeByte =
+        new RangeAttribute<>((byte) 10, (byte) 0, (byte) 5);
+    final AttributeModifier<Byte> multiplyAttributeModifier =
+        new AttributeModifier<>(Modification.MULTIPLY, 2);
 
     assertEquals(Collections.emptyList(), testRangeAttributeByte.getMinModifiers());
 
     testRangeAttributeByte.addMinModifier(multiplyAttributeModifier);
-    assertEquals(Arrays.asList(multiplyAttributeModifier), testRangeAttributeByte.getMinModifiers());
+    assertEquals(
+        Arrays.asList(multiplyAttributeModifier), testRangeAttributeByte.getMinModifiers());
 
     testRangeAttributeByte.addMinModifier(multiplyAttributeModifier);
-    assertEquals(Arrays.asList(multiplyAttributeModifier), testRangeAttributeByte.getMinModifiers());
+    assertEquals(
+        Arrays.asList(multiplyAttributeModifier), testRangeAttributeByte.getMinModifiers());
   }
 
   @Test
   void testAddMaxModifierWithNewModifier() {
-    final RangeAttribute<Byte> testRangeAttributeByte = new RangeAttribute<>((byte) 10, (byte) 0, (byte) 5);
-    final AttributeModifier<Byte> multiplyAttributeModifier = new AttributeModifier<>(Modification.MULTIPLY, 2);
-    final AttributeModifier<Byte> addAttributeModifier = new AttributeModifier<>(Modification.ADD, 20);
+    final RangeAttribute<Byte> testRangeAttributeByte =
+        new RangeAttribute<>((byte) 10, (byte) 0, (byte) 5);
+    final AttributeModifier<Byte> multiplyAttributeModifier =
+        new AttributeModifier<>(Modification.MULTIPLY, 2);
+    final AttributeModifier<Byte> addAttributeModifier =
+        new AttributeModifier<>(Modification.ADD, 20);
 
     assertEquals(Collections.emptyList(), testRangeAttributeByte.getMaxModifiers());
 
     testRangeAttributeByte.addMaxModifier(multiplyAttributeModifier);
-    assertEquals(Arrays.asList(multiplyAttributeModifier), testRangeAttributeByte.getMaxModifiers());
+    assertEquals(
+        Arrays.asList(multiplyAttributeModifier), testRangeAttributeByte.getMaxModifiers());
 
     testRangeAttributeByte.addMaxModifier(addAttributeModifier);
-    assertEquals(Arrays.asList(addAttributeModifier, multiplyAttributeModifier), testRangeAttributeByte.getMaxModifiers());
+    assertEquals(
+        Arrays.asList(addAttributeModifier, multiplyAttributeModifier),
+        testRangeAttributeByte.getMaxModifiers());
   }
 
   @Test
   void testAddMaxModifierWithExistingModifier() {
-    final RangeAttribute<Byte> testRangeAttributeByte = new RangeAttribute<>((byte) 10, (byte) 0, (byte) 5);
-    final AttributeModifier<Byte> multiplyAttributeModifier = new AttributeModifier<>(Modification.MULTIPLY, 2);
+    final RangeAttribute<Byte> testRangeAttributeByte =
+        new RangeAttribute<>((byte) 10, (byte) 0, (byte) 5);
+    final AttributeModifier<Byte> multiplyAttributeModifier =
+        new AttributeModifier<>(Modification.MULTIPLY, 2);
 
     assertEquals(Collections.emptyList(), testRangeAttributeByte.getMaxModifiers());
 
     testRangeAttributeByte.addMaxModifier(multiplyAttributeModifier);
-    assertEquals(Arrays.asList(multiplyAttributeModifier), testRangeAttributeByte.getMaxModifiers());
+    assertEquals(
+        Arrays.asList(multiplyAttributeModifier), testRangeAttributeByte.getMaxModifiers());
 
     testRangeAttributeByte.addMaxModifier(multiplyAttributeModifier);
-    assertEquals(Arrays.asList(multiplyAttributeModifier), testRangeAttributeByte.getMaxModifiers());
+    assertEquals(
+        Arrays.asList(multiplyAttributeModifier), testRangeAttributeByte.getMaxModifiers());
   }
 
   @Test
   void testSetToMin() {
-    final RangeAttribute<Byte> testRangeAttributeByte = new RangeAttribute<>((byte) 10, (byte) 0, (byte) 5);
+    final RangeAttribute<Byte> testRangeAttributeByte =
+        new RangeAttribute<>((byte) 10, (byte) 0, (byte) 5);
 
     assertEquals((byte) 5, testRangeAttributeByte.get().byteValue());
 
@@ -88,7 +108,8 @@ class RangeAttributeTest {
 
   @Test
   void testSetToMax() {
-    final RangeAttribute<Byte> testRangeAttributeByte = new RangeAttribute<>((byte) 10, (byte) 0, (byte) 5);
+    final RangeAttribute<Byte> testRangeAttributeByte =
+        new RangeAttribute<>((byte) 10, (byte) 0, (byte) 5);
 
     assertEquals((byte) 5, testRangeAttributeByte.get().byteValue());
 
@@ -99,8 +120,10 @@ class RangeAttributeTest {
 
   @Test
   void testGetMin() {
-    final RangeAttribute<Byte> testRangeAttributeByte = new RangeAttribute<>((byte) 10, (byte) 1, (byte) 5);
-    final RangeAttribute<Short> testRangeAttributeShort = new RangeAttribute<>((short) 10, (short) 1, (short) 5);
+    final RangeAttribute<Byte> testRangeAttributeByte =
+        new RangeAttribute<>((byte) 10, (byte) 1, (byte) 5);
+    final RangeAttribute<Short> testRangeAttributeShort =
+        new RangeAttribute<>((short) 10, (short) 1, (short) 5);
     final RangeAttribute<Integer> testRangeAttributeInt = new RangeAttribute<>(10, 1, 5);
     final RangeAttribute<Long> testRangeAttributeLong = new RangeAttribute<>(10L, 1L, 5L);
     final RangeAttribute<Float> testRangeAttributeFloat = new RangeAttribute<>(10.0f, 1.5f, 5.0f);
@@ -111,7 +134,8 @@ class RangeAttributeTest {
     testRangeAttributeInt.addMinModifier(new AttributeModifier<Integer>(Modification.MULTIPLY, 2));
     testRangeAttributeLong.addMinModifier(new AttributeModifier<Long>(Modification.MULTIPLY, 2));
     testRangeAttributeFloat.addMinModifier(new AttributeModifier<Float>(Modification.MULTIPLY, 2));
-    testRangeAttributeDouble.addMinModifier(new AttributeModifier<Double>(Modification.MULTIPLY, 2));
+    testRangeAttributeDouble.addMinModifier(
+        new AttributeModifier<Double>(Modification.MULTIPLY, 2));
 
     assertEquals((byte) 2, testRangeAttributeByte.getMin().byteValue());
     assertEquals((short) 2, testRangeAttributeShort.getMin().shortValue());
@@ -123,8 +147,10 @@ class RangeAttributeTest {
 
   @Test
   void testGetMax() {
-    final RangeAttribute<Byte> testRangeAttributeByte = new RangeAttribute<>((byte) 10, (byte) 1, (byte) 5);
-    final RangeAttribute<Short> testRangeAttributeShort = new RangeAttribute<>((short) 10, (short) 1, (short) 5);
+    final RangeAttribute<Byte> testRangeAttributeByte =
+        new RangeAttribute<>((byte) 10, (byte) 1, (byte) 5);
+    final RangeAttribute<Short> testRangeAttributeShort =
+        new RangeAttribute<>((short) 10, (short) 1, (short) 5);
     final RangeAttribute<Integer> testRangeAttributeInt = new RangeAttribute<>(10, 1, 5);
     final RangeAttribute<Long> testRangeAttributeLong = new RangeAttribute<>(10L, 1L, 5L);
     final RangeAttribute<Float> testRangeAttributeFloat = new RangeAttribute<>(10.0f, 1.5f, 5.0f);
@@ -135,7 +161,8 @@ class RangeAttributeTest {
     testRangeAttributeInt.addMaxModifier(new AttributeModifier<Integer>(Modification.MULTIPLY, 2));
     testRangeAttributeLong.addMaxModifier(new AttributeModifier<Long>(Modification.MULTIPLY, 2));
     testRangeAttributeFloat.addMaxModifier(new AttributeModifier<Float>(Modification.MULTIPLY, 2));
-    testRangeAttributeDouble.addMaxModifier(new AttributeModifier<Double>(Modification.MULTIPLY, 2));
+    testRangeAttributeDouble.addMaxModifier(
+        new AttributeModifier<Double>(Modification.MULTIPLY, 2));
 
     assertEquals((byte) 20, testRangeAttributeByte.getMax().byteValue());
     assertEquals((short) 20, testRangeAttributeShort.getMax().shortValue());
@@ -147,7 +174,8 @@ class RangeAttributeTest {
 
   @Test
   void testGetWithValueOutOfRangeMax() {
-    final RangeAttribute<Byte> testRangeAttributeByte = new RangeAttribute<>((byte) 10, (byte) 1, (byte) 5);
+    final RangeAttribute<Byte> testRangeAttributeByte =
+        new RangeAttribute<>((byte) 10, (byte) 1, (byte) 5);
 
     testRangeAttributeByte.addModifier(new AttributeModifier<>(Modification.MULTIPLY, 3));
 
@@ -160,7 +188,8 @@ class RangeAttributeTest {
 
   @Test
   void testGetWithValueOutOfRangeMin() {
-    final RangeAttribute<Byte> testRangeAttributeByte = new RangeAttribute<>((byte) 10, (byte) 1, (byte) 5);
+    final RangeAttribute<Byte> testRangeAttributeByte =
+        new RangeAttribute<>((byte) 10, (byte) 1, (byte) 5);
 
     testRangeAttributeByte.addModifier(new AttributeModifier<>(Modification.SUBTRACT, 15));
 
@@ -169,8 +198,10 @@ class RangeAttributeTest {
 
   @Test
   void testGetRelativeCurrentValue() {
-    final RangeAttribute<Byte> testRangeAttributeByte = new RangeAttribute<>((byte) 10, (byte) 1, (byte) 5);
-    final RangeAttribute<Short> testRangeAttributeShort = new RangeAttribute<>((short) 10, (short) 1, (short) 5);
+    final RangeAttribute<Byte> testRangeAttributeByte =
+        new RangeAttribute<>((byte) 10, (byte) 1, (byte) 5);
+    final RangeAttribute<Short> testRangeAttributeShort =
+        new RangeAttribute<>((short) 10, (short) 1, (short) 5);
     final RangeAttribute<Integer> testRangeAttributeInt = new RangeAttribute<>(10, 1, 5);
     final RangeAttribute<Long> testRangeAttributeLong = new RangeAttribute<>(10L, 1L, 5L);
     final RangeAttribute<Float> testRangeAttributeFloat = new RangeAttribute<>(10.0f, 1.0f, 5.0f);
@@ -186,7 +217,8 @@ class RangeAttributeTest {
 
   @Test
   void testSetMaxBaseValue() {
-    final RangeAttribute<Byte> testRangeAttributeByte = new RangeAttribute<>((byte) 10, (byte) 1, (byte) 5);
+    final RangeAttribute<Byte> testRangeAttributeByte =
+        new RangeAttribute<>((byte) 10, (byte) 1, (byte) 5);
 
     assertEquals((byte) 10, testRangeAttributeByte.getMax().byteValue());
 
@@ -196,7 +228,8 @@ class RangeAttributeTest {
 
   @Test
   void testSetMinBaseValue() {
-    final RangeAttribute<Byte> testRangeAttributeByte = new RangeAttribute<>((byte) 50, (byte) 10, (byte) 5);
+    final RangeAttribute<Byte> testRangeAttributeByte =
+        new RangeAttribute<>((byte) 50, (byte) 10, (byte) 5);
 
     assertEquals((byte) 10, testRangeAttributeByte.getMin().byteValue());
 
@@ -206,19 +239,24 @@ class RangeAttributeTest {
 
   @Test
   void testModifyBaseValue() {
-    final Attribute<Byte> testRangeAttributeByte = new RangeAttribute<>((byte) 100, (byte) 0, (byte) 10);
-    final Attribute<Short> testRangeAttributeShort = new RangeAttribute<>((short) 200, (short) 0, (short) 10);
+    final Attribute<Byte> testRangeAttributeByte =
+        new RangeAttribute<>((byte) 100, (byte) 0, (byte) 10);
+    final Attribute<Short> testRangeAttributeShort =
+        new RangeAttribute<>((short) 200, (short) 0, (short) 10);
     final Attribute<Integer> testRangeAttributeInt = new RangeAttribute<>(200, 0, 10);
     final Attribute<Long> testRangeAttributeLong = new RangeAttribute<>(2000L, 0L, 10L);
     final Attribute<Float> testRangeAttributeFloat = new RangeAttribute<>(200.0f, 0.0f, 10.0f);
     final Attribute<Double> testRangeAttributeDouble = new RangeAttribute<>(200.0, 0.0, 10.0);
 
-    testRangeAttributeByte.modifyBaseValue(new AttributeModifier<Byte>(Modification.ADD, (byte) 10));
-    testRangeAttributeShort.modifyBaseValue(new AttributeModifier<Short>(Modification.ADD, (short) 100));
+    testRangeAttributeByte.modifyBaseValue(
+        new AttributeModifier<Byte>(Modification.ADD, (byte) 10));
+    testRangeAttributeShort.modifyBaseValue(
+        new AttributeModifier<Short>(Modification.ADD, (short) 100));
     testRangeAttributeInt.modifyBaseValue(new AttributeModifier<Integer>(Modification.ADD, 100));
     testRangeAttributeLong.modifyBaseValue(new AttributeModifier<Long>(Modification.ADD, 1000L));
     testRangeAttributeFloat.modifyBaseValue(new AttributeModifier<Float>(Modification.ADD, 101.1f));
-    testRangeAttributeDouble.modifyBaseValue(new AttributeModifier<Double>(Modification.ADD, 101.1));
+    testRangeAttributeDouble.modifyBaseValue(
+        new AttributeModifier<Double>(Modification.ADD, 101.1));
 
     assertEquals((byte) 20, testRangeAttributeByte.get().byteValue());
     assertEquals((short) 110, testRangeAttributeShort.get().byteValue());

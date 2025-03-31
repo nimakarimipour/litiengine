@@ -1,11 +1,5 @@
 package de.gurkenlabs.litiengine.graphics.emitters.particles;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.geom.Line2D;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
-
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.ITimeToLive;
 import de.gurkenlabs.litiengine.graphics.RenderType;
@@ -14,6 +8,11 @@ import de.gurkenlabs.litiengine.graphics.emitters.xml.EmitterData;
 import de.gurkenlabs.litiengine.physics.Collision;
 import de.gurkenlabs.litiengine.util.ColorHelper;
 import de.gurkenlabs.litiengine.util.MathUtilities;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.geom.Line2D;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 
 public abstract class Particle implements ITimeToLive {
   private long aliveTick;
@@ -25,26 +24,20 @@ public abstract class Particle implements ITimeToLive {
   private Color color;
   private float deltaHeight;
   private float deltaWidth;
-  /**
-   * The horizontal velocity (horizontal movement per update) for this particle.
-   */
+  /** The horizontal velocity (horizontal movement per update) for this particle. */
   private float velocityX;
-  /**
-   * The vertical velocity (vertical movement per update) for this particle.
-   */
+  /** The vertical velocity (vertical movement per update) for this particle. */
   private float velocityY;
+
   private boolean outlineOnly;
   private boolean antiAliasing;
 
-  /**
-   * The horizontal acceleration (increase / decrease in velocity over time) for this particle.
-   */
+  /** The horizontal acceleration (increase / decrease in velocity over time) for this particle. */
   private float accelerationX;
 
-  /**
-   * The vertical acceleration (increase / decrease in velocity over time) for this particle.
-   */
+  /** The vertical acceleration (increase / decrease in velocity over time) for this particle. */
   private float accelerationY;
+
   private float height;
   private int timeToLive;
   private float width;
@@ -70,11 +63,9 @@ public abstract class Particle implements ITimeToLive {
 
   /**
    * Constructs a new particle.
-   * 
-   * @param width
-   *          the particle width in pixels
-   * @param height
-   *          the particle height in pixels
+   *
+   * @param width the particle width in pixels
+   * @param height the particle height in pixels
    */
   public Particle(final float width, final float height) {
     this.setWidth(width);
@@ -92,13 +83,16 @@ public abstract class Particle implements ITimeToLive {
 
   /**
    * Gets the current bounding box of the particle, depending on its spawn location.
-   * 
-   * @param origin
-   *          the spawn location of this particle
+   *
+   * @param origin the spawn location of this particle
    * @return The Rectangular particle bounding box.
    */
   public Rectangle2D getBoundingBox(final Point2D origin) {
-    return new Rectangle2D.Double(origin.getX() + this.getX(), origin.getY() + this.getY(), this.getWidth(), this.getHeight());
+    return new Rectangle2D.Double(
+        origin.getX() + this.getX(),
+        origin.getY() + this.getY(),
+        this.getWidth(),
+        this.getHeight());
   }
 
   public Collision getCollisionType() {
@@ -155,7 +149,10 @@ public abstract class Particle implements ITimeToLive {
 
   public float getOpacity() {
     if (this.isFading() && this.getTimeToLive() > 0) {
-      return MathUtilities.clamp(this.getColor().getAlpha() / 255f - (float) this.getAliveTime() / this.getTimeToLive(), 0, 1);
+      return MathUtilities.clamp(
+          this.getColor().getAlpha() / 255f - (float) this.getAliveTime() / this.getTimeToLive(),
+          0,
+          1);
     }
     return 1;
   }
@@ -163,14 +160,16 @@ public abstract class Particle implements ITimeToLive {
   /**
    * Gets the location relative to the specified effect location.
    *
-   * @param effectLocation
-   *          the effect position
+   * @param effectLocation the effect position
    * @return the location
    */
   public Point2D getRenderLocation(Point2D effectLocation) {
     // if we have a camera, we need to render the particle relative to the
     // viewport
-    Point2D newEffectLocation = Game.screens() != null ? Game.world().camera().getViewportLocation(effectLocation) : effectLocation;
+    Point2D newEffectLocation =
+        Game.screens() != null
+            ? Game.world().camera().getViewportLocation(effectLocation)
+            : effectLocation;
     return this.getAbsoluteLocation(newEffectLocation);
   }
 
@@ -219,10 +218,11 @@ public abstract class Particle implements ITimeToLive {
   }
 
   /**
-   * Enabling this check can be very performance hungry and should be used with caution and only for a small amount of particles.
-   * 
-   * @param ccd
-   *          If set to true, the collision will be checked continuously by a ray-cast approximation.
+   * Enabling this check can be very performance hungry and should be used with caution and only for
+   * a small amount of particles.
+   *
+   * @param ccd If set to true, the collision will be checked continuously by a ray-cast
+   *     approximation.
    * @return This particle instance.
    */
   public Particle setContinuousCollision(boolean ccd) {
@@ -366,13 +366,11 @@ public abstract class Particle implements ITimeToLive {
   }
 
   /**
-   * Updates the effect's position, change in xCurrent, change in yCurrent,
-   * remaining lifetime, and color.
-   * 
-   * @param emitterOrigin
-   *          The current {@link Emitter} origin
-   * @param updateRatio
-   *          The update ratio for this particle.
+   * Updates the effect's position, change in xCurrent, change in yCurrent, remaining lifetime, and
+   * color.
+   *
+   * @param emitterOrigin The current {@link Emitter} origin
+   * @param updateRatio The update ratio for this particle.
    */
   public void update(final Point2D emitterOrigin, final float updateRatio) {
     if (this.aliveTick == 0) {
@@ -439,11 +437,16 @@ public abstract class Particle implements ITimeToLive {
       double endX = emitterOrigin.getX() + targetX;
       double endY = emitterOrigin.getY() + targetY;
       Line2D ray = new Line2D.Double(start.getX(), start.getY(), endX, endY);
-      if (this.getCollisionType() != Collision.NONE && Game.physics() != null && Game.physics().collides(ray, this.getCollisionType())) {
+      if (this.getCollisionType() != Collision.NONE
+          && Game.physics() != null
+          && Game.physics().collides(ray, this.getCollisionType())) {
         collide();
         return true;
       }
-    } else if (this.getCollisionType() != Collision.NONE && Game.physics() != null && Game.physics().collides(this.getBoundingBox(emitterOrigin).getBounds2D(), this.getCollisionType())) {
+    } else if (this.getCollisionType() != Collision.NONE
+        && Game.physics() != null
+        && Game.physics()
+            .collides(this.getBoundingBox(emitterOrigin).getBounds2D(), this.getCollisionType())) {
       collide();
       return true;
     }

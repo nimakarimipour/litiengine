@@ -1,44 +1,35 @@
 package de.gurkenlabs.litiengine.environment.tilemap.xml;
 
+import de.gurkenlabs.litiengine.environment.tilemap.ILayer;
+import de.gurkenlabs.litiengine.environment.tilemap.IMap;
+import de.gurkenlabs.litiengine.environment.tilemap.LayerProperty;
+import de.gurkenlabs.litiengine.graphics.RenderType;
 import java.awt.Dimension;
 import java.awt.Point;
-
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import de.gurkenlabs.litiengine.environment.tilemap.ILayer;
-import de.gurkenlabs.litiengine.environment.tilemap.IMap;
-import de.gurkenlabs.litiengine.environment.tilemap.LayerProperty;
-import de.gurkenlabs.litiengine.graphics.RenderType;
-
 public abstract class Layer extends CustomPropertyProvider implements ILayer {
 
-  @XmlAttribute
-  private int id;
+  @XmlAttribute private int id;
 
-  @XmlAttribute
-  private String name;
+  @XmlAttribute private String name;
 
-  @XmlAttribute
-  private Integer width;
+  @XmlAttribute private Integer width;
 
-  @XmlAttribute
-  private Integer height;
+  @XmlAttribute private Integer height;
 
-  @XmlAttribute
-  private Float opacity;
+  @XmlAttribute private Float opacity;
 
   @XmlAttribute
   @XmlJavaTypeAdapter(BooleanIntegerAdapter.class)
   private Boolean visible;
 
-  @XmlAttribute
-  private Integer offsetx;
+  @XmlAttribute private Integer offsetx;
 
-  @XmlAttribute
-  private Integer offsety;
+  @XmlAttribute private Integer offsety;
 
   private transient TmxMap parentMap;
   private transient RenderType renderType;
@@ -51,8 +42,7 @@ public abstract class Layer extends CustomPropertyProvider implements ILayer {
   /**
    * Copy Constructor for copying instances of Layers.
    *
-   * @param layerToBeCopied
-   *          the layer we want to copy
+   * @param layerToBeCopied the layer we want to copy
    */
   public Layer(Layer layerToBeCopied) {
     super(layerToBeCopied);
@@ -130,7 +120,8 @@ public abstract class Layer extends CustomPropertyProvider implements ILayer {
       return this.renderType;
     }
 
-    this.renderType = this.getEnumValue(LayerProperty.LAYER_RENDER_TYPE, RenderType.class, RenderType.GROUND);
+    this.renderType =
+        this.getEnumValue(LayerProperty.LAYER_RENDER_TYPE, RenderType.class, RenderType.GROUND);
     this.renderTypeLoaded = true;
     return this.renderType;
   }

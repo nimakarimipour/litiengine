@@ -4,11 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.util.Hashtable;
-
-import org.junit.jupiter.api.Test;
-
 import de.gurkenlabs.litiengine.environment.tilemap.ICustomProperty;
+import java.util.Hashtable;
+import org.junit.jupiter.api.Test;
 
 public class CustomPropertyProviderTests {
 

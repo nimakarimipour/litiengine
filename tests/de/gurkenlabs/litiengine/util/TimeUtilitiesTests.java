@@ -2,9 +2,8 @@ package de.gurkenlabs.litiengine.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.Test;
-
 import de.gurkenlabs.litiengine.util.TimeUtilities.TimerFormat;
+import org.junit.jupiter.api.Test;
 
 public class TimeUtilitiesTests {
 

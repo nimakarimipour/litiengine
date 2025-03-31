@@ -12,7 +12,7 @@ public class FileUtilitiesTests {
     String relativePath = "./test/test2";
     String relativePath2 = "../test/test2/";
     String relativePath3 = "../somepath/123/456/";
-    
+
     String otherPath = "somepath/123/456/";
 
     String somefile = "../file.txt";
@@ -63,15 +63,15 @@ public class FileUtilitiesTests {
     assertEquals("somepath/123/file.txt", combined6);
     assertEquals("somepath/123/456/file.txt", combined7);
   }
-  
+
   @Test
   public void testCombinePathsWithSpace() {
     String path = "\\test\\test2  sadasd sadsad\\";
-    
+
     String path2 = "test222\\sadasd sadsad\\";
-    
+
     String combined = FileUtilities.combine(path, path2);
-    
+
     assertEquals("/test/test2  sadasd sadsad/test222/sadasd sadsad/", combined);
   }
 

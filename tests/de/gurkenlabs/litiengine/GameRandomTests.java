@@ -1,56 +1,57 @@
 package de.gurkenlabs.litiengine;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 public class GameRandomTests {
 
-    private GameRandom gameRandom;
-    @BeforeEach
-    public void initSeed(){
-        gameRandom = new GameRandom();
-        gameRandom.setSeed(1337);
-    }
+  private GameRandom gameRandom;
 
-    @Test
-    public void testNextIntMinEqualsBound(){
-        // arrange
-        double result = this.gameRandom.nextInt(42, 42);
+  @BeforeEach
+  public void initSeed() {
+    gameRandom = new GameRandom();
+    gameRandom.setSeed(1337);
+  }
 
-        // act, assert
-        assertEquals(42, result);
-    }
+  @Test
+  public void testNextIntMinEqualsBound() {
+    // arrange
+    double result = this.gameRandom.nextInt(42, 42);
 
-    @Test
-    public void testNextIntMinGreaterThanBound(){
-        // arrange, act, assert
-        assertThrows(IllegalArgumentException.class, () -> this.gameRandom.nextInt(42, 40));
-    }
+    // act, assert
+    assertEquals(42, result);
+  }
 
-    @Test
-    public void testNextIntMinSmallerThanBound(){
-        // arrange
-        double result = this.gameRandom.nextInt(40, 42);
+  @Test
+  public void testNextIntMinGreaterThanBound() {
+    // arrange, act, assert
+    assertThrows(IllegalArgumentException.class, () -> this.gameRandom.nextInt(42, 40));
+  }
 
-        // act, assert
-        assertEquals(41, result);
-    }
+  @Test
+  public void testNextIntMinSmallerThanBound() {
+    // arrange
+    double result = this.gameRandom.nextInt(40, 42);
 
-    @Test
-    public void chooseStringArray_ThrowsOnNull() {
-        // act, assert
-        assertThrows(IllegalArgumentException.class, () -> gameRandom.choose((String[]) null));
-    }
+    // act, assert
+    assertEquals(41, result);
+  }
 
-    @Test
-    public void chooseStringArray_ThrowsOnEmpty() {
-        // arrange
-        final String[] arr = new String[] {};
+  @Test
+  public void chooseStringArray_ThrowsOnNull() {
+    // act, assert
+    assertThrows(IllegalArgumentException.class, () -> gameRandom.choose((String[]) null));
+  }
 
-        // act, assert
-        assertThrows(IllegalArgumentException.class, () -> gameRandom.choose(arr));
-    }
+  @Test
+  public void chooseStringArray_ThrowsOnEmpty() {
+    // arrange
+    final String[] arr = new String[] {};
+
+    // act, assert
+    assertThrows(IllegalArgumentException.class, () -> gameRandom.choose(arr));
+  }
 }

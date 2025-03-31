@@ -1,5 +1,10 @@
 package de.gurkenlabs.litiengine;
 
+import de.gurkenlabs.litiengine.configuration.DisplayMode;
+import de.gurkenlabs.litiengine.configuration.GraphicConfiguration;
+import de.gurkenlabs.litiengine.graphics.MouseCursor;
+import de.gurkenlabs.litiengine.graphics.RenderComponent;
+import de.gurkenlabs.litiengine.gui.screens.Resolution;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
@@ -21,20 +26,15 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
-import de.gurkenlabs.litiengine.configuration.DisplayMode;
-import de.gurkenlabs.litiengine.configuration.GraphicConfiguration;
-import de.gurkenlabs.litiengine.graphics.MouseCursor;
-import de.gurkenlabs.litiengine.graphics.RenderComponent;
-import de.gurkenlabs.litiengine.gui.screens.Resolution;
-
 /**
- * The {@code GameWindow} class is a wrapper for the game's visual window in which the {@code RenderComponent} lives.<br>
- * It provides the possibility to set a title, provide an icon, configure the cursor or get information about the resolution.
- * 
+ * The {@code GameWindow} class is a wrapper for the game's visual window in which the {@code
+ * RenderComponent} lives.<br>
+ * It provides the possibility to set a title, provide an icon, configure the cursor or get
+ * information about the resolution.
+ *
  * @see RenderComponent
  * @see #getResolution()
  * @see #setTitle(String)
@@ -78,11 +78,12 @@ public final class GameWindow {
 
   /**
    * Returns true if the GameWindow is the focus owner.
-   * 
+   *
    * @return true if the GameWindow is the focus owner; false otherwise
    */
   public boolean isFocusOwner() {
-    if (this.getRenderComponent() instanceof Component && this.getRenderComponent().isFocusOwner()) {
+    if (this.getRenderComponent() instanceof Component
+        && this.getRenderComponent().isFocusOwner()) {
       return true;
     }
 
@@ -90,10 +91,10 @@ public final class GameWindow {
   }
 
   /**
-   * Adds the specified resolution changed listener to receive events when the dimensions of this game window are changed.
-   * 
-   * @param listener
-   *          The listener to add.
+   * Adds the specified resolution changed listener to receive events when the dimensions of this
+   * game window are changed.
+   *
+   * @param listener The listener to add.
    */
   public void onResolutionChanged(final ResolutionChangedListener listener) {
     this.resolutionChangedListeners.add(listener);
@@ -101,9 +102,8 @@ public final class GameWindow {
 
   /**
    * Removes the specified resolution changed listener.
-   * 
-   * @param listener
-   *          The listener to remove.
+   *
+   * @param listener The listener to remove.
    */
   public void removeResolutionChangedListener(final ResolutionChangedListener listener) {
     this.resolutionChangedListeners.remove(listener);
@@ -111,33 +111,29 @@ public final class GameWindow {
 
   /**
    * Sets the resolution for the GameWindow.
-   * 
-   * @param res
-   *          The desired Resolution to set for the GameWindow.
+   *
+   * @param res The desired Resolution to set for the GameWindow.
    * @see Resolution
-   * 
    */
   public void setResolution(Resolution res) {
     this.resolutionScale = setResolution(this.getHostControl(), res.getDimension());
   }
 
   /**
-   * Gets the current resolution scale. The resolution scale is a float value dictating how much larger or smaller each pixel is rendered on screen.
-   * 
-   * @return
-   *         The GameWindow's current resolution scale.
-   * 
+   * Gets the current resolution scale. The resolution scale is a float value dictating how much
+   * larger or smaller each pixel is rendered on screen.
+   *
+   * @return The GameWindow's current resolution scale.
    */
   public float getResolutionScale() {
     return this.resolutionScale;
   }
 
   /**
-   * Gets the current resolution scale. The resolution scale is a float value dictating how much larger or smaller each pixel is rendered on screen.
-   * 
-   * @return
-   *         The {@code GameWindow}'s current resolution scale.
-   * 
+   * Gets the current resolution scale. The resolution scale is a float value dictating how much
+   * larger or smaller each pixel is rendered on screen.
+   *
+   * @return The {@code GameWindow}'s current resolution scale.
    */
   public Point2D getCenter() {
     return new Point2D.Double(this.getWidth() / 2.0, this.getHeight() / 2.0);
@@ -145,10 +141,8 @@ public final class GameWindow {
 
   /**
    * Gets the {@code GameWindow}'s JFrame, abstracted as a Container.
-   * 
-   * @return
-   *         The {@code GameWindow}'s {@code JFrame} as an abstract AWT {@code Container}.
-   * 
+   *
+   * @return The {@code GameWindow}'s {@code JFrame} as an abstract AWT {@code Container}.
    */
   public Container getHostControl() {
     return this.hostControl;
@@ -156,10 +150,8 @@ public final class GameWindow {
 
   /**
    * Gets the window width and height wrapped in a {@code Dimension} object.
-   * 
-   * @return
-   *         The {@code GameWindow}'s size as a {@link Dimension}.
-   * 
+   *
+   * @return The {@code GameWindow}'s size as a {@link Dimension}.
    */
   public Dimension getSize() {
     return this.hostControl.getSize();
@@ -167,10 +159,8 @@ public final class GameWindow {
 
   /**
    * Gets the window width.
-   * 
-   * @return
-   *         The window width.
-   * 
+   *
+   * @return The window width.
    */
   public int getWidth() {
     return this.hostControl.getWidth();
@@ -178,10 +168,8 @@ public final class GameWindow {
 
   /**
    * Gets the window height.
-   * 
-   * @return
-   *         The window height.
-   * 
+   *
+   * @return The window height.
    */
   public int getHeight() {
     return this.hostControl.getHeight();
@@ -189,7 +177,7 @@ public final class GameWindow {
 
   /**
    * Gets the AWT canvas that is used to render the game's content on.
-   * 
+   *
    * @return The AWT render component onto which the game contents are rendered.
    */
   public RenderComponent getRenderComponent() {
@@ -198,11 +186,10 @@ public final class GameWindow {
 
   /**
    * Gets the visual representation of the mouse cursor on the {@code GameWindow}.
-   * 
-   * <p>
-   * This can be used to provide a custom cursor image, define its visibility or specify a rendering offset from the actual position.
-   * </p>
-   * 
+   *
+   * <p>This can be used to provide a custom cursor image, define its visibility or specify a
+   * rendering offset from the actual position.
+   *
    * @return The mouse cursor of the game.
    */
   public MouseCursor cursor() {
@@ -211,10 +198,8 @@ public final class GameWindow {
 
   /**
    * Gets the window resolution wrapped in a {@code Dimension} object.
-   * 
-   * @return
-   *         The {@code GameWindow}'s internal resolution as a {@link Dimension}.
-   * 
+   *
+   * @return The {@code GameWindow}'s internal resolution as a {@link Dimension}.
    */
   public Dimension getResolution() {
     return this.resolution;
@@ -222,11 +207,9 @@ public final class GameWindow {
 
   /**
    * Gets the screen location of the window's top left corner.
-   * 
-   * @return
-   *         The {@code Point} of the window's top left corner.
+   *
+   * @return The {@code Point} of the window's top left corner.
    * @see Container#getLocationOnScreen
-   * 
    */
   public Point getLocationOnScreen() {
     if (this.screenLocation != null) {
@@ -239,25 +222,21 @@ public final class GameWindow {
 
   /**
    * Sets the icon image for the window's hosting {@code JFrame}.
-   * 
-   * @param image
-   *          The {@code Image} to be used as the window icon.
+   *
+   * @param image The {@code Image} to be used as the window icon.
    * @see JFrame#setIconImage
-   * 
    */
   public void setIcon(Image image) {
     this.hostControl.setIconImage(image);
   }
 
   /**
-   * Sets the icons for the window's hosting {@code JFrame}. Depending on the platform specifications, one or several {@code Icon}s with the correct Dimension
-   * will be chosen automatically from the list.
-   * 
-   * @param images
-   *          A list of {@code Images} to be used as the window icons.
-   * 
+   * Sets the icons for the window's hosting {@code JFrame}. Depending on the platform
+   * specifications, one or several {@code Icon}s with the correct Dimension will be chosen
+   * automatically from the list.
+   *
+   * @param images A list of {@code Images} to be used as the window icons.
    * @see JFrame#setIconImages
-   * 
    */
   public void setIcons(List<? extends Image> images) {
     this.hostControl.setIconImages(images);
@@ -265,11 +244,9 @@ public final class GameWindow {
 
   /**
    * Sets the title for this window to the specified string.
-   * 
-   * @param title
-   *          the window title to be displayed in the frame's border.
-   *          A {@code null} value
-   *          is treated as an empty string, "".
+   *
+   * @param title the window title to be displayed in the frame's border. A {@code null} value is
+   *     treated as an empty string, "".
    * @see Frame#setTitle
    */
   public void setTitle(String title) {
@@ -278,58 +255,57 @@ public final class GameWindow {
 
   /**
    * Initialize a {@code JFrame} to host the window with a given {@code DisplayMode} and resolution.
-   * <p>
-   * For example, {@code BORDERLESS} windows are not
-   * resizable and are rendered without a border.
-   * </p>
-   * 
-   * @param host
-   *          The {@code JFrame} that hosts this window.
-   * @param displaymode
-   *          The {@code DisplayMode} for this window.
-   * @param resolution
-   *          The desired window resolution.
+   *
+   * <p>For example, {@code BORDERLESS} windows are not resizable and are rendered without a border.
+   *
+   * @param host The {@code JFrame} that hosts this window.
+   * @param displaymode The {@code DisplayMode} for this window.
+   * @param resolution The desired window resolution.
    * @see DisplayMode
    * @see JFrame
    * @see #setResolution
    */
   static void prepareHostControl(JFrame host, DisplayMode displaymode, Dimension resolution) {
     switch (displaymode) {
-    case BORDERLESS:
-      host.setResizable(false);
-      host.setUndecorated(true);
-      host.setExtendedState(Frame.MAXIMIZED_BOTH);
-      host.setVisible(true);
+      case BORDERLESS:
+        host.setResizable(false);
+        host.setUndecorated(true);
+        host.setExtendedState(Frame.MAXIMIZED_BOTH);
+        host.setVisible(true);
 
-      resolution = new Dimension(host.getSize().width, host.getSize().height);
-      break;
-    case FULLSCREEN:
-      GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        resolution = new Dimension(host.getSize().width, host.getSize().height);
+        break;
+      case FULLSCREEN:
+        GraphicsDevice gd =
+            GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 
-      if (!gd.isFullScreenSupported()) {
-        log.log(Level.WARNING, "Full screen is not supported on this device. Falling back to borderless display mode.");
-        prepareHostControl(host, DisplayMode.BORDERLESS, resolution);
-        return;
-      }
+        if (!gd.isFullScreenSupported()) {
+          log.log(
+              Level.WARNING,
+              "Full screen is not supported on this device. Falling back to borderless display mode.");
+          prepareHostControl(host, DisplayMode.BORDERLESS, resolution);
+          return;
+        }
 
-      gd.setFullScreenWindow(host);
-      resolution = new Dimension(host.getSize().width, host.getSize().height);
-      break;
-    case WINDOWED:
-    default:
-      host.setVisible(true);
-      break;
+        gd.setFullScreenWindow(host);
+        resolution = new Dimension(host.getSize().width, host.getSize().height);
+        break;
+      case WINDOWED:
+      default:
+        host.setVisible(true);
+        break;
     }
 
     setResolution(host, resolution);
   }
 
   /**
-   * Initialize the {@code GameWindow}.
-   * If the Game is in "No GUI"-mode, the window resolution is set to (0,0) and the hosting JFrame is hidden.
-   * Otherwise, the {@code JFrame} is initialized with the {@code DisplayMode} and resolution defined in the Graphics Configuration.
-   * After initializing the hosting {@code JFrame}, the {@code RenderComponent} is also initialized and the window requests focus.
-   * 
+   * Initialize the {@code GameWindow}. If the Game is in "No GUI"-mode, the window resolution is
+   * set to (0,0) and the hosting JFrame is hidden. Otherwise, the {@code JFrame} is initialized
+   * with the {@code DisplayMode} and resolution defined in the Graphics Configuration. After
+   * initializing the hosting {@code JFrame}, the {@code RenderComponent} is also initialized and
+   * the window requests focus.
+   *
    * @see Game#isInNoGUIMode
    * @see #prepareHostControl
    * @see GraphicConfiguration
@@ -342,7 +318,10 @@ public final class GameWindow {
       return;
     }
 
-    prepareHostControl(this.hostControl, Game.config().graphics().getDisplayMode(), Game.config().graphics().getResolution());
+    prepareHostControl(
+        this.hostControl,
+        Game.config().graphics().getDisplayMode(),
+        Game.config().graphics().getResolution());
 
     this.getRenderComponent().init();
     this.resolution = this.getRenderComponent().getSize();
@@ -350,7 +329,10 @@ public final class GameWindow {
   }
 
   private static float setResolution(Container host, Dimension dim) {
-    Dimension insetAwareDimension = new Dimension(dim.width + host.getInsets().left + host.getInsets().right, dim.height + host.getInsets().top + host.getInsets().bottom);
+    Dimension insetAwareDimension =
+        new Dimension(
+            dim.width + host.getInsets().left + host.getInsets().right,
+            dim.height + host.getInsets().top + host.getInsets().bottom);
 
     host.setSize(insetAwareDimension);
     return getUpdatedResolutionScale(dim);
@@ -366,59 +348,66 @@ public final class GameWindow {
   }
 
   private void initializeEventListeners() {
-    this.getRenderComponent().addComponentListener(new ComponentAdapter() {
-      @Override
-      public void componentResized(final ComponentEvent evt) {
-        resolution = getRenderComponent().getSize();
-        GameWindow.this.resolutionScale = getUpdatedResolutionScale(GameWindow.this.getSize());
-        resolutionChangedListeners.forEach(listener -> listener.resolutionChanged(GameWindow.this.getSize()));
-      }
-    });
+    this.getRenderComponent()
+        .addComponentListener(
+            new ComponentAdapter() {
+              @Override
+              public void componentResized(final ComponentEvent evt) {
+                resolution = getRenderComponent().getSize();
+                GameWindow.this.resolutionScale =
+                    getUpdatedResolutionScale(GameWindow.this.getSize());
+                resolutionChangedListeners.forEach(
+                    listener -> listener.resolutionChanged(GameWindow.this.getSize()));
+              }
+            });
 
-    this.hostControl.addComponentListener(new ComponentAdapter() {
-      @Override
-      public void componentMoved(final ComponentEvent evt) {
-        screenLocation = null;
-      }
-    });
-
+    this.hostControl.addComponentListener(
+        new ComponentAdapter() {
+          @Override
+          public void componentMoved(final ComponentEvent evt) {
+            screenLocation = null;
+          }
+        });
   }
 
   private static void initializeWindowEventListeners(Window window) {
 
-    window.addWindowStateListener(e -> {
-      if (e.getNewState() == Frame.ICONIFIED) {
-        Game.loop().setTickRate(ICONIFIED_MAX_FPS);
-      } else {
-        Game.loop().setTickRate(Game.config().client().getMaxFps());
-      }
-    });
+    window.addWindowStateListener(
+        e -> {
+          if (e.getNewState() == Frame.ICONIFIED) {
+            Game.loop().setTickRate(ICONIFIED_MAX_FPS);
+          } else {
+            Game.loop().setTickRate(Game.config().client().getMaxFps());
+          }
+        });
 
-    window.addWindowFocusListener(new WindowFocusListener() {
-      @Override
-      public void windowLostFocus(WindowEvent e) {
-        if (Game.config().graphics().reduceFramesWhenNotFocused()) {
-          Game.loop().setTickRate(NONE_FOCUS_MAX_FPS);
-        }
-      }
+    window.addWindowFocusListener(
+        new WindowFocusListener() {
+          @Override
+          public void windowLostFocus(WindowEvent e) {
+            if (Game.config().graphics().reduceFramesWhenNotFocused()) {
+              Game.loop().setTickRate(NONE_FOCUS_MAX_FPS);
+            }
+          }
 
-      @Override
-      public void windowGainedFocus(WindowEvent e) {
-        Game.loop().setTickRate(Game.config().client().getMaxFps());
-      }
-    });
+          @Override
+          public void windowGainedFocus(WindowEvent e) {
+            Game.loop().setTickRate(Game.config().client().getMaxFps());
+          }
+        });
 
-    window.addWindowListener(new WindowAdapter() {
-      @Override
-      public void windowClosing(final WindowEvent event) {
-        Game.exit();
-      }
-    });
+    window.addWindowListener(
+        new WindowAdapter() {
+          @Override
+          public void windowClosing(final WindowEvent event) {
+            Game.exit();
+          }
+        });
   }
 
   /**
    * This listener interface receives resolution changed events of the game window.
-   * 
+   *
    * @see GameWindow#onResolutionChanged(ResolutionChangedListener)
    * @see GameWindow#setResolution(Resolution)
    */
@@ -426,11 +415,9 @@ public final class GameWindow {
   public interface ResolutionChangedListener extends EventListener {
     /**
      * Invoked when the resolution of the {@code GameWindow} changed.
-     * 
-     * @param resolution
-     *          The new resolution.
+     *
+     * @param resolution The new resolution.
      */
     void resolutionChanged(Dimension resolution);
   }
-
 }

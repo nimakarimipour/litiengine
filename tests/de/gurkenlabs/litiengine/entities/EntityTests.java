@@ -6,11 +6,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import java.util.stream.Stream;
 
 public class EntityTests {
 
@@ -63,10 +63,12 @@ public class EntityTests {
   @Test
   public void testCustomAction() {
     TestEntity entity = new TestEntity();
-    entity.register("customAction", () -> {
-      entity.customActionPerformed = true;
-      return;
-    });
+    entity.register(
+        "customAction",
+        () -> {
+          entity.customActionPerformed = true;
+          return;
+        });
 
     assertTrue(entity.actions().exists("customAction"));
 
@@ -88,10 +90,7 @@ public class EntityTests {
   }
 
   private static Stream<Arguments> getDefaultTags() {
-    return Stream.of(
-            Arguments.of("some tag"),
-            Arguments.of("another tag")
-    );
+    return Stream.of(Arguments.of("some tag"), Arguments.of("another tag"));
   }
 
   @Tag("some tag")
@@ -112,15 +111,12 @@ public class EntityTests {
     }
 
     @SuppressWarnings("unused")
-    public void imNotAnAction() {
-    }
-    
+    public void imNotAnAction() {}
+
     @Action
-    public void imNotParameterless(int something) {
-    }
-    
+    public void imNotParameterless(int something) {}
+
     @Action
-    private void privateAction() {
-    }
+    private void privateAction() {}
   }
 }

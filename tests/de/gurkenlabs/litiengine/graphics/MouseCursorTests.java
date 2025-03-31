@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
-
 import org.junit.jupiter.api.Test;
 
 public class MouseCursorTests {
@@ -44,10 +43,10 @@ public class MouseCursorTests {
 
     cursor.setVisible(false);
     assertFalse(cursor.isVisible());
-    
+
     AffineTransform trans = AffineTransform.getTranslateInstance(1, 2);
     cursor.setTransform(trans);
-    
+
     assertEquals(trans, cursor.getTransform());
   }
 }

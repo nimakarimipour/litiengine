@@ -1,20 +1,19 @@
 package de.gurkenlabs.litiengine.input;
 
+import de.gurkenlabs.litiengine.Game;
+import de.gurkenlabs.litiengine.IUpdateable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-
-import de.gurkenlabs.litiengine.Game;
-import de.gurkenlabs.litiengine.IUpdateable;
 import net.java.games.input.Component;
 import net.java.games.input.Component.Identifier;
 import net.java.games.input.Controller;
 import net.java.games.input.Event;
 
 /**
- * The {@code Gamepad} class is designed as a wrapper implementation for any gamepad input that provides events and information
- * about player input via gamepad.
+ * The {@code Gamepad} class is designed as a wrapper implementation for any gamepad input that
+ * provides events and information about player input via gamepad.
  *
  * @see Controller
  */
@@ -58,13 +57,13 @@ public final class Gamepad extends GamepadEvents implements IUpdateable {
   /**
    * Gets the poll data for the specified component on this gamepad.
    *
-   * <p>
-   * Returns the data from the last time the control has been polled.If this axis is a button, the value returned will be either 0.0f or 1.0f.If this
-   * axis is normalized, the value returned will be between -1.0f and1.0f.
-   * </p>
+   * <p>Returns the data from the last time the control has been polled.If this axis is a button,
+   * the value returned will be either 0.0f or 1.0f.If this axis is normalized, the value returned
+   * will be between -1.0f and1.0f.
    *
    * @param component The component to retrieve the poll data for.
-   * @return The data from the last time the specified component has been polled; 0 if this gamepad doesn't provide the requested component.
+   * @return The data from the last time the specified component has been polled; 0 if this gamepad
+   *     doesn't provide the requested component.
    */
   public float getPollData(final String component) {
     if (components.containsKey(component)) {
@@ -82,10 +81,8 @@ public final class Gamepad extends GamepadEvents implements IUpdateable {
   /**
    * Gets the deadzone for any axis components on this gamepad.
    *
-   * <p>
-   * A deadzone defines the poll value at which the events of this gamepad are not being triggered. This is useful to
-   * smooth out controller input and not react to idle noise.
-   * </p>
+   * <p>A deadzone defines the poll value at which the events of this gamepad are not being
+   * triggered. This is useful to smooth out controller input and not react to idle noise.
    *
    * @return The axis deadzone for this component.
    * @see #setAxisDeadzone(float)
@@ -97,10 +94,8 @@ public final class Gamepad extends GamepadEvents implements IUpdateable {
   /**
    * Gets the deadzone for any trigger components on this gamepad.
    *
-   * <p>
-   * A deadzone defines the poll value at which the events of this gamepad are not being triggered. This is useful to
-   * smooth out controller input and not react to idle noise.
-   * </p>
+   * <p>A deadzone defines the poll value at which the events of this gamepad are not being
+   * triggered. This is useful to smooth out controller input and not react to idle noise.
    *
    * @return The trigger deadzone for this gamepad.
    * @see #setTriggerDeadzone(float)
@@ -187,8 +182,7 @@ public final class Gamepad extends GamepadEvents implements IUpdateable {
   }
 
   private float getDeadZone(final Identifier ident) {
-    if (ident.getName().equals(Axis.X)
-            || ident.getName().equals(Axis.Y)) {
+    if (ident.getName().equals(Axis.X) || ident.getName().equals(Axis.Y)) {
       return this.getAxisDeadzone();
     }
 
@@ -212,7 +206,8 @@ public final class Gamepad extends GamepadEvents implements IUpdateable {
       listener.polled(gamepadEvent);
     }
 
-    final Collection<GamepadPollListener> listeners = this.componentPollListeners.get(event.getComponent().getIdentifier().getName());
+    final Collection<GamepadPollListener> listeners =
+        this.componentPollListeners.get(event.getComponent().getIdentifier().getName());
     if (listeners != null) {
       for (final GamepadPollListener listener : listeners) {
         listener.polled(gamepadEvent);
@@ -234,7 +229,8 @@ public final class Gamepad extends GamepadEvents implements IUpdateable {
       listener.released(event);
     }
 
-    final Collection<GamepadReleasedListener> listeners = this.componentReleasedListeners.get(comp.getIdentifier().getName());
+    final Collection<GamepadReleasedListener> listeners =
+        this.componentReleasedListeners.get(comp.getIdentifier().getName());
     if (listeners != null) {
       for (final GamepadReleasedListener listener : listeners) {
         listener.released(event);
@@ -257,7 +253,8 @@ public final class Gamepad extends GamepadEvents implements IUpdateable {
     public static final String RZ_FORCE = addComponent(Identifier.Axis.RZ_FORCE);
     public static final String RZ_VELOCITY = addComponent(Identifier.Axis.RZ_VELOCITY);
     public static final String SLIDER = addComponent(Identifier.Axis.SLIDER);
-    public static final String SLIDER_ACCELERATION = addComponent(Identifier.Axis.SLIDER_ACCELERATION);
+    public static final String SLIDER_ACCELERATION =
+        addComponent(Identifier.Axis.SLIDER_ACCELERATION);
     public static final String SLIDER_FORCE = addComponent(Identifier.Axis.SLIDER_FORCE);
     public static final String SLIDER_VELOCITY = addComponent(Identifier.Axis.SLIDER_VELOCITY);
     public static final String X = addComponent(Identifier.Axis.X);
@@ -273,8 +270,7 @@ public final class Gamepad extends GamepadEvents implements IUpdateable {
     public static final String Z_FORCE = addComponent(Identifier.Axis.Z_FORCE);
     public static final String Z_VELOCITY = addComponent(Identifier.Axis.Z_VELOCITY);
 
-    private Axis() {
-    }
+    private Axis() {}
   }
 
   public static class Buttons {
@@ -344,55 +340,33 @@ public final class Gamepad extends GamepadEvents implements IUpdateable {
 
     // incomplete list... right now we don't support stylus / mouse or
     // extra buttons
-    private Buttons() {
-    }
+    private Buttons() {}
   }
 
   public static class DPad {
-    /**
-     * Standard value for center HAT position
-     */
+    /** Standard value for center HAT position */
     public static final float OFF = 0.0f;
-    /**
-     * Synonmous with OFF
-     */
+    /** Synonmous with OFF */
     public static final float CENTER = OFF;
-    /**
-     * Standard value for down HAT position
-     */
+    /** Standard value for down HAT position */
     public static final float DOWN = 0.75f;
-    /**
-     * Standard value for down-left HAT position
-     */
+    /** Standard value for down-left HAT position */
     public static final float DOWN_LEFT = 0.875f;
-    /**
-     * Standard value for down-right HAT position
-     */
+    /** Standard value for down-right HAT position */
     public static final float DOWN_RIGHT = 0.625f;
-    /**
-     * Standard value for left HAT position
-     */
+    /** Standard value for left HAT position */
     public static final float LEFT = 1.0f;
 
-    /**
-     * Standard value for right HAT position
-     */
+    /** Standard value for right HAT position */
     public static final float RIGHT = 0.50f;
-    /**
-     * Standard value for up HAT position
-     */
+    /** Standard value for up HAT position */
     public static final float UP = 0.25f;
-    /**
-     * Standard value for up-left HAT position
-     */
+    /** Standard value for up-left HAT position */
     public static final float UP_LEFT = 0.125f;
-    /**
-     * Standard value for up-right HAT position
-     */
+    /** Standard value for up-right HAT position */
     public static final float UP_RIGHT = 0.375f;
 
-    private DPad() {
-    }
+    private DPad() {}
   }
 
   public static class Xbox {
@@ -418,7 +392,6 @@ public final class Gamepad extends GamepadEvents implements IUpdateable {
 
     public static final String Y = Buttons.BUTTON_3;
 
-    private Xbox() {
-    }
+    private Xbox() {}
   }
 }

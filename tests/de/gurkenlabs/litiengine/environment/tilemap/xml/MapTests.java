@@ -5,15 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 
-import java.awt.Color;
-import java.awt.geom.Rectangle2D;
-import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import de.gurkenlabs.litiengine.environment.tilemap.IMap;
 import de.gurkenlabs.litiengine.environment.tilemap.IMapObject;
 import de.gurkenlabs.litiengine.environment.tilemap.IMapObjectLayer;
@@ -21,6 +12,13 @@ import de.gurkenlabs.litiengine.environment.tilemap.MapOrientations;
 import de.gurkenlabs.litiengine.environment.tilemap.RenderOrder;
 import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.util.io.URLAdapter;
+import java.awt.Color;
+import java.awt.geom.Rectangle2D;
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -29,10 +27,11 @@ public class MapTests {
   public void clearResources() {
     Resources.maps().clear();
   }
-  
+
   @Test
   public void testBasicProperties() throws MalformedURLException {
-    IMap map = Resources.maps().get("tests/de/gurkenlabs/litiengine/environment/tilemap/xml/test-map.tmx");
+    IMap map =
+        Resources.maps().get("tests/de/gurkenlabs/litiengine/environment/tilemap/xml/test-map.tmx");
 
     assertEquals(1.0, map.getVersion());
     assertEquals("1.1.4", map.getTiledVersion());
@@ -47,7 +46,11 @@ public class MapTests {
     assertEquals(1, map.getNextObjectId());
 
     assertEquals("test-map", map.getName());
-    assertEquals((new File("tests/de/gurkenlabs/litiengine/environment/tilemap/xml/test-map.tmx")).toURI().toURL(), map.getPath());
+    assertEquals(
+        (new File("tests/de/gurkenlabs/litiengine/environment/tilemap/xml/test-map.tmx"))
+            .toURI()
+            .toURL(),
+        map.getPath());
     assertEquals(new Color(0xaa3df675, true), map.getBackgroundColor());
     assertEquals(new Rectangle2D.Double(0, 0, 256, 256), map.getBounds());
     assertEquals(2, map.getTilesets().size());
@@ -65,16 +68,21 @@ public class MapTests {
 
   @Test
   public void testTileCustomProperties() {
-    IMap map = Resources.maps().get("tests/de/gurkenlabs/litiengine/environment/tilemap/xml/test-map.tmx");
+    IMap map =
+        Resources.maps().get("tests/de/gurkenlabs/litiengine/environment/tilemap/xml/test-map.tmx");
 
     assertEquals("bar", map.getTileLayers().get(0).getTile(5, 3).getStringValue("foo"));
     assertEquals("bap", map.getTileLayers().get(0).getTile(9, 5).getStringValue("baz"));
-    assertEquals("multiline\nproperty", map.getTileLayers().get(0).getTile(10, 10).getStringValue("custom"));
+    assertEquals(
+        "multiline\nproperty", map.getTileLayers().get(0).getTile(10, 10).getStringValue("custom"));
   }
 
   @Test
   public void testSettingProperties() {
-    TmxMap map = (TmxMap) Resources.maps().get("tests/de/gurkenlabs/litiengine/environment/tilemap/xml/test-map.tmx");
+    TmxMap map =
+        (TmxMap)
+            Resources.maps()
+                .get("tests/de/gurkenlabs/litiengine/environment/tilemap/xml/test-map.tmx");
     map.setOrientation(MapOrientations.ISOMETRIC_STAGGERED);
     map.setTiledVersion("0.0.0");
     map.setVersion(2.0);
@@ -99,7 +107,9 @@ public class MapTests {
 
   @Test
   public void testMapObjectLayers() {
-    IMap map = Resources.maps().get("tests/de/gurkenlabs/litiengine/environment/tilemap/xml/test-mapobject.tmx");
+    IMap map =
+        Resources.maps()
+            .get("tests/de/gurkenlabs/litiengine/environment/tilemap/xml/test-mapobject.tmx");
     assertEquals(1, map.getMapObjectLayers().size());
 
     IMapObjectLayer layer = map.getMapObjectLayers().get(0);
@@ -137,15 +147,9 @@ public class MapTests {
     assertEquals(0, map.getMapObjectLayers().size());
   }
 
-  @ParameterizedTest(name="testDecimalFloatAdapter value={0}, expected={1}")
-  @CsvSource({
-          "1f, '1'",
-          "1.0f, '1'",
-          "1.00f, '1'",
-          "1.1f, '1.1'",
-          "1.00003f, '1.00003'"
-  })
-  public void testDecimalFloatAdapter(float value, String expected) throws Exception{
+  @ParameterizedTest(name = "testDecimalFloatAdapter value={0}, expected={1}")
+  @CsvSource({"1f, '1'", "1.0f, '1'", "1.00f, '1'", "1.1f, '1.1'", "1.00003f, '1.00003'"})
+  public void testDecimalFloatAdapter(float value, String expected) throws Exception {
     // arrange
     DecimalFloatAdapter adapter = new DecimalFloatAdapter();
 
@@ -158,7 +162,11 @@ public class MapTests {
 
   @Test
   public void testInfiniteMap() {
-    TmxMap map = (TmxMap) Resources.maps().get("tests/de/gurkenlabs/litiengine/environment/tilemap/xml/test-infinite-map.tmx");
+    TmxMap map =
+        (TmxMap)
+            Resources.maps()
+                .get(
+                    "tests/de/gurkenlabs/litiengine/environment/tilemap/xml/test-infinite-map.tmx");
 
     assertTrue(map.isInfinite());
     assertEquals(64, map.getWidth());

@@ -2,17 +2,15 @@ package de.gurkenlabs.litiengine.physics;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.awt.geom.Rectangle2D;
-
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import de.gurkenlabs.litiengine.Align;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.Valign;
 import de.gurkenlabs.litiengine.entities.CollisionBox;
 import de.gurkenlabs.litiengine.entities.Creature;
+import java.awt.geom.Rectangle2D;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -221,12 +219,14 @@ public class CollisionResolvingTests {
     assertEquals(15.0, ent.getY(), EPSILON);
   }
 
-  @ParameterizedTest(name="testCollisionWithMapBounds_xCoordinate angle={0}, distance={1}, expectedX={2}")
+  @ParameterizedTest(
+      name = "testCollisionWithMapBounds_xCoordinate angle={0}, distance={1}, expectedX={2}")
   @CsvSource({
-          "270.0d, 20.0d, -10.0d",
-          "90.0d, 50.0d, 30.0d",
+    "270.0d, 20.0d, -10.0d",
+    "90.0d, 50.0d, 30.0d",
   })
-  public void testCollisionWithMapBounds_xCoordinate(double angle, double distance, double expectedX) {
+  public void testCollisionWithMapBounds_xCoordinate(
+      double angle, double distance, double expectedX) {
     Creature ent = getNewCreature();
     ent.setWidth(30);
     ent.setHeight(30);
@@ -240,12 +240,14 @@ public class CollisionResolvingTests {
     assertEquals(expectedX, actualX, EPSILON);
   }
 
-  @ParameterizedTest(name="testCollisionWithMapBounds_yCoordinate angle={0}, distance={1}, expectedY={2}")
+  @ParameterizedTest(
+      name = "testCollisionWithMapBounds_yCoordinate angle={0}, distance={1}, expectedY={2}")
   @CsvSource({
-          "180.0d, 20.0d, -10.0d",
-          "0, 50.0d, 30.0d",
+    "180.0d, 20.0d, -10.0d",
+    "0, 50.0d, 30.0d",
   })
-  public void testCollisionWithMapBounds_yCoordinate(double angle, double distance, double expectedY) {
+  public void testCollisionWithMapBounds_yCoordinate(
+      double angle, double distance, double expectedY) {
     Creature ent = getNewCreature();
     ent.setWidth(30);
     ent.setHeight(30);

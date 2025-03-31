@@ -1,13 +1,12 @@
 package de.gurkenlabs.litiengine.abilities;
 
+import de.gurkenlabs.litiengine.Game;
+import de.gurkenlabs.litiengine.IUpdateable;
+import de.gurkenlabs.litiengine.abilities.effects.Effect;
 import java.awt.Shape;
 import java.awt.geom.Point2D;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
-
-import de.gurkenlabs.litiengine.Game;
-import de.gurkenlabs.litiengine.IUpdateable;
-import de.gurkenlabs.litiengine.abilities.effects.Effect;
 
 public class AbilityExecution implements IUpdateable {
   private final Ability ability;
@@ -46,14 +45,14 @@ public class AbilityExecution implements IUpdateable {
   }
 
   /**
-   * 1. Apply all ability effects after their delay. 
-   * 2. Unregister this instance after all effects were applied. 
-   * 3. Effects will apply their follow up effects on their own.
+   * 1. Apply all ability effects after their delay. 2. Unregister this instance after all effects
+   * were applied. 3. Effects will apply their follow up effects on their own.
    */
   @Override
   public void update() {
     // if there a no effects to apply -> unregister this instance and we're done
-    if (this.getAbility().getEffects().isEmpty() || this.getAbility().getEffects().size() == this.getAppliedEffects().size()) {
+    if (this.getAbility().getEffects().isEmpty()
+        || this.getAbility().getEffects().size() == this.getAppliedEffects().size()) {
       Game.loop().detach(this);
       return;
     }
@@ -62,7 +61,8 @@ public class AbilityExecution implements IUpdateable {
     for (final Effect effect : this.getAbility().getEffects()) {
       // if the ability was not executed yet or the delay of the effect is not
       // yet reached
-      if (this.getAppliedEffects().contains(effect) || Game.time().since(this.getExecutionTicks()) < effect.getDelay()) {
+      if (this.getAppliedEffects().contains(effect)
+          || Game.time().since(this.getExecutionTicks()) < effect.getDelay()) {
         continue;
       }
 
