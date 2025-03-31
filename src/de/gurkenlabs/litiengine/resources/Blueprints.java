@@ -5,8 +5,8 @@ import de.gurkenlabs.litiengine.environment.tilemap.xml.TmxException;
 import de.gurkenlabs.litiengine.util.io.FileUtilities;
 import de.gurkenlabs.litiengine.util.io.XmlUtilities;
 import java.net.URL;
-import javax.annotation.Nullable;
 import javax.xml.bind.JAXBException;
+import javax.annotation.Nullable;
 
 public class Blueprints extends ResourcesContainer<Blueprint> {
 
@@ -20,8 +20,7 @@ public class Blueprints extends ResourcesContainer<Blueprint> {
             || extension.equalsIgnoreCase(Blueprint.TEMPLATE_FILE_EXTENSION));
   }
 
-  @Nullable
-  @Override
+  @Nullable @Override
   protected Blueprint load(@Nullable URL resourceName) throws Exception {
     Blueprint blueprint;
     try {
@@ -33,8 +32,7 @@ public class Blueprints extends ResourcesContainer<Blueprint> {
     return blueprint;
   }
 
-  @Nullable
-  @Override
+  @Nullable @Override
   protected String getAlias(String resourceName, @Nullable Blueprint resource) {
     if (resource == null
         || resource.getName() == null
