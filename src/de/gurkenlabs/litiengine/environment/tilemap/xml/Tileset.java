@@ -21,6 +21,7 @@ import java.util.ListIterator;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.Nullable;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -30,7 +31,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import javax.annotation.Nullable;
 
 @XmlRootElement(name = "tileset")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -50,7 +50,8 @@ public class Tileset extends CustomPropertyProvider implements ITileset {
 
   @Nullable @XmlAttribute private Integer tileheight;
 
-  @Nullable @XmlElement(name = "tileoffset")
+  @Nullable
+  @XmlElement(name = "tileoffset")
   private TileOffset tileoffset;
 
   @Nullable @XmlAttribute private Integer tilecount;
@@ -61,11 +62,13 @@ public class Tileset extends CustomPropertyProvider implements ITileset {
 
   @Nullable @XmlAttribute private String source;
 
-  @Nullable @XmlElementWrapper(name = "terraintypes")
+  @Nullable
+  @XmlElementWrapper(name = "terraintypes")
   @XmlElement(name = "terrain")
   private List<Terrain> terrainTypes = null;
 
-  @Nullable @XmlElement(name = "tile")
+  @Nullable
+  @XmlElement(name = "tile")
   private List<TilesetEntry> tiles = null;
 
   @Nullable @XmlTransient private List<TilesetEntry> allTiles;
@@ -94,7 +97,8 @@ public class Tileset extends CustomPropertyProvider implements ITileset {
     return this.firstgid;
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public IMapImage getImage() {
     return this.sourceTileset != null ? this.sourceTileset.getImage() : this.image;
   }
@@ -117,7 +121,8 @@ public class Tileset extends CustomPropertyProvider implements ITileset {
     return this.margin;
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public String getName() {
     return this.sourceTileset != null ? this.sourceTileset.getName() : this.name;
   }
@@ -145,7 +150,8 @@ public class Tileset extends CustomPropertyProvider implements ITileset {
     return this.spacing;
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   @XmlTransient
   public Spritesheet getSpritesheet() {
     if (this.spriteSheet == null && this.getImage() != null) {
@@ -217,6 +223,10 @@ public class Tileset extends CustomPropertyProvider implements ITileset {
       return terrains;
     }
 
+    if (this.allTiles == null) {
+      return terrains;
+    }
+
     TilesetEntry tile = this.allTiles.get(tileId);
     int[] tileTerrains = tile.getTerrainIds();
     for (int i = 0; i < 4; i++) {
@@ -240,7 +250,8 @@ public class Tileset extends CustomPropertyProvider implements ITileset {
     return this.sourceTileset != null ? this.sourceTileset.getColumns() : this.columns;
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public ITileOffset getTileOffset() {
     return this.sourceTileset != null ? this.sourceTileset.getTileOffset() : this.tileoffset;
   }
@@ -254,13 +265,17 @@ public class Tileset extends CustomPropertyProvider implements ITileset {
     return this.tilecount != null ? this.tilecount : 0;
   }
 
-  @Nullable @Override
+  @Override
   public ITilesetEntry getTile(int id) {
     if (this.sourceTileset != null) {
       return this.sourceTileset.getTile(id);
     }
 
     if (id < 0 || id >= this.getTileCount()) {
+      return null;
+    }
+
+    if (this.allTiles == null) {
       return null;
     }
 
