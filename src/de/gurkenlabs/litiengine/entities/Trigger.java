@@ -53,7 +53,8 @@ public class Trigger extends CollisionEntity implements IUpdateable {
   @TmxProperty(name = MapObjectProperty.TRIGGER_ONETIME)
   private final boolean isOneTimeTrigger;
 
-  @Nullable @TmxProperty(name = MapObjectProperty.TRIGGER_MESSAGE)
+  @Nullable
+  @TmxProperty(name = MapObjectProperty.TRIGGER_MESSAGE)
   private String message;
 
   @TmxProperty(name = MapObjectProperty.TRIGGER_COOLDOWN)
@@ -79,7 +80,8 @@ public class Trigger extends CollisionEntity implements IUpdateable {
    * @param name The name of this trigger.
    * @param message The message that gets sent by this trigger upon activation.
    */
-  public Trigger(final TriggerActivation activation, @Nullable final String name, final String message) {
+  public Trigger(
+      final TriggerActivation activation, @Nullable final String name, final String message) {
     this(activation, name, message, false);
   }
 
@@ -193,7 +195,8 @@ public class Trigger extends CollisionEntity implements IUpdateable {
     return this.activators;
   }
 
-  @Nullable public String getMessage() {
+  @Nullable
+  public String getMessage() {
     return this.message;
   }
 
