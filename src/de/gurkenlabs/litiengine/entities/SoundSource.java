@@ -145,7 +145,8 @@ public class SoundSource extends Entity {
    *
    * @return A String containing the sound name.
    */
-  @Nullable public String getSoundName() {
+  @Nullable
+  public String getSoundName() {
     return this.sound.getName();
   }
 
