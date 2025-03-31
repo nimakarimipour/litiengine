@@ -58,7 +58,10 @@ public class SpeechBubble implements IUpdateable, IRenderable {
   @Nullable private Point2D entityCenter;
 
   private SpeechBubble(
-      final IEntity entity, final String text, @Nullable SpeechBubbleAppearance appearance, @Nullable Font font) {
+      final IEntity entity,
+      final String text,
+      @Nullable SpeechBubbleAppearance appearance,
+      @Nullable Font font) {
     if (appearance == null) {
       this.appearance = DEFAULT_APPEARANCE;
     } else {
@@ -140,7 +143,8 @@ public class SpeechBubble implements IUpdateable, IRenderable {
     return this.appearance;
   }
 
-  @Nullable public Font getFont() {
+  @Nullable
+  public Font getFont() {
     return this.font;
   }
 
@@ -149,6 +153,11 @@ public class SpeechBubble implements IUpdateable, IRenderable {
     if (this.currentText == null
         || this.textIndex <= 0
         || !Game.graphics().canRender(this.entity)) {
+      return;
+    }
+
+    this.entityCenter = Game.world().camera().getViewportLocation(this.getEntity().getCenter());
+    if (this.entityCenter == null) {
       return;
     }
 
@@ -250,6 +259,10 @@ public class SpeechBubble implements IUpdateable, IRenderable {
   }
 
   private void createBubbleImage() {
+    if (this.currentText == null) {
+      return; // Exit the method early if currentText is null
+    }
+
     final BufferedImage img = Imaging.getCompatibleImage(500, 500);
     final Graphics2D g = img.createGraphics();
     g.setFont(this.getFont());
