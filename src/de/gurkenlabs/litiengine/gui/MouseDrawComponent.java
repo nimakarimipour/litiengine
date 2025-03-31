@@ -8,8 +8,8 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import javax.annotation.Nullable;
 import javax.swing.SwingUtilities;
+import javax.annotation.Nullable;
 
 public class MouseDrawComponent extends ImageComponent {
   private double brushSize = 2;
@@ -50,38 +50,33 @@ public class MouseDrawComponent extends ImageComponent {
   public void mouseDragged(MouseEvent e) {
     super.mouseDragged(e);
 
-    if (this.drawingSpace != null) {
-      double brushX = e.getX();
-      double brushY = e.getY();
-      Graphics2D g = (Graphics2D) this.drawingSpace.getGraphics();
-      int brushXInt = (int) (brushX - this.getX() - this.brushSize * 1 / 2);
-      int brushYInt = (int) (brushY - this.getY() - this.brushSize * 1 / 2);
-      int brushSizeInt = (int) (this.brushSize);
-      g.setColor(this.getDrawingColor());
-      if (SwingUtilities.isLeftMouseButton(e)) {
-        g.setComposite(AlphaComposite.SrcOver);
-        g.fillRect(brushXInt, brushYInt, brushSizeInt, brushSizeInt);
-      } else if (SwingUtilities.isRightMouseButton(e)) {
-        g.setComposite(AlphaComposite.Clear);
-        g.fillRect(
-            brushXInt - brushSizeInt / 2,
-            brushYInt - brushSizeInt / 2,
-            brushSizeInt * 2,
-            brushSizeInt * 2);
-      }
+    double brushX = e.getX();
+    double brushY = e.getY();
+    Graphics2D g = (Graphics2D) this.drawingSpace.getGraphics();
+    int brushXInt = (int) (brushX - this.getX() - this.brushSize * 1 / 2);
+    int brushYInt = (int) (brushY - this.getY() - this.brushSize * 1 / 2);
+    int brushSizeInt = (int) (this.brushSize);
+    g.setColor(this.getDrawingColor());
+    if (SwingUtilities.isLeftMouseButton(e)) {
+      g.setComposite(AlphaComposite.SrcOver);
+      g.fillRect(brushXInt, brushYInt, brushSizeInt, brushSizeInt);
+    } else if (SwingUtilities.isRightMouseButton(e)) {
+      g.setComposite(AlphaComposite.Clear);
+      g.fillRect(
+          brushXInt - brushSizeInt / 2,
+          brushYInt - brushSizeInt / 2,
+          brushSizeInt * 2,
+          brushSizeInt * 2);
     }
   }
 
   public void clearDrawingSpace() {
-    if (this.drawingSpace != null) {
-      Graphics2D g = (Graphics2D) this.drawingSpace.getGraphics();
-      g.setComposite(AlphaComposite.Clear);
-      g.fillRect(0, 0, (int) this.getWidth(), (int) this.getHeight());
-    }
+    Graphics2D g = (Graphics2D) this.drawingSpace.getGraphics();
+    g.setComposite(AlphaComposite.Clear);
+    g.fillRect(0, 0, (int) this.getWidth(), (int) this.getHeight());
   }
 
-  @Nullable
-  public BufferedImage getDrawingSpace() {
+  @Nullable public BufferedImage getDrawingSpace() {
     return this.drawingSpace;
   }
 }
