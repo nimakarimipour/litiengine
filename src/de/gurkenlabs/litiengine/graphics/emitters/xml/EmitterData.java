@@ -1,6 +1,5 @@
 package de.gurkenlabs.litiengine.graphics.emitters.xml;
 
-import com.uber.nullaway.annotations.Initializer;
 import de.gurkenlabs.litiengine.Align;
 import de.gurkenlabs.litiengine.Valign;
 import de.gurkenlabs.litiengine.configuration.Quality;
@@ -16,7 +15,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.annotation.Nullable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -24,6 +22,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import com.uber.nullaway.annotations.Initializer;
+import javax.annotation.Nullable;
 
 @XmlRootElement(name = "emitter")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -105,8 +105,7 @@ public class EmitterData implements Serializable, Resource {
 
   @XmlElement private float colorVariance;
 
-  @Nullable
-  @XmlElementWrapper
+  @Nullable @XmlElementWrapper
   @XmlElement(name = "color")
   private List<String> colors;
 
@@ -150,8 +149,7 @@ public class EmitterData implements Serializable, Resource {
 
   @XmlElement private ParticleParameter particleTTL;
 
-  @Nullable
-  @XmlElementWrapper
+  @Nullable @XmlElementWrapper
   @XmlElement(name = "text")
   private List<String> texts;
 
@@ -216,8 +214,7 @@ public class EmitterData implements Serializable, Resource {
     return this.colorVariance;
   }
 
-  @Nullable
-  @XmlTransient
+  @Nullable @XmlTransient
   public List<String> getColors() {
     return this.colors;
   }
@@ -302,8 +299,7 @@ public class EmitterData implements Serializable, Resource {
     return this.particleTTL;
   }
 
-  @Nullable
-  @XmlTransient
+  @Nullable @XmlTransient
   public List<String> getTexts() {
     return this.texts;
   }
@@ -338,8 +334,7 @@ public class EmitterData implements Serializable, Resource {
     return this.spawnRate;
   }
 
-  @Nullable
-  @XmlTransient
+  @Nullable @XmlTransient
   public String getSpritesheet() {
     return this.spritesheet;
   }
@@ -424,8 +419,7 @@ public class EmitterData implements Serializable, Resource {
     this.deltaWidth = deltaWidth;
   }
 
-  @Initializer
-  public void initDefaults() {
+  @Initializer public void initDefaults() {
     this.width = DEFAULT_WIDTH;
     this.height = DEFAULT_HEIGHT;
     this.offsetX.setMinValue(DEFAULT_MIN_OFFSET_X);
