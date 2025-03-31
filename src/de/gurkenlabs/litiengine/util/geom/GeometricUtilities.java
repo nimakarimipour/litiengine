@@ -214,8 +214,7 @@ public class GeometricUtilities {
    * @param lineB the line b
    * @return the intersection point
    */
-  @Nullable
-  public static Point2D getIntersectionPoint(final Line2D lineA, final Line2D lineB) {
+  @Nullable public static Point2D getIntersectionPoint(final Line2D lineA, final Line2D lineB) {
 
     final double x1 = lineA.getX1();
     final double y1 = lineA.getY1();
@@ -252,8 +251,7 @@ public class GeometricUtilities {
    * @param rectangle the rectangle
    * @return the point2 d
    */
-  @Nullable
-  public static Point2D getIntersectionPoint(final Line2D line, final Rectangle2D rectangle) {
+  @Nullable public static Point2D getIntersectionPoint(final Line2D line, final Rectangle2D rectangle) {
     final List<Point2D> intersectionPoints = getIntersectionPoints(line, rectangle);
     for (final Point2D p : intersectionPoints) {
       if (p != null && !p.equals(line.getP1()) && contains(rectangle, p)) {
@@ -383,13 +381,11 @@ public class GeometricUtilities {
         center.getX() - radius, center.getY() - radius, radius * 2, radius * 2);
   }
 
-  @Nullable
-  public static Point2D getAveragePosition(Collection<Point2D> points) {
+  @Nullable public static Point2D getAveragePosition(Collection<Point2D> points) {
     return getAveragePosition(points.toArray(new Point2D[points.size()]));
   }
 
-  @Nullable
-  public static Point2D getAveragePosition(Point2D... points) {
+  @Nullable public static Point2D getAveragePosition(Point2D... points) {
     if (points.length == 0) {
       return null;
     }
@@ -514,7 +510,7 @@ public class GeometricUtilities {
     return line;
   }
 
-  public static boolean intersects(@Nullable final Rectangle2D a, final Rectangle2D b) {
+  public static boolean intersects(final Rectangle2D a, final Rectangle2D b) {
     return Math.abs(a.getCenterX() - b.getCenterX()) < a.getWidth() * 0.5 + b.getWidth() * 0.5
         && Math.abs(a.getCenterY() - b.getCenterY()) < a.getHeight() * 0.5 + b.getHeight() * 0.5;
   }
@@ -615,8 +611,7 @@ public class GeometricUtilities {
     return transform.createTransformedShape(shape);
   }
 
-  @Nullable
-  public static Dimension2D scaleWithRatio(final double width, final double height, final int max) {
+  @Nullable public static Dimension2D scaleWithRatio(final double width, final double height, final int max) {
     if (width == 0 || height == 0) {
       return null;
     }
