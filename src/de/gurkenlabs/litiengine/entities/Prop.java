@@ -32,7 +32,8 @@ public class Prop extends CombatEntity {
   @TmxProperty(name = MapObjectProperty.PROP_ROTATION)
   private Rotation rotation;
 
-  @Nullable @TmxProperty(name = MapObjectProperty.SPRITESHEETNAME)
+  @Nullable
+  @TmxProperty(name = MapObjectProperty.SPRITESHEETNAME)
   private String spritesheetName;
 
   /**
@@ -84,7 +85,8 @@ public class Prop extends CombatEntity {
    * @param spritesheetName The spritesheet name of this prop.
    * @param material The material of this prop.
    */
-  public Prop(final Point2D location, @Nullable final String spritesheetName, final Material material) {
+  public Prop(
+      final Point2D location, @Nullable final String spritesheetName, final Material material) {
     super();
     this.rotation = Rotation.NONE;
     this.spritesheetName = spritesheetName;
@@ -97,7 +99,8 @@ public class Prop extends CombatEntity {
     return this.material;
   }
 
-  @Nullable public String getSpritesheetName() {
+  @Nullable
+  public String getSpritesheetName() {
     return this.spritesheetName;
   }
 
