@@ -12,10 +12,10 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+import javax.annotation.Nullable;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-import javax.annotation.Nullable;
 
 public class MapObjectLayer extends Layer implements IMapObjectLayer {
   public static final String DEFAULT_MAPOBJECTLAYER_NAME = "default";
@@ -84,7 +84,8 @@ public class MapObjectLayer extends Layer implements IMapObjectLayer {
     return new Dimension(this.getWidth(), this.getHeight());
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public String toString() {
     return this.getName();
   }
@@ -104,7 +105,8 @@ public class MapObjectLayer extends Layer implements IMapObjectLayer {
     }
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public Color getColor() {
     if (this.color == null || this.color.isEmpty()) {
       return null;
@@ -118,7 +120,8 @@ public class MapObjectLayer extends Layer implements IMapObjectLayer {
     return this.decodedColor;
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public String getColorHexString() {
     return this.color;
   }

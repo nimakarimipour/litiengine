@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.environment.tilemap.xml;
 
+import com.uber.nullaway.annotations.Initializer;
 import de.gurkenlabs.litiengine.environment.tilemap.IGroupLayer;
 import de.gurkenlabs.litiengine.environment.tilemap.IImageLayer;
 import de.gurkenlabs.litiengine.environment.tilemap.ILayer;
@@ -26,6 +27,7 @@ import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.Nullable;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -36,8 +38,6 @@ import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import com.uber.nullaway.annotations.Initializer;
-import javax.annotation.Nullable;
 
 @XmlRootElement(name = "map")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -56,7 +56,7 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
 
   @XmlTransient private IMapOrientation mapOrientation;
 
-  @XmlAttribute private RenderOrder renderorder;
+  @Nullable @XmlAttribute private RenderOrder renderorder;
 
   @XmlAttribute private int width;
 
@@ -68,19 +68,22 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
 
   @XmlAttribute private int infinite;
 
-  @XmlAttribute private Integer hexsidelength;
+  @Nullable @XmlAttribute private Integer hexsidelength;
 
   @Nullable @XmlAttribute private StaggerAxis staggeraxis;
 
   @Nullable @XmlAttribute private StaggerIndex staggerindex;
 
-  @Nullable @XmlAttribute
+  @Nullable
+  @XmlAttribute
   @XmlJavaTypeAdapter(ColorAdapter.class)
   private Color backgroundcolor;
 
+  @Nullable
   @XmlAttribute(name = "nextlayerid")
   private Integer nextLayerId;
 
+  @Nullable
   @XmlAttribute(name = "nextobjectid")
   private Integer nextObjectId;
 
@@ -154,12 +157,14 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
     return this.mapOrientation;
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   @XmlTransient
   public URL getPath() {
     return this.path;
   }
 
+  @Nullable
   @Override
   public RenderOrder getRenderOrder() {
     return this.renderorder;
@@ -200,7 +205,8 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
     return this.tilesets;
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public ITilesetEntry getTilesetEntry(int gid) {
     for (ITileset tileset : this.getTilesets()) {
       if (tileset.containsTile(gid)) {
@@ -240,7 +246,8 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
     return this.groupLayers;
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public String getName() {
     return this.name;
   }
@@ -265,12 +272,14 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
     return this.hexsidelength;
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public StaggerAxis getStaggerAxis() {
     return this.staggeraxis;
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public StaggerIndex getStaggerIndex() {
     return this.staggerindex;
   }
@@ -446,7 +455,8 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
     return externalTilesets;
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public Color getBackgroundColor() {
     return this.backgroundcolor;
   }
@@ -464,7 +474,8 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
     return this.chunkOffsetY;
   }
 
-  @Initializer @SuppressWarnings("unused")
+  @Initializer
+  @SuppressWarnings("unused")
   private void afterUnmarshal(Unmarshaller u, Object parent) throws TmxException {
     this.checkVersion();
 

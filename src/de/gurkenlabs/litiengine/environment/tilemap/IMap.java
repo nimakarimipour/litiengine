@@ -17,7 +17,8 @@ public interface IMap extends ILayerList, Comparable<IMap> {
    */
   public List<ITileset> getTilesets();
 
-  @Nullable public ITilesetEntry getTilesetEntry(int gid);
+  @Nullable
+  public ITilesetEntry getTilesetEntry(int gid);
 
   /**
    * Gets the orientation.
@@ -26,13 +27,15 @@ public interface IMap extends ILayerList, Comparable<IMap> {
    */
   public IMapOrientation getOrientation();
 
-  @Nullable public URL getPath();
+  @Nullable
+  public URL getPath();
 
   /**
    * Gets the renderorder.
    *
    * @return the renderorder
    */
+  @Nullable
   public RenderOrder getRenderOrder();
 
   /**
@@ -98,14 +101,16 @@ public interface IMap extends ILayerList, Comparable<IMap> {
    *
    * @return the tile size
    */
-  @Nullable public StaggerAxis getStaggerAxis();
+  @Nullable
+  public StaggerAxis getStaggerAxis();
 
   /**
    * Gets the tile size.
    *
    * @return the tile size
    */
-  @Nullable public StaggerIndex getStaggerIndex();
+  @Nullable
+  public StaggerIndex getStaggerIndex();
 
   /**
    * Gets the version.
@@ -123,13 +128,15 @@ public interface IMap extends ILayerList, Comparable<IMap> {
    */
   public void setName(String name);
 
-  @Nullable public String getName();
+  @Nullable
+  public String getName();
 
   public int getNextObjectId();
 
   public int getNextLayerId();
 
-  @Nullable public Color getBackgroundColor();
+  @Nullable
+  public Color getBackgroundColor();
 
   public boolean isInfinite();
 
