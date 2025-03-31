@@ -53,8 +53,7 @@ public class Trigger extends CollisionEntity implements IUpdateable {
   @TmxProperty(name = MapObjectProperty.TRIGGER_ONETIME)
   private final boolean isOneTimeTrigger;
 
-  @Nullable
-  @TmxProperty(name = MapObjectProperty.TRIGGER_MESSAGE)
+  @Nullable @TmxProperty(name = MapObjectProperty.TRIGGER_MESSAGE)
   private String message;
 
   @TmxProperty(name = MapObjectProperty.TRIGGER_COOLDOWN)
@@ -80,8 +79,7 @@ public class Trigger extends CollisionEntity implements IUpdateable {
    * @param name The name of this trigger.
    * @param message The message that gets sent by this trigger upon activation.
    */
-  public Trigger(
-      final TriggerActivation activation, @Nullable final String name, final String message) {
+  public Trigger(final TriggerActivation activation, @Nullable final String name, final String message) {
     this(activation, name, message, false);
   }
 
@@ -195,8 +193,7 @@ public class Trigger extends CollisionEntity implements IUpdateable {
     return this.activators;
   }
 
-  @Nullable
-  public String getMessage() {
+  @Nullable public String getMessage() {
     return this.message;
   }
 
@@ -334,15 +331,9 @@ public class Trigger extends CollisionEntity implements IUpdateable {
       this.collisionActivated.add(activator);
     }
 
-    Environment env = this.getEnvironment();
-    if (env == null) {
-      log.log(Level.WARNING, "Environment is null, unable to activate trigger.");
-      return false;
-    }
-
     // if we actually have a trigger target, we send the message to the target
     for (final int target : triggerTargets) {
-      final IEntity entity = env.get(target);
+      final IEntity entity = this.getEnvironment().get(target);
       if (entity == null) {
         log.log(
             Level.WARNING,
@@ -360,7 +351,7 @@ public class Trigger extends CollisionEntity implements IUpdateable {
     }
 
     if (this.isOneTimeTrigger) {
-      env.remove(this);
+      this.getEnvironment().remove(this);
     }
 
     this.lastActivation = Game.time().now();
