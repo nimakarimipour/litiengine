@@ -22,6 +22,7 @@ public interface ICollisionEntity extends IEntity {
    *
    * @return the collision box
    */
+  @Nullable
   Rectangle2D getCollisionBox();
 
   /**
