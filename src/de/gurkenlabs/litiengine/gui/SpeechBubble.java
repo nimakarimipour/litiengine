@@ -58,10 +58,7 @@ public class SpeechBubble implements IUpdateable, IRenderable {
   @Nullable private Point2D entityCenter;
 
   private SpeechBubble(
-      final IEntity entity,
-      final String text,
-      @Nullable SpeechBubbleAppearance appearance,
-      @Nullable Font font) {
+      final IEntity entity, final String text, @Nullable SpeechBubbleAppearance appearance, @Nullable Font font) {
     if (appearance == null) {
       this.appearance = DEFAULT_APPEARANCE;
     } else {
@@ -143,8 +140,7 @@ public class SpeechBubble implements IUpdateable, IRenderable {
     return this.appearance;
   }
 
-  @Nullable
-  public Font getFont() {
+  @Nullable public Font getFont() {
     return this.font;
   }
 
