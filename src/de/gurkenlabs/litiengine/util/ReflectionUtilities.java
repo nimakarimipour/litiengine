@@ -24,13 +24,11 @@ public final class ReflectionUtilities {
     throw new UnsupportedOperationException();
   }
 
-  @Nullable
-  public static <T> Field getField(Class<T> cls, final String fieldName) {
+  @Nullable public static <T> Field getField(Class<T> cls, final String fieldName) {
     return getField(cls, fieldName, true);
   }
 
-  @Nullable
-  public static <T> Field getField(Class<T> cls, final String fieldName, boolean recursive) {
+  @Nullable public static <T> Field getField(Class<T> cls, final String fieldName, boolean recursive) {
     for (final Field field : cls.getDeclaredFields()) {
       if (field.getName().equalsIgnoreCase(fieldName)) {
         return field;
@@ -51,8 +49,7 @@ public final class ReflectionUtilities {
     return null;
   }
 
-  @Nullable
-  @SuppressWarnings("unchecked")
+  @Nullable @SuppressWarnings("unchecked")
   public static <V> V getStaticValue(Class<?> cls, String fieldName) {
     Field keyField = ReflectionUtilities.getField(cls, fieldName);
     if (keyField == null) {
@@ -92,8 +89,7 @@ public final class ReflectionUtilities {
    * @param parameterTypes The types of the parameters defined by the method declaration.
    * @return The found method or null if no such method exists.
    */
-  @Nullable
-  public static Method getMethod(String name, Class<?> type, Class<?>... parameterTypes) {
+  @Nullable public static Method getMethod(String name, Class<?> type, Class<?>... parameterTypes) {
     Method method = null;
     try {
       method = type.getDeclaredMethod(name, parameterTypes);
@@ -154,8 +150,7 @@ public final class ReflectionUtilities {
     return false;
   }
 
-  @Nullable
-  public static <T> Method getSetter(Class<T> cls, final String fieldName) {
+  @Nullable public static <T> Method getSetter(Class<T> cls, final String fieldName) {
     for (final Method method : getSetters(cls)) {
       if (method.getName().equalsIgnoreCase("set" + fieldName)) {
         return method;
@@ -284,7 +279,7 @@ public final class ReflectionUtilities {
     while (clazz
         != Object
             .class) { // need to iterated thought hierarchy in order to retrieve methods from above
-      // the current instance
+                      // the current instance
       // iterate though the list of methods declared in the class represented by class variable, and
       // add those annotated with the specified annotation
       final List<Method> allMethods = new ArrayList<>(Arrays.asList(clazz.getDeclaredMethods()));
@@ -319,7 +314,7 @@ public final class ReflectionUtilities {
     while (clazz
         != Object
             .class) { // need to iterated thought hierarchy in order to retrieve methods from above
-      // the current instance
+                      // the current instance
       // iterate though the list of methods declared in the class represented by class variable, and
       // add those annotated with the specified annotation
       final List<Method> allMethods = new ArrayList<>(Arrays.asList(clazz.getDeclaredMethods()));

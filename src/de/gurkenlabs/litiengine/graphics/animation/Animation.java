@@ -338,8 +338,7 @@ public class Animation implements IUpdateable, ILaunchable {
     this.lastFrameUpdate = Game.loop().getTicks();
   }
 
-  @Nullable
-  KeyFrame getCurrentKeyFrame() {
+  @Nullable KeyFrame getCurrentKeyFrame() {
     return this.currentFrame;
   }
 
