@@ -9,6 +9,7 @@ import de.gurkenlabs.litiengine.graphics.RenderType;
 import de.gurkenlabs.litiengine.graphics.ShapeRenderer;
 import de.gurkenlabs.litiengine.sound.Sound;
 import de.gurkenlabs.litiengine.util.Imaging;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -58,7 +59,10 @@ public class SpeechBubble implements IUpdateable, IRenderable {
   @Nullable private Point2D entityCenter;
 
   private SpeechBubble(
-      final IEntity entity, final String text, @Nullable SpeechBubbleAppearance appearance, @Nullable Font font) {
+      final IEntity entity,
+      final String text,
+      @Nullable SpeechBubbleAppearance appearance,
+      @Nullable Font font) {
     if (appearance == null) {
       this.appearance = DEFAULT_APPEARANCE;
     } else {
@@ -140,7 +144,8 @@ public class SpeechBubble implements IUpdateable, IRenderable {
     return this.appearance;
   }
 
-  @Nullable public Font getFont() {
+  @Nullable
+  public Font getFont() {
     return this.font;
   }
 
@@ -251,7 +256,7 @@ public class SpeechBubble implements IUpdateable, IRenderable {
 
   private void createBubbleImage() {
     final BufferedImage img = Imaging.getCompatibleImage(500, 500);
-    final Graphics2D g = img.createGraphics();
+    final Graphics2D g = Nullability.castToNonnull(img, "reason...").createGraphics();
     g.setFont(this.getFont());
     final float stringWidth = g.getFontMetrics().stringWidth(this.currentText);
     if (stringWidth < this.textBoxWidth) {
