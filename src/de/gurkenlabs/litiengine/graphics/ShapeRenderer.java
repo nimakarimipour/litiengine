@@ -62,12 +62,18 @@ public final class ShapeRenderer {
   }
 
   public static void renderOutlineTransformed(
-      final Graphics2D g, final Shape shape, @Nullable AffineTransform transform, final float stroke) {
+      final Graphics2D g,
+      final Shape shape,
+      @Nullable AffineTransform transform,
+      final float stroke) {
     renderOutlineTransformed(g, shape, transform, new BasicStroke(stroke));
   }
 
   public static void renderOutlineTransformed(
-      final Graphics2D g, final Shape shape, @Nullable AffineTransform transform, final Stroke stroke) {
+      final Graphics2D g,
+      final Shape shape,
+      @Nullable AffineTransform transform,
+      final Stroke stroke) {
     if (transform == null) {
       renderOutline(g, shape, stroke);
       return;
