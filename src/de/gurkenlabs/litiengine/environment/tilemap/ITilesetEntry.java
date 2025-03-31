@@ -7,18 +7,15 @@ public interface ITilesetEntry extends ICustomPropertyProvider {
 
   public int getId();
 
-  @Nullable
-  public ITerrain[] getTerrain();
+  @Nullable public ITerrain[] getTerrain();
 
-  @Nullable
-  public ITileAnimation getAnimation();
+  @Nullable public ITileAnimation getAnimation();
 
   /**
    * Gets the current image for this tileset entry.
    *
    * @return The current image for this tileset entry, accounting for animation.
    */
-  @Nullable
   public BufferedImage getImage();
 
   /**
@@ -26,8 +23,7 @@ public interface ITilesetEntry extends ICustomPropertyProvider {
    *
    * @return The standard image for this tileset entry
    */
-  @Nullable
-  public BufferedImage getBasicImage();
+  @Nullable public BufferedImage getBasicImage();
 
   /**
    * Gets the tileset that this entry belongs to.
@@ -36,9 +32,7 @@ public interface ITilesetEntry extends ICustomPropertyProvider {
    */
   public ITileset getTileset();
 
-  @Nullable
-  public String getType();
+  @Nullable public String getType();
 
-  @Nullable
-  public IMapObjectLayer getCollisionInfo();
+  @Nullable public IMapObjectLayer getCollisionInfo();
 }
