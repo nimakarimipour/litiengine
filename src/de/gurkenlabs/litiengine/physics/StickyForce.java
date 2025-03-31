@@ -35,7 +35,8 @@ public class StickyForce extends Force {
    *
    * @return the force entiy
    */
-  @Nullable public IEntity getForceEntiy() {
+  @Nullable
+  public IEntity getForceEntiy() {
     return this.forceEntiy;
   }
 
