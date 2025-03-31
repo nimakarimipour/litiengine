@@ -1,7 +1,7 @@
 package de.gurkenlabs.litiengine.sound;
 
-import javax.sound.sampled.AudioFormat;
 import javax.annotation.Nullable;
+import javax.sound.sampled.AudioFormat;
 
 /**
  * The {@code Track} class defines a sequence in which music {@code Sounds} should be played back by
@@ -12,5 +12,6 @@ import javax.annotation.Nullable;
  * @see SoundEngine#playMusic(Track)
  */
 public interface Track extends Iterable<Sound> {
-  @Nullable AudioFormat getFormat();
+  @Nullable
+  AudioFormat getFormat();
 }

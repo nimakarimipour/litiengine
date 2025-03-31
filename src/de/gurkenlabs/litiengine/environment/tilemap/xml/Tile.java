@@ -9,11 +9,11 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.util.Collections;
 import java.util.Objects;
+import javax.annotation.Nullable;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.annotation.Nullable;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Tile extends CustomPropertyProvider implements ITile {
@@ -118,7 +118,8 @@ public class Tile extends CustomPropertyProvider implements ITile {
     return this.flipped;
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public BufferedImage getImage() {
     if (this.tilesetEntry == null) { // happens if the tile is empty
       return null;
@@ -153,7 +154,8 @@ public class Tile extends CustomPropertyProvider implements ITile {
     return this.gid;
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public Point getTileCoordinate() {
     return this.tileCoordinate;
   }
