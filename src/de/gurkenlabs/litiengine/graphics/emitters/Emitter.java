@@ -191,8 +191,7 @@ public class Emitter extends Entity implements IUpdateable, ITimeToLive, IRender
         this.getY() + this.data().getOriginValign().getValue(this.getHeight()));
   }
 
-  @Nullable
-  public IRenderable getRenderable(RenderType type) {
+  @Nullable public IRenderable getRenderable(RenderType type) {
     if (type == RenderType.NONE) {
       return null;
     }
@@ -346,8 +345,7 @@ public class Emitter extends Entity implements IUpdateable, ITimeToLive, IRender
    *
    * @return the particle
    */
-  @Nullable
-  protected Particle createNewParticle() {
+  @Nullable protected Particle createNewParticle() {
 
     float width = (float) this.data().getParticleWidth().get();
     float height = (float) this.data().getParticleHeight().get();
