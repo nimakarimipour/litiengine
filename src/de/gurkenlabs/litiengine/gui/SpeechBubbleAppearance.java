@@ -21,18 +21,23 @@ public class SpeechBubbleAppearance extends Appearance {
     super(foreColor, backColor);
   }
 
-  public SpeechBubbleAppearance(@Nullable Color foreColor, @Nullable Color backColor, @Nullable Color borderColor) {
+  public SpeechBubbleAppearance(
+      @Nullable Color foreColor, @Nullable Color backColor, @Nullable Color borderColor) {
     super(foreColor, backColor);
     this.borderColor = borderColor;
   }
 
   public SpeechBubbleAppearance(
-      @Nullable Color foreColor, @Nullable Color backColor, @Nullable Color borderColor, float padding) {
+      @Nullable Color foreColor,
+      @Nullable Color backColor,
+      @Nullable Color borderColor,
+      float padding) {
     this(foreColor, backColor, borderColor);
     this.padding = padding;
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public Color getBorderColor() {
     return this.borderColor;
   }
