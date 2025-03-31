@@ -131,7 +131,7 @@ public final class DebugRenderer {
     }
   }
 
-  public static void renderMapDebugInfo(final Graphics2D g, @Nullable final IMap map) {
+  public static void renderMapDebugInfo(final Graphics2D g, final IMap map) {
     if (!Game.config().debug().isDebugEnabled()) {
       return;
     }
