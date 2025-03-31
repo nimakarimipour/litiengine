@@ -3,7 +3,6 @@ package de.gurkenlabs.litiengine.gui.screens;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.GameWindow;
 import de.gurkenlabs.litiengine.graphics.RenderComponent;
-import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -155,10 +154,7 @@ public final class ScreenManager {
     }
 
     if (this.screens.stream()
-        .noneMatch(
-            element ->
-                Nullability.castToNonnull(element.getName(), "reason...")
-                    .equalsIgnoreCase(screenName))) {
+        .noneMatch(element -> element.getName().equalsIgnoreCase(screenName))) {
       log.log(
           Level.WARNING,
           "Could not display the screen {0} because there is no screen with the specified name.",
@@ -180,13 +176,10 @@ public final class ScreenManager {
    * @param screenName The name of the screen.
    * @return The
    */
-  @Nullable
-  public Screen get(String screenName) {
+  @Nullable public Screen get(String screenName) {
     Optional<Screen> opt =
         this.screens.stream()
-            .filter(
-                element ->
-                    element.getName() != null && element.getName().equalsIgnoreCase(screenName))
+            .filter(element -> element.getName().equalsIgnoreCase(screenName))
             .findFirst();
     return opt.orElse(null);
   }
@@ -208,8 +201,7 @@ public final class ScreenManager {
    * @see GameWindow#getRenderComponent()
    * @see RenderComponent#render()
    */
-  @Nullable
-  public Screen current() {
+  @Nullable public Screen current() {
     return this.currentScreen;
   }
 

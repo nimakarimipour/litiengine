@@ -242,8 +242,7 @@ public abstract class GuiComponent
    *
    * @return the hover sound
    */
-  @Nullable
-  public Sound getHoverSound() {
+  @Nullable public Sound getHoverSound() {
     return this.hoverSound;
   }
 
@@ -261,7 +260,6 @@ public abstract class GuiComponent
    *
    * @return the name
    */
-  @Nullable
   public String getName() {
     return this.name;
   }
@@ -271,8 +269,7 @@ public abstract class GuiComponent
    *
    * @return the tag
    */
-  @Nullable
-  public Object getTag() {
+  @Nullable public Object getTag() {
     return this.tag;
   }
 
@@ -283,8 +280,7 @@ public abstract class GuiComponent
    *
    * @return the entire text on this GuiComponent
    */
-  @Nullable
-  public String getText() {
+  @Nullable public String getText() {
     return this.text;
   }
 
@@ -328,8 +324,7 @@ public abstract class GuiComponent
    *
    * @return the text shadow color
    */
-  @Nullable
-  public Color getTextShadowColor() {
+  @Nullable public Color getTextShadowColor() {
     return this.textShadowColor;
   }
 
