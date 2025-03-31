@@ -36,7 +36,8 @@ public final class Strings {
     this.charset = charset;
   }
 
-  @Nullable public String get(final String key) {
+  @Nullable
+  public String get(final String key) {
     if (key == null) {
       return null;
     }
@@ -44,7 +45,8 @@ public final class Strings {
     return this.getFrom(DEFAULT_BUNDLE, key);
   }
 
-  @Nullable public String get(final String key, Object... args) {
+  @Nullable
+  public String get(final String key, Object... args) {
     if (key == null) {
       return null;
     }
@@ -52,7 +54,8 @@ public final class Strings {
     return this.getFrom(DEFAULT_BUNDLE, key, args);
   }
 
-  @Nullable public String getFrom(final String bundleName, final String key, Object... args) {
+  @Nullable
+  public String getFrom(final String bundleName, final String key, Object... args) {
     if (bundleName == null || key == null) {
       return null;
     }
