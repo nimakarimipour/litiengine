@@ -16,14 +16,15 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
+import javax.annotation.Nullable;
 
 public class AnimationController implements IAnimationController {
   private static final int MAX_IMAGE_EFFECTS = 20;
-  private AffineTransform affineTransform;
+  @Nullable private AffineTransform affineTransform;
   private final Map<String, Animation> animations;
-  private Animation currentAnimation;
+  @Nullable private Animation currentAnimation;
 
-  private Animation defaultAnimation;
+  @Nullable private Animation defaultAnimation;
   private boolean enabled;
   private final List<ImageEffect> imageEffects;
   private final List<AnimationListener> listeners;
@@ -104,7 +105,7 @@ public class AnimationController implements IAnimationController {
   }
 
   @Override
-  public void add(final Animation animation) {
+  public void add(@Nullable final Animation animation) {
     if (animation == null) {
       return;
     }
@@ -156,7 +157,7 @@ public class AnimationController implements IAnimationController {
     Game.loop().detach(this);
   }
 
-  @Override
+  @Nullable @Override
   public Animation get(final String animationName) {
     if (animationName == null || animationName.isEmpty()) {
       return null;
@@ -165,7 +166,7 @@ public class AnimationController implements IAnimationController {
     return this.animations.getOrDefault(animationName, null);
   }
 
-  @Override
+  @Nullable @Override
   public AffineTransform getAffineTransform() {
     return this.affineTransform;
   }
@@ -175,12 +176,12 @@ public class AnimationController implements IAnimationController {
     return this.animations.values();
   }
 
-  @Override
+  @Nullable @Override
   public Animation getCurrent() {
     return this.currentAnimation;
   }
 
-  @Override
+  @Nullable @Override
   public BufferedImage getCurrentImage() {
     if (!this.isEnabled()) {
       return null;
@@ -208,7 +209,7 @@ public class AnimationController implements IAnimationController {
     return sprite;
   }
 
-  @Override
+  @Nullable @Override
   public BufferedImage getCurrentImage(final int width, final int height) {
     if (this.getCurrentImage() == null) {
       return null;
@@ -223,7 +224,7 @@ public class AnimationController implements IAnimationController {
     return Imaging.scale(this.getCurrentImage(), width, height);
   }
 
-  @Override
+  @Nullable @Override
   public Animation getDefault() {
     if (this.defaultAnimation != null) {
       return this.defaultAnimation;
@@ -243,7 +244,7 @@ public class AnimationController implements IAnimationController {
   }
 
   @Override
-  public boolean hasAnimation(final String animationName) {
+  public boolean hasAnimation(@Nullable final String animationName) {
     if (animationName == null || animationName.isEmpty()) {
       return false;
     }
@@ -324,7 +325,7 @@ public class AnimationController implements IAnimationController {
   }
 
   @Override
-  public void setDefault(final Animation defaultAnimation) {
+  public void setDefault(@Nullable final Animation defaultAnimation) {
     if (this.defaultAnimation != null) {
       this.animations.remove(this.defaultAnimation.getName());
       if (this.currentAnimation != null && this.currentAnimation.equals(this.defaultAnimation)) {
@@ -376,7 +377,7 @@ public class AnimationController implements IAnimationController {
    *
    * @return the unique cache key for the current key frame
    */
-  protected String buildCurrentCacheKey() {
+  @Nullable protected String buildCurrentCacheKey() {
     if (this.getCurrent() == null
         || this.getCurrent().getCurrentKeyFrame() == null
         || this.getCurrent().getSpritesheet() == null) {

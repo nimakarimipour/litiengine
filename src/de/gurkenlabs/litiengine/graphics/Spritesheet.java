@@ -13,13 +13,14 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Logger;
+import javax.annotation.Nullable;
 
 public final class Spritesheet implements Comparable<Spritesheet> {
   private static final Logger log = Logger.getLogger(Spritesheet.class.getName());
 
   private final List<Integer> emptySprites = new CopyOnWriteArrayList<>();
 
-  private final BufferedImage image;
+  @Nullable private final BufferedImage image;
   private final String name;
   private final ImageFormat imageFormat;
 
@@ -40,7 +41,7 @@ public final class Spritesheet implements Comparable<Spritesheet> {
    * @param spriteHeight the height in pixels of each sprite in the spritesheet.
    */
   public Spritesheet(
-      final BufferedImage image, final String path, final int spriteWidth, final int spriteHeight) {
+      @Nullable final BufferedImage image, @Nullable final String path, final int spriteWidth, final int spriteHeight) {
     checkImage(image, path);
     this.image = image;
     this.name = FileUtilities.getFileName(path);
@@ -78,7 +79,7 @@ public final class Spritesheet implements Comparable<Spritesheet> {
     return this.columns;
   }
 
-  public BufferedImage getPreview(int dimension) {
+  @Nullable public BufferedImage getPreview(int dimension) {
     final BufferedImage img = this.getSprite(0);
     BufferedImage scaled = null;
     String cacheKey = "iconx" + dimension + this.getName();
@@ -121,15 +122,15 @@ public final class Spritesheet implements Comparable<Spritesheet> {
     return this.rows;
   }
 
-  public BufferedImage getRandomSprite() {
+  @Nullable public BufferedImage getRandomSprite() {
     return Game.random().choose(this.sprites);
   }
 
-  public BufferedImage getSprite(final int index) {
+  @Nullable public BufferedImage getSprite(final int index) {
     return this.getSprite(index, 0, 0);
   }
 
-  public BufferedImage getSprite(final int index, final int margin, final int spacing) {
+  @Nullable public BufferedImage getSprite(final int index, final int margin, final int spacing) {
     if (this.emptySprites.contains(index) || this.sprites.length == 0) {
       return null;
     }
@@ -252,7 +253,7 @@ public final class Spritesheet implements Comparable<Spritesheet> {
     }
   }
 
-  private static void checkImage(BufferedImage image, String name) {
+  private static void checkImage(@Nullable BufferedImage image, @Nullable String name) {
     if (image == null) {
       throw new IllegalArgumentException("The image for the spritesheet '" + name + "' is null!");
     }

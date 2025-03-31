@@ -32,6 +32,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
+import javax.annotation.Nullable;
 
 /** A standard implementation for emitters that provide a particle effect. */
 @CollisionInfo(collision = false)
@@ -190,7 +191,7 @@ public class Emitter extends Entity implements IUpdateable, ITimeToLive, IRender
         this.getY() + this.data().getOriginValign().getValue(this.getHeight()));
   }
 
-  public IRenderable getRenderable(RenderType type) {
+  @Nullable public IRenderable getRenderable(RenderType type) {
     if (type == RenderType.NONE) {
       return null;
     }
@@ -263,7 +264,7 @@ public class Emitter extends Entity implements IUpdateable, ITimeToLive, IRender
     this.stopped = stopped;
   }
 
-  public void setEmitterData(final EmitterData emitterData) {
+  public void setEmitterData(@Nullable final EmitterData emitterData) {
     if (emitterData == null) {
       return;
     }
@@ -344,7 +345,7 @@ public class Emitter extends Entity implements IUpdateable, ITimeToLive, IRender
    *
    * @return the particle
    */
-  protected Particle createNewParticle() {
+  @Nullable protected Particle createNewParticle() {
 
     float width = (float) this.data().getParticleWidth().get();
     float height = (float) this.data().getParticleHeight().get();

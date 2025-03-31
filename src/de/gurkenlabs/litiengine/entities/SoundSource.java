@@ -11,6 +11,7 @@ import de.gurkenlabs.litiengine.resources.Sounds;
 import de.gurkenlabs.litiengine.sound.SFXPlayback;
 import de.gurkenlabs.litiengine.sound.Sound;
 import de.gurkenlabs.litiengine.sound.SoundEngine;
+import javax.annotation.Nullable;
 
 /**
  * This is an Entity that can play or loop ambient sound effects within a given range and with a
@@ -144,7 +145,7 @@ public class SoundSource extends Entity {
    *
    * @return A String containing the sound name.
    */
-  public String getSoundName() {
+  @Nullable public String getSoundName() {
     return this.sound.getName();
   }
 
@@ -172,7 +173,7 @@ public class SoundSource extends Entity {
    * @param name The name of the Sound resource.
    * @see Sounds#get(String)
    */
-  public void setSound(String name) {
+  public void setSound(@Nullable String name) {
     this.sound = Resources.sounds().get(name);
   }
 

@@ -23,6 +23,8 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlMixed;
 import javax.xml.bind.annotation.XmlTransient;
+import com.uber.nullaway.annotations.Initializer;
+import javax.annotation.Nullable;
 
 public class TileData {
   private static final Logger log = Logger.getLogger(TileData.class.getName());
@@ -43,11 +45,11 @@ public class TileData {
   public static class Compression {
     public static final String GZIP = "gzip";
     public static final String ZLIB = "zlib";
-    public static final String NONE = null;
+    @Nullable public static final String NONE = null;
 
     private Compression() {}
 
-    public static boolean isValid(String compression) {
+    public static boolean isValid(@Nullable String compression) {
       // null equals no compression which is an accepted value
       return compression == null
           || !compression.isEmpty() && (compression.equals(GZIP) || compression.equals(ZLIB));
@@ -56,17 +58,17 @@ public class TileData {
 
   @XmlAttribute private String encoding;
 
-  @XmlAttribute private String compression;
+  @Nullable @XmlAttribute private String compression;
 
   @XmlMixed
   @XmlElementRef(type = TileChunk.class, name = "chunk")
   private List<Object> rawValue;
 
-  @XmlTransient private String value;
+  @Nullable @XmlTransient private String value;
 
   @XmlTransient private List<TileChunk> chunks;
 
-  @XmlTransient private List<Tile> tiles;
+  @Nullable @XmlTransient private List<Tile> tiles;
 
   @XmlTransient private int width;
 
@@ -85,7 +87,7 @@ public class TileData {
     // keep for serialization
   }
 
-  public TileData(List<Tile> tiles, int width, int height, String encoding, String compression)
+  public TileData(List<Tile> tiles, int width, int height, String encoding, @Nullable String compression)
       throws TmxException {
     if (!Encoding.isValid(encoding)) {
       throw new TmxException(
@@ -121,12 +123,12 @@ public class TileData {
     return this.encoding;
   }
 
-  @XmlTransient
+  @Nullable @XmlTransient
   public String getCompression() {
     return this.compression;
   }
 
-  @XmlTransient
+  @Nullable @XmlTransient
   public String getValue() {
     return this.value;
   }
@@ -139,7 +141,7 @@ public class TileData {
     this.compression = compression;
   }
 
-  public void setValue(String value) {
+  @Initializer public void setValue(@Nullable String value) {
     this.value = value;
     if (this.rawValue == null) {
       this.rawValue = new CopyOnWriteArrayList<>();
@@ -171,7 +173,7 @@ public class TileData {
     return this.tiles;
   }
 
-  public static String encode(TileData data) throws IOException {
+  @Nullable public static String encode(TileData data) throws IOException {
     if (data.getEncoding() == null) {
       return null;
     }
@@ -276,7 +278,7 @@ public class TileData {
     return this.offsetY;
   }
 
-  protected static List<Tile> parseBase64Data(String value, String compression)
+  protected static List<Tile> parseBase64Data(@Nullable String value, @Nullable String compression)
       throws InvalidTileLayerException {
     List<Tile> parsed = new ArrayList<>();
 
@@ -331,7 +333,7 @@ public class TileData {
     return parsed;
   }
 
-  protected static List<Tile> parseCsvData(String value) throws InvalidTileLayerException {
+  protected static List<Tile> parseCsvData(@Nullable String value) throws InvalidTileLayerException {
 
     List<Tile> parsed = new ArrayList<>();
 

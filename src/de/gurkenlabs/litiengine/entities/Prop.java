@@ -8,6 +8,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.TmxType;
 import de.gurkenlabs.litiengine.graphics.animation.IEntityAnimationController;
 import de.gurkenlabs.litiengine.graphics.animation.PropAnimationController;
 import java.awt.geom.Point2D;
+import javax.annotation.Nullable;
 
 @AnimationInfo(spritePrefix = PropAnimationController.PROP_IDENTIFIER)
 @TmxType(MapObjectType.PROP)
@@ -31,7 +32,7 @@ public class Prop extends CombatEntity {
   @TmxProperty(name = MapObjectProperty.PROP_ROTATION)
   private Rotation rotation;
 
-  @TmxProperty(name = MapObjectProperty.SPRITESHEETNAME)
+  @Nullable @TmxProperty(name = MapObjectProperty.SPRITESHEETNAME)
   private String spritesheetName;
 
   /**
@@ -39,7 +40,7 @@ public class Prop extends CombatEntity {
    *
    * @param spritesheetName The spritesheet name of this prop.
    */
-  public Prop(final String spritesheetName) {
+  public Prop(@Nullable final String spritesheetName) {
     this(0, 0, spritesheetName);
   }
 
@@ -50,7 +51,7 @@ public class Prop extends CombatEntity {
    * @param y The y-coordinate of this prop.
    * @param spritesheetName The spritesheet name of this prop.
    */
-  public Prop(double x, double y, final String spritesheetName) {
+  public Prop(double x, double y, @Nullable final String spritesheetName) {
     this(x, y, spritesheetName, Material.UNDEFINED);
   }
 
@@ -62,7 +63,7 @@ public class Prop extends CombatEntity {
    * @param spritesheetName The spritesheet name of this prop.
    * @param material The material of this prop.
    */
-  public Prop(double x, double y, final String spritesheetName, final Material material) {
+  public Prop(double x, double y, @Nullable final String spritesheetName, final Material material) {
     this(new Point2D.Double(x, y), spritesheetName, material);
   }
 
@@ -83,7 +84,7 @@ public class Prop extends CombatEntity {
    * @param spritesheetName The spritesheet name of this prop.
    * @param material The material of this prop.
    */
-  public Prop(final Point2D location, final String spritesheetName, final Material material) {
+  public Prop(final Point2D location, @Nullable final String spritesheetName, final Material material) {
     super();
     this.rotation = Rotation.NONE;
     this.spritesheetName = spritesheetName;
@@ -96,7 +97,7 @@ public class Prop extends CombatEntity {
     return this.material;
   }
 
-  public String getSpritesheetName() {
+  @Nullable public String getSpritesheetName() {
     return this.spritesheetName;
   }
 
@@ -140,7 +141,7 @@ public class Prop extends CombatEntity {
     this.material = material;
   }
 
-  public void setSpritesheetName(final String spriteName) {
+  public void setSpritesheetName(@Nullable final String spriteName) {
     this.spritesheetName = spriteName;
     this.updateAnimationController();
   }

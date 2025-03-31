@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import javax.annotation.Nullable;
 
 public interface ILayerList extends ICustomPropertyProvider {
 
@@ -51,7 +52,7 @@ public interface ILayerList extends ICustomPropertyProvider {
    * @param mapObject the map object being searched
    * @return the map object layer containing the map object
    */
-  public default IMapObjectLayer getMapObjectLayer(IMapObject mapObject) {
+  @Nullable public default IMapObjectLayer getMapObjectLayer(IMapObject mapObject) {
     for (IMapObjectLayer layer : this.getMapObjectLayers()) {
       Optional<IMapObject> found =
           layer.getMapObjects().stream().filter(x -> x.getId() == mapObject.getId()).findFirst();
@@ -63,13 +64,13 @@ public interface ILayerList extends ICustomPropertyProvider {
     return null;
   }
 
-  public default IMapObjectLayer getMapObjectLayer(String layerName) {
+  @Nullable public default IMapObjectLayer getMapObjectLayer(String layerName) {
     Optional<IMapObjectLayer> layer =
         this.getMapObjectLayers().stream().filter(x -> x.getName().equals(layerName)).findFirst();
     return layer.orElse(null);
   }
 
-  public default IMapObjectLayer getMapObjectLayer(int layerId) {
+  @Nullable public default IMapObjectLayer getMapObjectLayer(int layerId) {
     Optional<IMapObjectLayer> layer =
         this.getMapObjectLayers().stream().filter(x -> x.getId() == layerId).findFirst();
     return layer.orElse(null);
@@ -168,7 +169,7 @@ public interface ILayerList extends ICustomPropertyProvider {
    * @param mapId the map id of the desired {@code IMapObject}
    * @return the {@code IMapObject} with the given ID
    */
-  public default IMapObject getMapObject(int mapId) {
+  @Nullable public default IMapObject getMapObject(int mapId) {
     if (this.getMapObjectLayers() == null) {
       return null;
     }

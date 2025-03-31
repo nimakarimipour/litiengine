@@ -12,6 +12,7 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import javax.annotation.Nullable;
 
 public abstract class PathFinder {
   private static final float PATH_MARGIN = 2.0f;
@@ -23,7 +24,7 @@ public abstract class PathFinder {
    * @param target the goal
    * @return the path
    */
-  public abstract Path findPath(IMobileEntity start, Point2D target);
+  @Nullable public abstract Path findPath(IMobileEntity start, Point2D target);
 
   protected Path findDirectPath(final Point2D start, final Point2D target) {
     final Path2D path2D = new GeneralPath(Path2D.WIND_NON_ZERO);

@@ -16,6 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.Nullable;
 
 /**
  * TODO: Triggers should be able to call entity actions (similar to the current message approach)
@@ -52,7 +53,7 @@ public class Trigger extends CollisionEntity implements IUpdateable {
   @TmxProperty(name = MapObjectProperty.TRIGGER_ONETIME)
   private final boolean isOneTimeTrigger;
 
-  @TmxProperty(name = MapObjectProperty.TRIGGER_MESSAGE)
+  @Nullable @TmxProperty(name = MapObjectProperty.TRIGGER_MESSAGE)
   private String message;
 
   @TmxProperty(name = MapObjectProperty.TRIGGER_COOLDOWN)
@@ -78,7 +79,7 @@ public class Trigger extends CollisionEntity implements IUpdateable {
    * @param name The name of this trigger.
    * @param message The message that gets sent by this trigger upon activation.
    */
-  public Trigger(final TriggerActivation activation, final String name, final String message) {
+  public Trigger(final TriggerActivation activation, @Nullable final String name, final String message) {
     this(activation, name, message, false);
   }
 
@@ -90,7 +91,7 @@ public class Trigger extends CollisionEntity implements IUpdateable {
    * @param isOneTime A flag, indicating whether this instance can only be triggered once.
    */
   public Trigger(
-      final TriggerActivation activation, final String message, final boolean isOneTime) {
+      final TriggerActivation activation, @Nullable final String message, final boolean isOneTime) {
     this.message = message;
     this.isOneTimeTrigger = isOneTime;
     this.activationType = activation;
@@ -108,7 +109,7 @@ public class Trigger extends CollisionEntity implements IUpdateable {
    */
   public Trigger(
       final TriggerActivation activation,
-      final String name,
+      @Nullable final String name,
       final String message,
       final boolean isOneTime) {
     this(activation, message, isOneTime);
@@ -125,7 +126,7 @@ public class Trigger extends CollisionEntity implements IUpdateable {
    */
   public Trigger(
       final TriggerActivation activation,
-      final String message,
+      @Nullable final String message,
       final boolean isOneTime,
       final int cooldown) {
     this(activation, message, isOneTime);
@@ -192,7 +193,7 @@ public class Trigger extends CollisionEntity implements IUpdateable {
     return this.activators;
   }
 
-  public String getMessage() {
+  @Nullable public String getMessage() {
     return this.message;
   }
 

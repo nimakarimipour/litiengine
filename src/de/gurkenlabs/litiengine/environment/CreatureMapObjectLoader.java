@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.Nullable;
 
 public class CreatureMapObjectLoader extends MapObjectLoader {
   private static final Logger log = Logger.getLogger(CreatureMapObjectLoader.class.getName());
@@ -76,7 +77,7 @@ public class CreatureMapObjectLoader extends MapObjectLoader {
     return entities;
   }
 
-  protected Creature createNewCreature(IMapObject mapObject, String spriteSheet) {
+  protected Creature createNewCreature(IMapObject mapObject, @Nullable String spriteSheet) {
     // for each known custom creature type, check if it was registered for the specified
     // spriteSheetName
     // if so: create an instance of the custom class instead of the default Creature class
@@ -96,7 +97,7 @@ public class CreatureMapObjectLoader extends MapObjectLoader {
     return new Creature(spriteSheet);
   }
 
-  private static Creature createCustomCreature(
+  @Nullable private static Creature createCustomCreature(
       Class<? extends Creature> customCreature, String spriteSheet) {
     try {
       return customCreature.getConstructor(String.class).newInstance(spriteSheet);

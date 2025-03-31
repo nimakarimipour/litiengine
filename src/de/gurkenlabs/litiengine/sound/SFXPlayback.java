@@ -5,11 +5,12 @@ import java.awt.geom.Point2D;
 import java.util.function.Supplier;
 import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
+import javax.annotation.Nullable;
 
 /** A {@code SoundPlayback} implementation for the playback of sound effects. */
 public class SFXPlayback extends SoundPlayback {
   private Sound sound;
-  private FloatControl panControl;
+  @Nullable private FloatControl panControl;
   private Supplier<Point2D> source;
   private int range;
   private float volumeModifier;

@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
+import javax.annotation.Nullable;
 
 public class SpeechBubble implements IUpdateable, IRenderable {
   public static final SpeechBubbleAppearance DEFAULT_APPEARANCE =
@@ -43,9 +44,9 @@ public class SpeechBubble implements IUpdateable, IRenderable {
   private int currentTextDisplayTime;
   private final SpeechBubbleAppearance appearance;
 
-  private Font font;
+  @Nullable private Font font;
   private BufferedImage bubble;
-  private String currentText;
+  @Nullable private String currentText;
 
   private int textIndex;
   private final IEntity entity;
@@ -53,11 +54,11 @@ public class SpeechBubble implements IUpdateable, IRenderable {
   private long lastCharPoll;
   private long lastTextDisplay;
   private float textBoxWidth;
-  private Sound typeSound;
-  private Point2D entityCenter;
+  @Nullable private Sound typeSound;
+  @Nullable private Point2D entityCenter;
 
   private SpeechBubble(
-      final IEntity entity, final String text, SpeechBubbleAppearance appearance, Font font) {
+      final IEntity entity, final String text, @Nullable SpeechBubbleAppearance appearance, @Nullable Font font) {
     if (appearance == null) {
       this.appearance = DEFAULT_APPEARANCE;
     } else {
@@ -139,7 +140,7 @@ public class SpeechBubble implements IUpdateable, IRenderable {
     return this.appearance;
   }
 
-  public Font getFont() {
+  @Nullable public Font getFont() {
     return this.font;
   }
 
@@ -193,7 +194,7 @@ public class SpeechBubble implements IUpdateable, IRenderable {
     }
   }
 
-  public void setFont(Font font) {
+  public void setFont(@Nullable Font font) {
     this.font = font;
   }
 

@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.annotation.Nullable;
 
 /**
  * The {@code GameInfo} class contains basic information about a LITIENGINE game. The information
@@ -37,7 +38,7 @@ public class GameInfo extends CustomPropertyProvider {
 
   @XmlElement private String company;
 
-  @XmlElement private String publisher;
+  @Nullable @XmlElement private String publisher;
 
   @XmlElement(name = "developer")
   private String[] developers;
@@ -91,7 +92,7 @@ public class GameInfo extends CustomPropertyProvider {
    * @see URL
    * @see #getWebsite()
    */
-  @XmlTransient
+  @Nullable @XmlTransient
   public URL getWebsiteURL() {
     if (this.getWebsite() == null || this.getWebsite().isEmpty()) {
       return null;
@@ -130,7 +131,7 @@ public class GameInfo extends CustomPropertyProvider {
    *
    * @return The game's publisher.
    */
-  @XmlTransient
+  @Nullable @XmlTransient
   public String getPublisher() {
     return this.publisher;
   }

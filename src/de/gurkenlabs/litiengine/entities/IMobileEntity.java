@@ -3,6 +3,7 @@ package de.gurkenlabs.litiengine.entities;
 import de.gurkenlabs.litiengine.attributes.Attribute;
 import de.gurkenlabs.litiengine.physics.IMovementController;
 import java.util.EventListener;
+import javax.annotation.Nullable;
 
 public interface IMobileEntity extends ICollisionEntity {
 
@@ -58,7 +59,7 @@ public interface IMobileEntity extends ICollisionEntity {
    *
    * @return the movement controller
    */
-  IMovementController movement();
+  @Nullable IMovementController movement();
 
   /**
    * Sets the acceleration for this entity. Acceleration is a value that defines how long it takes

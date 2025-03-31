@@ -10,11 +10,12 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import javax.annotation.Nullable;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class MapImage extends CustomPropertyProvider implements IMapImage {
 
-  @XmlAttribute private String source;
+  @Nullable @XmlAttribute private String source;
 
   @XmlAttribute(name = "trans")
   @XmlJavaTypeAdapter(ColorAdapter.class)
@@ -77,7 +78,7 @@ public class MapImage extends CustomPropertyProvider implements IMapImage {
     return this.height;
   }
 
-  @Override
+  @Nullable @Override
   public String getSource() {
     return this.source;
   }
@@ -98,7 +99,7 @@ public class MapImage extends CustomPropertyProvider implements IMapImage {
   }
 
   @Override
-  void finish(URL location) throws TmxException {
+  void finish(@Nullable URL location) throws TmxException {
     super.finish(location);
     try {
       this.absolutePath = new URL(location, this.source);

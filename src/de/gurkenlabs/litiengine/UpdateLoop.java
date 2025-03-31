@@ -7,6 +7,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.Nullable;
 
 /**
  * The {@code UpdateLoop} is a basic loop implementation that performs operations at the specified
@@ -93,7 +94,7 @@ public class UpdateLoop extends Thread implements AutoCloseable, ILoop {
   }
 
   @Override
-  public void detach(final IUpdateable updatable) {
+  public void detach(@Nullable final IUpdateable updatable) {
     this.updatables.remove(updatable);
   }
 

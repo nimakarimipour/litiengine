@@ -12,6 +12,7 @@ import java.util.List;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElements;
+import javax.annotation.Nullable;
 
 public class GroupLayer extends Layer implements IGroupLayer {
 
@@ -138,7 +139,7 @@ public class GroupLayer extends Layer implements IGroupLayer {
   }
 
   @Override
-  void finish(URL location) throws TmxException {
+  void finish(@Nullable URL location) throws TmxException {
     super.finish(location);
     for (ILayer layer : this.layers) {
       if (layer instanceof Layer) {

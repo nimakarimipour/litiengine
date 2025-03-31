@@ -13,6 +13,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import javax.annotation.Nullable;
 
 public abstract class Particle implements ITimeToLive {
   private long aliveTick;
@@ -21,7 +22,7 @@ public abstract class Particle implements ITimeToLive {
   private float deltaAngle;
 
   private Collision collisionType;
-  private Color color;
+  @Nullable private Color color;
   private float deltaHeight;
   private float deltaWidth;
   /** The horizontal velocity (horizontal movement per update) for this particle. */
@@ -234,7 +235,7 @@ public abstract class Particle implements ITimeToLive {
     this.stopOnCollision = stopOnCollision;
   }
 
-  public Particle setColor(final Color color) {
+  public Particle setColor(@Nullable final Color color) {
     if (color != null) {
       this.color = color;
     }

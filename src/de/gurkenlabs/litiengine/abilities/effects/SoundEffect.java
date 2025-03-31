@@ -7,6 +7,7 @@ import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.sound.Sound;
 import java.util.Arrays;
 import java.util.stream.Collectors;
+import javax.annotation.Nullable;
 
 public class SoundEffect extends Effect {
   private final Sound[] sounds;
@@ -41,7 +42,7 @@ public class SoundEffect extends Effect {
     Game.audio().playSound(this.getRandomSound(), entity);
   }
 
-  private Sound getRandomSound() {
+  @Nullable private Sound getRandomSound() {
     if (this.sounds.length == 0) {
       return null;
     }

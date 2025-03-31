@@ -19,6 +19,7 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import javax.annotation.Nullable;
 
 public class AmbientLight extends ColorLayer {
   public static final Color DEFAULT_COLOR = new Color(0, 0, 0, 0);
@@ -29,7 +30,7 @@ public class AmbientLight extends ColorLayer {
    * @param environment The environment to which this instance is assigned.
    * @param ambientColor The color of this instance.
    */
-  public AmbientLight(final Environment environment, final Color ambientColor) {
+  public AmbientLight(final Environment environment, @Nullable final Color ambientColor) {
     super(environment, ambientColor);
   }
 

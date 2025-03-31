@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.locks.Lock;
+import javax.annotation.Nullable;
 
 /**
  * The {@code GameWorld} class is a global environment manager that contains all {@code
@@ -47,8 +48,8 @@ public final class GameWorld implements IUpdateable {
 
   private final Map<String, Environment> environments = new ConcurrentHashMap<>();
 
-  private Environment environment;
-  private ICamera camera;
+  @Nullable private Environment environment;
+  @Nullable private ICamera camera;
   private int gravity;
 
   /**
@@ -285,7 +286,7 @@ public final class GameWorld implements IUpdateable {
    * @param mapName The map name by which the environment is identified.
    * @return The environment for the map name or null if no such map can be found.
    */
-  public Environment getEnvironment(String mapName) {
+  @Nullable public Environment getEnvironment(String mapName) {
     if (mapName == null || mapName.isEmpty()) {
       return null;
     }
@@ -301,7 +302,7 @@ public final class GameWorld implements IUpdateable {
    * @param map The map by which the environment is identified.
    * @return The environment for the map or null if no such map can be found.
    */
-  public Environment getEnvironment(IMap map) {
+  @Nullable public Environment getEnvironment(IMap map) {
     if (map == null || map.getName() == null || map.getName().isEmpty()) {
       return null;
     }
@@ -342,7 +343,7 @@ public final class GameWorld implements IUpdateable {
    * @param env The environment to be loaded.
    * @see GameWorld#environment()
    */
-  public void loadEnvironment(final Environment env) {
+  public void loadEnvironment(@Nullable final Environment env) {
     Lock lock = Game.loop().getLock();
     lock.lock();
     try {
@@ -391,7 +392,7 @@ public final class GameWorld implements IUpdateable {
    * @see GameWorld#environment()
    * @see GameWorld#loadEnvironment(Environment)
    */
-  public Environment loadEnvironment(String mapName) {
+  @Nullable public Environment loadEnvironment(String mapName) {
     Environment env = this.getEnvironment(mapName);
     this.loadEnvironment(env);
     return env;
@@ -409,7 +410,7 @@ public final class GameWorld implements IUpdateable {
    * @see GameWorld#environment()
    * @see GameWorld#loadEnvironment(Environment)
    */
-  public Environment loadEnvironment(IMap map) {
+  @Nullable public Environment loadEnvironment(IMap map) {
     Environment env = this.getEnvironment(map);
     this.loadEnvironment(env);
     return env;
@@ -450,7 +451,7 @@ public final class GameWorld implements IUpdateable {
    * @see GameWorld#getEnvironment(String)
    * @see GameWorld#reset(IMap)
    */
-  public Environment reset(String mapName) {
+  @Nullable public Environment reset(String mapName) {
     if (mapName == null || mapName.isEmpty()) {
       return null;
     }
@@ -471,7 +472,7 @@ public final class GameWorld implements IUpdateable {
    * @see GameWorld#getEnvironment(String)
    * @see GameWorld#reset(IMap)
    */
-  public Environment reset(IMap map) {
+  @Nullable public Environment reset(IMap map) {
     if (map == null) {
       return null;
     }
@@ -503,7 +504,7 @@ public final class GameWorld implements IUpdateable {
    *
    * @param cam The new camera to be set.
    */
-  public void setCamera(final ICamera cam) {
+  public void setCamera(@Nullable final ICamera cam) {
     if (this.camera() != null) {
       Game.loop().detach(camera);
     }
@@ -555,7 +556,7 @@ public final class GameWorld implements IUpdateable {
     listeners.get(mapIdentifier).remove(listener);
   }
 
-  private static String getMapName(Environment env) {
+  @Nullable private static String getMapName(Environment env) {
     if (env.getMap() != null && env.getMap().getName() != null) {
       return env.getMap().getName().toLowerCase();
     }

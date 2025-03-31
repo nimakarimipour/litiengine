@@ -23,6 +23,7 @@ import java.text.AttributedCharacterIterator;
 import java.text.AttributedString;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.Nullable;
 
 public final class TextRenderer {
   private TextRenderer() {
@@ -406,7 +407,7 @@ public final class TextRenderer {
       final double y,
       double width,
       double height,
-      final Color outlineColor,
+      @Nullable final Color outlineColor,
       final float stroke,
       Align align,
       Valign valign,

@@ -11,35 +11,36 @@ import java.util.Map;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlValue;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import javax.annotation.Nullable;
 
 public class Text implements IMapObjectText {
-  @XmlAttribute private String fontfamily;
+  @Nullable @XmlAttribute private String fontfamily;
 
-  @XmlAttribute private Integer pixelsize;
+  @Nullable @XmlAttribute private Integer pixelsize;
 
-  @XmlAttribute private Integer wrap;
+  @Nullable @XmlAttribute private Integer wrap;
 
-  @XmlAttribute
+  @Nullable @XmlAttribute
   @XmlJavaTypeAdapter(ColorAdapter.class)
   private Color color;
 
-  @XmlAttribute private Integer bold;
+  @Nullable @XmlAttribute private Integer bold;
 
-  @XmlAttribute private Integer italic;
+  @Nullable @XmlAttribute private Integer italic;
 
-  @XmlAttribute private Integer underline;
+  @Nullable @XmlAttribute private Integer underline;
 
-  @XmlAttribute private Integer strikeout;
+  @Nullable @XmlAttribute private Integer strikeout;
 
-  @XmlAttribute private Integer kerning;
+  @Nullable @XmlAttribute private Integer kerning;
 
-  @XmlAttribute private Align halign;
+  @Nullable @XmlAttribute private Align halign;
 
-  @XmlAttribute private Valign valign;
+  @Nullable @XmlAttribute private Valign valign;
 
-  @XmlValue private String text;
+  @Nullable @XmlValue private String text;
 
-  @Override
+  @Nullable @Override
   public String getText() {
     return this.text;
   }
@@ -104,12 +105,12 @@ public class Text implements IMapObjectText {
     return this.kerning == null || this.kerning != 0;
   }
 
-  @Override
+  @Nullable @Override
   public Align getAlign() {
     return this.halign;
   }
 
-  @Override
+  @Nullable @Override
   public Valign getValign() {
     return this.valign;
   }

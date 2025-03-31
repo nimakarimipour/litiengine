@@ -12,6 +12,7 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.Nullable;
 
 public final class MapObjectSerializer {
   private static final Logger log = Logger.getLogger(MapObjectSerializer.class.getName());
@@ -77,7 +78,7 @@ public final class MapObjectSerializer {
     }
   }
 
-  private static String getPropertyValue(Field field, Object value) {
+  @Nullable private static String getPropertyValue(Field field, Object value) {
     if (field.getType().equals(Float.class) || field.getType().equals(Double.class)) {
       try {
         return new DecimalFloatAdapter().marshal((Float) value);

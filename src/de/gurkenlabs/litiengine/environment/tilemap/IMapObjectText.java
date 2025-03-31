@@ -4,9 +4,10 @@ import de.gurkenlabs.litiengine.Align;
 import de.gurkenlabs.litiengine.Valign;
 import java.awt.Color;
 import java.awt.Font;
+import javax.annotation.Nullable;
 
 public interface IMapObjectText {
-  public String getText();
+  @Nullable public String getText();
 
   public Font getFont();
 
@@ -14,9 +15,9 @@ public interface IMapObjectText {
 
   public Color getColor();
 
-  public Align getAlign();
+  @Nullable public Align getAlign();
 
-  public Valign getValign();
+  @Nullable public Valign getValign();
 
   public boolean isBold();
 

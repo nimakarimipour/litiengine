@@ -3,13 +3,14 @@ package de.gurkenlabs.litiengine.entities.behavior;
 import de.gurkenlabs.litiengine.IUpdateable;
 import java.util.Collections;
 import java.util.List;
+import javax.annotation.Nullable;
 
 public class StateMachine implements IUpdateable {
-  private State currentState;
+  @Nullable private State currentState;
 
   protected StateMachine() {}
 
-  public State getCurrentState() {
+  @Nullable public State getCurrentState() {
     return this.currentState;
   }
 

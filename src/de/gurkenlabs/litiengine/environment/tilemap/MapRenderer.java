@@ -17,6 +17,7 @@ import java.util.Collection;
 import java.util.EventListener;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+import javax.annotation.Nullable;
 
 public class MapRenderer {
   private static Collection<LayerRenderedListener> layerRenderedListeners =
@@ -83,7 +84,7 @@ public class MapRenderer {
       final IMap map,
       ILayerList layers,
       final Rectangle2D viewport,
-      Environment env,
+      @Nullable Environment env,
       RenderType[] renderTypes,
       float opacity) {
     final List<ILayer> renderLayers = layers.getRenderLayers();

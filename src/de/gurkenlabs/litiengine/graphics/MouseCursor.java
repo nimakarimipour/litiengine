@@ -15,6 +15,7 @@ import java.awt.Toolkit;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
+import javax.annotation.Nullable;
 
 /**
  * The visual representation of the {@code Mouse} in the LITIENGINE.<br>
@@ -29,8 +30,8 @@ public final class MouseCursor implements IRenderable {
   private static final Cursor BLANK_CURSOR;
   private static final Image DEBUG_CURSOR_IMAGE;
 
-  private Image image;
-  private AffineTransform transform;
+  @Nullable private Image image;
+  @Nullable private AffineTransform transform;
   private int offsetX;
   private int offsetY;
 
@@ -72,11 +73,11 @@ public final class MouseCursor implements IRenderable {
     }
   }
 
-  public Image getImage() {
+  @Nullable public Image getImage() {
     return this.image;
   }
 
-  public AffineTransform getTransform() {
+  @Nullable public AffineTransform getTransform() {
     return this.transform;
   }
 

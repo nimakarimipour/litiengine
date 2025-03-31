@@ -3,6 +3,7 @@ package de.gurkenlabs.litiengine.util;
 import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.Nullable;
 
 public final class ColorHelper {
   private static final Logger log = Logger.getLogger(ColorHelper.class.getName());
@@ -33,7 +34,7 @@ public final class ColorHelper {
    * @see Color#getRGB()
    * @see Integer#toHexString(int)
    */
-  public static String encode(Color color) {
+  @Nullable public static String encode(@Nullable Color color) {
     if (color == null) {
       return null;
     }
@@ -65,11 +66,11 @@ public final class ColorHelper {
    * @see Color#decode(String)
    * @see Integer#decode(String)
    */
-  public static Color decode(String colorHexString) {
+  @Nullable public static Color decode(@Nullable String colorHexString) {
     return decode(colorHexString, false);
   }
 
-  public static Color decode(String colorHexString, boolean solid) {
+  @Nullable public static Color decode(@Nullable String colorHexString, boolean solid) {
     if (colorHexString == null || colorHexString.isEmpty()) {
       return null;
     }
@@ -141,7 +142,7 @@ public final class ColorHelper {
         premultiply(color.getBlue(), color.getAlpha()));
   }
 
-  private static Color decodeWellformedHexString(String hexString) {
+  @Nullable private static Color decodeWellformedHexString(String hexString) {
     try {
       return Color.decode(hexString);
     } catch (NumberFormatException e) {
@@ -155,7 +156,7 @@ public final class ColorHelper {
     return (int) Math.round(value * Math.pow(alpha / 255.0, 1 / 2.2));
   }
 
-  private static Color decodeHexStringWithAlpha(String hexString, boolean solid) {
+  @Nullable private static Color decodeHexStringWithAlpha(String hexString, boolean solid) {
     String alpha = hexString.substring(1, 3);
 
     int alphaValue;

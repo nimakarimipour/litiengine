@@ -2,6 +2,7 @@ package de.gurkenlabs.litiengine.gui;
 
 import java.awt.Color;
 import java.awt.Font;
+import javax.annotation.Nullable;
 
 /**
  * This class contains globally used properties for all the {@link GuiComponent}s that might be
@@ -12,7 +13,7 @@ public class GuiProperties {
   private static Appearance defaultAppearanceDisabled = new Appearance(new Color(136, 136, 136));
   private static Appearance defaultAppearanceHovered = new Appearance(new Color(200, 200, 200));
 
-  private static Font defaultFont;
+  @Nullable private static Font defaultFont;
 
   private GuiProperties() {}
 
@@ -40,7 +41,7 @@ public class GuiProperties {
     defaultAppearanceHovered = app;
   }
 
-  public static Font getDefaultFont() {
+  @Nullable public static Font getDefaultFont() {
     return defaultFont;
   }
 

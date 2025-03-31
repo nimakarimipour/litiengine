@@ -6,6 +6,7 @@ import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
+import javax.annotation.Nullable;
 
 public final class ShapeRenderer {
   public static final Stroke DEFAULT_STROKE = new BasicStroke(1);
@@ -61,12 +62,12 @@ public final class ShapeRenderer {
   }
 
   public static void renderOutlineTransformed(
-      final Graphics2D g, final Shape shape, AffineTransform transform, final float stroke) {
+      final Graphics2D g, final Shape shape, @Nullable AffineTransform transform, final float stroke) {
     renderOutlineTransformed(g, shape, transform, new BasicStroke(stroke));
   }
 
   public static void renderOutlineTransformed(
-      final Graphics2D g, final Shape shape, AffineTransform transform, final Stroke stroke) {
+      final Graphics2D g, final Shape shape, @Nullable AffineTransform transform, final Stroke stroke) {
     if (transform == null) {
       renderOutline(g, shape, stroke);
       return;

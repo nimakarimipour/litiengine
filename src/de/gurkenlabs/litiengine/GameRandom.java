@@ -15,6 +15,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.annotation.Nullable;
 
 /**
  * A random number generator instance that provides enhanced functionalities for the java default
@@ -96,7 +97,7 @@ public final class GameRandom extends java.util.Random {
    * @param array The array to choose from.
    * @return A pseudo-random element from the array or null if the array is empty.
    */
-  public <T> T choose(T[] array) {
+  @Nullable public <T> T choose(T[] array) {
     if (array == null || array.length == 0) {
       return null;
     }
@@ -171,7 +172,7 @@ public final class GameRandom extends java.util.Random {
    * @param coll The collection to choose from.
    * @return A pseudo-random element from the array or null if the collection is empty.
    */
-  public <T> T choose(Collection<T> coll) {
+  @Nullable public <T> T choose(@Nullable Collection<T> coll) {
     if (coll == null || coll.isEmpty()) {
       return null;
     }
@@ -694,7 +695,7 @@ public final class GameRandom extends java.util.Random {
    *     will deviate from the original Color.
    * @return A pseudo-randomized variant of the original Color.
    */
-  public Color nextColor(Color originalColor, float colorVariance, float alphaVariance) {
+  @Nullable public Color nextColor(Color originalColor, float colorVariance, float alphaVariance) {
     if (originalColor == null) {
       return null;
     }

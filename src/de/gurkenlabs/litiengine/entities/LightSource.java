@@ -21,6 +21,7 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.function.Predicate;
+import javax.annotation.Nullable;
 
 @EntityInfo(renderType = RenderType.OVERLAY)
 @TmxType(MapObjectType.LIGHTSOURCE)
@@ -57,7 +58,7 @@ public class LightSource extends Entity implements IRenderable {
   private double focusOffsetY;
 
   private Color color;
-  private Shape lightShape;
+  @Nullable private Shape lightShape;
   private int radius;
 
   /**
@@ -111,7 +112,7 @@ public class LightSource extends Entity implements IRenderable {
     return this.activated ? this.intensity : 0;
   }
 
-  public Shape getLightShape() {
+  @Nullable public Shape getLightShape() {
     return this.lightShape;
   }
 
@@ -205,8 +206,8 @@ public class LightSource extends Entity implements IRenderable {
     this.updateAmbientLayers();
   }
 
-  @Override
-  public String sendMessage(final Object sender, final String message) {
+  @Nullable @Override
+  public String sendMessage(final Object sender, @Nullable final String message) {
     if (message == null || message.isEmpty()) {
       return null;
     }

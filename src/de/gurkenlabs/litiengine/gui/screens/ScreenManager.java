@@ -9,6 +9,7 @@ import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.Nullable;
 
 /**
  * The {@code ScreenManager} holds instances of all available screens and handles whenever a
@@ -32,7 +33,7 @@ public final class ScreenManager {
 
   private final List<Screen> screens;
 
-  private Screen currentScreen;
+  @Nullable private Screen currentScreen;
 
   private int changeCooldown = DEFAULT_CHANGE_COOLDOWN;
   private long lastScreenChange = 0;
@@ -107,7 +108,7 @@ public final class ScreenManager {
    *
    * @param screen The screen to be displayed.
    */
-  public void display(final Screen screen) {
+  public void display(@Nullable final Screen screen) {
     if (Game.hasStarted() && Game.time().since(this.lastScreenChange) < this.getChangeCooldown()) {
       log.log(
           Level.INFO,
@@ -175,7 +176,7 @@ public final class ScreenManager {
    * @param screenName The name of the screen.
    * @return The
    */
-  public Screen get(String screenName) {
+  @Nullable public Screen get(String screenName) {
     Optional<Screen> opt =
         this.screens.stream()
             .filter(element -> element.getName().equalsIgnoreCase(screenName))
@@ -200,7 +201,7 @@ public final class ScreenManager {
    * @see GameWindow#getRenderComponent()
    * @see RenderComponent#render()
    */
-  public Screen current() {
+  @Nullable public Screen current() {
     return this.currentScreen;
   }
 

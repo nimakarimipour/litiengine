@@ -13,6 +13,7 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.annotation.Nullable;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Tile extends CustomPropertyProvider implements ITile {
@@ -24,11 +25,11 @@ public class Tile extends CustomPropertyProvider implements ITile {
   private static final AffineTransform TX_DIAGONAL_FLIP =
       new AffineTransform(0.0, 1.0, 1.0, 0.0, 0.0, 0.0);
 
-  @XmlAttribute private Integer gid;
+  @Nullable @XmlAttribute private Integer gid;
 
-  private transient Point tileCoordinate;
+  @Nullable private transient Point tileCoordinate;
 
-  private transient ITilesetEntry tilesetEntry;
+  @Nullable private transient ITilesetEntry tilesetEntry;
 
   private transient boolean flippedDiagonally;
   private transient boolean flippedHorizontally;
@@ -89,7 +90,7 @@ public class Tile extends CustomPropertyProvider implements ITile {
   }
 
   @Override
-  public void setProperties(java.util.Map<String, ICustomProperty> props) {
+  public void setProperties(@Nullable java.util.Map<String, ICustomProperty> props) {
     if (this.getTilesetEntry() == null) {
       super.setProperties(props);
     } else {
@@ -117,7 +118,7 @@ public class Tile extends CustomPropertyProvider implements ITile {
     return this.flipped;
   }
 
-  @Override
+  @Nullable @Override
   public BufferedImage getImage() {
     if (this.tilesetEntry == null) { // happens if the tile is empty
       return null;
@@ -152,7 +153,7 @@ public class Tile extends CustomPropertyProvider implements ITile {
     return this.gid;
   }
 
-  @Override
+  @Nullable @Override
   public Point getTileCoordinate() {
     return this.tileCoordinate;
   }
@@ -199,7 +200,7 @@ public class Tile extends CustomPropertyProvider implements ITile {
     return this.getGridId() + String.valueOf(this.getTilesetEntry());
   }
 
-  void setTilesetEntry(ITilesetEntry entry) {
+  void setTilesetEntry(@Nullable ITilesetEntry entry) {
     this.tilesetEntry = entry;
   }
 

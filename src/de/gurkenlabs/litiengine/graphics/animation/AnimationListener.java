@@ -1,6 +1,7 @@
 package de.gurkenlabs.litiengine.graphics.animation;
 
 import java.util.EventListener;
+import javax.annotation.Nullable;
 
 /**
  * This listener provides call-backs for when an {@code Animation} is played or the play back was
@@ -12,12 +13,12 @@ public interface AnimationListener extends EventListener {
    *
    * @param animation The animation that is now played.
    */
-  public default void played(Animation animation) {}
+  public default void played(@Nullable Animation animation) {}
 
   /**
    * Called when the specified animation has finished playing.
    *
    * @param animation The animation that has just finished playing.
    */
-  public default void finished(Animation animation) {}
+  public default void finished(@Nullable Animation animation) {}
 }

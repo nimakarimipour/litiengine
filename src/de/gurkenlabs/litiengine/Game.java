@@ -39,6 +39,7 @@ import java.util.Locale;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.Nullable;
 
 /***
  * <p>
@@ -79,12 +80,12 @@ public final class Game {
   private static final GameLog log = new GameLog();
   private static final GameTime gameTime = new GameTime();
   private static final GameRandom random = new GameRandom();
-  private static GameInfo gameInfo = new GameInfo();
+  @Nullable private static GameInfo gameInfo = new GameInfo();
   private static final TweenEngine tweenEngine = new TweenEngine();
 
   private static GameLoop gameLoop;
-  private static ScreenManager screenManager;
-  private static GameWindow gameWindow;
+  @Nullable private static ScreenManager screenManager;
+  @Nullable private static GameWindow gameWindow;
 
   private static GameWorld world = new GameWorld();
 
@@ -196,7 +197,7 @@ public final class Game {
    * @see GameInfo#setName(String)
    * @see GameInfo#setValue(String, String)
    */
-  public static GameInfo info() {
+  @Nullable public static GameInfo info() {
     return gameInfo;
   }
 
@@ -380,7 +381,7 @@ public final class Game {
    * @see GameWorld#environment()
    * @see Game#world()
    */
-  public static ScreenManager screens() {
+  @Nullable public static ScreenManager screens() {
     return screenManager;
   }
 
@@ -564,7 +565,7 @@ public final class Game {
    * @see Game#info()
    * @see GameInfo
    */
-  public static void setInfo(final GameInfo info) {
+  public static void setInfo(@Nullable final GameInfo info) {
     gameInfo = info;
   }
 
@@ -581,7 +582,7 @@ public final class Game {
     setInfo(Resources.getLocation(gameInfoFile));
   }
 
-  public static void setInfo(final URL gameInfoFile) {
+  public static void setInfo(@Nullable final URL gameInfoFile) {
     GameInfo info;
     try {
       info = XmlUtilities.read(GameInfo.class, gameInfoFile);

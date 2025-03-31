@@ -28,6 +28,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
+import javax.annotation.Nullable;
 
 /**
  * The {@code GameWindow} class is a wrapper for the game's visual window in which the {@code
@@ -54,8 +55,8 @@ public final class GameWindow {
 
   private float resolutionScale = 1;
 
-  private Dimension resolution;
-  private Point screenLocation;
+  @Nullable private Dimension resolution;
+  @Nullable private Point screenLocation;
 
   GameWindow() {
     this.hostControl = new JFrame();

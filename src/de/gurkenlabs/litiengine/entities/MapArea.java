@@ -3,6 +3,7 @@ package de.gurkenlabs.litiengine.entities;
 import de.gurkenlabs.litiengine.environment.tilemap.MapObjectType;
 import de.gurkenlabs.litiengine.environment.tilemap.TmxType;
 import de.gurkenlabs.litiengine.graphics.RenderType;
+import javax.annotation.Nullable;
 
 @EntityInfo(renderType = RenderType.NONE)
 @TmxType(MapObjectType.AREA)
@@ -35,7 +36,7 @@ public class MapArea extends Entity {
    */
   public MapArea(
       final int id,
-      final String name,
+      @Nullable final String name,
       final double x,
       final double y,
       final double width,

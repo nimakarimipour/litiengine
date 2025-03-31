@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.awt.geom.Rectangle2D;
+import javax.annotation.Nullable;
 
 public class StaticShadowLayer extends ColorLayer {
 
@@ -17,7 +18,7 @@ public class StaticShadowLayer extends ColorLayer {
    * @param environment The environment to which this instance is assigned.
    * @param color The color of this instance.
    */
-  public StaticShadowLayer(Environment environment, Color color) {
+  public StaticShadowLayer(Environment environment, @Nullable Color color) {
     super(environment, color);
   }
 

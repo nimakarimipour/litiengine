@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.geom.Rectangle2D;
 import java.net.URL;
 import java.util.List;
+import javax.annotation.Nullable;
 
 public interface IMap extends ILayerList, Comparable<IMap> {
 
@@ -16,7 +17,7 @@ public interface IMap extends ILayerList, Comparable<IMap> {
    */
   public List<ITileset> getTilesets();
 
-  public ITilesetEntry getTilesetEntry(int gid);
+  @Nullable public ITilesetEntry getTilesetEntry(int gid);
 
   /**
    * Gets the orientation.
@@ -25,7 +26,7 @@ public interface IMap extends ILayerList, Comparable<IMap> {
    */
   public IMapOrientation getOrientation();
 
-  public URL getPath();
+  @Nullable public URL getPath();
 
   /**
    * Gets the renderorder.
@@ -97,14 +98,14 @@ public interface IMap extends ILayerList, Comparable<IMap> {
    *
    * @return the tile size
    */
-  public StaggerAxis getStaggerAxis();
+  @Nullable public StaggerAxis getStaggerAxis();
 
   /**
    * Gets the tile size.
    *
    * @return the tile size
    */
-  public StaggerIndex getStaggerIndex();
+  @Nullable public StaggerIndex getStaggerIndex();
 
   /**
    * Gets the version.
@@ -122,13 +123,13 @@ public interface IMap extends ILayerList, Comparable<IMap> {
    */
   public void setName(String name);
 
-  public String getName();
+  @Nullable public String getName();
 
   public int getNextObjectId();
 
   public int getNextLayerId();
 
-  public Color getBackgroundColor();
+  @Nullable public Color getBackgroundColor();
 
   public boolean isInfinite();
 

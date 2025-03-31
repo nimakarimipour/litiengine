@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.Nullable;
 
 public class PropMapObjectLoader extends MapObjectLoader {
   private static final Logger log = Logger.getLogger(PropMapObjectLoader.class.getName());
@@ -70,7 +71,7 @@ public class PropMapObjectLoader extends MapObjectLoader {
     return entities;
   }
 
-  protected Prop createNewProp(IMapObject mapObject, String spriteSheet) {
+  protected Prop createNewProp(IMapObject mapObject, @Nullable String spriteSheet) {
     for (Class<? extends Prop> customProp : customPropType) {
       for (String prefix : EntityAnimationController.getDefaultSpritePrefixes(customProp)) {
         if (prefix != null
@@ -86,7 +87,7 @@ public class PropMapObjectLoader extends MapObjectLoader {
     return new Prop(spriteSheet);
   }
 
-  private static Prop createCustomProp(Class<? extends Prop> customProp, String spriteSheet) {
+  @Nullable private static Prop createCustomProp(Class<? extends Prop> customProp, @Nullable String spriteSheet) {
     try {
       return customProp.getConstructor(String.class).newInstance(spriteSheet);
     } catch (InstantiationException

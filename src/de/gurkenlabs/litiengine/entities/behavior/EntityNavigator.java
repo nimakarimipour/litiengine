@@ -13,6 +13,7 @@ import java.awt.geom.Point2D;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Predicate;
+import javax.annotation.Nullable;
 
 public class EntityNavigator implements IUpdateable, IRenderable {
 
@@ -25,7 +26,7 @@ public class EntityNavigator implements IUpdateable, IRenderable {
   private final PathFinder pathFinder;
 
   private int currentSegment;
-  private Path path;
+  @Nullable private Path path;
   private float acceptableError;
 
   /**
@@ -61,7 +62,7 @@ public class EntityNavigator implements IUpdateable, IRenderable {
     return this.entity;
   }
 
-  public Path getPath() {
+  @Nullable public Path getPath() {
     return this.path;
   }
 

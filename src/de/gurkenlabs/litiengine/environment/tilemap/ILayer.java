@@ -3,6 +3,7 @@ package de.gurkenlabs.litiengine.environment.tilemap;
 import de.gurkenlabs.litiengine.graphics.RenderType;
 import java.awt.Dimension;
 import java.awt.Point;
+import javax.annotation.Nullable;
 
 public interface ILayer extends ICustomPropertyProvider {
 
@@ -13,7 +14,7 @@ public interface ILayer extends ICustomPropertyProvider {
    *
    * @return the name
    */
-  public String getName();
+  @Nullable public String getName();
 
   /**
    * Gets the opacity.
@@ -63,7 +64,7 @@ public interface ILayer extends ICustomPropertyProvider {
 
   public void setName(String name);
 
-  public RenderType getRenderType();
+  @Nullable public RenderType getRenderType();
 
   public int getWidth();
 

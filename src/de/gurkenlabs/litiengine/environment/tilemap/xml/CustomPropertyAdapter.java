@@ -18,6 +18,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlValue;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
+import javax.annotation.Nullable;
 
 public class CustomPropertyAdapter
     extends XmlAdapter<CustomPropertyAdapter.PropertyList, Map<String, ICustomProperty>> {
@@ -46,11 +47,11 @@ public class CustomPropertyAdapter
 
   @XmlAccessorType(XmlAccessType.FIELD)
   static class Property implements Comparable<Property> {
-    @XmlAttribute String name;
-    @XmlAttribute String type;
-    @XmlAttribute String value;
-    @XmlValue String contents;
-    @XmlTransient URL location;
+    @Nullable @XmlAttribute String name;
+    @Nullable @XmlAttribute String type;
+    @Nullable @XmlAttribute String value;
+    @Nullable @XmlValue String contents;
+    @Nullable @XmlTransient URL location;
 
     Property() {}
 
@@ -99,7 +100,7 @@ public class CustomPropertyAdapter
 
   @XmlAccessorType(XmlAccessType.FIELD)
   static class PropertyList {
-    @XmlElement(name = "property")
+    @Nullable @XmlElement(name = "property")
     List<Property> properties;
 
     PropertyList() {}
@@ -125,7 +126,7 @@ public class CustomPropertyAdapter
     return map;
   }
 
-  @Override
+  @Nullable @Override
   public PropertyList marshal(Map<String, ICustomProperty> v) {
     if (v.isEmpty()) {
       return null;
