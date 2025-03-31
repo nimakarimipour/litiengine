@@ -32,8 +32,7 @@ public interface ICustomProperty {
 
   public boolean getAsBool();
 
-  @Nullable
-  public Color getAsColor();
+  @Nullable public Color getAsColor();
 
   public float getAsFloat();
 
@@ -47,11 +46,9 @@ public interface ICustomProperty {
 
   public long getAsLong();
 
-  @Nullable
-  public <T extends Enum<T>> T getAsEnum(Class<T> enumType);
+  @Nullable public <T extends Enum<T>> T getAsEnum(Class<T> enumType);
 
-  @Nullable
-  public URL getAsFile();
+  @Nullable public URL getAsFile();
 
   public String getType();
 
