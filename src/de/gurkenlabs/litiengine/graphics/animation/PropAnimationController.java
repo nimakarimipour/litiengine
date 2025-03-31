@@ -60,7 +60,8 @@ public class PropAnimationController<T extends Prop> extends EntityAnimationCont
     return sb.toString();
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public BufferedImage getCurrentImage() {
     final Animation animation = this.getCurrent();
     if (animation == null || animation.getSpritesheet() == null) {
@@ -118,7 +119,8 @@ public class PropAnimationController<T extends Prop> extends EntityAnimationCont
     return this.getEntity().isScaling();
   }
 
-  @Nullable private static Animation createAnimation(final Prop prop, final PropState state) {
+  @Nullable
+  private static Animation createAnimation(final Prop prop, final PropState state) {
     final Spritesheet spritesheet = findSpriteSheet(prop, state);
     if (spritesheet == null) {
       return null;
@@ -132,7 +134,8 @@ public class PropAnimationController<T extends Prop> extends EntityAnimationCont
         Resources.spritesheets().getCustomKeyFrameDurations(spritesheet.getName()));
   }
 
-  @Nullable private static Spritesheet findSpriteSheet(final Prop prop, final PropState state) {
+  @Nullable
+  private static Spritesheet findSpriteSheet(final Prop prop, final PropState state) {
     if (prop == null || prop.getSpritesheetName() == null || prop.getSpritesheetName().isEmpty()) {
       return null;
     }
