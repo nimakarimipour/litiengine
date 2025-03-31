@@ -14,13 +14,11 @@ public class ScreenChangedEvent extends EventObject {
     this.changed = changed;
   }
 
-  @Nullable
-  public Screen getPrevious() {
+  @Nullable public Screen getPrevious() {
     return this.previous;
   }
 
-  @Nullable
-  public Screen getChanged() {
+  @Nullable public Screen getChanged() {
     return this.changed;
   }
 }

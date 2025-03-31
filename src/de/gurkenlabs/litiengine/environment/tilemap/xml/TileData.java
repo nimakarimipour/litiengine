@@ -1,6 +1,5 @@
 package de.gurkenlabs.litiengine.environment.tilemap.xml;
 
-import com.uber.nullaway.annotations.Initializer;
 import de.gurkenlabs.litiengine.util.ArrayUtilities;
 import de.gurkenlabs.litiengine.util.io.Codec;
 import java.io.ByteArrayInputStream;
@@ -18,13 +17,14 @@ import java.util.zip.DeflaterOutputStream;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 import java.util.zip.InflaterInputStream;
-import javax.annotation.Nullable;
 import javax.xml.bind.DatatypeConverter;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlMixed;
 import javax.xml.bind.annotation.XmlTransient;
+import com.uber.nullaway.annotations.Initializer;
+import javax.annotation.Nullable;
 
 public class TileData {
   private static final Logger log = Logger.getLogger(TileData.class.getName());
@@ -87,8 +87,7 @@ public class TileData {
     // keep for serialization
   }
 
-  public TileData(
-      List<Tile> tiles, int width, int height, String encoding, @Nullable String compression)
+  public TileData(List<Tile> tiles, int width, int height, String encoding, @Nullable String compression)
       throws TmxException {
     if (!Encoding.isValid(encoding)) {
       throw new TmxException(
@@ -124,14 +123,12 @@ public class TileData {
     return this.encoding;
   }
 
-  @Nullable
-  @XmlTransient
+  @Nullable @XmlTransient
   public String getCompression() {
     return this.compression;
   }
 
-  @Nullable
-  @XmlTransient
+  @Nullable @XmlTransient
   public String getValue() {
     return this.value;
   }
@@ -144,8 +141,7 @@ public class TileData {
     this.compression = compression;
   }
 
-  @Initializer
-  public void setValue(@Nullable String value) {
+  @Initializer public void setValue(@Nullable String value) {
     this.value = value;
     if (this.rawValue == null) {
       this.rawValue = new CopyOnWriteArrayList<>();
@@ -177,8 +173,7 @@ public class TileData {
     return this.tiles;
   }
 
-  @Nullable
-  public static String encode(TileData data) throws IOException {
+  @Nullable public static String encode(TileData data) throws IOException {
     if (data.getEncoding() == null) {
       return null;
     }
@@ -338,8 +333,7 @@ public class TileData {
     return parsed;
   }
 
-  protected static List<Tile> parseCsvData(@Nullable String value)
-      throws InvalidTileLayerException {
+  protected static List<Tile> parseCsvData(@Nullable String value) throws InvalidTileLayerException {
 
     List<Tile> parsed = new ArrayList<>();
 
