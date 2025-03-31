@@ -52,7 +52,8 @@ public abstract class ForceEffect extends Effect {
     }
   }
 
-  @Nullable protected Force getAppliedForce() {
+  @Nullable
+  protected Force getAppliedForce() {
     return this.appliedForce;
   }
 
