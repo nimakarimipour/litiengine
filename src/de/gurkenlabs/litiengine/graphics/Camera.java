@@ -327,23 +327,11 @@ public class Camera implements ICamera {
   }
 
   protected double getViewportWidth() {
-    Dimension resolution = Game.window().getResolution();
-    if (resolution != null) {
-      return resolution.getWidth() / this.getRenderScale();
-    } else {
-      throw new NullPointerException("Resolution is null");
-    }
+    return Game.window().getResolution().getWidth() / this.getRenderScale();
   }
 
   protected double getViewportHeight() {
-    Dimension resolution = Game.window().getResolution();
-    if (resolution != null) {
-      return resolution.getHeight() / this.getRenderScale();
-    } else {
-      // Handle the case where resolution is null, possibly return a default value or throw an
-      // exception.
-      throw new NullPointerException("Resolution is null");
-    }
+    return Game.window().getResolution().getHeight() / this.getRenderScale();
   }
 
   /**

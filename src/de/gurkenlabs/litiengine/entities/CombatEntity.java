@@ -140,8 +140,7 @@ public class CombatEntity extends CollisionEntity implements ICombatEntity {
     return new Ellipse2D.Double(this.getX(), this.getY(), this.getWidth(), this.getHeight());
   }
 
-  @Nullable
-  @Override
+  @Nullable @Override
   public ICombatEntity getTarget() {
     return this.target;
   }
