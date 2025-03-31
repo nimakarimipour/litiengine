@@ -20,11 +20,9 @@ public interface ITileset extends ICustomPropertyProvider, Resource {
    *
    * @return the image
    */
-  @Nullable
-  public IMapImage getImage();
+  @Nullable public IMapImage getImage();
 
-  @Nullable
-  public Spritesheet getSpritesheet();
+  @Nullable public Spritesheet getSpritesheet();
 
   public int getMargin();
 
@@ -39,8 +37,7 @@ public interface ITileset extends ICustomPropertyProvider, Resource {
 
   public int getColumns();
 
-  @Nullable
-  public ITileOffset getTileOffset();
+  @Nullable public ITileOffset getTileOffset();
 
   public int getTileHeight();
 
@@ -53,8 +50,7 @@ public interface ITileset extends ICustomPropertyProvider, Resource {
 
   public int getTileCount();
 
-  @Nullable
-  public ITilesetEntry getTile(int id);
+  @Nullable public ITilesetEntry getTile(int id);
 
   public List<ITerrain> getTerrainTypes();
 

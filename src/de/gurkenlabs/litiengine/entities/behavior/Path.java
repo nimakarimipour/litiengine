@@ -63,8 +63,7 @@ public class Path {
     return this.points;
   }
 
-  @Nullable
-  public Point2D getStart() {
+  @Nullable public Point2D getStart() {
     return this.start;
   }
 
@@ -73,8 +72,7 @@ public class Path {
    *
    * @return the target
    */
-  @Nullable
-  public Point2D getTarget() {
+  @Nullable public Point2D getTarget() {
     return this.target;
   }
 }
