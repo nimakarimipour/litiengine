@@ -58,5 +58,6 @@ public abstract class ImageEffect implements ITimeToLive, Comparable<ImageEffect
     return Integer.compare(this.getPriority(), other.getPriority());
   }
 
-  @Nullable public abstract BufferedImage apply(BufferedImage image);
+  @Nullable
+  public abstract BufferedImage apply(BufferedImage image);
 }
