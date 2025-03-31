@@ -191,7 +191,8 @@ public class Emitter extends Entity implements IUpdateable, ITimeToLive, IRender
         this.getY() + this.data().getOriginValign().getValue(this.getHeight()));
   }
 
-  @Nullable public IRenderable getRenderable(RenderType type) {
+  @Nullable
+  public IRenderable getRenderable(RenderType type) {
     if (type == RenderType.NONE) {
       return null;
     }
@@ -345,7 +346,8 @@ public class Emitter extends Entity implements IUpdateable, ITimeToLive, IRender
    *
    * @return the particle
    */
-  @Nullable protected Particle createNewParticle() {
+  @Nullable
+  protected Particle createNewParticle() {
 
     float width = (float) this.data().getParticleWidth().get();
     float height = (float) this.data().getParticleHeight().get();
@@ -368,6 +370,9 @@ public class Emitter extends Entity implements IUpdateable, ITimeToLive, IRender
         particle = new LineParticle(width, height);
         break;
       case TEXT:
+        if (this.data().getTexts() == null) {
+          return null;
+        }
         String text;
         if (this.data().getTexts().isEmpty()) {
           text = EmitterData.DEFAULT_TEXT;
