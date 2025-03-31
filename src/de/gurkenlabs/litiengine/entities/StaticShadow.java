@@ -16,7 +16,8 @@ public class StaticShadow extends MapArea {
   public static final Color DEFAULT_COLOR = new Color(0, 0, 0, 75);
   public static final int DEFAULT_OFFSET = 10;
 
-  @Nullable @TmxProperty(name = MapObjectProperty.SHADOW_TYPE)
+  @Nullable
+  @TmxProperty(name = MapObjectProperty.SHADOW_TYPE)
   private StaticShadowType shadowType;
 
   @TmxProperty(name = MapObjectProperty.SHADOW_OFFSET)
@@ -119,7 +120,8 @@ public class StaticShadow extends MapArea {
     this.shadowOffset = DEFAULT_OFFSET;
   }
 
-  @Nullable public StaticShadowType getShadowType() {
+  @Nullable
+  public StaticShadowType getShadowType() {
     return this.shadowType;
   }
 
@@ -158,7 +160,8 @@ public class StaticShadow extends MapArea {
     this.area = null;
   }
 
-  @Nullable public CollisionBox getOrigin() {
+  @Nullable
+  public CollisionBox getOrigin() {
     return this.origin;
   }
 
@@ -180,7 +183,8 @@ public class StaticShadow extends MapArea {
     return this.getArea().getBounds2D();
   }
 
-  @Nullable public Area getArea() {
+  @Nullable
+  public Area getArea() {
     if (this.getShadowType() == StaticShadowType.NONE) {
       return null;
     }
@@ -192,7 +196,8 @@ public class StaticShadow extends MapArea {
   }
 
   private void createArea() {
-    if (this.getShadowType() == StaticShadowType.NONE) {
+    StaticShadowType shadowType = this.getShadowType();
+    if (shadowType == StaticShadowType.NONE) {
       return;
     }
 

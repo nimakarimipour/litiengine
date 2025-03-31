@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.Nullable;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
@@ -13,20 +14,21 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import javax.annotation.Nullable;
 
 @XmlRootElement(name = "TextureAtlas")
 public class TextureAtlas {
   private static final Logger log = Logger.getLogger(TextureAtlas.class.getName());
 
-  @Nullable @XmlAttribute(name = "imagePath")
+  @Nullable
+  @XmlAttribute(name = "imagePath")
   private String rawImagePath;
 
   @XmlAttribute private int width;
 
   @XmlAttribute private int height;
 
-  @Nullable @XmlElement(name = "sprite")
+  @Nullable
+  @XmlElement(name = "sprite")
   private List<Sprite> sprites;
 
   @Nullable private String absoluteImagePath;
@@ -35,7 +37,8 @@ public class TextureAtlas {
     // keep for serialization
   }
 
-  @Nullable public static TextureAtlas read(String textureAtlasFile) {
+  @Nullable
+  public static TextureAtlas read(String textureAtlasFile) {
     try {
       TextureAtlas atlas =
           XmlUtilities.read(TextureAtlas.class, Resources.getLocation(textureAtlasFile));
@@ -52,7 +55,8 @@ public class TextureAtlas {
     }
   }
 
-  @Nullable @XmlTransient
+  @Nullable
+  @XmlTransient
   public String getAbsoluteImagePath() {
     return this.absoluteImagePath;
   }
@@ -76,7 +80,8 @@ public class TextureAtlas {
     return this.sprites;
   }
 
-  @Nullable public Sprite getSprite(String name) {
+  @Nullable
+  public Sprite getSprite(String name) {
     if (name == null || name.isEmpty()) {
       return null;
     }
@@ -105,7 +110,8 @@ public class TextureAtlas {
 
   @XmlRootElement(name = "sprite")
   public static class Sprite {
-    @Nullable @XmlAttribute(name = "n")
+    @Nullable
+    @XmlAttribute(name = "n")
     private String name;
 
     @XmlAttribute() private int x;
@@ -124,7 +130,8 @@ public class TextureAtlas {
     @XmlAttribute(name = "oY")
     private int offsetY;
 
-    @Nullable @XmlAttribute(name = "r")
+    @Nullable
+    @XmlAttribute(name = "r")
     @XmlJavaTypeAdapter(CustomBooleanAdapter.class)
     private Boolean rotated;
 
@@ -132,7 +139,8 @@ public class TextureAtlas {
       // keep for serialization
     }
 
-    @Nullable @XmlTransient
+    @Nullable
+    @XmlTransient
     public String getName() {
       return this.name;
     }
