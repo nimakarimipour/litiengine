@@ -35,10 +35,12 @@ public class Creature extends CombatEntity implements IMobileEntity {
   @TmxProperty(name = MapObjectProperty.MOVEMENT_TURNONMOVE)
   private boolean turnOnMove;
 
-  @Nullable @TmxProperty(name = MapObjectProperty.MOVEMENT_VELOCITY)
+  @Nullable
+  @TmxProperty(name = MapObjectProperty.MOVEMENT_VELOCITY)
   private Attribute<Float> velocity;
 
-  @Nullable @TmxProperty(name = MapObjectProperty.SPRITESHEETNAME)
+  @Nullable
+  @TmxProperty(name = MapObjectProperty.SPRITESHEETNAME)
   private String spritesheetName;
 
   @TmxProperty(name = MapObjectProperty.SCALE_SPRITE)
@@ -91,7 +93,8 @@ public class Creature extends CombatEntity implements IMobileEntity {
   public float[] getTweenValues(TweenType tweenType) {
     switch (tweenType) {
       case VELOCITY:
-        return new float[] {this.getVelocity().get()};
+        Attribute<Float> velocity = this.getVelocity();
+        return new float[] {velocity != null ? velocity.get() : 0.0f};
       default:
         return super.getTweenValues(tweenType);
     }
@@ -101,7 +104,10 @@ public class Creature extends CombatEntity implements IMobileEntity {
   public void setTweenValues(TweenType tweenType, float[] newValues) {
     switch (tweenType) {
       case VELOCITY:
-        this.getVelocity().setBaseValue(newValues[0]);
+        Attribute<Float> velocity = this.getVelocity();
+        if (velocity != null) {
+          velocity.setBaseValue(newValues[0]);
+        }
         break;
       default:
         super.setTweenValues(tweenType, newValues);
@@ -122,7 +128,8 @@ public class Creature extends CombatEntity implements IMobileEntity {
     return Direction.fromAngle(this.getAngle());
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public IMovementController movement() {
     return this.getController(IMovementController.class);
   }
@@ -137,7 +144,8 @@ public class Creature extends CombatEntity implements IMobileEntity {
    *
    * @return The current spritesheet name of this instance.
    */
-  @Nullable public String getSpritesheetName() {
+  @Nullable
+  public String getSpritesheetName() {
     return this.spritesheetName;
   }
 
@@ -145,12 +153,14 @@ public class Creature extends CombatEntity implements IMobileEntity {
   public float getTickVelocity() {
     // pixels per ms multiplied by the passed ms
     // ensure that entities don't travel too far in case of lag
+    Attribute<Float> velocity = this.getVelocity();
     return Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG)
         * 0.001F
-        * this.getVelocity().get()
+        * (velocity != null ? velocity.get() : 0.0F)
         * Game.loop().getTimeScale();
   }
 
+  @Nullable
   @Override
   public Attribute<Float> getVelocity() {
     return this.velocity;
@@ -220,7 +230,10 @@ public class Creature extends CombatEntity implements IMobileEntity {
 
   @Override
   public void setVelocity(float velocity) {
-    this.getVelocity().setBaseValue(velocity);
+    Attribute<Float> velocityAttr = this.getVelocity();
+    if (velocityAttr != null) {
+      velocityAttr.setBaseValue(velocity);
+    }
   }
 
   @Override
