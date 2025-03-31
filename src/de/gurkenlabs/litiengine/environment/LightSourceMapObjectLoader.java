@@ -8,6 +8,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.MapObjectType;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collection;
+import javax.annotation.Nullable;
 
 public class LightSourceMapObjectLoader extends MapObjectLoader {
 
