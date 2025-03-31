@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.gui;
 
+import com.uber.nullaway.annotations.Initializer;
 import de.gurkenlabs.litiengine.Align;
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.input.Input;
@@ -7,7 +8,6 @@ import java.awt.event.KeyEvent;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.IntConsumer;
-import com.uber.nullaway.annotations.Initializer;
 import javax.annotation.Nullable;
 
 public class DropdownListField extends GuiComponent {
@@ -41,7 +41,8 @@ public class DropdownListField extends GuiComponent {
     this.changeConsumer = new CopyOnWriteArrayList<>();
   }
 
-  @Nullable public Spritesheet getButtonSprite() {
+  @Nullable
+  public Spritesheet getButtonSprite() {
     return this.buttonSprite;
   }
 
@@ -65,7 +66,8 @@ public class DropdownListField extends GuiComponent {
     return this.dropDownButton;
   }
 
-  @Nullable public Spritesheet getEntrySprite() {
+  @Nullable
+  public Spritesheet getEntrySprite() {
     return this.entrySprite;
   }
 
@@ -81,7 +83,8 @@ public class DropdownListField extends GuiComponent {
     return this.getContentList().getSelectionRow();
   }
 
-  @Nullable public Object getSelectedObject() {
+  @Nullable
+  public Object getSelectedObject() {
     if (this.getContentArray().length == 0) {
       return null;
     }
@@ -101,7 +104,8 @@ public class DropdownListField extends GuiComponent {
     this.getChangeConsumer().add(c);
   }
 
-  @Initializer @Override
+  @Initializer
+  @Override
   public void prepare() {
     this.contentList =
         new ListField(
