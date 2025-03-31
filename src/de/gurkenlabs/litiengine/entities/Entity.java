@@ -189,12 +189,14 @@ public abstract class Entity implements IEntity, EntityRenderListener, Tweenable
     return this.angle;
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public IEntityAnimationController<?> animations() {
     return this.controllers.getAnimationController();
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public IBehaviorController behavior() {
     return this.getController(IBehaviorController.class);
   }
@@ -209,7 +211,8 @@ public abstract class Entity implements IEntity, EntityRenderListener, Tweenable
     this.controllers.setController(clss, controller);
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public <T extends IEntityController> T getController(Class<T> clss) {
     return this.controllers.getController(clss);
   }
@@ -246,7 +249,8 @@ public abstract class Entity implements IEntity, EntityRenderListener, Tweenable
     return this.mapId;
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public String getName() {
     return this.name;
   }
@@ -304,15 +308,20 @@ public abstract class Entity implements IEntity, EntityRenderListener, Tweenable
       return;
     }
 
-    this.actions.get(actionName).perform();
+    EntityAction action = this.actions.get(actionName);
+    if (action != null) {
+      action.perform();
+    }
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public EntityAction register(String name, Runnable action) {
     return this.actions.register(name, action);
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public String sendMessage(final Object sender, @Nullable final String message) {
     EntityMessageEvent event = this.fireMessageReceived(sender, ANY_MESSAGE, message, null);
     this.fireMessageReceived(sender, message, message, event);
@@ -591,8 +600,12 @@ public abstract class Entity implements IEntity, EntityRenderListener, Tweenable
     }
   }
 
-  @Nullable private EntityMessageEvent fireMessageReceived(
-      Object sender, @Nullable String listenerMessage, @Nullable String message, @Nullable EntityMessageEvent event) {
+  @Nullable
+  private EntityMessageEvent fireMessageReceived(
+      Object sender,
+      @Nullable String listenerMessage,
+      @Nullable String message,
+      @Nullable EntityMessageEvent event) {
     if (message == null) {
       return event;
     }
