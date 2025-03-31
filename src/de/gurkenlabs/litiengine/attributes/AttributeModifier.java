@@ -1,4 +1,5 @@
 package de.gurkenlabs.litiengine.attributes;
+import javax.annotation.Nullable;
 
 /**
  * An attribute modifier allows to modify attributes by the specified Modification and modify value.

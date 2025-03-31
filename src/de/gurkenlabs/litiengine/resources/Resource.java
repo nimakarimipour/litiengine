@@ -10,8 +10,7 @@ public interface Resource extends Comparable<Resource> {
    *
    * @return the name
    */
-  @Nullable
-  String getName();
+  @Nullable String getName();
 
   void setName(String name);
 
