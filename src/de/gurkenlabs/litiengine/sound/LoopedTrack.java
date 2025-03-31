@@ -3,8 +3,8 @@ package de.gurkenlabs.litiengine.sound;
 import de.gurkenlabs.litiengine.resources.Resources;
 import java.util.Iterator;
 import java.util.Objects;
-import javax.annotation.Nullable;
 import javax.sound.sampled.AudioFormat;
+import javax.annotation.Nullable;
 
 public class LoopedTrack implements Track, Iterator<Sound> {
   private Sound track;
@@ -32,8 +32,7 @@ public class LoopedTrack implements Track, Iterator<Sound> {
     return this;
   }
 
-  @Nullable
-  @Override
+  @Nullable @Override
   public AudioFormat getFormat() {
     return this.track.getFormat();
   }
