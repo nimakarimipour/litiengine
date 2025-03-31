@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.Nullable;
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -23,7 +24,6 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.sax.SAXSource;
 import javax.xml.transform.stream.StreamResult;
-import javax.annotation.Nullable;
 
 public final class XmlUtilities {
   private static final Logger log = Logger.getLogger(XmlUtilities.class.getName());
@@ -68,6 +68,7 @@ public final class XmlUtilities {
     }
   }
 
+  @SuppressWarnings("NullAway")
   public static <T> JAXBContext getContext(Class<T> cls) {
     try {
       final JAXBContext jaxbContext;
@@ -85,7 +86,8 @@ public final class XmlUtilities {
     return null;
   }
 
-  @Nullable public static <T> T read(Class<T> cls, @Nullable URL path) throws JAXBException {
+  @Nullable
+  public static <T> T read(Class<T> cls, @Nullable URL path) throws JAXBException {
     final JAXBContext jaxbContext = getContext(cls);
     if (jaxbContext == null) {
       return null;
@@ -97,7 +99,8 @@ public final class XmlUtilities {
     return cls.cast(um.unmarshal(path));
   }
 
-  @Nullable public static File save(Object object, String fileName) {
+  @Nullable
+  public static File save(Object object, String fileName) {
     if (fileName == null || fileName.isEmpty()) {
       return null;
     }
@@ -131,7 +134,8 @@ public final class XmlUtilities {
     return newFile;
   }
 
-  @Nullable public static File save(Object object, String fileName, String extension) {
+  @Nullable
+  public static File save(Object object, String fileName, String extension) {
     String fileNameWithExtension = fileName;
     if (!fileNameWithExtension.endsWith("." + extension)) {
       fileNameWithExtension += "." + extension;
