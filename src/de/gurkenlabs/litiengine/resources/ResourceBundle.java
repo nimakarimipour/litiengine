@@ -23,6 +23,7 @@ import java.util.logging.Logger;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 import java.util.zip.ZipException;
+import javax.annotation.Nullable;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -32,7 +33,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import javax.annotation.Nullable;
 
 @XmlRootElement(name = "litidata")
 public class ResourceBundle implements Serializable {
@@ -78,11 +78,13 @@ public class ResourceBundle implements Serializable {
     this.sounds = new ArrayList<>();
   }
 
-  @Nullable public static ResourceBundle load(String file) {
+  @Nullable
+  public static ResourceBundle load(String file) {
     return load(Resources.getLocation(file));
   }
 
-  @Nullable public static ResourceBundle load(@Nullable final URL file) {
+  @Nullable
+  public static ResourceBundle load(@Nullable final URL file) {
     try {
       ResourceBundle gameFile = getResourceBundle(file);
       if (gameFile == null) {
@@ -199,7 +201,9 @@ public class ResourceBundle implements Serializable {
       if (distinctList.stream()
           .anyMatch(
               x ->
-                  x.getName().equals(sprite.getName()) && x.getImage().equals(sprite.getImage()))) {
+                  x.getName() != null
+                      && x.getName().equals(sprite.getName())
+                      && x.getImage().equals(sprite.getImage()))) {
         continue;
       }
 
@@ -210,7 +214,8 @@ public class ResourceBundle implements Serializable {
 
     List<Tileset> distinctTilesets = new ArrayList<>();
     for (Tileset tileset : this.getTilesets()) {
-      if (distinctTilesets.stream().anyMatch(x -> x.getName().equals(tileset.getName()))) {
+      if (distinctTilesets.stream()
+          .anyMatch(x -> x.getName() != null && x.getName().equals(tileset.getName()))) {
         continue;
       }
 
@@ -224,7 +229,9 @@ public class ResourceBundle implements Serializable {
     }
   }
 
-  @Nullable private static ResourceBundle getResourceBundle(@Nullable URL file) throws JAXBException, IOException {
+  @Nullable
+  private static ResourceBundle getResourceBundle(@Nullable URL file)
+      throws JAXBException, IOException {
     final JAXBContext jaxbContext = XmlUtilities.getContext(ResourceBundle.class);
     final Unmarshaller um = jaxbContext.createUnmarshaller();
     try (InputStream inputStream = Resources.get(file)) {
