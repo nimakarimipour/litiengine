@@ -32,8 +32,7 @@ public interface ICombatEntity extends ICollisionEntity {
 
   Shape getHitBox();
 
-  @Nullable
-  ICombatEntity getTarget();
+  @Nullable ICombatEntity getTarget();
 
   int getTeam();
 
