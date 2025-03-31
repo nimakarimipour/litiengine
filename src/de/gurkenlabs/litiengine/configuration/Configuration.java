@@ -55,8 +55,7 @@ public class Configuration {
    * @param groupClass The class that provides the generic type for this method.
    * @return The configuration group of the specified type or null if none can be found.
    */
-  @Nullable
-  public <T extends ConfigurationGroup> T getConfigurationGroup(final Class<T> groupClass) {
+  @Nullable public <T extends ConfigurationGroup> T getConfigurationGroup(final Class<T> groupClass) {
     for (final ConfigurationGroup group : this.getConfigurationGroups()) {
       if (group.getClass().equals(groupClass)) {
         return groupClass.cast(group);
@@ -66,8 +65,7 @@ public class Configuration {
     return null;
   }
 
-  @Nullable
-  public ConfigurationGroup getConfigurationGroup(final String prefix) {
+  @Nullable public ConfigurationGroup getConfigurationGroup(final String prefix) {
     for (final ConfigurationGroup group : this.getConfigurationGroups()) {
 
       final ConfigurationGroupInfo info =

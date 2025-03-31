@@ -4,17 +4,16 @@ import de.gurkenlabs.litiengine.environment.tilemap.IImageLayer;
 import de.gurkenlabs.litiengine.environment.tilemap.IMapImage;
 import java.awt.Color;
 import java.net.URL;
-import javax.annotation.Nullable;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import javax.annotation.Nullable;
 
 public class ImageLayer extends Layer implements IImageLayer {
 
   @XmlElement private MapImage image;
 
-  @Nullable
-  @XmlAttribute
+  @Nullable @XmlAttribute
   @XmlJavaTypeAdapter(ColorAdapter.class)
   private Color trans;
 
@@ -23,8 +22,7 @@ public class ImageLayer extends Layer implements IImageLayer {
     return this.image;
   }
 
-  @Nullable
-  @Override
+  @Nullable @Override
   public Color getTransparentColor() {
     return this.trans;
   }
@@ -33,9 +31,7 @@ public class ImageLayer extends Layer implements IImageLayer {
   public int getOffsetX() {
     if (this.isInfiniteMap()) {
       TmxMap map = (TmxMap) this.getMap();
-      if (map != null) {
-        return super.getOffsetX() - map.getChunkOffsetX() * map.getTileWidth();
-      }
+      return super.getOffsetX() - map.getChunkOffsetX() * map.getTileWidth();
     }
 
     return super.getOffsetX();
@@ -45,9 +41,7 @@ public class ImageLayer extends Layer implements IImageLayer {
   public int getOffsetY() {
     if (this.isInfiniteMap()) {
       TmxMap map = (TmxMap) this.getMap();
-      if (map != null) {
-        return super.getOffsetX() - map.getChunkOffsetY() * map.getTileHeight();
-      }
+      return super.getOffsetX() - map.getChunkOffsetY() * map.getTileHeight();
     }
 
     return super.getOffsetY();
