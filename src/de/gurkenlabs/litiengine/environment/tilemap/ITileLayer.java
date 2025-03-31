@@ -12,7 +12,8 @@ public interface ITileLayer extends ILayer {
    * @param location the location
    * @return the tile by location
    */
-  @Nullable ITile getTileByLocation(Point2D location);
+  @Nullable
+  ITile getTileByLocation(Point2D location);
 
   /**
    * Gets the tile at the specified map grid location.
@@ -25,7 +26,8 @@ public interface ITileLayer extends ILayer {
    * @return The tile at the specified grid location.
    * @see MapUtilities#getTile(Point2D)
    */
-  @Nullable ITile getTile(int x, int y);
+  @Nullable
+  ITile getTile(int x, int y);
 
   /**
    * Sets the id of the tile at the specified map grid location.

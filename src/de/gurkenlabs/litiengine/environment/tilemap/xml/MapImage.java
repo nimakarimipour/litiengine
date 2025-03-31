@@ -5,12 +5,12 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.net.MalformedURLException;
 import java.net.URL;
+import javax.annotation.Nullable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import javax.annotation.Nullable;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class MapImage extends CustomPropertyProvider implements IMapImage {
@@ -78,7 +78,8 @@ public class MapImage extends CustomPropertyProvider implements IMapImage {
     return this.height;
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public String getSource() {
     return this.source;
   }

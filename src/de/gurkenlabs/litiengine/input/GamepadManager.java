@@ -14,10 +14,10 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.Nullable;
 import net.java.games.input.Controller;
 import net.java.games.input.Controller.Type;
 import net.java.games.input.ControllerEnvironment;
-import javax.annotation.Nullable;
 
 /**
  * The {@code GamepadManager} provides access to all gamepad input devices.
@@ -176,7 +176,8 @@ public final class GamepadManager extends GamepadEvents implements ILaunchable {
    * @see #getAll()
    * @see #current()
    */
-  @Nullable public Gamepad getById(final int id) {
+  @Nullable
+  public Gamepad getById(final int id) {
     for (final Gamepad gamepad : this.gamePads) {
       if (gamepad.getId() == id) {
         return gamepad;
