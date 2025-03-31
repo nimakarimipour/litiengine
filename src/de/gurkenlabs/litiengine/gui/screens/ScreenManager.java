@@ -176,7 +176,8 @@ public final class ScreenManager {
    * @param screenName The name of the screen.
    * @return The
    */
-  @Nullable public Screen get(String screenName) {
+  @Nullable
+  public Screen get(String screenName) {
     Optional<Screen> opt =
         this.screens.stream()
             .filter(element -> element.getName().equalsIgnoreCase(screenName))
@@ -201,7 +202,8 @@ public final class ScreenManager {
    * @see GameWindow#getRenderComponent()
    * @see RenderComponent#render()
    */
-  @Nullable public Screen current() {
+  @Nullable
+  public Screen current() {
     return this.currentScreen;
   }
 
