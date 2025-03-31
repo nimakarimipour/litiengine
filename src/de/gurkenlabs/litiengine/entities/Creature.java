@@ -35,10 +35,12 @@ public class Creature extends CombatEntity implements IMobileEntity {
   @TmxProperty(name = MapObjectProperty.MOVEMENT_TURNONMOVE)
   private boolean turnOnMove;
 
-  @Nullable @TmxProperty(name = MapObjectProperty.MOVEMENT_VELOCITY)
+  @Nullable
+  @TmxProperty(name = MapObjectProperty.MOVEMENT_VELOCITY)
   private Attribute<Float> velocity;
 
-  @Nullable @TmxProperty(name = MapObjectProperty.SPRITESHEETNAME)
+  @Nullable
+  @TmxProperty(name = MapObjectProperty.SPRITESHEETNAME)
   private String spritesheetName;
 
   @TmxProperty(name = MapObjectProperty.SCALE_SPRITE)
@@ -122,7 +124,8 @@ public class Creature extends CombatEntity implements IMobileEntity {
     return Direction.fromAngle(this.getAngle());
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public IMovementController movement() {
     return this.getController(IMovementController.class);
   }
@@ -137,7 +140,8 @@ public class Creature extends CombatEntity implements IMobileEntity {
    *
    * @return The current spritesheet name of this instance.
    */
-  @Nullable public String getSpritesheetName() {
+  @Nullable
+  public String getSpritesheetName() {
     return this.spritesheetName;
   }
 
