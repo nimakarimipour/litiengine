@@ -57,8 +57,7 @@ public final class Spritesheets {
    * @param path The path of the spritesheet.
    * @return The {@link Spritesheet} associated with the path or null if not loaded yet
    */
-  @Nullable
-  public Spritesheet get(@Nullable final String path) {
+  @Nullable public Spritesheet get(@Nullable final String path) {
     if (path == null || path.isEmpty()) {
       return null;
     }
@@ -89,15 +88,11 @@ public final class Spritesheets {
   }
 
   public Spritesheet load(
-      @Nullable final BufferedImage image,
-      final String path,
-      final int spriteWidth,
-      final int spriteHeight) {
+      @Nullable final BufferedImage image, final String path, final int spriteWidth, final int spriteHeight) {
     return new Spritesheet(image, path, spriteWidth, spriteHeight);
   }
 
-  @Nullable
-  public Spritesheet load(final ITileset tileset) {
+  @Nullable public Spritesheet load(final ITileset tileset) {
     if (tileset == null || tileset.getImage() == null) {
       return null;
     }
@@ -113,8 +108,7 @@ public final class Spritesheets {
         tileset.getTileDimension().height);
   }
 
-  @Nullable
-  public Spritesheet load(final SpritesheetResource info) {
+  @Nullable public Spritesheet load(final SpritesheetResource info) {
     Spritesheet sprite = null;
     if (info.getImage() == null || info.getImage().isEmpty()) {
       log.log(
