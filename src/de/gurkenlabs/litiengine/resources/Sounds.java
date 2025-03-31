@@ -9,8 +9,8 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.annotation.Nullable;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 public final class Sounds extends ResourcesContainer<Sound> {
   private static final Logger log = Logger.getLogger(Sounds.class.getName());
@@ -24,7 +24,8 @@ public final class Sounds extends ResourcesContainer<Sound> {
    * @return The {@code Sound} instance loaded from the specified resource.
    * @see Codec#decode(String)
    */
-  @Nullable public Sound load(final SoundResource resource) {
+  @Nullable
+  public Sound load(final SoundResource resource) {
     byte[] data = Codec.decode(resource.getData());
     ByteArrayInputStream input = new ByteArrayInputStream(data);
     Sound sound;
@@ -48,7 +49,8 @@ public final class Sounds extends ResourcesContainer<Sound> {
    * @param resourceName The path of the file to be loaded.(Can be relative or absolute)
    * @return The loaded Sound from the specified path.
    */
-  @Nullable @Override
+  @Nullable
+  @Override
   protected Sound load(@Nullable URL resourceName) throws Exception {
     try (final InputStream is = Resources.get(resourceName)) {
       if (is == null) {

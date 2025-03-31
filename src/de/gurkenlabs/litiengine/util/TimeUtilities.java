@@ -24,7 +24,8 @@ public final class TimeUtilities {
       this.formatString = formatString;
     }
 
-    @Nullable public String getFormatString() {
+    @Nullable
+    public String getFormatString() {
       return formatString;
     }
   }
