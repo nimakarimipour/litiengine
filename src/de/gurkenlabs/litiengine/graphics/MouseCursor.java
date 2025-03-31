@@ -73,11 +73,13 @@ public final class MouseCursor implements IRenderable {
     }
   }
 
-  @Nullable public Image getImage() {
+  @Nullable
+  public Image getImage() {
     return this.image;
   }
 
-  @Nullable public AffineTransform getTransform() {
+  @Nullable
+  public AffineTransform getTransform() {
     return this.transform;
   }
 
