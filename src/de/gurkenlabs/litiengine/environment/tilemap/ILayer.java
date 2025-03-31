@@ -14,7 +14,8 @@ public interface ILayer extends ICustomPropertyProvider {
    *
    * @return the name
    */
-  @Nullable public String getName();
+  @Nullable
+  public String getName();
 
   /**
    * Gets the opacity.
@@ -51,6 +52,7 @@ public interface ILayer extends ICustomPropertyProvider {
    */
   public Dimension getSizeInTiles();
 
+  @Nullable
   public IMap getMap();
 
   /**
@@ -64,7 +66,8 @@ public interface ILayer extends ICustomPropertyProvider {
 
   public void setName(String name);
 
-  @Nullable public RenderType getRenderType();
+  @Nullable
+  public RenderType getRenderType();
 
   public int getWidth();
 

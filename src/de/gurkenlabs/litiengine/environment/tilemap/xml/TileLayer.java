@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.environment.tilemap.xml;
 
+import com.uber.nullaway.annotations.Initializer;
 import de.gurkenlabs.litiengine.environment.tilemap.ITile;
 import de.gurkenlabs.litiengine.environment.tilemap.ITileLayer;
 import de.gurkenlabs.litiengine.environment.tilemap.ITilesetEntry;
@@ -9,9 +10,8 @@ import java.net.URL;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArrayList;
-import javax.xml.bind.annotation.XmlElement;
-import com.uber.nullaway.annotations.Initializer;
 import javax.annotation.Nullable;
+import javax.xml.bind.annotation.XmlElement;
 
 public class TileLayer extends Layer implements ITileLayer {
 
@@ -35,14 +35,16 @@ public class TileLayer extends Layer implements ITileLayer {
     this.data = data;
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public ITile getTileByLocation(final Point2D location) {
     final Optional<ITile> tile =
         this.getTiles().stream().filter(x -> x.getTileCoordinate().equals(location)).findFirst();
     return tile.isPresent() ? tile.get() : null;
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public ITile getTile(int x, int y) {
     this.getTiles();
 
@@ -110,12 +112,14 @@ public class TileLayer extends Layer implements ITileLayer {
     return this.data.getTiles();
   }
 
-  @Nullable protected TileData getRawTileData() {
+  @Nullable
+  protected TileData getRawTileData() {
     return this.data;
   }
 
-  @Initializer @Override
-  void finish(@Nullable URL location) throws TmxException {
+  @Initializer
+  @Override
+  void finish(URL location) throws TmxException {
     super.finish(location);
     this.tileList = new CopyOnWriteArrayList<>(this.getData());
     this.tiles = new Tile[this.getHeight()][this.getWidth()];
@@ -128,8 +132,10 @@ public class TileLayer extends Layer implements ITileLayer {
       this.tileList.add(tile);
       this.tiles[y][x] = tile;
     }
-    for (Tile tile : getData()) {
-      tile.setTilesetEntry(this.getMap().getTilesetEntry(tile.getGridId()));
+    if (this.getMap() != null) {
+      for (Tile tile : getData()) {
+        tile.setTilesetEntry(this.getMap().getTilesetEntry(tile.getGridId()));
+      }
     }
   }
 }

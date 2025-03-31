@@ -6,11 +6,11 @@ import de.gurkenlabs.litiengine.environment.tilemap.LayerProperty;
 import de.gurkenlabs.litiengine.graphics.RenderType;
 import java.awt.Dimension;
 import java.awt.Point;
+import javax.annotation.Nullable;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import javax.annotation.Nullable;
 
 public abstract class Layer extends CustomPropertyProvider implements ILayer {
 
@@ -24,7 +24,8 @@ public abstract class Layer extends CustomPropertyProvider implements ILayer {
 
   @Nullable @XmlAttribute private Float opacity;
 
-  @Nullable @XmlAttribute
+  @Nullable
+  @XmlAttribute
   @XmlJavaTypeAdapter(BooleanIntegerAdapter.class)
   private Boolean visible;
 
@@ -79,7 +80,8 @@ public abstract class Layer extends CustomPropertyProvider implements ILayer {
     return this.id;
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public String getName() {
     return this.name;
   }
@@ -115,7 +117,8 @@ public abstract class Layer extends CustomPropertyProvider implements ILayer {
     return offsety;
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public RenderType getRenderType() {
     if (this.renderTypeLoaded) {
       return this.renderType;
@@ -150,6 +153,7 @@ public abstract class Layer extends CustomPropertyProvider implements ILayer {
     return this.width;
   }
 
+  @Nullable
   @Override
   public IMap getMap() {
     return this.parentMap;
