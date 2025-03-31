@@ -71,8 +71,7 @@ public interface IAnimationController extends IUpdateable {
    * @see #getDefault()
    * @see #hasAnimation(String)
    */
-  @Nullable
-  public Animation get(String animationName);
+  @Nullable public Animation get(String animationName);
 
   /**
    * Gets the currently active {@code Animation} of this controller.
@@ -85,8 +84,7 @@ public interface IAnimationController extends IUpdateable {
    * @see #get(String)
    * @see RenderEngine#renderEntity(java.awt.Graphics2D, de.gurkenlabs.litiengine.entities.IEntity)
    */
-  @Nullable
-  public Animation getCurrent();
+  @Nullable public Animation getCurrent();
 
   /**
    * Gets the default {@code Animation} of this controller.
@@ -98,8 +96,7 @@ public interface IAnimationController extends IUpdateable {
    * @see #get(String)
    * @see #setDefault(Animation)
    */
-  @Nullable
-  public Animation getDefault();
+  @Nullable public Animation getDefault();
 
   /**
    * Determines whether this controller has an {@code Animation} with the specified name.
@@ -161,8 +158,7 @@ public interface IAnimationController extends IUpdateable {
    * @see Animation#getCurrentKeyFrame()
    * @see #isEnabled()
    */
-  @Nullable
-  public BufferedImage getCurrentImage();
+  @Nullable public BufferedImage getCurrentImage();
 
   /**
    * Gets the current sprite scaled by the specified dimensions of the currently active animation of
@@ -179,8 +175,7 @@ public interface IAnimationController extends IUpdateable {
    * @see Animation#getCurrentKeyFrame()
    * @see #isEnabled()
    */
-  @Nullable
-  public BufferedImage getCurrentImage(int width, int height);
+  @Nullable public BufferedImage getCurrentImage(int width, int height);
 
   /**
    * Gets the {@code AffineTransform} instance assigned to this controller that can be used to
@@ -192,8 +187,7 @@ public interface IAnimationController extends IUpdateable {
    * @see #setAffineTransform(AffineTransform)
    * @see #getCurrentImage()
    */
-  @Nullable
-  public AffineTransform getAffineTransform();
+  @Nullable public AffineTransform getAffineTransform();
 
   /**
    * Sets the {@code AffineTransform} instance for this controller that can be used to externally
