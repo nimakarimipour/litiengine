@@ -93,6 +93,10 @@ public class AnimationController implements IAnimationController {
   }
 
   public static Animation flipAnimation(Animation anim, String newSpriteName) {
+    if (anim == null || anim.getSpritesheet() == null) {
+      return null; // or handle the case where anim or its spritesheet is null
+    }
+
     final BufferedImage flippedImage = Imaging.flipSpritesHorizontally(anim.getSpritesheet());
     Spritesheet flippedSpritesheet =
         Resources.spritesheets()
@@ -157,7 +161,8 @@ public class AnimationController implements IAnimationController {
     Game.loop().detach(this);
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public Animation get(final String animationName) {
     if (animationName == null || animationName.isEmpty()) {
       return null;
@@ -166,7 +171,8 @@ public class AnimationController implements IAnimationController {
     return this.animations.getOrDefault(animationName, null);
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public AffineTransform getAffineTransform() {
     return this.affineTransform;
   }
@@ -176,12 +182,14 @@ public class AnimationController implements IAnimationController {
     return this.animations.values();
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public Animation getCurrent() {
     return this.currentAnimation;
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public BufferedImage getCurrentImage() {
     if (!this.isEnabled()) {
       return null;
@@ -209,7 +217,8 @@ public class AnimationController implements IAnimationController {
     return sprite;
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public BufferedImage getCurrentImage(final int width, final int height) {
     if (this.getCurrentImage() == null) {
       return null;
@@ -224,7 +233,8 @@ public class AnimationController implements IAnimationController {
     return Imaging.scale(this.getCurrentImage(), width, height);
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public Animation getDefault() {
     if (this.defaultAnimation != null) {
       return this.defaultAnimation;
@@ -377,7 +387,8 @@ public class AnimationController implements IAnimationController {
    *
    * @return the unique cache key for the current key frame
    */
-  @Nullable protected String buildCurrentCacheKey() {
+  @Nullable
+  protected String buildCurrentCacheKey() {
     if (this.getCurrent() == null
         || this.getCurrent().getCurrentKeyFrame() == null
         || this.getCurrent().getSpritesheet() == null) {
