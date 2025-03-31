@@ -15,7 +15,8 @@ public class RaycastHit {
     this.distance = distance;
   }
 
-  @Nullable public Point2D getPoint() {
+  @Nullable
+  public Point2D getPoint() {
     return this.point;
   }
 
