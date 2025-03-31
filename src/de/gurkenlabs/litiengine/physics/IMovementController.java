@@ -65,7 +65,8 @@ public interface IMovementController extends IEntityController {
    */
   List<Force> getActiveForces();
 
-  @Nullable Force getForce(String identifier);
+  @Nullable
+  Force getForce(String identifier);
 
   double getMoveAngle();
 
