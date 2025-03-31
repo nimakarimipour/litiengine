@@ -54,8 +54,7 @@ public class TextFieldComponent extends ImageComponent {
     this.setTextAlign(Align.LEFT);
   }
 
-  @Nullable
-  public String getFormat() {
+  @Nullable public String getFormat() {
     return this.format;
   }
 
@@ -104,13 +103,6 @@ public class TextFieldComponent extends ImageComponent {
   @Override
   public void render(final Graphics2D g) {
     super.render(g);
-
-    // Ensure font is set
-    if (this.getFont() == null) {
-      Font defFont = new JLabel().getFont().deriveFont((float) (this.getHeight() * 3 / 6f));
-      this.setFont(defFont);
-    }
-
     g.setFont(this.getFont());
     final FontMetrics fm = g.getFontMetrics();
 
@@ -118,7 +110,6 @@ public class TextFieldComponent extends ImageComponent {
       this.cursorVisible = !this.cursorVisible;
       this.lastToggled = Game.time().now();
     }
-
     if (this.isSelected() && this.cursorVisible) {
       final Rectangle2D cursor =
           new Rectangle2D.Double(
