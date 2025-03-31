@@ -116,8 +116,7 @@ public class CreatureAnimationController<T extends Creature> extends EntityAnima
     return this.getEntity().isScaling();
   }
 
-  @Nullable
-  @Override
+  @Nullable @Override
   protected String getSpritePrefix() {
     return this.getEntity().getSpritesheetName();
   }
@@ -128,8 +127,7 @@ public class CreatureAnimationController<T extends Creature> extends EntityAnima
    *
    * @return The name of the current animation that should be played
    */
-  @Nullable
-  protected String getCurrentAnimationName() {
+  @Nullable protected String getCurrentAnimationName() {
     if (this.getEntity().isDead()) {
       return this.getDeathAnimationName();
     }
@@ -151,8 +149,7 @@ public class CreatureAnimationController<T extends Creature> extends EntityAnima
     return this.getIdleSpriteName(this.getEntity().getFacingDirection());
   }
 
-  @Nullable
-  private String getDeathAnimationName() {
+  @Nullable private String getDeathAnimationName() {
     if (this.customDeathAnimations.length > 0) {
       if (this.randomDeathSprite != null) {
         return this.randomDeathSprite;
@@ -244,18 +241,15 @@ public class CreatureAnimationController<T extends Creature> extends EntityAnima
     }
   }
 
-  @Nullable
-  private String getIdleSpriteName(Direction dir) {
+  @Nullable private String getIdleSpriteName(Direction dir) {
     return this.getSpriteNameWithDirection(CreatureAnimationState.IDLE, dir);
   }
 
-  @Nullable
-  private String getWalkSpriteName(Direction dir) {
+  @Nullable private String getWalkSpriteName(Direction dir) {
     return getSpriteNameWithDirection(CreatureAnimationState.WALK, dir);
   }
 
-  @Nullable
-  private String getSpriteNameWithDirection(CreatureAnimationState state, Direction dir) {
+  @Nullable private String getSpriteNameWithDirection(CreatureAnimationState state, Direction dir) {
     String name = this.getSpriteName(state, dir);
     if (this.hasAnimation(name)) {
       return name;
@@ -264,8 +258,7 @@ public class CreatureAnimationController<T extends Creature> extends EntityAnima
     return getFallbackSpriteName(state, dir);
   }
 
-  @Nullable
-  private String getFallbackSpriteName(CreatureAnimationState state, Direction dir) {
+  @Nullable private String getFallbackSpriteName(CreatureAnimationState state, Direction dir) {
     String fallbackStateName = this.getSpriteName(state.getOpposite(), dir);
     if (this.hasAnimation(fallbackStateName)) {
       return fallbackStateName;
