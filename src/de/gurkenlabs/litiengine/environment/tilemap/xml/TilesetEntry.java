@@ -10,13 +10,13 @@ import de.gurkenlabs.litiengine.util.ArrayUtilities;
 import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.Arrays;
-import javax.annotation.Nullable;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.annotation.Nullable;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TilesetEntry extends CustomPropertyProvider implements ITilesetEntry {
@@ -34,8 +34,7 @@ public class TilesetEntry extends CustomPropertyProvider implements ITilesetEntr
 
   @Nullable @XmlAttribute private String type;
 
-  @Nullable
-  @XmlElement(name = "objectgroup")
+  @Nullable @XmlElement(name = "objectgroup")
   private MapObjectLayer collisionData;
 
   /** Instantiates a new {@code TilesetEntry}. */
@@ -61,20 +60,17 @@ public class TilesetEntry extends CustomPropertyProvider implements ITilesetEntr
     return this.id;
   }
 
-  @Nullable
-  @Override
+  @Nullable @Override
   public ITerrain[] getTerrain() {
     return this.terrains;
   }
 
-  @Nullable
-  @Override
+  @Nullable @Override
   public ITileAnimation getAnimation() {
     return this.animation;
   }
 
-  @Nullable
-  @Override
+  @Nullable @Override
   public BufferedImage getImage() {
     if (this.animation == null) {
       return this.getBasicImage();
@@ -82,18 +78,14 @@ public class TilesetEntry extends CustomPropertyProvider implements ITilesetEntr
     return this.tileset.getTile(this.animation.getCurrentFrame().getTileId()).getBasicImage();
   }
 
-  @Nullable
-  @Override
+  @Nullable @Override
   public BufferedImage getBasicImage() {
     if (this.image != null) {
       return Resources.images().get(this.image.getAbsoluteSourcePath());
     }
-    if (this.tileset != null && this.tileset.getSpritesheet() != null) {
-      return this.tileset
-          .getSpritesheet()
-          .getSprite(this.getId(), this.tileset.getMargin(), this.tileset.getSpacing());
-    }
-    return null;
+    return this.tileset
+        .getSpritesheet()
+        .getSprite(this.getId(), this.tileset.getMargin(), this.tileset.getSpacing());
   }
 
   @Override
@@ -101,14 +93,12 @@ public class TilesetEntry extends CustomPropertyProvider implements ITilesetEntr
     return this.tileset;
   }
 
-  @Nullable
-  @Override
+  @Nullable @Override
   public String getType() {
     return this.type;
   }
 
-  @Nullable
-  @Override
+  @Nullable @Override
   public IMapObjectLayer getCollisionInfo() {
     return this.collisionData;
   }
