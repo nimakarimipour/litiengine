@@ -6,8 +6,8 @@ import de.gurkenlabs.litiengine.util.io.XmlUtilities;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import javax.annotation.Nullable;
 import javax.xml.bind.JAXBException;
+import javax.annotation.Nullable;
 
 public class Tilesets extends ResourcesContainer<Tileset> {
 
