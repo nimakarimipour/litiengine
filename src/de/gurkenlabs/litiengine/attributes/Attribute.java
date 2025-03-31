@@ -141,8 +141,7 @@ public class Attribute<T extends Number> {
     return currentValue;
   }
 
-  @Nullable
-  @Override
+  @Nullable @Override
   public String toString() {
     return this.get() == null ? null : this.get().toString();
   }

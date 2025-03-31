@@ -8,8 +8,8 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import javax.annotation.Nullable;
 import javax.swing.SwingUtilities;
+import javax.annotation.Nullable;
 
 public class MouseDrawComponent extends ImageComponent {
   private double brushSize = 2;
@@ -76,8 +76,7 @@ public class MouseDrawComponent extends ImageComponent {
     g.fillRect(0, 0, (int) this.getWidth(), (int) this.getHeight());
   }
 
-  @Nullable
-  public BufferedImage getDrawingSpace() {
+  @Nullable public BufferedImage getDrawingSpace() {
     return this.drawingSpace;
   }
 }

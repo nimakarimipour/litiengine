@@ -286,8 +286,7 @@ public final class GameWorld implements IUpdateable {
    * @param mapName The map name by which the environment is identified.
    * @return The environment for the map name or null if no such map can be found.
    */
-  @Nullable
-  public Environment getEnvironment(String mapName) {
+  @Nullable public Environment getEnvironment(String mapName) {
     if (mapName == null || mapName.isEmpty()) {
       return null;
     }
@@ -303,8 +302,7 @@ public final class GameWorld implements IUpdateable {
    * @param map The map by which the environment is identified.
    * @return The environment for the map or null if no such map can be found.
    */
-  @Nullable
-  public Environment getEnvironment(IMap map) {
+  @Nullable public Environment getEnvironment(IMap map) {
     if (map == null || map.getName() == null || map.getName().isEmpty()) {
       return null;
     }
@@ -394,8 +392,7 @@ public final class GameWorld implements IUpdateable {
    * @see GameWorld#environment()
    * @see GameWorld#loadEnvironment(Environment)
    */
-  @Nullable
-  public Environment loadEnvironment(String mapName) {
+  @Nullable public Environment loadEnvironment(String mapName) {
     Environment env = this.getEnvironment(mapName);
     this.loadEnvironment(env);
     return env;
@@ -413,8 +410,7 @@ public final class GameWorld implements IUpdateable {
    * @see GameWorld#environment()
    * @see GameWorld#loadEnvironment(Environment)
    */
-  @Nullable
-  public Environment loadEnvironment(IMap map) {
+  @Nullable public Environment loadEnvironment(IMap map) {
     Environment env = this.getEnvironment(map);
     this.loadEnvironment(env);
     return env;
@@ -455,8 +451,7 @@ public final class GameWorld implements IUpdateable {
    * @see GameWorld#getEnvironment(String)
    * @see GameWorld#reset(IMap)
    */
-  @Nullable
-  public Environment reset(String mapName) {
+  @Nullable public Environment reset(String mapName) {
     if (mapName == null || mapName.isEmpty()) {
       return null;
     }
@@ -477,8 +472,7 @@ public final class GameWorld implements IUpdateable {
    * @see GameWorld#getEnvironment(String)
    * @see GameWorld#reset(IMap)
    */
-  @Nullable
-  public Environment reset(IMap map) {
+  @Nullable public Environment reset(IMap map) {
     if (map == null) {
       return null;
     }
@@ -562,8 +556,7 @@ public final class GameWorld implements IUpdateable {
     listeners.get(mapIdentifier).remove(listener);
   }
 
-  @Nullable
-  private static String getMapName(Environment env) {
+  @Nullable private static String getMapName(Environment env) {
     if (env.getMap() != null && env.getMap().getName() != null) {
       return env.getMap().getName().toLowerCase();
     }
