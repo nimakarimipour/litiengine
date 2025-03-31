@@ -97,8 +97,7 @@ public final class GameRandom extends java.util.Random {
    * @param array The array to choose from.
    * @return A pseudo-random element from the array or null if the array is empty.
    */
-  @Nullable
-  public <T> T choose(T[] array) {
+  @Nullable public <T> T choose(T[] array) {
     if (array == null || array.length == 0) {
       return null;
     }
@@ -173,8 +172,7 @@ public final class GameRandom extends java.util.Random {
    * @param coll The collection to choose from.
    * @return A pseudo-random element from the array or null if the collection is empty.
    */
-  @Nullable
-  public <T> T choose(@Nullable Collection<T> coll) {
+  @Nullable public <T> T choose(@Nullable Collection<T> coll) {
     if (coll == null || coll.isEmpty()) {
       return null;
     }
@@ -697,8 +695,7 @@ public final class GameRandom extends java.util.Random {
    *     will deviate from the original Color.
    * @return A pseudo-randomized variant of the original Color.
    */
-  @Nullable
-  public Color nextColor(Color originalColor, float colorVariance, float alphaVariance) {
+  @Nullable public Color nextColor(Color originalColor, float colorVariance, float alphaVariance) {
     if (originalColor == null) {
       return null;
     }
