@@ -7,8 +7,7 @@ import java.awt.Font;
 import javax.annotation.Nullable;
 
 public interface IMapObjectText {
-  @Nullable
-  public String getText();
+  @Nullable public String getText();
 
   public Font getFont();
 
@@ -16,11 +15,9 @@ public interface IMapObjectText {
 
   public Color getColor();
 
-  @Nullable
-  public Align getAlign();
+  @Nullable public Align getAlign();
 
-  @Nullable
-  public Valign getValign();
+  @Nullable public Valign getValign();
 
   public boolean isBold();
 
