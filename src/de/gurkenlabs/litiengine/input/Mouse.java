@@ -17,8 +17,8 @@ import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.Nullable;
 import javax.swing.SwingUtilities;
+import javax.annotation.Nullable;
 
 /** This implementation provides information about the mouse input in the LITIENGINE. */
 public final class Mouse

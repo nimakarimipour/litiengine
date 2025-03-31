@@ -1,5 +1,4 @@
 package de.gurkenlabs.litiengine.entities;
-
 import javax.annotation.Nullable;
 
 public class EntityAction {
@@ -13,8 +12,7 @@ public class EntityAction {
     this.action = action;
   }
 
-  @Nullable
-  public String getDescription() {
+  @Nullable public String getDescription() {
     return this.description;
   }
 
