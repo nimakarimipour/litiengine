@@ -7,24 +7,20 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import javax.xml.bind.JAXBException;
+import javax.annotation.Nullable;
 
 public class Tilesets extends ResourcesContainer<Tileset> {
 
   Tilesets() {}
 
   @Override
-  protected Tileset load(URL resourceName) throws IOException, URISyntaxException {
-    Tileset tileset;
+  protected Tileset load(@Nullable URL resourceName) throws IOException, URISyntaxException {
     try {
-      tileset = XmlUtilities.read(Tileset.class, resourceName);
+      Tileset tileset = XmlUtilities.read(Tileset.class, resourceName);
+      tileset.finish(resourceName);
+      return tileset;
     } catch (JAXBException e) {
       throw new TmxException(e);
     }
-
-    if (tileset == null) {
-      return null;
-    }
-    tileset.finish(resourceName);
-    return tileset;
   }
 }
