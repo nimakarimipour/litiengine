@@ -26,8 +26,8 @@ public class SoundSource extends Entity {
   private int range;
 
   private boolean loop;
-  private Sound sound;
-  private SFXPlayback playback;
+  @Nullable private Sound sound;
+  @Nullable private SFXPlayback playback;
 
   /** An empty constructor that just calls the super constructor of {@link Entity}. */
   public SoundSource() {
@@ -127,6 +127,7 @@ public class SoundSource extends Entity {
    *
    * @return the sound instance used for playback.
    */
+  @Nullable
   public Sound getSound() {
     return sound;
   }
@@ -136,6 +137,7 @@ public class SoundSource extends Entity {
    *
    * @return the playback instance.
    */
+  @Nullable
   public SFXPlayback getPlayback() {
     return this.playback;
   }
@@ -145,7 +147,11 @@ public class SoundSource extends Entity {
    *
    * @return A String containing the sound name.
    */
-  @Nullable public String getSoundName() {
+  @Nullable
+  public String getSoundName() {
+    if (this.sound == null) {
+      return null;
+    }
     return this.sound.getName();
   }
 
@@ -205,7 +211,10 @@ public class SoundSource extends Entity {
    * @see SFXPlayback#pausePlayback()
    */
   public void pause() {
-    this.getPlayback().pausePlayback();
+    SFXPlayback playback = this.getPlayback();
+    if (playback != null) {
+      playback.pausePlayback();
+    }
   }
 
   /**
@@ -214,7 +223,10 @@ public class SoundSource extends Entity {
    * @see SFXPlayback#resumePlayback()
    */
   public void resume() {
-    this.getPlayback().resumePlayback();
+    SFXPlayback playback = this.getPlayback();
+    if (playback != null) {
+      playback.resumePlayback();
+    }
   }
 
   /**
@@ -223,6 +235,9 @@ public class SoundSource extends Entity {
    * @see SFXPlayback#cancel()
    */
   public void stop() {
-    this.getPlayback().cancel();
+    SFXPlayback playback = this.getPlayback();
+    if (playback != null) {
+      playback.cancel();
+    }
   }
 }

@@ -190,7 +190,8 @@ public abstract class ResourcesContainer<T> {
     return this.get(this.getIdentifier(resourceName), false);
   }
 
-  @Nullable public T get(URL resourceName) {
+  @Nullable
+  public T get(URL resourceName) {
     return this.get(resourceName, false);
   }
 
@@ -234,7 +235,8 @@ public abstract class ResourcesContainer<T> {
    *     resource will be freshly loaded.
    * @return The game resource or null if not found.
    */
-  @Nullable public T get(@Nullable String resourceName, boolean forceLoad) {
+  @Nullable
+  public T get(@Nullable String resourceName, boolean forceLoad) {
     if (resourceName == null) {
       return null;
     }
@@ -253,7 +255,8 @@ public abstract class ResourcesContainer<T> {
     }
   }
 
-  @Nullable public T get(URL resourceName, boolean forceLoad) {
+  @Nullable
+  public T get(URL resourceName, boolean forceLoad) {
     return this.get(resourceName.toString(), forceLoad);
   }
 
@@ -340,7 +343,8 @@ public abstract class ResourcesContainer<T> {
     return this.tryGet(resourceName);
   }
 
-  @Nullable protected abstract T load(@Nullable URL resourceName) throws Exception;
+  @Nullable
+  protected abstract T load(@Nullable URL resourceName) throws Exception;
 
   /**
    * Gets an alias for the specified resourceName. Note that the process of providing an alias is up
@@ -350,7 +354,8 @@ public abstract class ResourcesContainer<T> {
    * @param resource The resource.
    * @return An alias for the specified resource.
    */
-  @Nullable protected String getAlias(String resourceName, @Nullable T resource) {
+  @Nullable
+  protected String getAlias(String resourceName, @Nullable T resource) {
     return null;
   }
 
@@ -358,7 +363,8 @@ public abstract class ResourcesContainer<T> {
     return this.resources;
   }
 
-  @Nullable private T loadResource(String identifier) {
+  @Nullable
+  private T loadResource(String identifier) {
     T newResource;
     try {
       newResource = this.load(Resources.getLocation(identifier));
@@ -378,7 +384,8 @@ public abstract class ResourcesContainer<T> {
     return newResource;
   }
 
-  @Nullable private String getIdentifier(@Nullable String resourceName) {
+  @Nullable
+  private String getIdentifier(@Nullable String resourceName) {
     return this.aliases.getOrDefault(resourceName, resourceName);
   }
 }
