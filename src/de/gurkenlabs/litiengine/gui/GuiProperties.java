@@ -41,7 +41,8 @@ public class GuiProperties {
     defaultAppearanceHovered = app;
   }
 
-  @Nullable public static Font getDefaultFont() {
+  @Nullable
+  public static Font getDefaultFont() {
     return defaultFont;
   }
 

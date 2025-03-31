@@ -3,9 +3,9 @@ package de.gurkenlabs.litiengine.sound;
 import de.gurkenlabs.litiengine.Game;
 import java.awt.geom.Point2D;
 import java.util.function.Supplier;
+import javax.annotation.Nullable;
 import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
-import javax.annotation.Nullable;
 
 /** A {@code SoundPlayback} implementation for the playback of sound effects. */
 public class SFXPlayback extends SoundPlayback {
