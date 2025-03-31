@@ -16,7 +16,10 @@ public class EntityHitEvent extends EventObject {
   private final long time;
 
   EntityHitEvent(
-      final ICombatEntity hitEntity, @Nullable final Ability ability, final int damage, final boolean kill) {
+      final ICombatEntity hitEntity,
+      @Nullable final Ability ability,
+      final int damage,
+      final boolean kill) {
     super(hitEntity);
     this.executor = ability != null ? ability.getExecutor() : null;
     this.hitEntity = hitEntity;
@@ -30,7 +33,8 @@ public class EntityHitEvent extends EventObject {
     return this.damage;
   }
 
-  @Nullable public ICombatEntity getExecutor() {
+  @Nullable
+  public ICombatEntity getExecutor() {
     return this.executor;
   }
 
@@ -42,7 +46,8 @@ public class EntityHitEvent extends EventObject {
     return this.kill;
   }
 
-  @Nullable public Ability getAbility() {
+  @Nullable
+  public Ability getAbility() {
     return this.ability;
   }
 
