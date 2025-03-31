@@ -2,13 +2,14 @@ package de.gurkenlabs.litiengine.graphics.emitters.xml;
 
 import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.util.io.XmlUtilities;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.net.URL;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.xml.bind.JAXBException;
 import javax.annotation.Nullable;
+import javax.xml.bind.JAXBException;
 
 public class EmitterLoader {
   private static final Map<String, EmitterData> loadedEmitters;
@@ -20,7 +21,8 @@ public class EmitterLoader {
     loadedEmitters = new ConcurrentHashMap<>();
   }
 
-  @Nullable public static EmitterData load(String emitterXml) {
+  @Nullable
+  public static EmitterData load(String emitterXml) {
     if (loadedEmitters.containsKey(emitterXml)) {
       return loadedEmitters.get(emitterXml);
     }
@@ -28,8 +30,9 @@ public class EmitterLoader {
     return load(Resources.getLocation(emitterXml));
   }
 
-  @Nullable public static EmitterData load(@Nullable URL emitterXml) {
-    final String name = emitterXml.getFile();
+  @Nullable
+  public static EmitterData load(@Nullable URL emitterXml) {
+    final String name = Nullability.castToNonnull(emitterXml, "reason...").getFile();
     if (loadedEmitters.containsKey(name)) {
       return loadedEmitters.get(name);
     }
@@ -54,7 +57,8 @@ public class EmitterLoader {
     return emitterData;
   }
 
-  @Nullable public static EmitterData get(String name) {
+  @Nullable
+  public static EmitterData get(String name) {
     if (loadedEmitters.containsKey(name)) {
       return loadedEmitters.get(name);
     }
