@@ -116,7 +116,8 @@ public abstract class Ability implements IRenderable {
    * @return An {@link AbilityExecution} object that wraps all information about this execution of
    *     the ability.
    */
-  @Nullable public AbilityExecution cast() {
+  @Nullable
+  public AbilityExecution cast() {
     if (!this.canCast()) {
       return null;
     }
@@ -141,7 +142,8 @@ public abstract class Ability implements IRenderable {
     return (float) (this.getAttributes().cooldown().get() * 0.001);
   }
 
-  @Nullable public AbilityExecution getCurrentExecution() {
+  @Nullable
+  public AbilityExecution getCurrentExecution() {
     return this.currentExecution;
   }
 
