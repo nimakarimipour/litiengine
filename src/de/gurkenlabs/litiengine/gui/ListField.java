@@ -133,7 +133,8 @@ public class ListField extends GuiComponent {
     this.selectedComponent = null;
   }
 
-  @Nullable public Spritesheet getButtonSprite() {
+  @Nullable
+  public Spritesheet getButtonSprite() {
     return this.buttonSprite;
   }
 
@@ -145,7 +146,8 @@ public class ListField extends GuiComponent {
     return this.content;
   }
 
-  @Nullable public Spritesheet getEntrySprite() {
+  @Nullable
+  public Spritesheet getEntrySprite() {
     return this.entrySprite;
   }
 
@@ -177,7 +179,8 @@ public class ListField extends GuiComponent {
    * @param row the row
    * @return ImageComponent at [column,row]
    */
-  @Nullable public ImageComponent getListEntry(final int column, final int row) {
+  @Nullable
+  public ImageComponent getListEntry(final int column, final int row) {
     if (column < 0
         || row < 0
         || column >= this.listEntries.size()
@@ -210,11 +213,13 @@ public class ListField extends GuiComponent {
     return this.shownColumns;
   }
 
-  @Nullable public ImageComponent getSelectedComponent() {
+  @Nullable
+  public ImageComponent getSelectedComponent() {
     return this.selectedComponent;
   }
 
-  @Nullable public Object getSelectedObject() {
+  @Nullable
+  public Object getSelectedObject() {
     if (this.getSelectedComponent() == null) {
       return null;
     }
@@ -273,21 +278,28 @@ public class ListField extends GuiComponent {
           if (this.getContent()[column + this.getHorizontalLowerBound()][
                   row + this.getVerticalLowerBound()]
               instanceof Image) {
-            this.getListEntry(column, row)
-                .setImage(
-                    (Image)
-                        this.getContent()[column + this.getHorizontalLowerBound()][
-                            row + this.getVerticalLowerBound()]);
+            ImageComponent entry = this.getListEntry(column, row);
+            if (entry != null) {
+              entry.setImage(
+                  (Image)
+                      this.getContent()[column + this.getHorizontalLowerBound()][
+                          row + this.getVerticalLowerBound()]);
+            }
           } else {
-            this.getListEntry(column, row)
-                .setText(
-                    this
-                        .getContent()[column + this.getHorizontalLowerBound()][
-                        row + this.getVerticalLowerBound()]
-                        .toString());
+            ImageComponent entry = this.getListEntry(column, row);
+            if (entry != null) {
+              entry.setText(
+                  this
+                      .getContent()[column + this.getHorizontalLowerBound()][
+                      row + this.getVerticalLowerBound()]
+                      .toString());
+            }
           }
         } else {
-          this.getListEntry(column, row).setText("");
+          ImageComponent entry = this.getListEntry(column, row);
+          if (entry != null) {
+            entry.setText("");
+          }
         }
       }
     }

@@ -42,7 +42,8 @@ public class SoundEffect extends Effect {
     Game.audio().playSound(this.getRandomSound(), entity);
   }
 
-  @Nullable private Sound getRandomSound() {
+  @Nullable
+  private Sound getRandomSound() {
     if (this.sounds.length == 0) {
       return null;
     }
