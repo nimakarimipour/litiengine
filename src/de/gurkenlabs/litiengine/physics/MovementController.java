@@ -131,7 +131,8 @@ public class MovementController<T extends IMobileEntity> implements IMovementCon
     this.moveEntity(dx, dy);
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public Force getForce(String identifier) {
     if (identifier == null || identifier.isEmpty()) {
       return null;
