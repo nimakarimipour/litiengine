@@ -112,7 +112,8 @@ public class LightSource extends Entity implements IRenderable {
     return this.activated ? this.intensity : 0;
   }
 
-  @Nullable public Shape getLightShape() {
+  @Nullable
+  public Shape getLightShape() {
     return this.lightShape;
   }
 
@@ -206,7 +207,8 @@ public class LightSource extends Entity implements IRenderable {
     this.updateAmbientLayers();
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public String sendMessage(final Object sender, @Nullable final String message) {
     if (message == null || message.isEmpty()) {
       return null;
