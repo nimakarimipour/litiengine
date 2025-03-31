@@ -25,8 +25,7 @@ public class SoundEvent extends EventObject {
    *
    * @return The sound object.
    */
-  @Nullable
-  public Sound getSound() {
+  @Nullable public Sound getSound() {
     return this.sound;
   }
 
