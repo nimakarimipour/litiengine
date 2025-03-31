@@ -224,6 +224,7 @@ public abstract class GuiComponent
    *
    * @return the GuiComponent's font
    */
+  @Nullable
   public Font getFont() {
     return this.font;
   }
@@ -242,7 +243,8 @@ public abstract class GuiComponent
    *
    * @return the hover sound
    */
-  @Nullable public Sound getHoverSound() {
+  @Nullable
+  public Sound getHoverSound() {
     return this.hoverSound;
   }
 
@@ -269,7 +271,8 @@ public abstract class GuiComponent
    *
    * @return the tag
    */
-  @Nullable public Object getTag() {
+  @Nullable
+  public Object getTag() {
     return this.tag;
   }
 
@@ -280,7 +283,8 @@ public abstract class GuiComponent
    *
    * @return the entire text on this GuiComponent
    */
-  @Nullable public String getText() {
+  @Nullable
+  public String getText() {
     return this.text;
   }
 
@@ -324,7 +328,8 @@ public abstract class GuiComponent
    *
    * @return the text shadow color
    */
-  @Nullable public Color getTextShadowColor() {
+  @Nullable
+  public Color getTextShadowColor() {
     return this.textShadowColor;
   }
 
@@ -772,7 +777,12 @@ public abstract class GuiComponent
       case ANGLE:
         return new float[] {(float) this.getTextAngle()};
       case FONTSIZE:
-        return new float[] {this.getFont().getSize2D()};
+        Font currentFont = this.getFont();
+        if (currentFont != null) {
+          return new float[] {currentFont.getSize2D()};
+        } else {
+          throw new IllegalStateException("Font is null");
+        }
       default:
         return Tweenable.super.getTweenValues(tweenType);
     }
