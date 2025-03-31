@@ -28,11 +28,13 @@ public class ClientConfiguration extends ConfigurationGroup {
     this.setCountry(Locale.getDefault().getCountry());
   }
 
-  @Nullable public String getCountry() {
+  @Nullable
+  public String getCountry() {
     return this.country;
   }
 
-  @Nullable public String getLanguage() {
+  @Nullable
+  public String getLanguage() {
     return this.language;
   }
 
