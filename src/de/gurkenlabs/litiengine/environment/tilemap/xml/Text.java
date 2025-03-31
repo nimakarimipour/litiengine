@@ -8,10 +8,10 @@ import java.awt.Font;
 import java.awt.font.TextAttribute;
 import java.util.HashMap;
 import java.util.Map;
-import javax.annotation.Nullable;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlValue;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import javax.annotation.Nullable;
 
 public class Text implements IMapObjectText {
   @Nullable @XmlAttribute private String fontfamily;
@@ -20,8 +20,7 @@ public class Text implements IMapObjectText {
 
   @Nullable @XmlAttribute private Integer wrap;
 
-  @Nullable
-  @XmlAttribute
+  @Nullable @XmlAttribute
   @XmlJavaTypeAdapter(ColorAdapter.class)
   private Color color;
 
@@ -41,8 +40,7 @@ public class Text implements IMapObjectText {
 
   @Nullable @XmlValue private String text;
 
-  @Nullable
-  @Override
+  @Nullable @Override
   public String getText() {
     return this.text;
   }
@@ -107,14 +105,12 @@ public class Text implements IMapObjectText {
     return this.kerning == null || this.kerning != 0;
   }
 
-  @Nullable
-  @Override
+  @Nullable @Override
   public Align getAlign() {
     return this.halign;
   }
 
-  @Nullable
-  @Override
+  @Nullable @Override
   public Valign getValign() {
     return this.valign;
   }
