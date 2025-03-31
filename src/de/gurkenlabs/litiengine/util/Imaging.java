@@ -102,8 +102,7 @@ public final class Imaging {
    * @param color the color
    * @return the image
    */
-  @Nullable
-  public static BufferedImage applyAlphaChannel(final BufferedImage img, final Color color) {
+  @Nullable public static BufferedImage applyAlphaChannel(final BufferedImage img, final Color color) {
     if (color == null || img == null) {
       return img;
     }
@@ -271,8 +270,7 @@ public final class Imaging {
    * @param flashColor the flash color
    * @return the buffered image
    */
-  @Nullable
-  public static BufferedImage flashVisiblePixels(final Image image, final Color flashColor) {
+  @Nullable public static BufferedImage flashVisiblePixels(final Image image, final Color flashColor) {
     final BufferedImage bimage = getCompatibleImage(image.getWidth(null), image.getHeight(null));
     if (bimage == null) {
       return null;
@@ -295,13 +293,11 @@ public final class Imaging {
     return bimage;
   }
 
-  @Nullable
-  public static BufferedImage flipSpritesHorizontally(@Nullable final Spritesheet sprite) {
+  @Nullable public static BufferedImage flipSpritesHorizontally(final Spritesheet sprite) {
     return flipSprites(sprite, Imaging::horizontalFlip);
   }
 
-  @Nullable
-  public static BufferedImage flipSpritesVertically(final Spritesheet sprite) {
+  @Nullable public static BufferedImage flipSpritesVertically(final Spritesheet sprite) {
     return flipSprites(sprite, Imaging::verticalFlip);
   }
 
@@ -318,8 +314,7 @@ public final class Imaging {
     return new BufferedImage(cm, raster, isAlphaPremultiplied, null);
   }
 
-  @Nullable
-  public static BufferedImage getCompatibleImage(final int width, final int height) {
+  @Nullable public static BufferedImage getCompatibleImage(final int width, final int height) {
     if (width == 0 || height == 0) {
       return null;
     }
@@ -453,20 +448,17 @@ public final class Imaging {
     return bimg;
   }
 
-  @Nullable
-  public static BufferedImage scale(final BufferedImage image, final int max) {
+  @Nullable public static BufferedImage scale(final BufferedImage image, final int max) {
     Dimension2D newDimension =
         GeometricUtilities.scaleWithRatio(image.getWidth(), image.getHeight(), max);
     return scale(image, (int) newDimension.getWidth(), (int) newDimension.getHeight());
   }
 
-  @Nullable
-  public static BufferedImage scale(final BufferedImage image, final double factor) {
+  @Nullable public static BufferedImage scale(final BufferedImage image, final double factor) {
     return scale(image, factor, false);
   }
 
-  @Nullable
-  public static BufferedImage scale(
+  @Nullable public static BufferedImage scale(
       final BufferedImage image, final double factor, boolean keepRatio) {
     if (image == null) {
       return null;
@@ -490,23 +482,16 @@ public final class Imaging {
    * @param height the height
    * @return the buffered image
    */
-  @Nullable
-  public static BufferedImage scale(
-      @Nullable final BufferedImage image, final int width, final int height) {
+  @Nullable public static BufferedImage scale(@Nullable final BufferedImage image, final int width, final int height) {
     return scale(image, width, height, false);
   }
 
-  @Nullable
-  public static BufferedImage scale(
-      @Nullable final BufferedImage image,
-      final int width,
-      final int height,
-      final boolean keepRatio) {
+  @Nullable public static BufferedImage scale(
+      @Nullable final BufferedImage image, final int width, final int height, final boolean keepRatio) {
     return scale(image, width, height, keepRatio, true);
   }
 
-  @Nullable
-  public static BufferedImage scale(
+  @Nullable public static BufferedImage scale(
       @Nullable final BufferedImage image,
       final int width,
       final int height,
@@ -559,8 +544,7 @@ public final class Imaging {
     return newImg;
   }
 
-  @Nullable
-  public static BufferedImage setOpacity(final Image img, final float opacity) {
+  @Nullable public static BufferedImage setOpacity(final Image img, final float opacity) {
     if (img == null) return null;
     final BufferedImage bimage = getCompatibleImage(img.getWidth(null), img.getHeight(null));
     if (bimage == null) {
@@ -576,8 +560,7 @@ public final class Imaging {
     return bimage;
   }
 
-  @Nullable
-  public static BufferedImage toBufferedImage(final Image img) {
+  @Nullable public static BufferedImage toBufferedImage(final Image img) {
     if (img == null) {
       return null;
     }
@@ -598,8 +581,7 @@ public final class Imaging {
     return bimage;
   }
 
-  @Nullable
-  public static BufferedImage toCompatibleImage(@Nullable final BufferedImage image) {
+  @Nullable public static BufferedImage toCompatibleImage(@Nullable final BufferedImage image) {
     if (image == null || image.getWidth() == 0 || image.getHeight() == 0) {
       return image;
     }
@@ -613,8 +595,7 @@ public final class Imaging {
     return compatibleImg;
   }
 
-  @Nullable
-  private static BufferedImage flipSprites(
+  @Nullable private static BufferedImage flipSprites(
       final Spritesheet sprite, UnaryOperator<BufferedImage> flipFunction) {
     final BufferedImage flippedSprite =
         Imaging.getCompatibleImage(
