@@ -10,12 +10,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
-import javax.annotation.Nullable;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import javax.annotation.Nullable;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class CustomPropertyProvider implements ICustomPropertyProvider {
@@ -49,8 +49,7 @@ public class CustomPropertyProvider implements ICustomPropertyProvider {
     return this.getProperties().containsKey(propertyName);
   }
 
-  @Nullable
-  @Override
+  @Nullable @Override
   public String getTypeOfProperty(String propertyName) {
     ICustomProperty property = this.getProperty(propertyName);
     if (property == null) {
@@ -61,14 +60,10 @@ public class CustomPropertyProvider implements ICustomPropertyProvider {
 
   @Override
   public void setTypeOfProperty(String propertyName, String type) {
-    ICustomProperty property = this.getProperty(propertyName);
-    if (property != null) {
-      property.setType(type);
-    }
+    this.getProperty(propertyName).setType(type);
   }
 
-  @Nullable
-  @Override
+  @Nullable @Override
   public ICustomProperty getProperty(String propertyName) {
     return this.getProperties().get(propertyName);
   }
@@ -80,14 +75,12 @@ public class CustomPropertyProvider implements ICustomPropertyProvider {
     }
   }
 
-  @Nullable
-  @Override
+  @Nullable @Override
   public String getStringValue(String propertyName) {
     return this.getStringValue(propertyName, null);
   }
 
-  @Nullable
-  @Override
+  @Nullable @Override
   public String getStringValue(String propertyName, @Nullable String defaultValue) {
     ICustomProperty property = this.getProperty(propertyName);
     if (property == null) {
@@ -190,14 +183,12 @@ public class CustomPropertyProvider implements ICustomPropertyProvider {
     return property.getAsDouble();
   }
 
-  @Nullable
-  @Override
+  @Nullable @Override
   public Color getColorValue(String propertyName) {
     return this.getColorValue(propertyName, null);
   }
 
-  @Nullable
-  @Override
+  @Nullable @Override
   public Color getColorValue(String propertyName, @Nullable Color defaultValue) {
     ICustomProperty property = this.getProperty(propertyName);
     if (property == null) {
@@ -233,14 +224,12 @@ public class CustomPropertyProvider implements ICustomPropertyProvider {
     return value;
   }
 
-  @Nullable
-  @Override
+  @Nullable @Override
   public URL getFileValue(String propertyName) {
     return this.getFileValue(propertyName, null);
   }
 
-  @Nullable
-  @Override
+  @Nullable @Override
   public URL getFileValue(String propertyName, @Nullable URL defaultValue) {
     ICustomProperty property = this.getProperty(propertyName);
     if (property == null) {
@@ -365,8 +354,7 @@ public class CustomPropertyProvider implements ICustomPropertyProvider {
   }
 
   @Override
-  public List<String> getCommaSeparatedStringValues(
-      String propertyName, @Nullable String defaultValue) {
+  public List<String> getCommaSeparatedStringValues(String propertyName, @Nullable String defaultValue) {
     List<String> values = new ArrayList<>();
     String valuesStr = this.getStringValue(propertyName, defaultValue);
     if (valuesStr != null && !valuesStr.isEmpty()) {
