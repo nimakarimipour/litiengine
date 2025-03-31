@@ -1,5 +1,4 @@
 package de.gurkenlabs.litiengine.resources;
-
 import javax.annotation.Nullable;
 
 /**
