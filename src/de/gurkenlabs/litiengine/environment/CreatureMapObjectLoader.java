@@ -97,7 +97,8 @@ public class CreatureMapObjectLoader extends MapObjectLoader {
     return new Creature(spriteSheet);
   }
 
-  @Nullable private static Creature createCustomCreature(
+  @Nullable
+  private static Creature createCustomCreature(
       Class<? extends Creature> customCreature, String spriteSheet) {
     try {
       return customCreature.getConstructor(String.class).newInstance(spriteSheet);
