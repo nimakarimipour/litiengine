@@ -35,7 +35,8 @@ public interface IMapImage extends ICustomPropertyProvider {
    *
    * @return the source
    */
-  @Nullable public String getSource();
+  @Nullable
+  public String getSource();
 
   /**
    * Gets the transparent color.

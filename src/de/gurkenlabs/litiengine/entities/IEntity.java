@@ -73,19 +73,22 @@ public interface IEntity {
    * @return The entities animation controller or null if none was registered.
    * @see RenderEngine#renderEntity(java.awt.Graphics2D, IEntity)
    */
-  @Nullable IEntityAnimationController<?> animations();
+  @Nullable
+  IEntityAnimationController<?> animations();
 
   boolean isVisible();
 
   void setVisible(boolean visible);
 
-  @Nullable IBehaviorController behavior();
+  @Nullable
+  IBehaviorController behavior();
 
   void addController(IEntityController controller);
 
   <T extends IEntityController> void setController(Class<T> clss, T controller);
 
-  @Nullable <T extends IEntityController> T getController(Class<T> clss);
+  @Nullable
+  <T extends IEntityController> T getController(Class<T> clss);
 
   /**
    * All registered actions of this entity.
@@ -119,7 +122,8 @@ public interface IEntity {
    * @see IEntity#perform(String)
    * @see IEntity#actions()
    */
-  @Nullable EntityAction register(String name, Runnable action);
+  @Nullable
+  EntityAction register(String name, Runnable action);
 
   void detachControllers();
 
@@ -131,6 +135,7 @@ public interface IEntity {
 
   double getHeight();
 
+  @Nullable
   Point2D getLocation();
 
   int getMapId();
@@ -140,7 +145,8 @@ public interface IEntity {
    *
    * @return The name of this entity.
    */
-  @Nullable String getName();
+  @Nullable
+  String getName();
 
   RenderType getRenderType();
 
@@ -167,7 +173,8 @@ public interface IEntity {
 
   double getY();
 
-  @Nullable String sendMessage(Object sender, @Nullable String message);
+  @Nullable
+  String sendMessage(Object sender, @Nullable String message);
 
   void setHeight(double height);
 
