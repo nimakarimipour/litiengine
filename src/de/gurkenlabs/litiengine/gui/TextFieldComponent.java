@@ -54,8 +54,7 @@ public class TextFieldComponent extends ImageComponent {
     this.setTextAlign(Align.LEFT);
   }
 
-  @Nullable
-  public String getFormat() {
+  @Nullable public String getFormat() {
     return this.format;
   }
 
