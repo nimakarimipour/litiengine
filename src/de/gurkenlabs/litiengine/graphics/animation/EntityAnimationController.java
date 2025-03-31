@@ -146,8 +146,7 @@ public class EntityAnimationController<T extends IEntity> extends AnimationContr
     }
   }
 
-  @Nullable
-  protected String getSpritePrefix() {
+  @Nullable protected String getSpritePrefix() {
     return this.spritePrefix;
   }
 

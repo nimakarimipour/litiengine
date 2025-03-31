@@ -57,8 +57,7 @@ public class ImageComponentList extends GuiComponent {
     }
   }
 
-  @Nullable
-  public Spritesheet getBackground() {
+  @Nullable public Spritesheet getBackground() {
     return this.background;
   }
 
