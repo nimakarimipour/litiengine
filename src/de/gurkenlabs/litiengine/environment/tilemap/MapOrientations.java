@@ -68,7 +68,6 @@ public class MapOrientations {
    * @param name The name of the orientation, as stored in the TMX file
    * @return The {@code IMapOrientation} by the given name
    */
-  @Nullable
   public static IMapOrientation forName(String name) {
     if ("orthogonal".equals(name)) {
       return ORTHOGONAL;
@@ -99,8 +98,7 @@ public class MapOrientations {
       return this.getShape(x, y, map).getBounds2D();
     }
 
-    @Nullable
-    @Override
+    @Nullable @Override
     public Rectangle2D getBounds(Point tile, IMap map) {
       return tile == null ? null : this.getBounds(tile.x, tile.y, map);
     }
