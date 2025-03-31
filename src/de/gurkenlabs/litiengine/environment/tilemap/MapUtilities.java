@@ -167,8 +167,7 @@ public final class MapUtilities {
     return tilesAtLocation;
   }
 
-  @Nullable
-  public static ITile getTopMostTile(final Point2D location) {
+  @Nullable public static ITile getTopMostTile(final Point2D location) {
     if (Game.world().environment() == null || Game.world().environment().getMap() == null) {
       return null;
     }
@@ -176,8 +175,7 @@ public final class MapUtilities {
     return getTopMostTile(Game.world().environment().getMap(), location);
   }
 
-  @Nullable
-  public static ITile getTopMostTile(final IMap map, final Point2D location) {
+  @Nullable public static ITile getTopMostTile(final IMap map, final Point2D location) {
     if (map.getTileLayers() == null || map.getTileLayers().isEmpty()) {
       return null;
     }
@@ -185,8 +183,7 @@ public final class MapUtilities {
     return getTopMostTile(map.getOrientation().getTile(location, map));
   }
 
-  @Nullable
-  public static ITile getTopMostTile(final Point point) {
+  @Nullable public static ITile getTopMostTile(final Point point) {
     if (Game.world().environment() == null || Game.world().environment().getMap() == null) {
       return null;
     }
@@ -194,8 +191,7 @@ public final class MapUtilities {
     return getTopMostTile(Game.world().environment().getMap(), point);
   }
 
-  @Nullable
-  public static ITile getTopMostTile(final IMap map, final Point point) {
+  @Nullable public static ITile getTopMostTile(final IMap map, final Point point) {
     final Point tileLocation = point;
 
     ITile tile = null;
@@ -216,8 +212,7 @@ public final class MapUtilities {
    * @param tile the tile
    * @return the tileset
    */
-  @Nullable
-  public static ITileset findTileSet(final IMap map, final ITile tile) {
+  @Nullable public static ITileset findTileSet(final IMap map, final ITile tile) {
     if (map == null || tile == null) {
       return null;
     }
@@ -234,8 +229,7 @@ public final class MapUtilities {
     return match;
   }
 
-  @Nullable
-  public static Path2D convertPolyshapeToPath(final IMapObject mapObject) {
+  @Nullable public static Path2D convertPolyshapeToPath(final IMapObject mapObject) {
     if (mapObject == null || (!mapObject.isPolygon() && !mapObject.isPolyline())) {
       return null;
     }
@@ -276,8 +270,7 @@ public final class MapUtilities {
     return new ArrayList<>();
   }
 
-  @Nullable
-  public static IMapObject findMapObject(final IMap map, final int id) {
+  @Nullable public static IMapObject findMapObject(final IMap map, final int id) {
     for (IMapObjectLayer layer : map.getMapObjectLayers()) {
       for (IMapObject obj : layer.getMapObjects()) {
         if (obj.getId() == id) {
@@ -293,8 +286,7 @@ public final class MapUtilities {
     return getTileBoundingBox(getCurrentMap(), mapLocation);
   }
 
-  public static Rectangle2D getTileBoundingBox(
-      @Nullable final IMap map, final Point2D mapLocation) {
+  public static Rectangle2D getTileBoundingBox(@Nullable final IMap map, final Point2D mapLocation) {
     if (map == null) {
       return new Rectangle2D.Double();
     }
@@ -322,8 +314,7 @@ public final class MapUtilities {
     return map.getOrientation().getBounds(tile, map);
   }
 
-  @Nullable
-  private static final IMap getCurrentMap() {
+  @Nullable private static final IMap getCurrentMap() {
     if (Game.world().environment() == null) {
       return null;
     }
