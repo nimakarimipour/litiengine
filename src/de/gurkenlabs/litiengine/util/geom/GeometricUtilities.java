@@ -514,7 +514,7 @@ public class GeometricUtilities {
     return line;
   }
 
-  public static boolean intersects(final Rectangle2D a, final Rectangle2D b) {
+  public static boolean intersects(@Nullable final Rectangle2D a, final Rectangle2D b) {
     return Math.abs(a.getCenterX() - b.getCenterX()) < a.getWidth() * 0.5 + b.getWidth() * 0.5
         && Math.abs(a.getCenterY() - b.getCenterY()) < a.getHeight() * 0.5 + b.getHeight() * 0.5;
   }
