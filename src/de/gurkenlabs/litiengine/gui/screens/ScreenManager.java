@@ -3,9 +3,9 @@ package de.gurkenlabs.litiengine.gui.screens;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.GameWindow;
 import de.gurkenlabs.litiengine.graphics.RenderComponent;
-import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -145,9 +145,7 @@ public final class ScreenManager {
    * @param screenName The name of the screen to be displayed.
    */
   public void display(final String screenName) {
-    if (this.current() != null
-        && Nullability.castToNonnull(this.current().getName(), "reason...")
-            .equalsIgnoreCase(screenName)) {
+    if (this.current() != null && this.current().getName().equalsIgnoreCase(screenName)) {
       log.log(
           Level.INFO,
           "Skipping displaying of screen {0} because it is already the current screen.",
@@ -180,14 +178,11 @@ public final class ScreenManager {
    */
   @Nullable
   public Screen get(String screenName) {
-    return this.screens.stream()
-        .filter(
-            element -> {
-              String name = element.getName();
-              return name != null && name.equalsIgnoreCase(screenName);
-            })
-        .findFirst()
-        .orElse(null);
+    Optional<Screen> opt =
+        this.screens.stream()
+            .filter(element -> element.getName().equalsIgnoreCase(screenName))
+            .findFirst();
+    return opt.orElse(null);
   }
 
   /**
