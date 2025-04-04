@@ -191,7 +191,7 @@ public abstract class ResourcesContainer<T> {
   }
 
   @Nullable
-  public T get(@Nullable URL resourceName) {
+  public T get(URL resourceName) {
     return this.get(resourceName, false);
   }
 
