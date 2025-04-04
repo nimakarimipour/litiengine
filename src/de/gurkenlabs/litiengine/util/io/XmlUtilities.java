@@ -68,7 +68,6 @@ public final class XmlUtilities {
     }
   }
 
-  @SuppressWarnings("NullAway")
   public static <T> JAXBContext getContext(Class<T> cls) {
     try {
       final JAXBContext jaxbContext;
