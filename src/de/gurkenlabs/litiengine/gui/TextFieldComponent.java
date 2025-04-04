@@ -3,6 +3,7 @@ package de.gurkenlabs.litiengine.gui;
 import de.gurkenlabs.litiengine.Align;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.input.Input;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -63,6 +64,7 @@ public class TextFieldComponent extends ImageComponent {
     return this.maxLength;
   }
 
+  @Nullable
   @Override
   public String getText() {
     return this.fullText;
@@ -78,8 +80,9 @@ public class TextFieldComponent extends ImageComponent {
         this.handleBackSpace();
         break;
       case KeyEvent.VK_SPACE:
-        if (!this.getText().equals("")) {
-          this.setText(this.getText() + " ");
+        String text = this.getText();
+        if (text != null && !text.equals("")) {
+          this.setText(text + " ");
         }
         break;
       case KeyEvent.VK_ENTER:
@@ -137,21 +140,23 @@ public class TextFieldComponent extends ImageComponent {
   }
 
   private void handleBackSpace() {
+    String text = this.getText();
+
     if (Input.keyboard().isPressed(KeyEvent.VK_SHIFT)) {
-      while (this.getText().length() >= 1
-          && this.getText().charAt(this.getText().length() - 1) == ' ') {
-        this.setText(this.getText().substring(0, this.getText().length() - 1));
+      while (text != null && text.length() >= 1 && text.charAt(text.length() - 1) == ' ') {
+        text = text.substring(0, text.length() - 1);
       }
 
-      while (this.getText().length() >= 1
-          && this.getText().charAt(this.getText().length() - 1) != ' ') {
-        this.setText(this.getText().substring(0, this.getText().length() - 1));
+      while (text != null && text.length() >= 1 && text.charAt(text.length() - 1) != ' ') {
+        text = text.substring(0, text.length() - 1);
       }
-    } else if (this.getText().length() >= 1) {
-      this.setText(this.getText().substring(0, this.getText().length() - 1));
+    } else if (text != null && text.length() >= 1) {
+      text = text.substring(0, text.length() - 1);
     }
 
-    if (this.isKnownNumericFormat() && (this.getText() == null || this.getText().isEmpty())) {
+    this.setText(text);
+
+    if (this.isKnownNumericFormat() && (text == null || text.isEmpty())) {
       this.setText("0");
     }
   }
@@ -175,7 +180,8 @@ public class TextFieldComponent extends ImageComponent {
       }
     }
 
-    if (this.isKnownNumericFormat() && this.getText().equals("0")) {
+    if (this.isKnownNumericFormat()
+        && Nullability.castToNonnull(this.getText(), "reason...").equals("0")) {
       this.setText("");
     }
 
