@@ -43,6 +43,7 @@ import de.gurkenlabs.litiengine.physics.IMovementController;
 import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.util.TimeUtilities;
 import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
@@ -2383,7 +2384,7 @@ public final class Environment implements IRenderable {
     if (mvmtControl != null) {
       GravityForce force = new GravityForce(entity, this.getGravity(), Direction.DOWN);
       force.setIdentifier(GRAVITY_IDENTIFIER);
-      entity.movement().apply(force);
+      Nullability.castToNonnull(entity.movement(), "reason...").apply(force);
       this.gravityForces.put(entity.getMapId(), force);
     }
   }
