@@ -156,6 +156,8 @@ public class SpeechBubble implements IUpdateable, IRenderable {
       return;
     }
 
+    this.entityCenter = Game.world().camera().getViewportLocation(this.getEntity().getCenter());
+
     final float deltaX = (float) (this.textBoxWidth / 2.0 + this.getAppearance().getPadding());
     final float deltaY =
         (float)
@@ -254,6 +256,10 @@ public class SpeechBubble implements IUpdateable, IRenderable {
   }
 
   private void createBubbleImage() {
+    if (this.currentText == null) {
+      return;
+    }
+
     final BufferedImage img = Imaging.getCompatibleImage(500, 500);
     final Graphics2D g = img.createGraphics();
     g.setFont(this.getFont());
