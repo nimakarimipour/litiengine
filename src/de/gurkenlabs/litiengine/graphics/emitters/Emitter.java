@@ -370,9 +370,6 @@ public class Emitter extends Entity implements IUpdateable, ITimeToLive, IRender
         particle = new LineParticle(width, height);
         break;
       case TEXT:
-        if (this.data().getTexts() == null || this.data().getTexts().isEmpty()) {
-          return null;
-        }
         String text;
         if (this.data().getTexts().isEmpty()) {
           text = EmitterData.DEFAULT_TEXT;
