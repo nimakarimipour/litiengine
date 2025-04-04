@@ -3,7 +3,6 @@ package de.gurkenlabs.litiengine.environment;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.entities.IEntity;
 import de.gurkenlabs.litiengine.entities.Spawnpoint;
-import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -101,7 +100,6 @@ public abstract class EntitySpawner<T extends IEntity> implements IEntitySpawner
     return this.spawnMode;
   }
 
-  @Nullable
   @Override
   public List<Spawnpoint> getSpawnPoints() {
     return this.spawnpoints;
@@ -164,10 +162,7 @@ public abstract class EntitySpawner<T extends IEntity> implements IEntitySpawner
           Game.loop()
               .perform(
                   this.getSpawnDelay() + this.getSpawnDelay() * i,
-                  () ->
-                      this.spawn(
-                          Nullability.castToNonnull(this.getSpawnPoints(), "reason...").get(index),
-                          this.getSpawnAmount()));
+                  () -> this.spawn(this.getSpawnPoints().get(index), this.getSpawnAmount()));
         }
         break;
       case ONERANDOMSPAWNPOINT:
