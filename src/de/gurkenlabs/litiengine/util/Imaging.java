@@ -373,9 +373,6 @@ public final class Imaging {
     }
 
     final BufferedImage dimg = getCompatibleImage(w, h);
-    if (dimg == null) {
-      return img; // Or handle the null case as appropriate
-    }
     final Graphics2D g = dimg.createGraphics();
     g.drawImage(img, 0, 0, w, h, w, 0, 0, h, null);
     g.dispose();
