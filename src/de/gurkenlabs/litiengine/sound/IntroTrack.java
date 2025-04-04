@@ -47,7 +47,7 @@ public class IntroTrack implements Track {
    * @param intro The sound to be played as intro.
    * @param loop The sound to be looped.
    */
-  public IntroTrack(Sound intro, Sound loop) {
+  public IntroTrack(@Nullable Sound intro, @Nullable Sound loop) {
     Objects.requireNonNull(intro);
     Objects.requireNonNull(loop);
     if (!intro.getFormat().matches(loop.getFormat())) {
