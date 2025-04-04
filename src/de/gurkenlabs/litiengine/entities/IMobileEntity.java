@@ -45,6 +45,7 @@ public interface IMobileEntity extends ICollisionEntity {
    *
    * @return the velocity in pixel per second.
    */
+  @Nullable
   Attribute<Float> getVelocity();
 
   /**
