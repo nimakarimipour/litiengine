@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 public class ImageLayer extends Layer implements IImageLayer {
 
-  @Nullable @XmlElement private MapImage image;
+  @XmlElement private MapImage image;
 
   @Nullable
   @XmlAttribute
