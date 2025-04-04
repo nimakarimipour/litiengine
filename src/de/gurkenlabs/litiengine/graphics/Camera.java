@@ -226,10 +226,12 @@ public class Camera implements ICamera {
         this.targetFocus = null;
       } else {
         double diff = this.panTime / (this.panTime + 1.0);
-        this.focus =
-            new Point2D.Double(
-                this.focus.getX() * diff + this.targetFocus.getX() * (1.0 - diff),
-                this.focus.getY() * diff + this.targetFocus.getY() * (1.0 - diff));
+        if (this.targetFocus != null) {
+          this.focus =
+              new Point2D.Double(
+                  this.focus.getX() * diff + this.targetFocus.getX() * (1.0 - diff),
+                  this.focus.getY() * diff + this.targetFocus.getY() * (1.0 - diff));
+        }
       }
     }
 
