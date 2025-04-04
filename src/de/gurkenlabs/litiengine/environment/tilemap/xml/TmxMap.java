@@ -56,7 +56,7 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
 
   @XmlTransient private IMapOrientation mapOrientation;
 
-  @Nullable @XmlAttribute private RenderOrder renderorder;
+  @XmlAttribute private RenderOrder renderorder;
 
   @XmlAttribute private int width;
 
@@ -68,7 +68,7 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
 
   @XmlAttribute private int infinite;
 
-  @Nullable @XmlAttribute private Integer hexsidelength;
+  @XmlAttribute private Integer hexsidelength;
 
   @Nullable @XmlAttribute private StaggerAxis staggeraxis;
 
@@ -79,11 +79,9 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
   @XmlJavaTypeAdapter(ColorAdapter.class)
   private Color backgroundcolor;
 
-  @Nullable
   @XmlAttribute(name = "nextlayerid")
   private Integer nextLayerId;
 
-  @Nullable
   @XmlAttribute(name = "nextobjectid")
   private Integer nextObjectId;
 
@@ -164,7 +162,6 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
     return this.path;
   }
 
-  @Nullable
   @Override
   public RenderOrder getRenderOrder() {
     return this.renderorder;
