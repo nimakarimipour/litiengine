@@ -83,7 +83,7 @@ public final class Game {
   @Nullable private static GameInfo gameInfo = new GameInfo();
   private static final TweenEngine tweenEngine = new TweenEngine();
 
-  @Nullable private static GameLoop gameLoop;
+  private static GameLoop gameLoop;
   @Nullable private static ScreenManager screenManager;
   @Nullable private static GameWindow gameWindow;
 
@@ -344,7 +344,6 @@ public final class Game {
    * @see ILoop#attach(IUpdateable)
    * @see ILoop#detach(IUpdateable)
    */
-  @Nullable
   public static IGameLoop loop() {
     return gameLoop;
   }
