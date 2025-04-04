@@ -265,7 +265,6 @@ public final class Game {
    * @see GameWindow#setIcon(java.awt.Image)
    * @see GameWindow#cursor()
    */
-  @Nullable
   public static GameWindow window() {
     return gameWindow;
   }
