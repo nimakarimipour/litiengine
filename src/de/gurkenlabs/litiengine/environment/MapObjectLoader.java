@@ -7,6 +7,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.MapObjectType;
 import de.gurkenlabs.litiengine.environment.tilemap.TmxProperty;
 import de.gurkenlabs.litiengine.graphics.RenderType;
 import de.gurkenlabs.litiengine.util.ReflectionUtilities;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -98,7 +99,8 @@ public abstract class MapObjectLoader implements IMapObjectLoader {
   }
 
   protected boolean isMatchingType(IMapObject mapObject) {
-    if (!mapObject.getType().equalsIgnoreCase(this.getMapObjectType())) {
+    if (!Nullability.castToNonnull(mapObject.getType(), "reason...")
+        .equalsIgnoreCase(this.getMapObjectType())) {
       log.log(
           Level.SEVERE,
           "Cannot load a mapobject of the type [{0}] with a loader of type [{1}].",
