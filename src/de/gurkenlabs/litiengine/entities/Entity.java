@@ -420,15 +420,9 @@ public abstract class Entity implements IEntity, EntityRenderListener, Tweenable
     if (Game.world().environment() == null) {
       return;
     }
-
-    Environment env = this.getEnvironment();
-    if (env == null) {
-      return;
-    }
-
-    env.getEntitiesByTag().get(tag).remove(this);
-    if (env.getEntitiesByTag().get(tag).isEmpty()) {
-      env.getEntitiesByTag().remove(tag);
+    this.getEnvironment().getEntitiesByTag().get(tag).remove(this);
+    if (this.getEnvironment().getEntitiesByTag().get(tag).isEmpty()) {
+      this.getEnvironment().getEntitiesByTag().remove(tag);
     }
   }
 
@@ -503,7 +497,6 @@ public abstract class Entity implements IEntity, EntityRenderListener, Tweenable
     return sb.toString();
   }
 
-  @Nullable
   @Override
   public Environment getEnvironment() {
     return this.environment;
