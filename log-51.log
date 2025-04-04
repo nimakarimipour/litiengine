@@ -1,0 +1,17 @@
+====================
+Type='PASS_NULLABLE', message='passing @Nullable parameter 'null' where @NonNull is required'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/tilemap/xml/CustomPropertyProvider.java:213
+    return this.getEnumValue(propertyName, enumType, null);
+Log:
+---NullAway.lambda$resolveRemainingErrors$17---
+==============================
+---NullAway.lambda$resolveRemainingErrors$17---
+TOP LEVEL CALL TO FIX ERROR: Type='PASS_NULLABLE', message='passing @Nullable parameter 'null' where @NonNull is required'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/tilemap/xml/CustomPropertyProvider.java:213
+    return this.getEnumValue(propertyName, enumType, null);
+---NullAwayCodeFix.fix---
+Fixing error: Type='PASS_NULLABLE', message='passing @Nullable parameter 'null' where @NonNull is required'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/tilemap/xml/CustomPropertyProvider.java:213
+    return this.getEnumValue(propertyName, enumType, null);
+---NullAwayCodeFix.fix---
+Error type not supported: PASS_NULLABLE. Error message: passing @Nullable parameter 'null' where @NonNull is required
