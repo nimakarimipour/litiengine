@@ -1,5 +1,6 @@
 package de.gurkenlabs.litiengine.gui;
 
+import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -37,9 +38,12 @@ public class NumberAdjuster extends TextFieldComponent {
   }
 
   public void decrement() {
-    this.setCurrentValue(this.getCurrentValue().subtract(this.getStepSize()));
+    this.setCurrentValue(
+        Nullability.castToNonnull(this.getCurrentValue(), "reason...")
+            .subtract(this.getStepSize()));
   }
 
+  @Nullable
   public BigDecimal getCurrentValue() {
     return this.currentValue;
   }
@@ -57,7 +61,8 @@ public class NumberAdjuster extends TextFieldComponent {
   }
 
   public void increment() {
-    this.setCurrentValue(this.getCurrentValue().add(this.getStepSize()));
+    this.setCurrentValue(
+        Nullability.castToNonnull(this.getCurrentValue(), "reason...").add(this.getStepSize()));
   }
 
   public void onValueChange(final Consumer<BigDecimal> cons) {
@@ -112,7 +117,9 @@ public class NumberAdjuster extends TextFieldComponent {
 
   public void setLowerBound(final BigDecimal lowerBound) {
     this.lowerBound = lowerBound;
-    if (this.getCurrentValue().compareTo(this.getLowerBound()) < 0) {
+    if (Nullability.castToNonnull(this.getCurrentValue(), "reason...")
+            .compareTo(this.getLowerBound())
+        < 0) {
       this.setCurrentValue(this.getLowerBound());
     }
   }
@@ -123,7 +130,9 @@ public class NumberAdjuster extends TextFieldComponent {
 
   public void setUpperBound(final BigDecimal upperBound) {
     this.upperBound = upperBound;
-    if (this.getCurrentValue().compareTo(this.getUpperBound()) > 0) {
+    if (Nullability.castToNonnull(this.getCurrentValue(), "reason...")
+            .compareTo(this.getUpperBound())
+        > 0) {
       this.setCurrentValue(this.getUpperBound());
     }
   }
