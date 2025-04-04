@@ -121,15 +121,13 @@ public class Tile extends CustomPropertyProvider implements ITile {
   @Nullable
   @Override
   public BufferedImage getImage() {
-    if (this.tilesetEntry == null) { // happens if the tile is empty
+    if (this.tilesetEntry == null || this.getTilesetEntry() == null) {
       return null;
     }
     BufferedImage base = this.getTilesetEntry().getImage();
     if (!this.isFlipped()) {
       return base;
     }
-    // save some overhead by doing all the reflection at once
-    // affine transforms are confusing: this actually does represent the correct order
     AffineTransform tx = new AffineTransform();
     if (this.isFlippedHorizontally()) {
       tx.translate(base.getWidth(), 0.0);
@@ -160,6 +158,7 @@ public class Tile extends CustomPropertyProvider implements ITile {
     return this.tileCoordinate;
   }
 
+  @Nullable
   @Override
   public ITilesetEntry getTilesetEntry() {
     return this.tilesetEntry;
