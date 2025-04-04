@@ -155,7 +155,6 @@ public class ListField extends GuiComponent {
     return this.horizontalLowerBound;
   }
 
-  @Nullable
   public HorizontalSlider getHorizontalSlider() {
     return this.horizontalSlider;
   }
