@@ -224,7 +224,6 @@ public abstract class GuiComponent
    *
    * @return the GuiComponent's font
    */
-  @Nullable
   public Font getFont() {
     return this.font;
   }
@@ -777,12 +776,7 @@ public abstract class GuiComponent
       case ANGLE:
         return new float[] {(float) this.getTextAngle()};
       case FONTSIZE:
-        Font currentFont = this.getFont();
-        if (currentFont != null) {
-          return new float[] {currentFont.getSize2D()};
-        } else {
-          throw new IllegalStateException("Font is null");
-        }
+        return new float[] {this.getFont().getSize2D()};
       default:
         return Tweenable.super.getTweenValues(tweenType);
     }
