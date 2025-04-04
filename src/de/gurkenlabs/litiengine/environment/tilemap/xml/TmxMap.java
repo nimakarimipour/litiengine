@@ -54,7 +54,7 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
 
   @XmlAttribute private String orientation;
 
-  @XmlTransient private IMapOrientation mapOrientation;
+  @Nullable @XmlTransient private IMapOrientation mapOrientation;
 
   @XmlAttribute private RenderOrder renderorder;
 
