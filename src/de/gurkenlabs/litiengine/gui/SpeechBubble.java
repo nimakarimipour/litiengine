@@ -156,8 +156,6 @@ public class SpeechBubble implements IUpdateable, IRenderable {
       return;
     }
 
-    this.entityCenter = Game.world().camera().getViewportLocation(this.getEntity().getCenter());
-
     final float deltaX = (float) (this.textBoxWidth / 2.0 + this.getAppearance().getPadding());
     final float deltaY =
         (float)
