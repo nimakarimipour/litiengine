@@ -431,13 +431,8 @@ public final class Mouse
       this.lastLocation = new Point(e.getX(), e.getY());
     } else {
       // get diff relative from grabbed position
-      final Dimension resolution = Game.window().getResolution();
-      if (resolution == null) {
-        // Handle potential null resolution case
-        return;
-      }
-      final double screenCenterX = resolution.getWidth() * 0.5;
-      final double screenCenterY = resolution.getHeight() * 0.5;
+      final double screenCenterX = Game.window().getResolution().getWidth() * 0.5;
+      final double screenCenterY = Game.window().getResolution().getHeight() * 0.5;
       final Point screenLocation = Game.window().getLocationOnScreen();
       final int grabX = (int) (screenLocation.x + screenCenterX);
       final int grabY = (int) (screenLocation.y + screenCenterY);
@@ -451,15 +446,12 @@ public final class Mouse
     }
 
     // set new mouse location
-    final Dimension resolution = Game.window().getResolution();
-    if (resolution != null) {
-      double newX = this.getLocation().getX() + diffX * this.sensitivity;
-      double newY = this.getLocation().getY() + diffY * this.sensitivity;
-      newX = MathUtilities.clamp(newX, 0, resolution.getWidth());
-      newY = MathUtilities.clamp(newY, 0, resolution.getHeight());
+    double newX = this.getLocation().getX() + diffX * this.sensitivity;
+    double newY = this.getLocation().getY() + diffY * this.sensitivity;
+    newX = MathUtilities.clamp(newX, 0, Game.window().getResolution().getWidth());
+    newY = MathUtilities.clamp(newY, 0, Game.window().getResolution().getHeight());
 
-      this.location = new Point2D.Double(newX, newY);
-    }
+    this.location = new Point2D.Double(newX, newY);
   }
 
   /**
