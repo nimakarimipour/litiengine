@@ -91,8 +91,12 @@ public abstract class Ability implements IRenderable {
 
   public Ellipse2D calculatePotentialImpactArea() {
     final int range = this.getAttributes().impact().get();
-    final double arcX = this.getExecutor().getCollisionBox().getCenterX() - range * 0.5;
-    final double arcY = this.getExecutor().getCollisionBox().getCenterY() - range * 0.5;
+    Rectangle2D collisionBox = this.getExecutor().getCollisionBox();
+    if (collisionBox == null) {
+      return null; // or handle the null case appropriately
+    }
+    final double arcX = collisionBox.getCenterX() - range * 0.5;
+    final double arcY = collisionBox.getCenterY() - range * 0.5;
 
     return new Ellipse2D.Double(arcX, arcY, range, range);
   }
