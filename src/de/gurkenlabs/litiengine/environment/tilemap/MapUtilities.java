@@ -31,7 +31,7 @@ public final class MapUtilities {
     return new Rectangle2D.Double(x, y, maxX - x, maxY - y);
   }
 
-  public static int getMaxMapId(@Nullable final IMap map) {
+  public static int getMaxMapId(final IMap map) {
     int maxId = 0;
     if (map == null || map.getMapObjectLayers() == null) {
       return maxId;
@@ -123,7 +123,7 @@ public final class MapUtilities {
    * @param mapLocation the pixel map location.
    * @return The x / y tile coordinate for the given mapLocation.
    */
-  public static Point getTile(@Nullable IMap map, final Point2D mapLocation) {
+  public static Point getTile(IMap map, final Point2D mapLocation) {
     if (map == null) {
       return new Point(-1, -1);
     }

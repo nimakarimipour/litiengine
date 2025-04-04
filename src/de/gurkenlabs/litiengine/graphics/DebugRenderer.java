@@ -25,7 +25,6 @@ import java.awt.geom.Rectangle2D;
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
-import javax.annotation.Nullable;
 
 /**
  * The {@code DebugRenderer} class implements default debug rendering and exposes extension points
@@ -131,7 +130,7 @@ public final class DebugRenderer {
     }
   }
 
-  public static void renderMapDebugInfo(final Graphics2D g, @Nullable final IMap map) {
+  public static void renderMapDebugInfo(final Graphics2D g, final IMap map) {
     if (!Game.config().debug().isDebugEnabled()) {
       return;
     }
