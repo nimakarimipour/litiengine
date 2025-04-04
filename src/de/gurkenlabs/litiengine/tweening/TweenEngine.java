@@ -163,10 +163,15 @@ public class TweenEngine implements IUpdateable, ILaunchable {
           continue;
         }
         final float[] currentValues = new float[tween.getTargetValues().length];
+        TweenEquation equation = tween.getEquation();
+        if (equation == null) {
+          // Handle the null equation case, either skip or apply default behavior
+          continue; // or any default behavior
+        }
         for (int i = 0; i < tween.getTargetValues().length; i++) {
           currentValues[i] =
               tween.getStartValues()[i]
-                  + tween.getEquation().compute(elapsed / (float) tween.getDuration())
+                  + equation.compute(elapsed / (float) tween.getDuration())
                       * (tween.getTargetValues()[i] - tween.getStartValues()[i]);
         }
         tween.getTarget().setTweenValues(tween.getType(), currentValues);
