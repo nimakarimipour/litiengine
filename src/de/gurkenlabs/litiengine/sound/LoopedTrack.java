@@ -23,7 +23,7 @@ public class LoopedTrack implements Track, Iterator<Sound> {
    *
    * @param sound The sound to be played by this track.
    */
-  public LoopedTrack(@Nullable Sound sound) {
+  public LoopedTrack(Sound sound) {
     this.track = Objects.requireNonNull(sound);
   }
 
