@@ -6,6 +6,7 @@ import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.util.AlphanumComparator;
 import de.gurkenlabs.litiengine.util.Imaging;
 import de.gurkenlabs.litiengine.util.io.FileUtilities;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.awt.image.RasterFormatException;
@@ -104,6 +105,7 @@ public final class Spritesheet implements Comparable<Spritesheet> {
     return scaled;
   }
 
+  @Nullable
   public BufferedImage getImage() {
     return this.image;
   }
@@ -226,11 +228,19 @@ public final class Spritesheet implements Comparable<Spritesheet> {
   }
 
   private void checkWidth(int value) {
-    checkDimension(value, this.getImage().getWidth(), this.getName(), "width");
+    checkDimension(
+        value,
+        Nullability.castToNonnull(this.getImage(), "reason...").getWidth(),
+        this.getName(),
+        "width");
   }
 
   private void checkHeight(int value) {
-    checkDimension(value, this.getImage().getHeight(), this.getName(), "height");
+    checkDimension(
+        value,
+        Nullability.castToNonnull(this.getImage(), "reason...").getHeight(),
+        this.getName(),
+        "height");
   }
 
   private static void checkDimension(
@@ -285,6 +295,10 @@ public final class Spritesheet implements Comparable<Spritesheet> {
 
   private void updateRowsAndCols() {
     final BufferedImage sprite = this.getImage();
+    if (sprite == null) {
+      log.warning("Image is null when updating rows and columns");
+      return;
+    }
     this.columns = sprite.getWidth() / this.spriteWidth;
     this.rows = sprite.getHeight() / this.spriteHeight;
   }
