@@ -43,6 +43,7 @@ import de.gurkenlabs.litiengine.physics.IMovementController;
 import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.util.TimeUtilities;
 import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
@@ -2148,7 +2149,7 @@ public final class Environment implements IRenderable {
       long shadowRenderStart = System.nanoTime();
       if (this.getStaticShadows().stream()
           .anyMatch(x -> x.getShadowType() != StaticShadowType.NONE)) {
-        this.getStaticShadowLayer().render(g);
+        Nullability.castToNonnull(this.getStaticShadowLayer(), "reason...").render(g);
       }
 
       final double shadowTime = TimeUtilities.nanoToMs(System.nanoTime() - shadowRenderStart);
