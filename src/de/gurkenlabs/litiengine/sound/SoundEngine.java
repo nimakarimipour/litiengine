@@ -93,7 +93,7 @@ public final class SoundEngine implements IUpdateable, ILaunchable {
    * @return The playback of the music
    */
   @Nullable
-  public MusicPlayback playMusic(Sound music) {
+  public MusicPlayback playMusic(@Nullable Sound music) {
     return playMusic(new LoopedTrack(music));
   }
 
@@ -364,7 +364,7 @@ public final class SoundEngine implements IUpdateable, ILaunchable {
    * @return An {@link SFXPlayback} instance that allows to further process and control the played
    *     sound.
    */
-  public SFXPlayback playSound(final Sound sound, final Point2D location, boolean loop) {
+  public SFXPlayback playSound(@Nullable final Sound sound, final Point2D location, boolean loop) {
     return playSound(sound, () -> location, loop, getMaxDistance(), 1f);
   }
 
@@ -476,7 +476,7 @@ public final class SoundEngine implements IUpdateable, ILaunchable {
    * @return An {@link SFXPlayback} instance that allows to further process and control the played
    *     sound.
    */
-  public SFXPlayback playSound(final Sound sound, boolean loop) {
+  public SFXPlayback playSound(@Nullable final Sound sound, boolean loop) {
     return playSound(sound, () -> null, loop, getMaxDistance(), 1f);
   }
 
