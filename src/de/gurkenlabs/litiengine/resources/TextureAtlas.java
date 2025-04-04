@@ -87,7 +87,11 @@ public class TextureAtlas {
     }
 
     return this.getSprites().stream()
-        .filter(x -> x.getName().equals(name))
+        .filter(
+            x -> {
+              String spriteName = x.getName();
+              return spriteName != null && spriteName.equals(name);
+            })
         .findFirst()
         .orElse(null);
   }
