@@ -422,11 +422,6 @@ public final class Mouse
       return;
     }
 
-    if (Game.window().getResolution() == null) {
-      // Handle the null resolution appropriately
-      return;
-    }
-
     double diffX;
     double diffY;
     if (!this.grabMouse) {
