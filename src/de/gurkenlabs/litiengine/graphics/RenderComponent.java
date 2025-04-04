@@ -105,10 +105,6 @@ public class RenderComponent extends Canvas {
     Graphics2D g = null;
     do {
       try {
-        // Ensure currentBufferStrategy is initialized
-        if (this.currentBufferStrategy == null) {
-          this.init(); // Call to a method that initializes currentBufferStrategy
-        }
 
         g = (Graphics2D) this.currentBufferStrategy.getDrawGraphics();
 
