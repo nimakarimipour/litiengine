@@ -1,6 +1,7 @@
 package de.gurkenlabs.litiengine.entities.behavior;
 
 import de.gurkenlabs.litiengine.IUpdateable;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.util.Collections;
 import java.util.List;
 import javax.annotation.Nullable;
@@ -38,7 +39,7 @@ public class StateMachine implements IUpdateable {
       if (transition.conditionsFullfilled()) {
         this.currentState.exit();
         this.currentState = transition.getNextState();
-        this.currentState.enter();
+        Nullability.castToNonnull(this.currentState, "reason...").enter();
         return;
       }
     }
