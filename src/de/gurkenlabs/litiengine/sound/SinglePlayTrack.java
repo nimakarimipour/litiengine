@@ -42,7 +42,7 @@ public class SinglePlayTrack implements Track {
    *
    * @param sound The sound to be played by this track.
    */
-  public SinglePlayTrack(Sound sound) {
+  public SinglePlayTrack(@Nullable Sound sound) {
     this.sound = sound;
   }
 
