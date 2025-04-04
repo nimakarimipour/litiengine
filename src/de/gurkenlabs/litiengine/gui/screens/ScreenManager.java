@@ -5,7 +5,6 @@ import de.gurkenlabs.litiengine.GameWindow;
 import de.gurkenlabs.litiengine.graphics.RenderComponent;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -154,7 +153,11 @@ public final class ScreenManager {
     }
 
     if (this.screens.stream()
-        .noneMatch(element -> element.getName().equalsIgnoreCase(screenName))) {
+        .noneMatch(
+            element ->
+                element != null
+                    && element.getName() != null
+                    && element.getName().equalsIgnoreCase(screenName))) {
       log.log(
           Level.WARNING,
           "Could not display the screen {0} because there is no screen with the specified name.",
@@ -178,11 +181,14 @@ public final class ScreenManager {
    */
   @Nullable
   public Screen get(String screenName) {
-    Optional<Screen> opt =
-        this.screens.stream()
-            .filter(element -> element.getName().equalsIgnoreCase(screenName))
-            .findFirst();
-    return opt.orElse(null);
+    return this.screens.stream()
+        .filter(
+            element -> {
+              String name = element.getName();
+              return name != null && name.equalsIgnoreCase(screenName);
+            })
+        .findFirst()
+        .orElse(null);
   }
 
   /**
