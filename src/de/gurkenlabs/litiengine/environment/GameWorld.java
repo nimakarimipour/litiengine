@@ -304,7 +304,7 @@ public final class GameWorld implements IUpdateable {
    * @return The environment for the map or null if no such map can be found.
    */
   @Nullable
-  public Environment getEnvironment(@Nullable IMap map) {
+  public Environment getEnvironment(IMap map) {
     if (map == null || map.getName() == null || map.getName().isEmpty()) {
       return null;
     }
@@ -478,7 +478,7 @@ public final class GameWorld implements IUpdateable {
    * @see GameWorld#reset(IMap)
    */
   @Nullable
-  public Environment reset(@Nullable IMap map) {
+  public Environment reset(IMap map) {
     if (map == null) {
       return null;
     }

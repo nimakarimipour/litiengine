@@ -133,7 +133,7 @@ public final class Environment implements IRenderable {
    *
    * @param map The map that defines this environment.
    */
-  public Environment(@Nullable final IMap map) {
+  public Environment(final IMap map) {
     this();
     this.map = map;
     if (this.getMap() != null) {
