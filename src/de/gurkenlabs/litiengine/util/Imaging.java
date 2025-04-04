@@ -296,7 +296,7 @@ public final class Imaging {
   }
 
   @Nullable
-  public static BufferedImage flipSpritesHorizontally(final Spritesheet sprite) {
+  public static BufferedImage flipSpritesHorizontally(@Nullable final Spritesheet sprite) {
     return flipSprites(sprite, Imaging::horizontalFlip);
   }
 
