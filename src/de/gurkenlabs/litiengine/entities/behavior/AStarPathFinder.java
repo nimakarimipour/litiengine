@@ -35,20 +35,20 @@ public class AStarPathFinder extends PathFinder {
   @Nullable
   @Override
   public Path findPath(final IMobileEntity entity, final Point2D target) {
+    // if there is no collision between the start and the target return a direct
+    // path
     final Point2D startLocation = entity.getCollisionBoxCenter();
     if (!this.intersectsWithAnyCollisionBox(entity, startLocation, target)) {
       return this.findDirectPath(startLocation, target);
     }
 
     final AStarNode startNode = this.getGrid().getNode(startLocation);
-    if (startNode == null) {
-      return null;
-    }
     AStarNode targetNode = this.getGrid().getNode(target);
-    if (targetNode == null || startNode.equals(targetNode)) {
+    if (startNode.equals(targetNode)) {
       return null;
     }
 
+    // simple fallback if the target tile is not walkable.
     boolean gotoNeighbor = false;
     if (!targetNode.isWalkable()) {
       for (AStarNode neighbor : this.getGrid().getNeighbors(targetNode)) {
