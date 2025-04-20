@@ -1,3 +1,22 @@
+====================
+Type='DEREFERENCE_NULLABLE', message='dereferenced expression path is @Nullable'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/util/io/FileUtilities.java:111
+    return getFileName(path.getPath());
+Log:
+---NullAway.lambda$resolveRemainingErrors$17---
+==============================
+---NullAway.lambda$resolveRemainingErrors$17---
+TOP LEVEL CALL TO FIX ERROR: Type='DEREFERENCE_NULLABLE', message='dereferenced expression path is @Nullable'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/util/io/FileUtilities.java:111
+    return getFileName(path.getPath());
+---ChatGPT.ask---
+Asking ChatGPT:
+I want to resolve a warning reported by NullAway.
+The error is of the type of "DEREFERENCE_NULLABLE" and the full error message is: "dereferenced expression path is @Nullable".
+The line with the error is: "    return getFileName(path.getPath());".
+
+The error is within "the method: getFileName(java.net.URL)" and the code surrounding the error is:
+```java
 package de.gurkenlabs.litiengine.util.io;
 
 import java.io.File;
@@ -107,6 +126,33 @@ public final class FileUtilities {
     }
   }
 
+  public static String getFileName(@Nullable URL path) {
+    return getFileName(path.getPath());
+```
+
+Give me the fixed code snippet (ONLY THE METHOD REWRITE OF "getFileName(java.net.URL)") in XML format in <response> tag like the example below. I will apply the fix to my codebase.
+Do not import any additional libraries or classes or java comments.
+If you can provide the fixed code snippet, provide it in the following format and place the code snippet in the <code> tag within ```java block.
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  Your fixed code snippet here
+  ```
+    ]]>
+  </code>
+</response>
+
+---ChatGPT.sendRequestToOpenAI---
+Sending request to OpenAI...
+---ChatGPT.sendRequestToOpenAI---
+Response received from OpenAI.
+---Response.<init>---
+Creating Response:
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
   public static String getFileName(URL path) {
     String pathStr = path != null ? path.getPath() : null;
     if (pathStr == null) {
@@ -114,98 +160,16 @@ public final class FileUtilities {
     }
     return getFileName(pathStr);
   }
-
-  public static String getFileName(@Nullable final String path) {
-    return getFileName(path, false);
-  }
-
-  public static String getFileName(@Nullable final String path, boolean extension) {
-    if (path == null
-        || path.isEmpty()
-        || path.endsWith(FILE_SEPARATOR_WIN)
-        || path.endsWith(FILE_SEPARATOR)) {
+  ```
+    ]]>
+  </code>
+</response>
+---Response.<init>---
+Response created:
+public static String getFileName(URL path) {
+    String pathStr = path != null ? path.getPath() : null;
+    if (pathStr == null) {
       return "";
     }
-
-    String name = path;
-
-    if (!extension) {
-      final int pos = name.lastIndexOf('.');
-      if (pos > 0) {
-        name = name.substring(0, pos);
-      }
-    }
-
-    final int lastBackslash = name.lastIndexOf(FILE_SEPARATOR);
-    if (lastBackslash != -1) {
-      name = name.substring(lastBackslash + 1, name.length());
-    } else {
-      final int lastForwardSlash = name.lastIndexOf(FILE_SEPARATOR_WIN);
-      if (lastForwardSlash != -1) {
-        name = name.substring(lastForwardSlash + 1, name.length());
-      }
-    }
-
-    return name;
+    return getFileName(pathStr);
   }
-
-  public static String getParentDirPath(final String uri) {
-    if (uri == null || uri.isEmpty()) {
-      return uri;
-    }
-
-    try {
-      return getParentDirPath(new URI(uri));
-    } catch (URISyntaxException e) {
-      String parent = new File(uri).getParent();
-      parent += File.separator;
-      return parent;
-    }
-  }
-
-  public static String getParentDirPath(final URI uri) {
-    URI parent = uri.getPath().endsWith(FILE_SEPARATOR) ? uri.resolve("..") : uri.resolve(".");
-    return parent.toString();
-  }
-
-  /**
-   * This method combines the specified basepath with the parts provided as arguments. The output
-   * will use the path separator of the current system;
-   *
-   * @param basePath The base path for the combined path.
-   * @param paths The parts of the path to be constructed.
-   * @return The combined path.
-   */
-  public static String combine(String basePath, @Nullable final String... paths) {
-    basePath = basePath.replace(FILE_SEPARATOR_WIN, FILE_SEPARATOR);
-    try {
-
-      URI uri = new URI(basePath.replace(" ", "%20"));
-
-      for (String path : paths) {
-        if (path == null) {
-          continue;
-        }
-
-        path = path.replace(FILE_SEPARATOR_WIN, FILE_SEPARATOR);
-
-        uri = uri.resolve(path.replace(" ", "%20"));
-      }
-
-      return uri.toString().replace("%20", " ");
-    } catch (URISyntaxException e) {
-      log.log(Level.SEVERE, e.getMessage(), e);
-      return basePath;
-    }
-  }
-
-  private static boolean isBlackListedDirectory(Path path) {
-    for (final String black : DIR_BLACKLIST) {
-      if (path.toAbsolutePath().toString().contains(black)) {
-        return true;
-      }
-    }
-
-    return false;
-  }
-}
