@@ -1,3 +1,22 @@
+====================
+Type='RETURN_NULLABLE', message='returning @Nullable expression from method with @NonNull return type'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/EntitySpawner.java:105
+    return this.spawnpoints;
+Log:
+---NullAway.lambda$resolveRemainingErrors$17---
+==============================
+---NullAway.lambda$resolveRemainingErrors$17---
+TOP LEVEL CALL TO FIX ERROR: Type='RETURN_NULLABLE', message='returning @Nullable expression from method with @NonNull return type'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/EntitySpawner.java:105
+    return this.spawnpoints;
+---ChatGPT.ask---
+Asking ChatGPT:
+I want to resolve a warning reported by NullAway.
+The error is of the type of "RETURN_NULLABLE" and the full error message is: "returning @Nullable expression from method with @NonNull return type".
+The line with the error is: "    return this.spawnpoints;".
+
+The error is within "the method: getSpawnPoints()" and the code surrounding the error is:
+```java
 package de.gurkenlabs.litiengine.environment;
 
 import de.gurkenlabs.litiengine.Game;
@@ -102,106 +121,45 @@ public abstract class EntitySpawner<T extends IEntity> implements IEntitySpawner
 
   @Override
   public List<Spawnpoint> getSpawnPoints() {
+    return this.spawnpoints;
+```
+
+Give me the fixed code snippet (ONLY THE METHOD REWRITE OF "getSpawnPoints()") in XML format in <response> tag like the example below. I will apply the fix to my codebase.
+Do not import any additional libraries or classes or java comments.
+If you can provide the fixed code snippet, provide it in the following format and place the code snippet in the <code> tag within ```java block.
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  Your fixed code snippet here
+  ```
+    ]]>
+  </code>
+</response>
+
+---ChatGPT.sendRequestToOpenAI---
+Sending request to OpenAI...
+---ChatGPT.sendRequestToOpenAI---
+Response received from OpenAI.
+---Response.<init>---
+Creating Response:
+```xml
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  @Override
+  public List<Spawnpoint> getSpawnPoints() {
     return this.spawnpoints != null ? this.spawnpoints : new ArrayList<>();
   }
-
-  @Override
-  public void setSpawnAmount(final int amount) {
-    this.amount = amount;
+  ```
+    ]]>
+  </code>
+</response>
+```
+---Response.<init>---
+Response created:
+@Override
+  public List<Spawnpoint> getSpawnPoints() {
+    return this.spawnpoints != null ? this.spawnpoints : new ArrayList<>();
   }
-
-  @Override
-  public void setSpawnInterval(final int interval) {
-    this.interval = interval;
-  }
-
-  @Override
-  public void setSpawnDelay(final int delay) {
-    this.spawnDelay = delay;
-  }
-
-  @Override
-  public void setSpawnMode(final SpawnMode mode) {
-    this.spawnMode = mode;
-  }
-
-  @Override
-  public void update() {
-    if (!this.shouldSpawn()) {
-      return;
-    }
-
-    this.spawnNewEntities();
-    this.lastSpawnWave = Game.time().now();
-  }
-
-  protected boolean shouldSpawn() {
-    return this.lastSpawnWave == 0
-        || Game.time().since(this.lastSpawnWave) >= this.getSpawnInterval();
-  }
-
-  protected List<Spawnpoint> getCustomSpawnpoints() {
-    return new ArrayList<>();
-  }
-
-  /**
-   * Spawn new entities, depending on the {@code SpawnMode}, spawnAmount, spawnDelay, and
-   * spawnInterval of an {@code EntitySpawner}.
-   *
-   * @see SpawnMode
-   */
-  protected void spawnNewEntities() {
-    if (this.getSpawnMode() != SpawnMode.CUSTOMSPAWNPOINTS && this.getSpawnPoints().isEmpty()) {
-      return;
-    }
-
-    switch (this.getSpawnMode()) {
-      case ALLSPAWNPOINTS:
-        for (int i = 0; i < this.getSpawnPoints().size(); i++) {
-          final int index = i;
-          Game.loop()
-              .perform(
-                  this.getSpawnDelay() + this.getSpawnDelay() * i,
-                  () -> this.spawn(this.getSpawnPoints().get(index), this.getSpawnAmount()));
-        }
-        break;
-      case ONERANDOMSPAWNPOINT:
-        this.spawn(Game.random().choose(this.getSpawnPoints()), this.getSpawnAmount());
-        break;
-      case RANDOMSPAWNPOINTS:
-        for (int i = 0; i < this.getSpawnAmount(); i++) {
-          Game.loop()
-              .perform(
-                  this.getSpawnDelay() + this.getSpawnDelay() * i,
-                  () -> this.spawn(Game.random().choose(this.getSpawnPoints()), 1));
-        }
-        break;
-      case CUSTOMSPAWNPOINTS:
-        List<Spawnpoint> spawnPoints =
-            this.customSpawnpoints != null
-                ? this.customSpawnpoints.apply(this)
-                : this.getCustomSpawnpoints();
-
-        int index = 0;
-        for (Spawnpoint spawn : spawnPoints) {
-          Game.loop()
-              .perform(
-                  this.getSpawnDelay() + this.getSpawnDelay() * index, () -> this.spawn(spawn, 1));
-          index++;
-        }
-        break;
-      default:
-        break;
-    }
-  }
-
-  private void spawn(@Nullable final Spawnpoint spawnpoint, final int amount) {
-    if (spawnpoint.getEnvironment() == null || !spawnpoint.getEnvironment().isLoaded()) {
-      return;
-    }
-    for (int i = 0; i < amount; i++) {
-      final T newEntity = this.createNew();
-      spawnpoint.spawn(newEntity);
-    }
-  }
-}
