@@ -1,3 +1,22 @@
+====================
+Type='DEREFERENCE_NULLABLE', message='dereferenced expression this.collisionBoxes.get(type) is @Nullable'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/physics/PhysicsEngine.java:691
+      this.collisionBoxes.get(type).clear();
+Log:
+---NullAway.lambda$resolveRemainingErrors$17---
+==============================
+---NullAway.lambda$resolveRemainingErrors$17---
+TOP LEVEL CALL TO FIX ERROR: Type='DEREFERENCE_NULLABLE', message='dereferenced expression this.collisionBoxes.get(type) is @Nullable'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/physics/PhysicsEngine.java:691
+      this.collisionBoxes.get(type).clear();
+---ChatGPT.ask---
+Asking ChatGPT:
+I want to resolve a warning reported by NullAway.
+The error is of the type of "DEREFERENCE_NULLABLE" and the full error message is: "dereferenced expression this.collisionBoxes.get(type) is @Nullable".
+The line with the error is: "      this.collisionBoxes.get(type).clear();".
+
+The error is within "the method: update()" and the code surrounding the error is:
+```java
 package de.gurkenlabs.litiengine.physics;
 
 import de.gurkenlabs.litiengine.Direction;
@@ -688,243 +707,80 @@ public final class PhysicsEngine implements IUpdateable {
         continue;
       }
 
-      List<Rectangle2D> boxes = this.collisionBoxes.get(type);
-      if (boxes != null) {
-        boxes.clear();
-        boxes.addAll(
-            this.collisionEntities.get(type).stream()
-                .map(ICollisionEntity::getCollisionBox)
-                .collect(Collectors.toList()));
-      }
+      this.collisionBoxes.get(type).clear();
+      this.collisionBoxes
+          .get(type)
+          .addAll(
+              this.collisionEntities.get(type).stream()
+                  .map(ICollisionEntity::getCollisionBox)
+                  .collect(Collectors.toList()));
+    }
+```
+
+Give me the fixed code snippet (ONLY THE METHOD REWRITE OF "update()") in XML format in <response> tag like the example below. I will apply the fix to my codebase.
+Do not import any additional libraries or classes or java comments.
+If you can provide the fixed code snippet, provide it in the following format and place the code snippet in the <code> tag within ```java block.
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  Your fixed code snippet here
+  ```
+    ]]>
+  </code>
+</response>
+
+---ChatGPT.sendRequestToOpenAI---
+Sending request to OpenAI...
+---ChatGPT.sendRequestToOpenAI---
+Response received from OpenAI.
+---Response.<init>---
+Creating Response:
+```xml
+<response>
+  <success>true</success>
+  <code><![CDATA[
+```java
+@Override
+public void update() {
+  // retrieve all collision box rectangles once per update
+  for (Collision type : Collision.values()) {
+    if (type == Collision.NONE) {
+      continue;
+    }
+
+    List<Rectangle2D> boxes = this.collisionBoxes.get(type);
+    if (boxes != null) {
+      boxes.clear();
+      boxes.addAll(
+          this.collisionEntities.get(type).stream()
+              .map(ICollisionEntity::getCollisionBox)
+              .collect(Collectors.toList()));
     }
   }
-
-  /**
-   * Checks if two entities can collide
-   *
-   * @param entity The first entity to check for collision
-   * @param otherEntity The second entity to check for collision
-   * @return {@code true} if the entities can collide, {@code false} otherwise.
-   */
-  private static boolean canCollide(
-      @Nullable ICollisionEntity entity, ICollisionEntity otherEntity) {
-    if (otherEntity == null || !otherEntity.hasCollision()) {
-      return false;
+}
+```
+    ]]>
+  </code>
+</response>
+```
+---Response.<init>---
+Response created:
+@Override
+public void update() {
+  // retrieve all collision box rectangles once per update
+  for (Collision type : Collision.values()) {
+    if (type == Collision.NONE) {
+      continue;
     }
 
-    // the entity to check against is not provided
-    if (entity == null) {
-      return true;
-    }
-
-    // cannot collide with itself
-    if (otherEntity.equals(entity)) {
-      return false;
-    }
-
-    // an entity cannot collide with other entities that are excluded from collision by the
-    // canCollideWith method
-    return entity.canCollideWith(otherEntity);
-  }
-
-  /**
-   * Gets the intersection between an entity's collision box and all {@code ICollisionEntities} in a
-   * given rectangle.
-   *
-   * @param entity The {@code ICollisionEntity} to check for intersection.
-   * @param rect The {@code Rectangle2D} to check for intersection.
-   * @return The {@code Intersection} area.
-   */
-  @Nullable
-  private Intersection getIntersection(final ICollisionEntity entity, final Rectangle2D rect) {
-    Intersection result = null;
-    for (final ICollisionEntity otherEntity : this.getCollisionEntities()) {
-      if (!canCollide(entity, otherEntity)) {
-        continue;
-      }
-
-      if (GeometricUtilities.intersects(otherEntity.getCollisionBox(), rect)) {
-        Rectangle2D intersection = otherEntity.getCollisionBox().createIntersection(rect);
-        if (result != null) {
-          result =
-              new Intersection(
-                  intersection.createUnion(result),
-                  ArrayUtilities.append(result.involvedEntities, otherEntity));
-        } else {
-          result = new Intersection(intersection, otherEntity);
-        }
-      }
-    }
-
-    return result;
-  }
-
-  private boolean collides(
-      @Nullable final ICollisionEntity entity, Collision type, Predicate<ICollisionEntity> check) {
-    for (final ICollisionEntity otherEntity : this.getCollisionEntities(type)) {
-      if (!canCollide(entity, otherEntity)) {
-        continue;
-      }
-
-      if (check.test(otherEntity)) {
-        return true;
-      }
-    }
-
-    return false;
-  }
-
-  /**
-   * Checks if is in map.
-   *
-   * @param collisionBox the collision box
-   * @return true, if is in map
-   */
-  private boolean isInMap(final Shape collisionBox) {
-    if (this.environmentBounds == null) {
-      return true;
-    }
-
-    return this.environmentBounds.contains(collisionBox.getBounds());
-  }
-
-  /**
-   * With the current physics implementation is is possible to glitch through other entities, if
-   * their collisionbox is smaller than the velocity of the moving entity and they also move towards
-   * the currently moving entity.
-   *
-   * @param entity The entity to resolve the collision for.
-   * @param targetPosition The target position to which the entity should be moved to.
-   * @return The position to which the entity should be moved after resolving the collision.
-   */
-  private Point2D resolveCollision(final ICollisionEntity entity, final Point2D targetPosition) {
-    // first resolve x-axis movement
-    Point2D resolvedPosition = new Point2D.Double(targetPosition.getX(), entity.getY());
-
-    final Rectangle2D targetCollisionBoxX = entity.getCollisionBox(resolvedPosition);
-    final Intersection intersectionX = this.getIntersection(entity, targetCollisionBoxX);
-    if (intersectionX != null) {
-      if (entity.getCollisionBox().getX() < targetCollisionBoxX.getX()) {
-        // entity was moved left -> right, so push out to the left
-        resolvedPosition.setLocation(
-            Math.max(entity.getX(), resolvedPosition.getX() - intersectionX.getWidth()),
-            resolvedPosition.getY());
-      } else {
-        // push it out to the right
-        resolvedPosition.setLocation(
-            Math.min(entity.getX(), resolvedPosition.getX() + intersectionX.getWidth()),
-            resolvedPosition.getY());
-      }
-    }
-
-    // then resolve y-axis movement
-    resolvedPosition.setLocation(resolvedPosition.getX(), targetPosition.getY());
-
-    final Rectangle2D targetCollisionBoxY = entity.getCollisionBox(resolvedPosition);
-    final Intersection intersectionY = this.getIntersection(entity, targetCollisionBoxY);
-    if (intersectionY != null) {
-      if (entity.getCollisionBox().getY() < targetCollisionBoxY.getY()) {
-        // entity was moved top -> bottom so push out towards the top
-        resolvedPosition.setLocation(
-            resolvedPosition.getX(),
-            Math.max(entity.getY(), resolvedPosition.getY() - intersectionY.getHeight()));
-      } else {
-        resolvedPosition.setLocation(
-            resolvedPosition.getX(),
-            Math.min(entity.getY(), resolvedPosition.getY() + intersectionY.getHeight()));
-      }
-    }
-
-    fireCollisionEvents(entity, intersectionX, intersectionY);
-
-    return resolvedPosition;
-  }
-
-  private Point2D clamptoMap(IMobileEntity entity, Point2D newLocation) {
-    double collisionLocationX =
-        entity.getCollisionBoxAlign().getLocation(entity.getWidth(), entity.getCollisionBoxWidth());
-    double leftBoundX = this.getBounds().getMinX() - collisionLocationX;
-    double deltaX = entity.getWidth() - entity.getCollisionBoxWidth() - collisionLocationX;
-    double rightBoundX = this.getBounds().getMaxX() - entity.getWidth() + deltaX;
-
-    double collisionLocationY =
-        entity
-            .getCollisionBoxValign()
-            .getLocation(entity.getHeight(), entity.getCollisionBoxHeight());
-    double topBoundY = this.getBounds().getMinY() - collisionLocationY;
-    double deltaY = entity.getHeight() - entity.getCollisionBoxHeight() - collisionLocationY;
-    double buttomBoundY = this.getBounds().getMaxY() - entity.getHeight() + deltaY;
-
-    // right and left border minus the collision box width
-    double x = MathUtilities.clamp(newLocation.getX(), leftBoundX, rightBoundX);
-    // bottom and top border minus the collision box height
-    double y = MathUtilities.clamp(newLocation.getY(), topBoundY, buttomBoundY);
-    return new Point2D.Double(x, y);
-  }
-
-  private boolean resolveCollisionForNewPosition(ICollisionEntity entity, Point2D location) {
-    // resolve collision for new location
-    if (this.collides(entity.getCollisionBox(location), entity)) {
-      final Point2D resolvedPosition = this.resolveCollision(entity, location);
-      entity.setLocation(resolvedPosition);
-      return true;
-    }
-
-    return false;
-  }
-
-  private boolean resolveCollisionForRaycastToNewPosition(
-      ICollisionEntity entity, Point2D newPosition) {
-    // special case to prevent entities to glitch through collision boxes if
-    // they have a large enough step size
-    final Line2D line =
-        new Line2D.Double(
-            entity.getCollisionBox().getCenterX(),
-            entity.getCollisionBox().getCenterY(),
-            entity.getCollisionBox(newPosition).getCenterX(),
-            entity.getCollisionBox(newPosition).getCenterY());
-    return this.collides(line, Collision.ANY, entity);
-  }
-
-  private static void fireCollisionEvents(
-      ICollisionEntity collider, @Nullable Intersection... intersections) {
-    // aggregate the involved entities of all intersections
-    ICollisionEntity[] involvedEntities = null;
-    for (Intersection inter : intersections) {
-      if (inter == null) {
-        continue;
-      }
-
-      if (involvedEntities == null) {
-        involvedEntities = inter.involvedEntities;
-        continue;
-      }
-
-      involvedEntities = ArrayUtilities.distinct(involvedEntities, inter.involvedEntities);
-    }
-
-    // 1. fire collision event on the collider with all the involved entities
-    CollisionEvent event = new CollisionEvent(collider, involvedEntities);
-    collider.fireCollisionEvent(event);
-
-    // 2. fire collision event on the involved entities with the collider entity
-    CollisionEvent colliderEvent = new CollisionEvent(collider);
-    for (ICollisionEntity involved : involvedEntities) {
-      involved.fireCollisionEvent(colliderEvent);
-    }
-  }
-
-  /**
-   * A helper class that contains the intersection of a collision event and the involved entities.
-   * This is basically just a {@link Rectangle2D} with some additional information.
-   */
-  @SuppressWarnings("serial")
-  private class Intersection extends Rectangle2D.Double {
-    private final transient ICollisionEntity[] involvedEntities;
-
-    public Intersection(Rectangle2D rect, ICollisionEntity... entities) {
-      super(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
-      this.involvedEntities = entities;
+    List<Rectangle2D> boxes = this.collisionBoxes.get(type);
+    if (boxes != null) {
+      boxes.clear();
+      boxes.addAll(
+          this.collisionEntities.get(type).stream()
+              .map(ICollisionEntity::getCollisionBox)
+              .collect(Collectors.toList()));
     }
   }
 }
