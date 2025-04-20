@@ -1,0 +1,170 @@
+====================
+Type='RETURN_NULLABLE', message='returning @Nullable expression from method with @NonNull return type'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/entities/behavior/AStarGrid.java:104
+    return this.getNode(point.getX(), point.getY());
+Log:
+---NullAway.lambda$resolveRemainingErrors$17---
+==============================
+---NullAway.lambda$resolveRemainingErrors$17---
+TOP LEVEL CALL TO FIX ERROR: Type='RETURN_NULLABLE', message='returning @Nullable expression from method with @NonNull return type'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/entities/behavior/AStarGrid.java:104
+    return this.getNode(point.getX(), point.getY());
+---ChatGPT.ask---
+Asking ChatGPT:
+I want to resolve a warning reported by NullAway.
+The error is of the type of "RETURN_NULLABLE" and the full error message is: "returning @Nullable expression from method with @NonNull return type".
+The line with the error is: "    return this.getNode(point.getX(), point.getY());".
+
+The error is within "the method: getNode(java.awt.geom.Point2D)" and the code surrounding the error is:
+```java
+package de.gurkenlabs.litiengine.entities.behavior;
+
+import de.gurkenlabs.litiengine.Game;
+import de.gurkenlabs.litiengine.entities.Prop;
+import de.gurkenlabs.litiengine.graphics.IRenderable;
+import de.gurkenlabs.litiengine.physics.Collision;
+import de.gurkenlabs.litiengine.util.MathUtilities;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.Nullable;
+
+public class AStarGrid implements IRenderable {
+  public static final double PENALTY_STATIC_PROP = 5;
+  public static final double PENALTY_NOT_WALKABLE_NEIGHBOR = 4;
+  private final AStarNode[][] grid;
+  private final int nodeSize;
+  private final Dimension size;
+
+  private boolean allowDiagonalMovement = true;
+  private boolean allowCuttingCorners;
+
+  public AStarGrid(int width, int height, final int nodeSize) {
+    this(new Dimension(width, height), nodeSize);
+  }
+
+  public AStarGrid(final Dimension size, final int nodeSize) {
+    this.size = size;
+    this.nodeSize = nodeSize;
+    final int gridSizeX = this.size.width / nodeSize;
+    final int gridSizeY = this.size.height / nodeSize;
+    this.grid = new AStarNode[gridSizeX][gridSizeY];
+    this.populateGrid(gridSizeX, gridSizeY);
+  }
+
+  public boolean isDiagonalMovementAllowed() {
+    return this.allowDiagonalMovement;
+  }
+
+  public boolean isDiagonalCornerMovementAllowed() {
+    return this.allowCuttingCorners;
+  }
+
+  public AStarNode[][] getGrid() {
+    return this.grid;
+  }
+
+  public List<AStarNode> getIntersectedNodes(final Rectangle2D rectangle) {
+    final Point2D start = new Point2D.Double(rectangle.getMinX(), rectangle.getMinY());
+    final Point2D end = new Point2D.Double(rectangle.getMaxX(), rectangle.getMaxY());
+
+    final AStarNode startNode = this.getNode(start);
+    final AStarNode endNode = this.getNode(end);
+
+    final List<AStarNode> nodes = new ArrayList<>();
+    if (startNode == null || endNode == null) {
+      return nodes;
+    }
+
+    for (int x = startNode.getGridX(); x <= endNode.getGridX(); x++) {
+      for (int y = startNode.getGridY(); y <= endNode.getGridY(); y++) {
+        nodes.add(this.getGrid()[x][y]);
+      }
+    }
+
+    return nodes;
+  }
+
+  public List<AStarNode> getNeighbors(final AStarNode node) {
+    final List<AStarNode> newNeighbors = new ArrayList<>();
+    final int x = node.getGridX();
+    final int y = node.getGridY();
+
+    final AStarNode top = this.getNode(x, y - 1);
+    final AStarNode bottom = this.getNode(x, y + 1);
+    final AStarNode left = this.getNode(x - 1, y);
+    final AStarNode right = this.getNode(x + 1, y);
+
+    addNode(newNeighbors, top);
+    addNode(newNeighbors, bottom);
+    addNode(newNeighbors, right);
+    addNode(newNeighbors, left);
+
+    if (this.isDiagonalMovementAllowed()) {
+      final AStarNode topLeft = this.getNode(x - 1, y - 1);
+      final AStarNode topRight = this.getNode(x + 1, y - 1);
+      final AStarNode bottomLeft = this.getNode(x - 1, y + 1);
+      final AStarNode bottomRight = this.getNode(x + 1, y + 1);
+      this.addDiagonalNode(newNeighbors, topLeft, top, left);
+      this.addDiagonalNode(newNeighbors, topRight, top, right);
+      this.addDiagonalNode(newNeighbors, bottomLeft, bottom, left);
+      this.addDiagonalNode(newNeighbors, bottomRight, bottom, right);
+    }
+
+    return newNeighbors;
+  }
+
+  public AStarNode getNode(final Point2D point) {
+    return this.getNode(point.getX(), point.getY());
+```
+
+Give me the fixed code snippet (ONLY THE METHOD REWRITE OF "getNode(java.awt.geom.Point2D)") in XML format in <response> tag like the example below. I will apply the fix to my codebase.
+Do not import any additional libraries or classes or java comments.
+If you can provide the fixed code snippet, provide it in the following format and place the code snippet in the <code> tag within ```java block.
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  Your fixed code snippet here
+  ```
+    ]]>
+  </code>
+</response>
+
+---ChatGPT.sendRequestToOpenAI---
+Sending request to OpenAI...
+---ChatGPT.sendRequestToOpenAI---
+Response received from OpenAI.
+---Response.<init>---
+Creating Response:
+```xml
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  public AStarNode getNode(final Point2D point) {
+    AStarNode node = this.getNode(point.getX(), point.getY());
+    if (node == null) {
+      throw new IllegalStateException("Node at point " + point + " is null");
+    }
+    return node;
+  }
+  ```
+  ]]>
+  </code>
+</response>
+```
+---Response.<init>---
+Response created:
+public AStarNode getNode(final Point2D point) {
+    AStarNode node = this.getNode(point.getX(), point.getY());
+    if (node == null) {
+      throw new IllegalStateException("Node at point " + point + " is null");
+    }
+    return node;
+  }
