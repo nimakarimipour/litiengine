@@ -1,3 +1,22 @@
+====================
+Type='RETURN_NULLABLE', message='returning @Nullable expression from method with @NonNull return type'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/entities/Entity.java:502
+    return this.environment;
+Log:
+---NullAway.lambda$resolveRemainingErrors$17---
+==============================
+---NullAway.lambda$resolveRemainingErrors$17---
+TOP LEVEL CALL TO FIX ERROR: Type='RETURN_NULLABLE', message='returning @Nullable expression from method with @NonNull return type'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/entities/Entity.java:502
+    return this.environment;
+---ChatGPT.ask---
+Asking ChatGPT:
+I want to resolve a warning reported by NullAway.
+The error is of the type of "RETURN_NULLABLE" and the full error message is: "returning @Nullable expression from method with @NonNull return type".
+The line with the error is: "    return this.environment;".
+
+The error is within "the method: getEnvironment()" and the code surrounding the error is:
+```java
 package de.gurkenlabs.litiengine.entities;
 
 import de.gurkenlabs.litiengine.Game;
@@ -499,173 +518,51 @@ public abstract class Entity implements IEntity, EntityRenderListener, Tweenable
 
   @Override
   public Environment getEnvironment() {
+    return this.environment;
+```
+
+Give me the fixed code snippet (ONLY THE METHOD REWRITE OF "getEnvironment()") in XML format in <response> tag like the example below. I will apply the fix to my codebase.
+Do not import any additional libraries or classes or java comments.
+If you can provide the fixed code snippet, provide it in the following format and place the code snippet in the <code> tag within ```java block.
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  Your fixed code snippet here
+  ```
+    ]]>
+  </code>
+</response>
+
+---ChatGPT.sendRequestToOpenAI---
+Sending request to OpenAI...
+---ChatGPT.sendRequestToOpenAI---
+Response received from OpenAI.
+---Response.<init>---
+Creating Response:
+```xml
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  @Override
+  public Environment getEnvironment() {
     if (this.environment == null) {
       throw new IllegalStateException("Environment is not initialized");
     }
     return this.environment;
   }
-
-  @Override
-  public void loaded(Environment environment) {
-    this.environment = environment;
-
-    this.loaded = true;
-
-    for (EntityListener listener : this.listeners) {
-      listener.loaded(this, this.getEnvironment());
+  ```
+  ]]>
+  </code>
+</response>
+```
+---Response.<init>---
+Response created:
+@Override
+  public Environment getEnvironment() {
+    if (this.environment == null) {
+      throw new IllegalStateException("Environment is not initialized");
     }
+    return this.environment;
   }
-
-  @Override
-  public void removed(Environment environment) {
-    this.loaded = false;
-
-    for (EntityListener listener : this.listeners) {
-      listener.removed(this, this.getEnvironment());
-    }
-
-    // set to null after informing the listeners so they can still access the environment instance
-    this.environment = null;
-  }
-
-  @Override
-  public boolean isLoaded() {
-    return this.loaded;
-  }
-
-  @Override
-  public boolean renderWithLayer() {
-    return this.renderWithLayer;
-  }
-
-  @Override
-  public void setRenderWithLayer(boolean renderWithLayer) {
-    this.renderWithLayer = renderWithLayer;
-  }
-
-  @Override
-  public void rendering(EntityRenderEvent event) {
-    if (event.getEntity() == null || !event.getEntity().equals(Entity.this)) {
-      return;
-    }
-
-    for (EntityRenderListener listener : Entity.this.renderListeners) {
-      listener.rendering(event);
-    }
-  }
-
-  @Override
-  public void rendered(EntityRenderEvent event) {
-    if (event.getEntity() == null || !event.getEntity().equals(Entity.this)) {
-      return;
-    }
-
-    for (EntityRenderListener listener : Entity.this.renderListeners) {
-      listener.rendered(event);
-    }
-
-    for (EntityRenderedListener listener : Entity.this.renderedListeners) {
-      listener.rendered(event);
-    }
-  }
-
-  @Override
-  public boolean canRender(IEntity entity) {
-    if (entity == null || !entity.equals(Entity.this)) {
-      return true;
-    }
-
-    for (EntityRenderListener listener : Entity.this.renderListeners) {
-      if (!listener.canRender(entity)) {
-        return false;
-      }
-    }
-
-    return true;
-  }
-
-  protected EntityControllers getControllers() {
-    return this.controllers;
-  }
-
-  private void fireSizeChangedEvent() {
-    for (EntityTransformListener listener : this.transformListeners) {
-      listener.sizeChanged(this);
-    }
-  }
-
-  private void fireLocationChangedEvent() {
-    for (EntityTransformListener listener : this.transformListeners) {
-      listener.locationChanged(this);
-    }
-  }
-
-  @Nullable
-  private EntityMessageEvent fireMessageReceived(
-      Object sender,
-      @Nullable String listenerMessage,
-      @Nullable String message,
-      @Nullable EntityMessageEvent event) {
-    if (message == null) {
-      return event;
-    }
-
-    if (this.messageListeners.containsKey(listenerMessage)
-        && this.messageListeners.get(listenerMessage) != null) {
-      EntityMessageEvent receivedEvent = event;
-      for (EntityMessageListener listener : this.messageListeners.get(listenerMessage)) {
-        if (receivedEvent == null) {
-          receivedEvent = new EntityMessageEvent(sender, this, message);
-        }
-
-        listener.messageReceived(receivedEvent);
-      }
-    }
-
-    return event;
-  }
-
-  /** Registers all default actions that are annotated with a {@code EntityAction} annotation. */
-  private void registerActions() {
-    List<Method> methods =
-        ReflectionUtilities.getMethodsAnnotatedWith(this.getClass(), Action.class);
-
-    // iterate over all methods that have the EntityActionInfo annotation and register them
-    for (Method method : methods) {
-      if (!Modifier.isPublic(method.getModifiers()) || method.getParameterCount() > 0) {
-        log.log(
-            Level.INFO,
-            "\"{0}\" is not a valid entity action. Either make it public and parameterless or remove the Action annotation.",
-            new Object[] {method});
-        continue;
-      }
-
-      Action info = method.getAnnotation(Action.class);
-      if (info == null) {
-        continue;
-      }
-
-      final String actionName =
-          info.name() == null || info.name().isEmpty() ? method.getName() : info.name();
-      EntityAction action =
-          this.register(
-              actionName,
-              () -> {
-                try {
-                  method.invoke(this);
-                } catch (IllegalAccessException
-                    | IllegalArgumentException
-                    | InvocationTargetException e) {
-                  log.log(
-                      Level.SEVERE,
-                      String.format("Could not perform the entity action %s", actionName),
-                      e);
-                }
-              });
-
-      if (action != null) {
-        action.setDescription(info.description());
-      }
-    }
-  }
-}
