@@ -1,3 +1,22 @@
+====================
+Type='DEREFERENCE_NULLABLE', message='dereferenced expression this.getTweens().get(target) is @Nullable'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/tweening/TweenEngine.java:124
+      this.getTweens().get(target).remove(type);
+Log:
+---NullAway.lambda$resolveRemainingErrors$17---
+==============================
+---NullAway.lambda$resolveRemainingErrors$17---
+TOP LEVEL CALL TO FIX ERROR: Type='DEREFERENCE_NULLABLE', message='dereferenced expression this.getTweens().get(target) is @Nullable'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/tweening/TweenEngine.java:124
+      this.getTweens().get(target).remove(type);
+---ChatGPT.ask---
+Asking ChatGPT:
+I want to resolve a warning reported by NullAway.
+The error is of the type of "DEREFERENCE_NULLABLE" and the full error message is: "dereferenced expression this.getTweens().get(target) is @Nullable".
+The line with the error is: "      this.getTweens().get(target).remove(type);".
+
+The error is within "the method: remove(de.gurkenlabs.litiengine.tweening.Tweenable,de.gurkenlabs.litiengine.tweening.TweenType)" and the code surrounding the error is:
+```java
 package de.gurkenlabs.litiengine.tweening;
 
 import de.gurkenlabs.litiengine.Game;
@@ -119,58 +138,52 @@ public class TweenEngine implements IUpdateable, ILaunchable {
    *     modified.
    */
   public void remove(final Tweenable target, final TweenType type) {
+    final Tween tween = this.getTween(target, type);
+    if (tween != null) {
+      this.getTweens().get(target).remove(type);
+    }
+```
+
+Give me the fixed code snippet (ONLY THE METHOD REWRITE OF "remove(de.gurkenlabs.litiengine.tweening.Tweenable,de.gurkenlabs.litiengine.tweening.TweenType)") in XML format in <response> tag like the example below. I will apply the fix to my codebase.
+Do not import any additional libraries or classes or java comments.
+If you can provide the fixed code snippet, provide it in the following format and place the code snippet in the <code> tag within ```java block.
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  Your fixed code snippet here
+  ```
+    ]]>
+  </code>
+</response>
+
+---ChatGPT.sendRequestToOpenAI---
+Sending request to OpenAI...
+---ChatGPT.sendRequestToOpenAI---
+Response received from OpenAI.
+---Response.<init>---
+Creating Response:
+```xml
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  public void remove(final Tweenable target, final TweenType type) {
     Map<TweenType, Tween> targetTweens = this.getTweens().get(target);
     if (targetTweens != null) {
       targetTweens.remove(type);
     }
   }
-
-  /**
-   * Looks for a registered Tween instance with the given target and type. Attempts to stop the
-   * Tween.
-   *
-   * @param target the {@code Tweenable} target object
-   * @param type the {@code TweenType} determining which values of the target object will be
-   *     modified.
-   * @return the Tween instance
-   */
-  @Nullable
-  public Tween stop(final Tweenable target, final TweenType type) {
-    final Tween tween = this.getTween(target, type);
-    if (tween != null) {
-      tween.stop();
-    }
-    return tween;
-  }
-
-  /** Terminate. */
-  @Override
-  public void terminate() {
-    Game.loop().detach(this);
-  }
-
-  /** Updates all registered Tweens by applying the {@code TweenEquation}. */
-  @Override
-  public void update() {
-    for (final Tweenable target : this.getTweens().keySet()) {
-      for (final Tween tween : this.getTweens().get(target).values()) {
-        if (tween.hasStopped()) {
-          continue;
-        }
-        final long elapsed = Game.time().since(tween.getStartTime());
-        if (elapsed >= tween.getDuration()) {
-          tween.stop();
-          continue;
-        }
-        final float[] currentValues = new float[tween.getTargetValues().length];
-        for (int i = 0; i < tween.getTargetValues().length; i++) {
-          currentValues[i] =
-              tween.getStartValues()[i]
-                  + tween.getEquation().compute(elapsed / (float) tween.getDuration())
-                      * (tween.getTargetValues()[i] - tween.getStartValues()[i]);
-        }
-        tween.getTarget().setTweenValues(tween.getType(), currentValues);
-      }
+  ```
+  ]]>
+  </code>
+</response>
+```
+---Response.<init>---
+Response created:
+public void remove(final Tweenable target, final TweenType type) {
+    Map<TweenType, Tween> targetTweens = this.getTweens().get(target);
+    if (targetTweens != null) {
+      targetTweens.remove(type);
     }
   }
-}
