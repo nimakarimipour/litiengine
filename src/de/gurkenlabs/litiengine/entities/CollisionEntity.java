@@ -89,9 +89,6 @@ public abstract class CollisionEntity extends Entity implements ICollisionEntity
    */
   @Override
   public Rectangle2D getCollisionBox() {
-    if (this.collisionBox == null) {
-      throw new IllegalStateException("Collision box has not been initialized");
-    }
     return this.collisionBox;
   }
 
