@@ -198,29 +198,25 @@ public class ResourceBundle implements Serializable {
   void beforeMarshal(Marshaller m) {
     List<SpritesheetResource> distinctList = new ArrayList<>();
     for (SpritesheetResource sprite : this.getSpriteSheets()) {
-      if (sprite.getName() != null && sprite.getImage() != null) {
-        if (!distinctList.stream()
-            .anyMatch(
-                x ->
-                    x.getName() != null
-                        && x.getImage() != null
-                        && x.getName().equals(sprite.getName())
-                        && x.getImage().equals(sprite.getImage()))) {
-          distinctList.add(sprite);
-        }
+      if (distinctList.stream()
+          .anyMatch(
+              x ->
+                  x.getName().equals(sprite.getName()) && x.getImage().equals(sprite.getImage()))) {
+        continue;
       }
+
+      distinctList.add(sprite);
     }
 
     this.spriteSheets = distinctList;
 
     List<Tileset> distinctTilesets = new ArrayList<>();
     for (Tileset tileset : this.getTilesets()) {
-      if (tileset.getName() != null) {
-        if (!distinctTilesets.stream()
-            .anyMatch(x -> x.getName() != null && x.getName().equals(tileset.getName()))) {
-          distinctTilesets.add(tileset);
-        }
+      if (distinctTilesets.stream().anyMatch(x -> x.getName().equals(tileset.getName()))) {
+        continue;
       }
+
+      distinctTilesets.add(tileset);
     }
 
     this.tilesets = distinctTilesets;
