@@ -453,12 +453,10 @@ public final class Imaging {
     return bimg;
   }
 
+  @Nullable
   public static BufferedImage scale(final BufferedImage image, final int max) {
     Dimension2D newDimension =
         GeometricUtilities.scaleWithRatio(image.getWidth(), image.getHeight(), max);
-    if (newDimension == null) {
-      throw new IllegalArgumentException("Failed to calculate new dimensions for scaling.");
-    }
     return scale(image, (int) newDimension.getWidth(), (int) newDimension.getHeight());
   }
 
