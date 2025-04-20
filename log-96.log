@@ -1,3 +1,22 @@
+====================
+Type='DEREFERENCE_NULLABLE', message='dereferenced expression spriteSheet is @Nullable'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/CreatureMapObjectLoader.java:86
+        if (prefix != null && spriteSheet.equalsIgnoreCase(prefix)) {
+Log:
+---NullAway.lambda$resolveRemainingErrors$17---
+==============================
+---NullAway.lambda$resolveRemainingErrors$17---
+TOP LEVEL CALL TO FIX ERROR: Type='DEREFERENCE_NULLABLE', message='dereferenced expression spriteSheet is @Nullable'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/CreatureMapObjectLoader.java:86
+        if (prefix != null && spriteSheet.equalsIgnoreCase(prefix)) {
+---ChatGPT.ask---
+Asking ChatGPT:
+I want to resolve a warning reported by NullAway.
+The error is of the type of "DEREFERENCE_NULLABLE" and the full error message is: "dereferenced expression spriteSheet is @Nullable".
+The line with the error is: "        if (prefix != null && spriteSheet.equalsIgnoreCase(prefix)) {".
+
+The error is within "the method: createNewCreature(de.gurkenlabs.litiengine.environment.tilemap.IMapObject,java.lang.String)" and the code surrounding the error is:
+```java
 package de.gurkenlabs.litiengine.environment;
 
 import de.gurkenlabs.litiengine.Direction;
@@ -77,11 +96,55 @@ public class CreatureMapObjectLoader extends MapObjectLoader {
     return entities;
   }
 
+  protected Creature createNewCreature(IMapObject mapObject, @Nullable String spriteSheet) {
+    // for each known custom creature type, check if it was registered for the specified
+    // spriteSheetName
+    // if so: create an instance of the custom class instead of the default Creature class
+    for (Class<? extends Creature> customCreature : customCreatureType) {
+      for (String prefix : EntityAnimationController.getDefaultSpritePrefixes(customCreature)) {
+        if (prefix != null && spriteSheet.equalsIgnoreCase(prefix)) {
+          Creature created = createCustomCreature(customCreature, spriteSheet);
+          if (created != null) {
+            return created;
+          }
+        }
+      }
+    }
+
+    // if no custom creature type war registered for the spriteSheet, we just create a new Creature
+    // instance
+    return new Creature(spriteSheet);
+```
+
+Give me the fixed code snippet (ONLY THE METHOD REWRITE OF "createNewCreature(de.gurkenlabs.litiengine.environment.tilemap.IMapObject,java.lang.String)") in XML format in <response> tag like the example below. I will apply the fix to my codebase.
+Do not import any additional libraries or classes or java comments.
+If you can provide the fixed code snippet, provide it in the following format and place the code snippet in the <code> tag within ```java block.
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  Your fixed code snippet here
+  ```
+    ]]>
+  </code>
+</response>
+
+---ChatGPT.sendRequestToOpenAI---
+Sending request to OpenAI...
+---ChatGPT.sendRequestToOpenAI---
+Response received from OpenAI.
+---Response.<init>---
+Creating Response:
+```xml
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
   protected Creature createNewCreature(IMapObject mapObject, String spriteSheet) {
     if (spriteSheet == null) {
       throw new IllegalArgumentException("spriteSheet cannot be null");
     }
-
+    
     for (Class<? extends Creature> customCreature : customCreatureType) {
       for (String prefix : EntityAnimationController.getDefaultSpritePrefixes(customCreature)) {
         if (prefix != null && spriteSheet.equalsIgnoreCase(prefix)) {
@@ -95,35 +158,28 @@ public class CreatureMapObjectLoader extends MapObjectLoader {
 
     return new Creature(spriteSheet);
   }
-
-  @Nullable
-  private static Creature createCustomCreature(
-      Class<? extends Creature> customCreature, String spriteSheet) {
-    try {
-      return customCreature.getConstructor(String.class).newInstance(spriteSheet);
-    } catch (InstantiationException
-        | IllegalAccessException
-        | IllegalArgumentException
-        | InvocationTargetException
-        | NoSuchMethodException
-        | SecurityException e) {
-      try {
-        Creature creature = customCreature.getConstructor().newInstance();
-        creature.setSpritesheetName(spriteSheet);
-        return creature;
-      } catch (InstantiationException
-          | IllegalAccessException
-          | IllegalArgumentException
-          | InvocationTargetException
-          | NoSuchMethodException
-          | SecurityException ex) {
-        log.log(
-            Level.WARNING,
-            "Could not automatically create creature of type {0} because a matching constructor is missing.",
-            new Object[] {customCreature});
-        log.log(Level.SEVERE, ex.getMessage(), ex);
+  ```
+  ]]>
+  </code>
+</response>
+```
+---Response.<init>---
+Response created:
+protected Creature createNewCreature(IMapObject mapObject, String spriteSheet) {
+    if (spriteSheet == null) {
+      throw new IllegalArgumentException("spriteSheet cannot be null");
+    }
+    
+    for (Class<? extends Creature> customCreature : customCreatureType) {
+      for (String prefix : EntityAnimationController.getDefaultSpritePrefixes(customCreature)) {
+        if (prefix != null && spriteSheet.equalsIgnoreCase(prefix)) {
+          Creature created = createCustomCreature(customCreature, spriteSheet);
+          if (created != null) {
+            return created;
+          }
+        }
       }
     }
-    return null;
+
+    return new Creature(spriteSheet);
   }
-}
