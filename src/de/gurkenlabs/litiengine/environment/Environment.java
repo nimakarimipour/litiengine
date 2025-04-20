@@ -410,14 +410,7 @@ public final class Environment implements IRenderable {
    * @see RenderEngine#renderEntity(Graphics2D, IEntity)
    */
   public void add(IRenderable renderable, RenderType renderType) {
-    Collection<IRenderable> renderableCollection = this.renderables.get(renderType);
-    if (renderableCollection != null) {
-      renderableCollection.add(renderable);
-    } else {
-      renderableCollection = ConcurrentHashMap.newKeySet();
-      renderableCollection.add(renderable);
-      this.renderables.put(renderType, renderableCollection);
-    }
+    this.renderables.get(renderType).add(renderable);
   }
 
   /**
