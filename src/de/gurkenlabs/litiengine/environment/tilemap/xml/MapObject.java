@@ -207,10 +207,10 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
     return this.polyline;
   }
 
+  @Nullable
   @Override
-  @Nonnull
   public IPolyShape getPolygon() {
-    return this.polygon != null ? this.polygon : new PolyShape();
+    return this.polygon;
   }
 
   @Nullable
