@@ -454,9 +454,19 @@ public final class Environment implements IRenderable {
     this.allEntities.clear();
 
     for (RenderType renderType : RenderType.values()) {
-      this.miscEntities.get(renderType).clear();
-      this.renderListeners.get(renderType).clear();
-      this.renderables.get(renderType).clear();
+      Map<Integer, IEntity> miscEntityMap = this.miscEntities.get(renderType);
+      if (miscEntityMap != null) {
+        miscEntityMap.clear();
+      }
+      Collection<EnvironmentRenderedListener> renderListenerCollection =
+          this.renderListeners.get(renderType);
+      if (renderListenerCollection != null) {
+        renderListenerCollection.clear();
+      }
+      Collection<IRenderable> renderableCollection = this.renderables.get(renderType);
+      if (renderableCollection != null) {
+        renderableCollection.clear();
+      }
     }
 
     dispose(this.allEntities.values());
@@ -476,10 +486,6 @@ public final class Environment implements IRenderable {
 
     this.ambientLight = null;
     this.staticShadowLayer = null;
-
-    for (Map<Integer, IEntity> type : this.miscEntities.values()) {
-      type.clear();
-    }
 
     this.initialized = false;
 
