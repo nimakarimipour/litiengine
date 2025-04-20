@@ -1,3 +1,22 @@
+====================
+Type='RETURN_NULLABLE', message='returning @Nullable expression from method with @NonNull return type'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/resources/ResourcesContainer.java:190
+    return this.get(this.getIdentifier(resourceName), false);
+Log:
+---NullAway.lambda$resolveRemainingErrors$17---
+==============================
+---NullAway.lambda$resolveRemainingErrors$17---
+TOP LEVEL CALL TO FIX ERROR: Type='RETURN_NULLABLE', message='returning @Nullable expression from method with @NonNull return type'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/resources/ResourcesContainer.java:190
+    return this.get(this.getIdentifier(resourceName), false);
+---ChatGPT.ask---
+Asking ChatGPT:
+I want to resolve a warning reported by NullAway.
+The error is of the type of "RETURN_NULLABLE" and the full error message is: "returning @Nullable expression from method with @NonNull return type".
+The line with the error is: "    return this.get(this.getIdentifier(resourceName), false);".
+
+The error is within "the method: get(java.lang.String)" and the code surrounding the error is:
+```java
 package de.gurkenlabs.litiengine.resources;
 
 import de.gurkenlabs.litiengine.Game;
@@ -186,6 +205,34 @@ public abstract class ResourcesContainer<T> {
    * @param resourceName The resource's name.
    * @return The resource with the specified name or null if not found.
    */
+  public T get(@Nullable String resourceName) {
+    return this.get(this.getIdentifier(resourceName), false);
+```
+
+Give me the fixed code snippet (ONLY THE METHOD REWRITE OF "get(java.lang.String)") in XML format in <response> tag like the example below. I will apply the fix to my codebase.
+Do not import any additional libraries or classes or java comments.
+If you can provide the fixed code snippet, provide it in the following format and place the code snippet in the <code> tag within ```java block.
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  Your fixed code snippet here
+  ```
+    ]]>
+  </code>
+</response>
+
+---ChatGPT.sendRequestToOpenAI---
+Sending request to OpenAI...
+---ChatGPT.sendRequestToOpenAI---
+Response received from OpenAI.
+---Response.<init>---
+Creating Response:
+```xml
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
   public T get(String resourceName) {
     T resource = this.get(this.getIdentifier(resourceName), false);
     if (resource == null) {
@@ -193,203 +240,17 @@ public abstract class ResourcesContainer<T> {
     }
     return resource;
   }
-
-  @Nullable
-  public T get(URL resourceName) {
-    return this.get(resourceName, false);
-  }
-
-  /**
-   * Gets the resource with the specified name.<br>
-   *
-   * <p>If no such resource is currently present on the container, it will be loaded with the
-   * specified {@code loadCallback} and added to this container.
-   *
-   * @param resourceName The resource's name.
-   * @param loadCallback The callback that is used to load the resource on-demand if it's not
-   *     present on this container.
-   * @return T The resource with the specified name.
-   */
-  public T get(String resourceName, Supplier<? extends T> loadCallback) {
-    Optional<T> opt = this.tryGet(resourceName);
-    if (opt.isPresent()) {
-      return opt.get();
+  ```
+    ]]>
+  </code>
+</response>
+```
+---Response.<init>---
+Response created:
+public T get(String resourceName) {
+    T resource = this.get(this.getIdentifier(resourceName), false);
+    if (resource == null) {
+      throw new NullPointerException("Resource not found: " + resourceName);
     }
-
-    T resource = loadCallback.get();
-    if (resource != null) {
-      this.add(resourceName, resource);
-    }
-
     return resource;
   }
-
-  public T get(URL resourceName, Supplier<? extends T> loadCallback) {
-    return this.get(resourceName.toString(), loadCallback);
-  }
-
-  /**
-   * Gets the resource with the specified name.
-   *
-   * <p>If not previously loaded, this method attempts to load the resource on the fly otherwise it
-   * will be retrieved from the cache.
-   *
-   * @param resourceName The name of the game resource.
-   * @param forceLoad If set to true, cached resource (if existing) will be discarded and the
-   *     resource will be freshly loaded.
-   * @return The game resource or null if not found.
-   */
-  @Nullable
-  public T get(@Nullable String resourceName, boolean forceLoad) {
-    if (resourceName == null) {
-      return null;
-    }
-
-    if (forceLoad) {
-      T resource = this.loadResource(resourceName);
-      if (resource == null) {
-        return null;
-      }
-
-      this.resources.put(resourceName, resource);
-
-      return resource;
-    } else {
-      return this.resources.computeIfAbsent(resourceName, this::loadResource);
-    }
-  }
-
-  @Nullable
-  public T get(URL resourceName, boolean forceLoad) {
-    return this.get(resourceName.toString(), forceLoad);
-  }
-
-  /**
-   * Eventually gets the resource with the specified location. The resource is loaded asynchronously
-   * and can be retrieved from the returned {@code Future} object returned by this method once
-   * loaded.
-   *
-   * @param location The location of the resource
-   * @return A {@code Future} object that can be used to retrieve the resource once it is finished
-   *     loading
-   */
-  public Future<T> getAsync(URL location) {
-    return ASYNC_POOL.submit(() -> this.get(location));
-  }
-
-  /**
-   * Eventually gets the resource with the specified location. The resource is loaded asynchronously
-   * and can be retrieved from the returned {@code Future} object returned by this method once
-   * loaded.
-   *
-   * @param name The name or location of the resource
-   * @return A {@code Future} object that can be used to retrieve the resource once it is finished
-   *     loading
-   */
-  public Future<T> getAsync(@Nullable String name) {
-    return this.getAsync(this.getIdentifier(name));
-  }
-
-  /**
-   * Gets all loaded resources from this container.
-   *
-   * @return All loaded resources.
-   */
-  public Collection<T> getAll() {
-    return this.resources.values();
-  }
-
-  /**
-   * Removes the resource with the specified name from this container.
-   *
-   * @param resourceName The name of the resource that should be removed.
-   * @return The removed resource.
-   */
-  public T remove(String resourceName) {
-    T removedResource = this.resources.remove(resourceName);
-
-    if (removedResource != null) {
-      for (ResourcesContainerListener<? super T> listener : this.listeners) {
-        listener.removed(resourceName, removedResource);
-      }
-    }
-
-    return removedResource;
-  }
-
-  public T remove(URL resourceName) {
-    return this.remove(resourceName.toString());
-  }
-
-  /**
-   * Tries to get a resource with the specified name from this container.
-   *
-   * <p>This method should be used, if it's not clear whether the resource is present on this
-   * container.<br>
-   * It is basically a combination of {@code get(String)} and {@code contains(String)} and allows to
-   * check whether a resource is present while also fetching it from the container.
-   *
-   * @param resourceName The name of the resource.
-   * @return An Optional instance that holds the resource instance, if present on this container.
-   * @see Optional
-   * @see #contains(String)
-   * @see #get(String)
-   */
-  public Optional<T> tryGet(@Nullable String resourceName) {
-    if (this.contains(resourceName)) {
-      return Optional.of(this.get(resourceName));
-    }
-
-    return Optional.empty();
-  }
-
-  public Optional<T> tryGet(URL resourceName) {
-    return this.tryGet(resourceName);
-  }
-
-  @Nullable
-  protected abstract T load(@Nullable URL resourceName) throws Exception;
-
-  /**
-   * Gets an alias for the specified resourceName. Note that the process of providing an alias is up
-   * to the ResourceContainer implementation.
-   *
-   * @param resourceName The original name of the resource.
-   * @param resource The resource.
-   * @return An alias for the specified resource.
-   */
-  @Nullable
-  protected String getAlias(String resourceName, @Nullable T resource) {
-    return null;
-  }
-
-  protected Map<String, T> getResources() {
-    return this.resources;
-  }
-
-  @Nullable
-  private T loadResource(String identifier) {
-    T newResource;
-    try {
-      newResource = this.load(Resources.getLocation(identifier));
-    } catch (Exception e) {
-      throw new ResourceLoadException(e);
-    }
-
-    for (ResourcesContainerListener<? super T> listener : this.listeners) {
-      listener.added(identifier, newResource);
-    }
-
-    String alias = this.getAlias(identifier, newResource);
-    if (alias != null) {
-      this.aliases.put(alias, identifier);
-    }
-
-    return newResource;
-  }
-
-  @Nullable
-  private String getIdentifier(@Nullable String resourceName) {
-    return this.aliases.getOrDefault(resourceName, resourceName);
-  }
-}
