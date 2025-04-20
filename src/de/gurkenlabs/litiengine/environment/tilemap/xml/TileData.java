@@ -145,42 +145,13 @@ public class TileData {
   }
 
   @Initializer
-  public void setValue(String value) {
+  public void setValue(@Nullable String value) {
     this.value = value;
     if (this.rawValue == null) {
       this.rawValue = new CopyOnWriteArrayList<>();
     }
+
     this.rawValue.add(0, value);
-
-    if (encoding != null && encoding.equals(Encoding.BASE64)) {
-      try {
-        byte[] decodedBytes = DatatypeConverter.parseBase64Binary(value);
-        InputStream inputStream = new ByteArrayInputStream(decodedBytes);
-        InputStream decompressedStream = inputStream;
-
-        if (compression != null) {
-          if (compression.equals(Compression.GZIP)) {
-            decompressedStream = new GZIPInputStream(inputStream);
-          } else if (compression.equals(Compression.ZLIB)) {
-            decompressedStream = new InflaterInputStream(inputStream);
-          }
-        }
-
-        byte[] tileBytes = new byte[decompressedStream.available()];
-        decompressedStream.read(tileBytes);
-        decompressedStream.close();
-
-        this.chunks = new ArrayList<>();
-        // Process tileBytes to initialize chunks appropriately
-        // Assuming processing logic here...
-
-        return; // Ensure method exits normally
-      } catch (IOException e) {
-        log.log(Level.SEVERE, "Failed to decode and decompress tile data", e);
-      }
-    }
-
-    this.chunks = Collections.emptyList(); // Ensure chunks is initialized
   }
 
   public List<Tile> getTiles() {
