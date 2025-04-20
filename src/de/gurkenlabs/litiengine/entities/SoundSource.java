@@ -40,11 +40,7 @@ public class SoundSource extends Entity {
    * @param sound The sound used for playback
    */
   public SoundSource(Sound sound) {
-    if (sound == null) {
-      throw new IllegalArgumentException("Sound cannot be null");
-    }
     this.setSound(sound);
-    this.playback = null; // assuming playback is meant to be initialized later
   }
 
   /**
