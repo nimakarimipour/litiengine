@@ -101,9 +101,6 @@ public abstract class Particle implements ITimeToLive {
   }
 
   public Color getColor() {
-    if (this.color == null) {
-      return Color.BLACK; // default value or handle as needed
-    }
     return this.color;
   }
 
