@@ -1,0 +1,17 @@
+====================
+Type='DEREFERENCE_NULLABLE', message='dereferenced expression f is @Nullable'
+/tmp/junit12765068223777964434/nullable-multi-modular/Target/src/main/java/test/Foo.java:5
+      return f.hashCode();
+Log:
+---NullAway.lambda$resolveRemainingErrors$17---
+==============================
+---NullAway.lambda$resolveRemainingErrors$17---
+TOP LEVEL CALL TO FIX ERROR: Type='DEREFERENCE_NULLABLE', message='dereferenced expression f is @Nullable'
+/tmp/junit12765068223777964434/nullable-multi-modular/Target/src/main/java/test/Foo.java:5
+      return f.hashCode();
+---AdvancedNullAwayCodeFix.fix---
+Fixing error: Type='DEREFERENCE_NULLABLE', message='dereferenced expression f is @Nullable'
+/tmp/junit12765068223777964434/nullable-multi-modular/Target/src/main/java/test/Foo.java:5
+      return f.hashCode();
+---AdvancedNullAwayCodeFix.resolveDereferenceError---
+Fixing dereference error in hashCode method.
