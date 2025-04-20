@@ -156,11 +156,6 @@ public class SpeechBubble implements IUpdateable, IRenderable {
       return;
     }
 
-    if (entityCenter == null) {
-      // If entityCenter is null, compute it, or handle the null case appropriately
-      entityCenter = new Point2D.Double(entity.getCenter().getX(), entity.getCenter().getY());
-    }
-
     final float deltaX = (float) (this.textBoxWidth / 2.0 + this.getAppearance().getPadding());
     final float deltaY =
         (float)
