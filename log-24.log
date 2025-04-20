@@ -1,30 +1,22 @@
-package de.gurkenlabs.litiengine.graphics.emitters;
+====================
+Type='DEREFERENCE_NULLABLE', message='dereferenced expression this.data().getTexts() is @Nullable'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/graphics/emitters/Emitter.java:374
+        if (this.data().getTexts().isEmpty()) {
+Log:
+---NullAway.lambda$resolveRemainingErrors$17---
+==============================
+---NullAway.lambda$resolveRemainingErrors$17---
+TOP LEVEL CALL TO FIX ERROR: Type='DEREFERENCE_NULLABLE', message='dereferenced expression this.data().getTexts() is @Nullable'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/graphics/emitters/Emitter.java:374
+        if (this.data().getTexts().isEmpty()) {
+---ChatGPT.ask---
+Asking ChatGPT:
+I want to resolve a warning reported by NullAway.
+The error is of the type of "DEREFERENCE_NULLABLE" and the full error message is: "dereferenced expression this.data().getTexts() is @Nullable".
+The line with the error is: "        if (this.data().getTexts().isEmpty()) {".
 
-import de.gurkenlabs.litiengine.Game;
-import de.gurkenlabs.litiengine.ITimeToLive;
-import de.gurkenlabs.litiengine.IUpdateable;
-import de.gurkenlabs.litiengine.entities.CollisionInfo;
-import de.gurkenlabs.litiengine.entities.EmitterInfo;
-import de.gurkenlabs.litiengine.entities.Entity;
-import de.gurkenlabs.litiengine.environment.tilemap.MapObjectType;
-import de.gurkenlabs.litiengine.environment.tilemap.TmxType;
-import de.gurkenlabs.litiengine.graphics.IRenderable;
-import de.gurkenlabs.litiengine.graphics.RenderType;
-import de.gurkenlabs.litiengine.graphics.Spritesheet;
-import de.gurkenlabs.litiengine.graphics.emitters.particles.EllipseParticle;
-import de.gurkenlabs.litiengine.graphics.emitters.particles.LineParticle;
-import de.gurkenlabs.litiengine.graphics.emitters.particles.Particle;
-import de.gurkenlabs.litiengine.graphics.emitters.particles.PolygonParticle;
-import de.gurkenlabs.litiengine.graphics.emitters.particles.RectangleParticle;
-import de.gurkenlabs.litiengine.graphics.emitters.particles.SpriteParticle;
-import de.gurkenlabs.litiengine.graphics.emitters.particles.TextParticle;
-import de.gurkenlabs.litiengine.graphics.emitters.xml.EmitterData;
-import de.gurkenlabs.litiengine.graphics.emitters.xml.EmitterLoader;
-import de.gurkenlabs.litiengine.graphics.emitters.xml.ParticleParameter;
-import de.gurkenlabs.litiengine.resources.Resources;
-import java.awt.Graphics2D;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
+The error is within "the method: createNewParticle()" and the code surrounding the error is:
+```java
 import java.util.Collection;
 import java.util.EventListener;
 import java.util.List;
@@ -346,108 +338,174 @@ public class Emitter extends Entity implements IUpdateable, ITimeToLive, IRender
    *
    * @return the particle
    */
+  @Nullable
   protected Particle createNewParticle() {
-  
-      float width = (float) this.data().getParticleWidth().get();
-      float height = (float) this.data().getParticleHeight().get();
-  
-      Particle particle;
-      switch (this.data().getParticleType()) {
-        case ELLIPSE:
-          particle = new EllipseParticle(width, height);
-          break;
-        case RECTANGLE:
-          particle = new RectangleParticle(width, height);
-          break;
-        case TRIANGLE:
-          particle = new PolygonParticle(width, height, 3);
-          break;
-        case DIAMOND:
-          particle = new PolygonParticle(width, height, 4);
-          break;
-        case LINE:
-          particle = new LineParticle(width, height);
-          break;
-        case TEXT:
-          String text;
-          List<String> texts = this.data().getTexts();
-          if (texts != null && !texts.isEmpty()) {
-            text = Game.random().choose(texts);
-          } else {
-            text = EmitterData.DEFAULT_TEXT;
-          }
-          particle = new TextParticle(text);
-          break;
-        case SPRITE:
-          Spritesheet sprite = Resources.spritesheets().get(this.data().getSpritesheet());
-          if (sprite == null || sprite.getTotalNumberOfSprites() <= 0) {
-            return null;
-          }
-          particle = new SpriteParticle(sprite);
-          ((SpriteParticle) particle).setAnimateSprite(this.data().isAnimatingSprite());
-          ((SpriteParticle) particle).setLoopSprite(this.data().isLoopingSprite());
-          break;
-        default:
-          particle = new RectangleParticle(width, height);
-          break;
-      }
-      return particle.init(this.data());
 
-  /**
-   * Particle can be removed.
-   *
-   * @param particle the particle
-   * @return true, if successful
-   */
-  protected boolean particleCanBeRemoved(final Particle particle) {
-    return particle.timeToLiveReached();
-  }
+    float width = (float) this.data().getParticleWidth().get();
+    float height = (float) this.data().getParticleHeight().get();
 
-  /**
-   * Render particles of this effect. The particles are always rendered relatively to this effects
-   * render location. A particle doesn't have an own map location. It is always relative to the
-   * effect it is assigned to.
-   *
-   * @param g the g
-   * @param p the p
-   */
-  /** Spawn particle. */
-  protected void spawnParticle() {
-    for (short i = 0; i < this.data().getSpawnAmount(); i++) {
-      if (!this.canTakeNewParticles()) {
-        return;
-      }
-
-      Particle part = this.createNewParticle();
-      if (part != null) {
-        this.addParticle(part);
-      }
+    Particle particle;
+    switch (this.data().getParticleType()) {
+      case ELLIPSE:
+        particle = new EllipseParticle(width, height);
+        break;
+      case RECTANGLE:
+        particle = new RectangleParticle(width, height);
+        break;
+      case TRIANGLE:
+        particle = new PolygonParticle(width, height, 3);
+        break;
+      case DIAMOND:
+        particle = new PolygonParticle(width, height, 4);
+        break;
+      case LINE:
+        particle = new LineParticle(width, height);
+        break;
+      case TEXT:
+        String text;
+        if (this.data().getTexts().isEmpty()) {
+          text = EmitterData.DEFAULT_TEXT;
+        } else {
+          text = Game.random().choose(this.data().getTexts());
+        }
+        particle = new TextParticle(text);
+        break;
+      case SPRITE:
+        Spritesheet sprite = Resources.spritesheets().get(this.data().getSpritesheet());
+        if (sprite == null || sprite.getTotalNumberOfSprites() <= 0) {
+          return null;
+        }
+        particle = new SpriteParticle(sprite);
+        ((SpriteParticle) particle).setAnimateSprite(this.data().isAnimatingSprite());
+        ((SpriteParticle) particle).setLoopSprite(this.data().isLoopingSprite());
+        break;
+      default:
+        particle = new RectangleParticle(width, height);
+        break;
     }
-  }
+    return particle.init(this.data());
+```
 
-  private void renderParticles(final Graphics2D g, final RenderType renderType) {
-    if (Game.config().graphics().getGraphicQuality().getValue()
-        < this.data().getRequiredQuality().getValue()) {
-      return;
+Give me the fixed code snippet (ONLY THE METHOD REWRITE OF "createNewParticle()") in XML format in <response> tag like the example below. I will apply the fix to my codebase.
+Do not import any additional libraries or classes or java comments.
+If you can provide the fixed code snippet, provide it in the following format and place the code snippet in the <code> tag within ```java block.
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  Your fixed code snippet here
+  ```
+    ]]>
+  </code>
+</response>
+
+---ChatGPT.sendRequestToOpenAI---
+Sending request to OpenAI...
+---ChatGPT.sendRequestToOpenAI---
+Response received from OpenAI.
+---Response.<init>---
+Creating Response:
+```xml
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  protected Particle createNewParticle() {
+
+    float width = (float) this.data().getParticleWidth().get();
+    float height = (float) this.data().getParticleHeight().get();
+
+    Particle particle;
+    switch (this.data().getParticleType()) {
+      case ELLIPSE:
+        particle = new EllipseParticle(width, height);
+        break;
+      case RECTANGLE:
+        particle = new RectangleParticle(width, height);
+        break;
+      case TRIANGLE:
+        particle = new PolygonParticle(width, height, 3);
+        break;
+      case DIAMOND:
+        particle = new PolygonParticle(width, height, 4);
+        break;
+      case LINE:
+        particle = new LineParticle(width, height);
+        break;
+      case TEXT:
+        String text;
+        List<String> texts = this.data().getTexts();
+        if (texts != null && !texts.isEmpty()) {
+          text = Game.random().choose(texts);
+        } else {
+          text = EmitterData.DEFAULT_TEXT;
+        }
+        particle = new TextParticle(text);
+        break;
+      case SPRITE:
+        Spritesheet sprite = Resources.spritesheets().get(this.data().getSpritesheet());
+        if (sprite == null || sprite.getTotalNumberOfSprites() <= 0) {
+          return null;
+        }
+        particle = new SpriteParticle(sprite);
+        ((SpriteParticle) particle).setAnimateSprite(this.data().isAnimatingSprite());
+        ((SpriteParticle) particle).setLoopSprite(this.data().isLoopingSprite());
+        break;
+      default:
+        particle = new RectangleParticle(width, height);
+        break;
     }
+    return particle.init(this.data());
+  ```
+    ]]>
+  </code>
+</response>
+```
+---Response.<init>---
+Response created:
+protected Particle createNewParticle() {
 
-    final Point2D origin = this.getOrigin();
-    final Rectangle2D viewport =
-        Game.screens() != null && Game.world().camera() != null
-            ? Game.world().camera().getViewport()
-            : null;
-    for (Particle particle : this.particles) {
-      if (((!particle.usesCustomRenderType() && renderType == RenderType.NONE)
-              || (particle.usesCustomRenderType() && particle.getCustomRenderType() == renderType))
-          && viewport != null
-          && viewport.intersects(particle.getBoundingBox(origin))) {
-        particle.render(g, origin);
-      }
+    float width = (float) this.data().getParticleWidth().get();
+    float height = (float) this.data().getParticleHeight().get();
+
+    Particle particle;
+    switch (this.data().getParticleType()) {
+      case ELLIPSE:
+        particle = new EllipseParticle(width, height);
+        break;
+      case RECTANGLE:
+        particle = new RectangleParticle(width, height);
+        break;
+      case TRIANGLE:
+        particle = new PolygonParticle(width, height, 3);
+        break;
+      case DIAMOND:
+        particle = new PolygonParticle(width, height, 4);
+        break;
+      case LINE:
+        particle = new LineParticle(width, height);
+        break;
+      case TEXT:
+        String text;
+        List<String> texts = this.data().getTexts();
+        if (texts != null && !texts.isEmpty()) {
+          text = Game.random().choose(texts);
+        } else {
+          text = EmitterData.DEFAULT_TEXT;
+        }
+        particle = new TextParticle(text);
+        break;
+      case SPRITE:
+        Spritesheet sprite = Resources.spritesheets().get(this.data().getSpritesheet());
+        if (sprite == null || sprite.getTotalNumberOfSprites() <= 0) {
+          return null;
+        }
+        particle = new SpriteParticle(sprite);
+        ((SpriteParticle) particle).setAnimateSprite(this.data().isAnimatingSprite());
+        ((SpriteParticle) particle).setLoopSprite(this.data().isLoopingSprite());
+        break;
+      default:
+        particle = new RectangleParticle(width, height);
+        break;
     }
-  }
-
-  @Override
-  public int getTimeToLive() {
-    return this.data().getEmitterDuration();
-  }
-}
+    return particle.init(this.data());
