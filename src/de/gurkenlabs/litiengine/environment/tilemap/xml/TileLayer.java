@@ -109,9 +109,6 @@ public class TileLayer extends Layer implements ITileLayer {
   }
 
   protected List<Tile> getData() {
-    if (this.data == null) {
-      return new CopyOnWriteArrayList<>();
-    }
     return this.data.getTiles();
   }
 
