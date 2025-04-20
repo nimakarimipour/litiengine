@@ -346,52 +346,53 @@ public class Emitter extends Entity implements IUpdateable, ITimeToLive, IRender
    *
    * @return the particle
    */
+  @Nullable
   protected Particle createNewParticle() {
-  
-      float width = (float) this.data().getParticleWidth().get();
-      float height = (float) this.data().getParticleHeight().get();
-  
-      Particle particle;
-      switch (this.data().getParticleType()) {
-        case ELLIPSE:
-          particle = new EllipseParticle(width, height);
-          break;
-        case RECTANGLE:
-          particle = new RectangleParticle(width, height);
-          break;
-        case TRIANGLE:
-          particle = new PolygonParticle(width, height, 3);
-          break;
-        case DIAMOND:
-          particle = new PolygonParticle(width, height, 4);
-          break;
-        case LINE:
-          particle = new LineParticle(width, height);
-          break;
-        case TEXT:
-          String text;
-          List<String> texts = this.data().getTexts();
-          if (texts != null && !texts.isEmpty()) {
-            text = Game.random().choose(texts);
-          } else {
-            text = EmitterData.DEFAULT_TEXT;
-          }
-          particle = new TextParticle(text);
-          break;
-        case SPRITE:
-          Spritesheet sprite = Resources.spritesheets().get(this.data().getSpritesheet());
-          if (sprite == null || sprite.getTotalNumberOfSprites() <= 0) {
-            return null;
-          }
-          particle = new SpriteParticle(sprite);
-          ((SpriteParticle) particle).setAnimateSprite(this.data().isAnimatingSprite());
-          ((SpriteParticle) particle).setLoopSprite(this.data().isLoopingSprite());
-          break;
-        default:
-          particle = new RectangleParticle(width, height);
-          break;
-      }
-      return particle.init(this.data());
+
+    float width = (float) this.data().getParticleWidth().get();
+    float height = (float) this.data().getParticleHeight().get();
+
+    Particle particle;
+    switch (this.data().getParticleType()) {
+      case ELLIPSE:
+        particle = new EllipseParticle(width, height);
+        break;
+      case RECTANGLE:
+        particle = new RectangleParticle(width, height);
+        break;
+      case TRIANGLE:
+        particle = new PolygonParticle(width, height, 3);
+        break;
+      case DIAMOND:
+        particle = new PolygonParticle(width, height, 4);
+        break;
+      case LINE:
+        particle = new LineParticle(width, height);
+        break;
+      case TEXT:
+        String text;
+        if (this.data().getTexts().isEmpty()) {
+          text = EmitterData.DEFAULT_TEXT;
+        } else {
+          text = Game.random().choose(this.data().getTexts());
+        }
+        particle = new TextParticle(text);
+        break;
+      case SPRITE:
+        Spritesheet sprite = Resources.spritesheets().get(this.data().getSpritesheet());
+        if (sprite == null || sprite.getTotalNumberOfSprites() <= 0) {
+          return null;
+        }
+        particle = new SpriteParticle(sprite);
+        ((SpriteParticle) particle).setAnimateSprite(this.data().isAnimatingSprite());
+        ((SpriteParticle) particle).setLoopSprite(this.data().isLoopingSprite());
+        break;
+      default:
+        particle = new RectangleParticle(width, height);
+        break;
+    }
+    return particle.init(this.data());
+  }
 
   /**
    * Particle can be removed.
