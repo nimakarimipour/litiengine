@@ -1,9 +1,22 @@
-package de.gurkenlabs.litiengine.graphics.animation;
+====================
+Type='DEREFERENCE_NULLABLE', message='dereferenced expression this.getCurrentKeyFrame() is @Nullable'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/graphics/animation/Animation.java:318
+        || Game.time().since(this.lastFrameUpdate) < this.getCurrentKeyFrame().getDuration()) {
+Log:
+---NullAway.lambda$resolveRemainingErrors$17---
+==============================
+---NullAway.lambda$resolveRemainingErrors$17---
+TOP LEVEL CALL TO FIX ERROR: Type='DEREFERENCE_NULLABLE', message='dereferenced expression this.getCurrentKeyFrame() is @Nullable'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/graphics/animation/Animation.java:318
+        || Game.time().since(this.lastFrameUpdate) < this.getCurrentKeyFrame().getDuration()) {
+---ChatGPT.ask---
+Asking ChatGPT:
+I want to resolve a warning reported by NullAway.
+The error is of the type of "DEREFERENCE_NULLABLE" and the full error message is: "dereferenced expression this.getCurrentKeyFrame() is @Nullable".
+The line with the error is: "        || Game.time().since(this.lastFrameUpdate) < this.getCurrentKeyFrame().getDuration()) {".
 
-import de.gurkenlabs.litiengine.Game;
-import de.gurkenlabs.litiengine.ILaunchable;
-import de.gurkenlabs.litiengine.IUpdateable;
-import de.gurkenlabs.litiengine.graphics.Spritesheet;
+The error is within "the method: update()" and the code surrounding the error is:
+```java
 import de.gurkenlabs.litiengine.resources.Resources;
 import java.util.ArrayList;
 import java.util.List;
@@ -313,13 +326,63 @@ public class Animation implements IUpdateable, ILaunchable {
 
   @Override
   public void update() {
-    if (!this.isPlaying()) {
+    // do nothing if the animation is not playing or the current keyframe is not finished
+    if (!this.isPlaying()
+        || Game.time().since(this.lastFrameUpdate) < this.getCurrentKeyFrame().getDuration()) {
       return;
     }
 
+    // if we are not looping and the last keyframe is finished, we terminate the animation
+    if (!this.isLooping() && this.isLastKeyFrame()) {
+      this.terminate();
+      return;
+    }
+
+    // make sure, we stay inside the keyframe list
+    final int newFrameIndex =
+        (this.getKeyframes().indexOf(this.currentFrame) + 1) % this.getKeyframes().size();
+    final KeyFrame previousFrame = this.currentFrame;
+    this.currentFrame = this.getKeyframes().get(newFrameIndex);
+
+    for (KeyFrameListener listener : this.listeners) {
+      listener.currentFrameChanged(previousFrame, this.currentFrame);
+    }
+
+    this.lastFrameUpdate = Game.loop().getTicks();
+```
+
+Give me the fixed code snippet (ONLY THE METHOD REWRITE OF "update()") in XML format in <response> tag like the example below. I will apply the fix to my codebase.
+Do not import any additional libraries or classes or java comments.
+If you can provide the fixed code snippet, provide it in the following format and place the code snippet in the <code> tag within ```java block.
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  Your fixed code snippet here
+  ```
+    ]]>
+  </code>
+</response>
+
+---ChatGPT.sendRequestToOpenAI---
+Sending request to OpenAI...
+---ChatGPT.sendRequestToOpenAI---
+Response received from OpenAI.
+---Response.<init>---
+Creating Response:
+```xml
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  @Override
+  public void update() {
+    if (!this.isPlaying()) {
+      return;
+    }
+    
     KeyFrame currentKeyFrame = this.getCurrentKeyFrame();
-    if (currentKeyFrame == null
-        || Game.time().since(this.lastFrameUpdate) < currentKeyFrame.getDuration()) {
+    if (currentKeyFrame == null || Game.time().since(this.lastFrameUpdate) < currentKeyFrame.getDuration()) {
       return;
     }
 
@@ -339,57 +402,37 @@ public class Animation implements IUpdateable, ILaunchable {
 
     this.lastFrameUpdate = Game.loop().getTicks();
   }
-
-  @Nullable
-  KeyFrame getCurrentKeyFrame() {
-    return this.currentFrame;
-  }
-
-  List<KeyFrame> getKeyframes() {
-    return this.keyframes;
-  }
-
-  /**
-   * Initializes the animation key frames by the specified durations.
-   *
-   * <p>The amount of keyframes is defined by the available sprites of the assigned {@code
-   * Spritesheet}. For each sprite, a new keyframe will be initialized.
-   *
-   * <p>If no custom durations are specified, the {@link #DEFAULT_FRAME_DURATION} will be used for
-   * each frame.
-   *
-   * @param durations The custom durations for each keyframe.
-   */
-  private void initKeyFrames(final int... durations) {
-    if (this.getSpritesheet() == null) {
+  ```
+  ]]>
+  </code>
+</response>
+```
+---Response.<init>---
+Response created:
+@Override
+  public void update() {
+    if (!this.isPlaying()) {
+      return;
+    }
+    
+    KeyFrame currentKeyFrame = this.getCurrentKeyFrame();
+    if (currentKeyFrame == null || Game.time().since(this.lastFrameUpdate) < currentKeyFrame.getDuration()) {
       return;
     }
 
-    this.keyframes.clear();
-    int[] keyFrameDurations = durations;
-    if (keyFrameDurations.length == 0) {
-      // fallback to use custom keyframe durations if no specific durations are defined
-      keyFrameDurations = Resources.spritesheets().getCustomKeyFrameDurations(name);
+    if (!this.isLooping() && this.isLastKeyFrame()) {
+      this.terminate();
+      return;
     }
 
-    // if no keyframes are specified, the animation takes in the whole
-    // spritesheet as animation and uses the DEFAULT_FRAME_DURATION for each keyframe
-    if (keyFrameDurations.length == 0) {
-      for (int i = 0; i < this.getSpritesheet().getTotalNumberOfSprites(); i++) {
-        this.keyframes.add(i, new KeyFrame(this.frameDuration, i));
-      }
-    } else {
-      for (int i = 0; i < keyFrameDurations.length; i++) {
-        this.keyframes.add(i, new KeyFrame(keyFrameDurations[i], i));
-      }
+    final int newFrameIndex =
+        (this.getKeyframes().indexOf(this.currentFrame) + 1) % this.getKeyframes().size();
+    final KeyFrame previousFrame = this.currentFrame;
+    this.currentFrame = this.getKeyframes().get(newFrameIndex);
+
+    for (KeyFrameListener listener : this.listeners) {
+      listener.currentFrameChanged(previousFrame, this.currentFrame);
     }
 
-    if (!this.keyframes.isEmpty()) {
-      this.firstFrame = this.getKeyframes().get(0);
-    }
+    this.lastFrameUpdate = Game.loop().getTicks();
   }
-
-  private boolean isLastKeyFrame() {
-    return this.getKeyframes().indexOf(this.currentFrame) == this.getKeyframes().size() - 1;
-  }
-}
