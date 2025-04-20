@@ -195,10 +195,8 @@ public abstract class EntitySpawner<T extends IEntity> implements IEntitySpawner
     }
   }
 
-  private void spawn(final @Nullable Spawnpoint spawnpoint, final int amount) {
-    if (spawnpoint == null
-        || spawnpoint.getEnvironment() == null
-        || !spawnpoint.getEnvironment().isLoaded()) {
+  private void spawn(@Nullable final Spawnpoint spawnpoint, final int amount) {
+    if (spawnpoint.getEnvironment() == null || !spawnpoint.getEnvironment().isLoaded()) {
       return;
     }
     for (int i = 0; i < amount; i++) {
