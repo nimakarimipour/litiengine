@@ -22,7 +22,7 @@ public class SpriteParticle extends Particle {
     super(0, 0);
     this.spritesheet = spritesheet;
     if (spritesheet == null) {
-      throw new IllegalArgumentException("Spritesheet cannot be null");
+      return;
     }
     this.setWidth(spritesheet.getSpriteWidth());
     this.setHeight(spritesheet.getSpriteHeight());
