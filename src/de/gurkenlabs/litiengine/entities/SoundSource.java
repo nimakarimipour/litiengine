@@ -32,11 +32,6 @@ public class SoundSource extends Entity {
   /** An empty constructor that just calls the super constructor of {@link Entity}. */
   public SoundSource() {
     super();
-    this.volume = 1.0f; // Default volume or other valid initialization
-    this.range = 0; // Default range or other valid initialization
-    this.loop = false; // Default loop or other valid initialization
-    this.sound = new Sound(); // Initialize with a default or valid Sound object
-    this.playback = new SFXPlayback(); // Initialize with a default SFXPlayback
   }
 
   /**
