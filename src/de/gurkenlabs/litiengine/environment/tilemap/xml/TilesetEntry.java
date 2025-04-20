@@ -73,13 +73,16 @@ public class TilesetEntry extends CustomPropertyProvider implements ITilesetEntr
     return this.animation;
   }
 
-  @Nullable
   @Override
   public BufferedImage getImage() {
     if (this.animation == null) {
       return this.getBasicImage();
     }
-    return this.tileset.getTile(this.animation.getCurrentFrame().getTileId()).getBasicImage();
+    ITilesetEntry tileEntry = this.tileset.getTile(this.animation.getCurrentFrame().getTileId());
+    if (tileEntry == null) {
+      return null;
+    }
+    return tileEntry.getBasicImage();
   }
 
   @Nullable
