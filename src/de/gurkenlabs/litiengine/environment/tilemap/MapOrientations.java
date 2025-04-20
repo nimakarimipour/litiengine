@@ -98,11 +98,9 @@ public class MapOrientations {
       return this.getShape(x, y, map).getBounds2D();
     }
 
-    @Nullable
     @Override
-    public Rectangle2D getBounds(Point tile, IMap map) {
-      return tile == null ? null : this.getBounds(tile.x, tile.y, map);
-    }
+        public Rectangle2D getBounds(Point tile, IMap map) {
+          return tile == null ? new Rectangle2D.Double() : this.getBounds(tile.x, tile.y, map);
 
     @Override
     public Shape getEnclosingTileShape(double x, double y, IMap map) {
