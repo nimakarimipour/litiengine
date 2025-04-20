@@ -886,7 +886,7 @@ public final class PhysicsEngine implements IUpdateable {
   }
 
   private static void fireCollisionEvents(
-      ICollisionEntity collider, Intersection... intersections) {
+      ICollisionEntity collider, @Nullable Intersection... intersections) {
     // aggregate the involved entities of all intersections
     ICollisionEntity[] involvedEntities = null;
     for (Intersection inter : intersections) {
@@ -900,11 +900,6 @@ public final class PhysicsEngine implements IUpdateable {
       }
 
       involvedEntities = ArrayUtilities.distinct(involvedEntities, inter.involvedEntities);
-    }
-
-    // guard clause for null involvedEntities
-    if (involvedEntities == null) {
-      return;
     }
 
     // 1. fire collision event on the collider with all the involved entities
