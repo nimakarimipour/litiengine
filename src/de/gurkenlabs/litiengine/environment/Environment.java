@@ -2128,6 +2128,7 @@ public final class Environment implements IRenderable {
       }
 
       this.render(g, RenderType.BACKGROUND);
+
       this.render(g, RenderType.GROUND);
       DebugRenderer.renderMapDebugInfo(g, this.getMap());
 
@@ -2145,8 +2146,8 @@ public final class Environment implements IRenderable {
       final double ambientTime = TimeUtilities.nanoToMs(System.nanoTime() - ambientStart);
 
       long shadowRenderStart = System.nanoTime();
-      if (this.getStaticShadows().stream().anyMatch(x -> x.getShadowType() != StaticShadowType.NONE)
-          && this.getStaticShadowLayer() != null) {
+      if (this.getStaticShadows().stream()
+          .anyMatch(x -> x.getShadowType() != StaticShadowType.NONE)) {
         this.getStaticShadowLayer().render(g);
       }
 
@@ -2155,7 +2156,9 @@ public final class Environment implements IRenderable {
       this.render(g, RenderType.UI);
 
       if (Game.config().debug().trackRenderTimes()) {
+
         final double totalRenderTime = TimeUtilities.nanoToMs(System.nanoTime() - renderStart);
+
         Game.metrics().trackRenderTime("shadow", shadowTime);
         Game.metrics().trackRenderTime("ambient", ambientTime);
         Game.metrics().trackRenderTime("world", totalRenderTime);
