@@ -1,0 +1,130 @@
+====================
+Type='DEREFERENCE_NULLABLE', message='dereferenced expression this.getProperty(propertyName) is @Nullable'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/tilemap/xml/CustomPropertyProvider.java:64
+    this.getProperty(propertyName).setType(type);
+Log:
+---NullAway.lambda$resolveRemainingErrors$17---
+==============================
+---NullAway.lambda$resolveRemainingErrors$17---
+TOP LEVEL CALL TO FIX ERROR: Type='DEREFERENCE_NULLABLE', message='dereferenced expression this.getProperty(propertyName) is @Nullable'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/tilemap/xml/CustomPropertyProvider.java:64
+    this.getProperty(propertyName).setType(type);
+---ChatGPT.ask---
+Asking ChatGPT:
+I want to resolve a warning reported by NullAway.
+The error is of the type of "DEREFERENCE_NULLABLE" and the full error message is: "dereferenced expression this.getProperty(propertyName) is @Nullable".
+The line with the error is: "    this.getProperty(propertyName).setType(type);".
+
+The error is within "the method: setTypeOfProperty(java.lang.String,java.lang.String)" and the code surrounding the error is:
+```java
+package de.gurkenlabs.litiengine.environment.tilemap.xml;
+
+import de.gurkenlabs.litiengine.environment.tilemap.ICustomProperty;
+import de.gurkenlabs.litiengine.environment.tilemap.ICustomPropertyProvider;
+import java.awt.Color;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
+import javax.annotation.Nullable;
+import javax.xml.bind.Unmarshaller;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+@XmlAccessorType(XmlAccessType.FIELD)
+public class CustomPropertyProvider implements ICustomPropertyProvider {
+  @XmlElement
+  @XmlJavaTypeAdapter(CustomPropertyAdapter.class)
+  private Map<String, ICustomProperty> properties;
+
+  public CustomPropertyProvider() {
+    this.properties =
+        new Hashtable<>(); // use Hashtable because it rejects null keys and null values
+  }
+
+  /**
+   * Copy Constructor for copying instances of CustomPropertyProviders.
+   *
+   * @param propertyProviderToBeCopied the PropertyProvider we want to copy
+   */
+  public CustomPropertyProvider(ICustomPropertyProvider propertyProviderToBeCopied) {
+    this.properties =
+        propertyProviderToBeCopied.getProperties().entrySet().stream()
+            .collect(Collectors.toMap(Entry::getKey, e -> new CustomProperty((e.getValue()))));
+  }
+
+  @Override
+  public Map<String, ICustomProperty> getProperties() {
+    return this.properties;
+  }
+
+  @Override
+  public boolean hasCustomProperty(String propertyName) {
+    return this.getProperties().containsKey(propertyName);
+  }
+
+  @Nullable
+  @Override
+  public String getTypeOfProperty(String propertyName) {
+    ICustomProperty property = this.getProperty(propertyName);
+    if (property == null) {
+      return null;
+    }
+    return property.getType();
+  }
+
+  @Override
+  public void setTypeOfProperty(String propertyName, String type) {
+    this.getProperty(propertyName).setType(type);
+```
+
+Give me the fixed code snippet (ONLY THE METHOD REWRITE OF "setTypeOfProperty(java.lang.String,java.lang.String)") in XML format in <response> tag like the example below. I will apply the fix to my codebase.
+Do not import any additional libraries or classes or java comments.
+If you can provide the fixed code snippet, provide it in the following format and place the code snippet in the <code> tag within ```java block.
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  Your fixed code snippet here
+  ```
+    ]]>
+  </code>
+</response>
+
+---ChatGPT.sendRequestToOpenAI---
+Sending request to OpenAI...
+---ChatGPT.sendRequestToOpenAI---
+Response received from OpenAI.
+---Response.<init>---
+Creating Response:
+```xml
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  @Override
+  public void setTypeOfProperty(String propertyName, String type) {
+    ICustomProperty property = this.getProperty(propertyName);
+    if (property != null) {
+      property.setType(type);
+    }
+  }
+  ```
+  ]]>
+  </code>
+</response>
+```
+---Response.<init>---
+Response created:
+@Override
+  public void setTypeOfProperty(String propertyName, String type) {
+    ICustomProperty property = this.getProperty(propertyName);
+    if (property != null) {
+      property.setType(type);
+    }
+  }
