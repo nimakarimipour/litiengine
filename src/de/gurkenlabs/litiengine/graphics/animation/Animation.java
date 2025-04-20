@@ -177,9 +177,7 @@ public class Animation implements IUpdateable, ILaunchable {
       this.initKeyFrames();
     }
 
-    return this.spritesheet != null
-        ? this.spritesheet
-        : new Spritesheet(); // Ensure non-null return
+    return this.spritesheet;
   }
 
   /**
