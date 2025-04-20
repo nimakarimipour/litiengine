@@ -101,11 +101,7 @@ public class AStarGrid implements IRenderable {
   }
 
   public AStarNode getNode(final Point2D point) {
-    AStarNode node = this.getNode(point.getX(), point.getY());
-    if (node == null) {
-      throw new IllegalStateException("Node at point " + point + " is null");
-    }
-    return node;
+    return this.getNode(point.getX(), point.getY());
   }
 
   @Nullable
