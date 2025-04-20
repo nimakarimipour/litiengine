@@ -48,17 +48,11 @@ public class IntroTrack implements Track {
    * @param loop The sound to be looped.
    */
   public IntroTrack(Sound intro, Sound loop) {
-    Objects.requireNonNull(intro, "Intro sound cannot be null");
-    Objects.requireNonNull(loop, "Loop sound cannot be null");
-
-    if (intro.getFormat() == null || loop.getFormat() == null) {
-      throw new IllegalArgumentException("Audio format cannot be null");
-    }
-
+    Objects.requireNonNull(intro);
+    Objects.requireNonNull(loop);
     if (!intro.getFormat().matches(loop.getFormat())) {
       throw new IllegalArgumentException(intro.getFormat() + " does not match " + loop.getFormat());
     }
-
     this.intro = intro;
     this.loop = loop;
   }
