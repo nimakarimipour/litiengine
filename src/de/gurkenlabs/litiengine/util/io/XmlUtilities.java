@@ -69,19 +69,20 @@ public final class XmlUtilities {
   }
 
   public static <T> JAXBContext getContext(Class<T> cls) {
-    final JAXBContext jaxbContext;
-    if (jaxbContexts.containsKey(cls)) {
-      jaxbContext = jaxbContexts.get(cls);
-    } else {
-      try {
+    try {
+      final JAXBContext jaxbContext;
+      if (jaxbContexts.containsKey(cls)) {
+        jaxbContext = jaxbContexts.get(cls);
+      } else {
         jaxbContext = JAXBContext.newInstance(cls);
         jaxbContexts.put(cls, jaxbContext);
-      } catch (final JAXBException e) {
-        log.log(Level.SEVERE, e.getMessage(), e);
-        throw new RuntimeException("Failed to create JAXBContext for class: " + cls.getName(), e);
       }
+      return jaxbContext;
+    } catch (final JAXBException e) {
+      log.log(Level.SEVERE, e.getMessage(), e);
     }
-    return jaxbContext;
+
+    return null;
   }
 
   @Nullable
