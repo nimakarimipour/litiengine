@@ -420,15 +420,9 @@ public abstract class Entity implements IEntity, EntityRenderListener, Tweenable
     if (Game.world().environment() == null) {
       return;
     }
-    Map<String, Collection<Entity>> entitiesByTag = this.getEnvironment().getEntitiesByTag();
-    if (entitiesByTag.containsKey(tag)) {
-      Collection<Entity> entities = entitiesByTag.get(tag);
-      if (entities != null) {
-        entities.remove(this);
-        if (entities.isEmpty()) {
-          entitiesByTag.remove(tag);
-        }
-      }
+    this.getEnvironment().getEntitiesByTag().get(tag).remove(this);
+    if (this.getEnvironment().getEntitiesByTag().get(tag).isEmpty()) {
+      this.getEnvironment().getEntitiesByTag().remove(tag);
     }
   }
 
