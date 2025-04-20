@@ -1,12 +1,22 @@
-package de.gurkenlabs.litiengine.environment.tilemap.xml;
+====================
+Type='METHOD_NO_INIT', message='initializer method does not guarantee @NonNull fields renderorder (line 59), hexsidelength (line 71), nextLayerId (line 82), nextObjectId (line 85) are initialized along all control-flow paths (remember to check for exceptions or early returns).'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/tilemap/xml/TmxMap.java:474
+  @Initializer
+Log:
+---NullAway.lambda$resolveRemainingErrors$17---
+==============================
+---NullAway.lambda$resolveRemainingErrors$17---
+TOP LEVEL CALL TO FIX ERROR: Type='METHOD_NO_INIT', message='initializer method does not guarantee @NonNull fields renderorder (line 59), hexsidelength (line 71), nextLayerId (line 82), nextObjectId (line 85) are initialized along all control-flow paths (remember to check for exceptions or early returns).'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/tilemap/xml/TmxMap.java:474
+  @Initializer
+---ChatGPT.ask---
+Asking ChatGPT:
+I want to resolve a warning reported by NullAway.
+The error is of the type of "METHOD_NO_INIT" and the full error message is: "initializer method does not guarantee @NonNull fields renderorder (line 59), hexsidelength (line 71), nextLayerId (line 82), nextObjectId (line 85) are initialized along all control-flow paths (remember to check for exceptions or early returns).".
+The line with the error is: "  @Initializer".
 
-import com.uber.nullaway.annotations.Initializer;
-import de.gurkenlabs.litiengine.environment.tilemap.IGroupLayer;
-import de.gurkenlabs.litiengine.environment.tilemap.IImageLayer;
-import de.gurkenlabs.litiengine.environment.tilemap.ILayer;
-import de.gurkenlabs.litiengine.environment.tilemap.IMap;
-import de.gurkenlabs.litiengine.environment.tilemap.IMapObjectLayer;
-import de.gurkenlabs.litiengine.environment.tilemap.IMapOrientation;
+The error is within "the method: afterUnmarshal(javax.xml.bind.Unmarshaller,java.lang.Object)" and the code surrounding the error is:
+```java
 import de.gurkenlabs.litiengine.environment.tilemap.ITileLayer;
 import de.gurkenlabs.litiengine.environment.tilemap.ITileset;
 import de.gurkenlabs.litiengine.environment.tilemap.ITilesetEntry;
@@ -499,6 +509,60 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
     if (this.isInfinite()) {
       this.updateDimensionsByTileLayers();
     }
+```
+
+Give me the fixed code snippet (ONLY THE METHOD REWRITE OF "afterUnmarshal(javax.xml.bind.Unmarshaller,java.lang.Object)") in XML format in <response> tag like the example below. I will apply the fix to my codebase.
+Do not import any additional libraries or classes or java comments.
+If you can provide the fixed code snippet, provide it in the following format and place the code snippet in the <code> tag within ```java block.
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  Your fixed code snippet here
+  ```
+    ]]>
+  </code>
+</response>
+
+---ChatGPT.sendRequestToOpenAI---
+Sending request to OpenAI...
+---ChatGPT.sendRequestToOpenAI---
+Response received from OpenAI.
+---Response.<init>---
+Creating Response:
+```xml
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  @Initializer
+  @SuppressWarnings("unused")
+  private void afterUnmarshal(Unmarshaller u, Object parent) throws TmxException {
+    this.checkVersion();
+
+    if (this.orientation != null) {
+      this.mapOrientation = MapOrientations.forName(this.orientation);
+    }
+
+    if (this.mapOrientation == null) {
+      this.mapOrientation = MapOrientations.ORTHOGONAL;
+    }
+
+    if (this.tilesets == null) {
+      this.tilesets = new CopyOnWriteArrayList<>();
+    }
+
+    if (this.layers == null) {
+      this.layers = new CopyOnWriteArrayList<>();
+    }
+
+    for (ILayer layer : this.layers) {
+      this.layerAdded(layer);
+    }
+
+    if (this.isInfinite()) {
+      this.updateDimensionsByTileLayers();
+    }
 
     // Ensure non-null fields are initialized
     if (this.renderorder == null) {
@@ -517,142 +581,56 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
       this.nextObjectId = 0; // or any default value
     }
   }
-
+  ```
+    ]]>
+  </code>
+</response>
+```
+---Response.<init>---
+Response created:
+@Initializer
   @SuppressWarnings("unused")
-  private void beforeMarshal(Marshaller m) {
-    this.orientation = this.mapOrientation.getName();
-  }
+  private void afterUnmarshal(Unmarshaller u, Object parent) throws TmxException {
+    this.checkVersion();
 
-  private void layerAdded(ILayer layer) {
-    if (layer instanceof ITileLayer) {
-      this.rawTileLayers.add((ITileLayer) layer);
-    }
-    if (layer instanceof IMapObjectLayer) {
-      this.rawMapObjectLayers.add((IMapObjectLayer) layer);
-    }
-    if (layer instanceof IImageLayer) {
-      this.rawImageLayers.add((IImageLayer) layer);
-    }
-    if (layer instanceof IGroupLayer) {
-      this.rawGroupLayers.add((IGroupLayer) layer);
-    }
-  }
-
-  private void addRawLayer(int index, ILayer layer) {
-    if (layer instanceof ITileLayer) {
-      this.rawTileLayers.add(this.getRawIndex(index, ITileLayer.class), (ITileLayer) layer);
-    }
-    if (layer instanceof IMapObjectLayer) {
-      this.rawMapObjectLayers.add(
-          this.getRawIndex(index, IMapObjectLayer.class), (IMapObjectLayer) layer);
-    }
-    if (layer instanceof IImageLayer) {
-      this.rawImageLayers.add(this.getRawIndex(index, IImageLayer.class), (IImageLayer) layer);
-    }
-    if (layer instanceof IGroupLayer) {
-      this.rawGroupLayers.add(this.getRawIndex(index, IGroupLayer.class), (IGroupLayer) layer);
-    }
-  }
-
-  private <T extends ILayer> int getRawIndex(int index, Class<T> layerType) {
-    int rawIndex = 0;
-    for (int i = 0; i < this.layers.size(); i++) {
-      if (i >= index) {
-        break;
-      }
-
-      if (layerType.isAssignableFrom(this.layers.get(i).getClass())) {
-        rawIndex++;
-      }
+    if (this.orientation != null) {
+      this.mapOrientation = MapOrientations.forName(this.orientation);
     }
 
-    return rawIndex;
-  }
-
-  private void checkVersion() throws UnsupportedMapVersionException {
-    if (this.tiledversion == null || this.tiledversion.isEmpty()) {
-      log.log(
-          Level.WARNING,
-          "Tiled version not defined for map \"{0}\". Could not evaluate whether the map format is supported by the engine.",
-          new Object[] {this.getName()});
-      return;
+    if (this.mapOrientation == null) {
+      this.mapOrientation = MapOrientations.ORTHOGONAL;
     }
 
-    String[] ver = this.tiledversion.split("\\.", 3);
-
-    int major;
-    int minor;
-    try {
-      major = Integer.parseInt(ver[0]);
-      minor = Integer.parseInt(ver[1]);
-      // we don't need to care about the patch version
-    } catch (NumberFormatException e) {
-      throw new UnsupportedMapVersionException(this.tiledversion);
+    if (this.tilesets == null) {
+      this.tilesets = new CopyOnWriteArrayList<>();
     }
 
-    if (major > MAX_MAJOR) {
-      // incompatible API changes
-      throw new UnsupportedMapVersionException(this.tiledversion);
+    if (this.layers == null) {
+      this.layers = new CopyOnWriteArrayList<>();
     }
 
-    if (minor > MAX_MINOR) {
-      log.log(
-          Level.WARNING,
-          "Tiled version {0} of map \"{1}\" is greater than the supported version {2}.{3}.x. Some features may not work.",
-          new Object[] {this.tiledversion, this.getName(), MAX_MAJOR, MAX_MINOR});
+    for (ILayer layer : this.layers) {
+      this.layerAdded(layer);
+    }
+
+    if (this.isInfinite()) {
+      this.updateDimensionsByTileLayers();
+    }
+
+    // Ensure non-null fields are initialized
+    if (this.renderorder == null) {
+      this.renderorder = RenderOrder.RIGHT_DOWN;
+    }
+
+    if (this.hexsidelength == null) {
+      this.hexsidelength = 0; // or any default value
+    }
+
+    if (this.nextLayerId == null) {
+      this.nextLayerId = 0; // or any default value
+    }
+
+    if (this.nextObjectId == null) {
+      this.nextObjectId = 0; // or any default value
     }
   }
-
-  /** Update width and height by the max width and height of the tile layers in the infinite map. */
-  private void updateDimensionsByTileLayers() {
-
-    int minChunkOffsetX = 0;
-    int minChunkOffsetY = 0;
-
-    int w = 0;
-    int h = 0;
-
-    for (ITileLayer tileLayer : this.tileLayers) {
-      if (!(tileLayer instanceof TileLayer)) {
-        continue;
-      }
-      TileLayer layer = (TileLayer) tileLayer;
-
-      if (layer.getRawTileData() != null && layer.getRawTileData().getOffsetX() < minChunkOffsetX) {
-        minChunkOffsetX = layer.getRawTileData().getOffsetX();
-      }
-
-      if (layer.getRawTileData() != null && layer.getRawTileData().getOffsetY() < minChunkOffsetY) {
-        minChunkOffsetY = layer.getRawTileData().getOffsetY();
-      }
-    }
-
-    // update all tile layer data with the information about the layer based on which they'll
-    // position themselves in the grid
-    // they need this information because they have to create an appropriately sized grid before
-    // locating their chunks in it
-    for (ITileLayer tileLayer : this.tileLayers) {
-      if (!(tileLayer instanceof TileLayer)) {
-        continue;
-      }
-      TileLayer layer = (TileLayer) tileLayer;
-
-      if (layer.getRawTileData() != null) {
-        layer.getRawTileData().setMinChunkOffsets(minChunkOffsetX, minChunkOffsetY);
-      }
-
-      if (tileLayer.getWidth() > w) {
-        w = tileLayer.getWidth();
-      }
-
-      if (tileLayer.getHeight() > h) {
-        h = tileLayer.getHeight();
-      }
-    }
-
-    this.chunkOffsetX = minChunkOffsetX;
-    this.chunkOffsetY = minChunkOffsetY;
-    this.width = w;
-    this.height = h;
-  }
-}
