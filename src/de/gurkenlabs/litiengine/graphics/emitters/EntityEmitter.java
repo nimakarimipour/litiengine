@@ -66,12 +66,7 @@ public class EntityEmitter extends Emitter {
     return this.dynamicLocation;
   }
 
-  @Nullable
   @Override
-  public Point2D getLocation() {
-    if (this.getEntity() == null) {
-      return null;
-    }
-    return this.hasDynamicLocation() ? this.getEntity().getLocation() : super.getLocation();
-  }
+    public Point2D getLocation() {
+      return this.hasDynamicLocation() ? this.getEntity().getLocation() : super.getLocation();
 }
