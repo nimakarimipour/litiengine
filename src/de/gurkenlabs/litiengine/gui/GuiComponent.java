@@ -225,7 +225,7 @@ public abstract class GuiComponent
    * @return the GuiComponent's font
    */
   public Font getFont() {
-    return this.font;
+    return this.font != null ? this.font : GuiProperties.getDefaultFont();
   }
 
   /**
