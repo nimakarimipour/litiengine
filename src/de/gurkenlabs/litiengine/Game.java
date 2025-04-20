@@ -633,6 +633,10 @@ public final class Game {
         log().log(Level.WARNING, "game listener threw an exception during shutdown", e);
       }
     }
+
+    gameLoop = null;
+    screenManager = null;
+    gameWindow = null;
   }
 
   private static void handleCommandLineArguments(String[] args) {
