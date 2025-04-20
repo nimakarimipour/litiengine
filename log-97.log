@@ -1,13 +1,22 @@
-package de.gurkenlabs.litiengine.resources;
+====================
+Type='DEREFERENCE_NULLABLE', message='dereferenced expression x.getImage() is @Nullable'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/resources/ResourceBundle.java:204
+                  x.getName().equals(sprite.getName()) && x.getImage().equals(sprite.getImage()))) {
+Log:
+---NullAway.lambda$resolveRemainingErrors$17---
+==============================
+---NullAway.lambda$resolveRemainingErrors$17---
+TOP LEVEL CALL TO FIX ERROR: Type='DEREFERENCE_NULLABLE', message='dereferenced expression x.getImage() is @Nullable'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/resources/ResourceBundle.java:204
+                  x.getName().equals(sprite.getName()) && x.getImage().equals(sprite.getImage()))) {
+---ChatGPT.ask---
+Asking ChatGPT:
+I want to resolve a warning reported by NullAway.
+The error is of the type of "DEREFERENCE_NULLABLE" and the full error message is: "dereferenced expression x.getImage() is @Nullable".
+The line with the error is: "                  x.getName().equals(sprite.getName()) && x.getImage().equals(sprite.getImage()))) {".
 
-import de.gurkenlabs.litiengine.environment.tilemap.ITileset;
-import de.gurkenlabs.litiengine.environment.tilemap.xml.Blueprint;
-import de.gurkenlabs.litiengine.environment.tilemap.xml.Tileset;
-import de.gurkenlabs.litiengine.environment.tilemap.xml.TmxMap;
-import de.gurkenlabs.litiengine.graphics.emitters.xml.EmitterData;
-import de.gurkenlabs.litiengine.util.io.XmlUtilities;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
+The error is within "the method: beforeMarshal(javax.xml.bind.Marshaller)" and the code surrounding the error is:
+```java
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -198,14 +207,69 @@ public class ResourceBundle implements Serializable {
   void beforeMarshal(Marshaller m) {
     List<SpritesheetResource> distinctList = new ArrayList<>();
     for (SpritesheetResource sprite : this.getSpriteSheets()) {
+      if (distinctList.stream()
+          .anyMatch(
+              x ->
+                  x.getName().equals(sprite.getName()) && x.getImage().equals(sprite.getImage()))) {
+        continue;
+      }
+
+      distinctList.add(sprite);
+    }
+
+    this.spriteSheets = distinctList;
+
+    List<Tileset> distinctTilesets = new ArrayList<>();
+    for (Tileset tileset : this.getTilesets()) {
+      if (distinctTilesets.stream().anyMatch(x -> x.getName().equals(tileset.getName()))) {
+        continue;
+      }
+
+      distinctTilesets.add(tileset);
+    }
+
+    this.tilesets = distinctTilesets;
+
+    if (this.version == 0) {
+      this.version = CURRENT_VERSION;
+    }
+```
+
+Give me the fixed code snippet (ONLY THE METHOD REWRITE OF "beforeMarshal(javax.xml.bind.Marshaller)") in XML format in <response> tag like the example below. I will apply the fix to my codebase.
+Do not import any additional libraries or classes or java comments.
+If you can provide the fixed code snippet, provide it in the following format and place the code snippet in the <code> tag within ```java block.
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  Your fixed code snippet here
+  ```
+    ]]>
+  </code>
+</response>
+
+---ChatGPT.sendRequestToOpenAI---
+Sending request to OpenAI...
+---ChatGPT.sendRequestToOpenAI---
+Response received from OpenAI.
+---Response.<init>---
+Creating Response:
+```xml
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  void beforeMarshal(Marshaller m) {
+    List<SpritesheetResource> distinctList = new ArrayList<>();
+    for (SpritesheetResource sprite : this.getSpriteSheets()) {
       if (sprite.getName() != null && sprite.getImage() != null) {
         if (!distinctList.stream()
             .anyMatch(
                 x ->
-                    x.getName() != null
-                        && x.getImage() != null
-                        && x.getName().equals(sprite.getName())
-                        && x.getImage().equals(sprite.getImage()))) {
+                    x.getName() != null &&
+                    x.getImage() != null &&
+                    x.getName().equals(sprite.getName()) &&
+                    x.getImage().equals(sprite.getImage()))) {
           distinctList.add(sprite);
         }
       }
@@ -216,8 +280,7 @@ public class ResourceBundle implements Serializable {
     List<Tileset> distinctTilesets = new ArrayList<>();
     for (Tileset tileset : this.getTilesets()) {
       if (tileset.getName() != null) {
-        if (!distinctTilesets.stream()
-            .anyMatch(x -> x.getName() != null && x.getName().equals(tileset.getName()))) {
+        if (!distinctTilesets.stream().anyMatch(x -> x.getName() != null && x.getName().equals(tileset.getName()))) {
           distinctTilesets.add(tileset);
         }
       }
@@ -229,21 +292,43 @@ public class ResourceBundle implements Serializable {
       this.version = CURRENT_VERSION;
     }
   }
+  ```
+    ]]>
+  </code>
+</response>
+```
+---Response.<init>---
+Response created:
+void beforeMarshal(Marshaller m) {
+    List<SpritesheetResource> distinctList = new ArrayList<>();
+    for (SpritesheetResource sprite : this.getSpriteSheets()) {
+      if (sprite.getName() != null && sprite.getImage() != null) {
+        if (!distinctList.stream()
+            .anyMatch(
+                x ->
+                    x.getName() != null &&
+                    x.getImage() != null &&
+                    x.getName().equals(sprite.getName()) &&
+                    x.getImage().equals(sprite.getImage()))) {
+          distinctList.add(sprite);
+        }
+      }
+    }
 
-  @Nullable
-  private static ResourceBundle getResourceBundle(@Nullable URL file)
-      throws JAXBException, IOException {
-    final JAXBContext jaxbContext = XmlUtilities.getContext(ResourceBundle.class);
-    final Unmarshaller um = jaxbContext.createUnmarshaller();
-    try (InputStream inputStream = Resources.get(file)) {
+    this.spriteSheets = distinctList;
 
-      // try to get compressed game file
-      final GZIPInputStream zipStream = new GZIPInputStream(inputStream);
-      return (ResourceBundle) um.unmarshal(zipStream);
-    } catch (final ZipException e) {
+    List<Tileset> distinctTilesets = new ArrayList<>();
+    for (Tileset tileset : this.getTilesets()) {
+      if (tileset.getName() != null) {
+        if (!distinctTilesets.stream().anyMatch(x -> x.getName() != null && x.getName().equals(tileset.getName()))) {
+          distinctTilesets.add(tileset);
+        }
+      }
+    }
 
-      // if it fails to load the compressed file, get it from plain XML
-      return XmlUtilities.read(ResourceBundle.class, file);
+    this.tilesets = distinctTilesets;
+
+    if (this.version == 0) {
+      this.version = CURRENT_VERSION;
     }
   }
-}
