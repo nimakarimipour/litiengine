@@ -62,12 +62,17 @@ public class CreatureShadowImageEffect extends ImageEffect {
 
   @Override
   public BufferedImage apply(BufferedImage image) {
-    if (this.getCreature().isDead()) {
-      return image;
+    if (image == null || this.getCreature().isDead()) {
+      return null;
     }
 
     final BufferedImage buffer =
         Imaging.getCompatibleImage(image.getWidth() * 2 + 2, image.getHeight() * 2);
+
+    if (buffer == null) {
+      return null;
+    }
+
     final Graphics2D graphics = buffer.createGraphics();
     float x = image.getWidth() / 2.0f;
     float y = image.getHeight() / 2.0f;
