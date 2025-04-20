@@ -1,4 +1,22 @@
-package de.gurkenlabs.litiengine.physics;
+====================
+Type='DEREFERENCE_NULLABLE', message='dereferenced expression this.getBounds() is @Nullable'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/physics/PhysicsEngine.java:845
+    double leftBoundX = this.getBounds().getMinX() - collisionLocationX;
+Log:
+---NullAway.lambda$resolveRemainingErrors$17---
+==============================
+---NullAway.lambda$resolveRemainingErrors$17---
+TOP LEVEL CALL TO FIX ERROR: Type='DEREFERENCE_NULLABLE', message='dereferenced expression this.getBounds() is @Nullable'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/physics/PhysicsEngine.java:845
+    double leftBoundX = this.getBounds().getMinX() - collisionLocationX;
+---ChatGPT.ask---
+Asking ChatGPT:
+I want to resolve a warning reported by NullAway.
+The error is of the type of "DEREFERENCE_NULLABLE" and the full error message is: "dereferenced expression this.getBounds() is @Nullable".
+The line with the error is: "    double leftBoundX = this.getBounds().getMinX() - collisionLocationX;".
+
+The error is within "the method: clamptoMap(de.gurkenlabs.litiengine.entities.IMobileEntity,java.awt.geom.Point2D)" and the code surrounding the error is:
+```java
 
 import de.gurkenlabs.litiengine.Direction;
 import de.gurkenlabs.litiengine.Game;
@@ -840,10 +858,56 @@ public final class PhysicsEngine implements IUpdateable {
   }
 
   private Point2D clamptoMap(IMobileEntity entity, Point2D newLocation) {
+    double collisionLocationX =
+        entity.getCollisionBoxAlign().getLocation(entity.getWidth(), entity.getCollisionBoxWidth());
+    double leftBoundX = this.getBounds().getMinX() - collisionLocationX;
+    double deltaX = entity.getWidth() - entity.getCollisionBoxWidth() - collisionLocationX;
+    double rightBoundX = this.getBounds().getMaxX() - entity.getWidth() + deltaX;
+
+    double collisionLocationY =
+        entity
+            .getCollisionBoxValign()
+            .getLocation(entity.getHeight(), entity.getCollisionBoxHeight());
+    double topBoundY = this.getBounds().getMinY() - collisionLocationY;
+    double deltaY = entity.getHeight() - entity.getCollisionBoxHeight() - collisionLocationY;
+    double buttomBoundY = this.getBounds().getMaxY() - entity.getHeight() + deltaY;
+
+    // right and left border minus the collision box width
+    double x = MathUtilities.clamp(newLocation.getX(), leftBoundX, rightBoundX);
+    // bottom and top border minus the collision box height
+    double y = MathUtilities.clamp(newLocation.getY(), topBoundY, buttomBoundY);
+    return new Point2D.Double(x, y);
+```
+
+Give me the fixed code snippet (ONLY THE METHOD REWRITE OF "clamptoMap(de.gurkenlabs.litiengine.entities.IMobileEntity,java.awt.geom.Point2D)") in XML format in <response> tag like the example below. I will apply the fix to my codebase.
+Do not import any additional libraries or classes or java comments.
+If you can provide the fixed code snippet, provide it in the following format and place the code snippet in the <code> tag within ```java block.
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  Your fixed code snippet here
+  ```
+    ]]>
+  </code>
+</response>
+
+---ChatGPT.sendRequestToOpenAI---
+Sending request to OpenAI...
+---ChatGPT.sendRequestToOpenAI---
+Response received from OpenAI.
+---Response.<init>---
+Creating Response:
+```xml
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  private Point2D clamptoMap(IMobileEntity entity, Point2D newLocation) {
     if (this.getBounds() == null) {
       return newLocation;
     }
-
+    
     double collisionLocationX =
         entity.getCollisionBoxAlign().getLocation(entity.getWidth(), entity.getCollisionBoxWidth());
     double leftBoundX = this.getBounds().getMinX() - collisionLocationX;
@@ -864,70 +928,35 @@ public final class PhysicsEngine implements IUpdateable {
     double y = MathUtilities.clamp(newLocation.getY(), topBoundY, buttomBoundY);
     return new Point2D.Double(x, y);
   }
-
-  private boolean resolveCollisionForNewPosition(ICollisionEntity entity, Point2D location) {
-    // resolve collision for new location
-    if (this.collides(entity.getCollisionBox(location), entity)) {
-      final Point2D resolvedPosition = this.resolveCollision(entity, location);
-      entity.setLocation(resolvedPosition);
-      return true;
+  ```
+    ]]>
+  </code>
+</response>
+```
+---Response.<init>---
+Response created:
+private Point2D clamptoMap(IMobileEntity entity, Point2D newLocation) {
+    if (this.getBounds() == null) {
+      return newLocation;
     }
+    
+    double collisionLocationX =
+        entity.getCollisionBoxAlign().getLocation(entity.getWidth(), entity.getCollisionBoxWidth());
+    double leftBoundX = this.getBounds().getMinX() - collisionLocationX;
+    double deltaX = entity.getWidth() - entity.getCollisionBoxWidth() - collisionLocationX;
+    double rightBoundX = this.getBounds().getMaxX() - entity.getWidth() + deltaX;
 
-    return false;
+    double collisionLocationY =
+        entity
+            .getCollisionBoxValign()
+            .getLocation(entity.getHeight(), entity.getCollisionBoxHeight());
+    double topBoundY = this.getBounds().getMinY() - collisionLocationY;
+    double deltaY = entity.getHeight() - entity.getCollisionBoxHeight() - collisionLocationY;
+    double buttomBoundY = this.getBounds().getMaxY() - entity.getHeight() + deltaY;
+
+    // right and left border minus the collision box width
+    double x = MathUtilities.clamp(newLocation.getX(), leftBoundX, rightBoundX);
+    // bottom and top border minus the collision box height
+    double y = MathUtilities.clamp(newLocation.getY(), topBoundY, buttomBoundY);
+    return new Point2D.Double(x, y);
   }
-
-  private boolean resolveCollisionForRaycastToNewPosition(
-      ICollisionEntity entity, Point2D newPosition) {
-    // special case to prevent entities to glitch through collision boxes if
-    // they have a large enough step size
-    final Line2D line =
-        new Line2D.Double(
-            entity.getCollisionBox().getCenterX(),
-            entity.getCollisionBox().getCenterY(),
-            entity.getCollisionBox(newPosition).getCenterX(),
-            entity.getCollisionBox(newPosition).getCenterY());
-    return this.collides(line, Collision.ANY, entity);
-  }
-
-  private static void fireCollisionEvents(
-      ICollisionEntity collider, @Nullable Intersection... intersections) {
-    // aggregate the involved entities of all intersections
-    ICollisionEntity[] involvedEntities = null;
-    for (Intersection inter : intersections) {
-      if (inter == null) {
-        continue;
-      }
-
-      if (involvedEntities == null) {
-        involvedEntities = inter.involvedEntities;
-        continue;
-      }
-
-      involvedEntities = ArrayUtilities.distinct(involvedEntities, inter.involvedEntities);
-    }
-
-    // 1. fire collision event on the collider with all the involved entities
-    CollisionEvent event = new CollisionEvent(collider, involvedEntities);
-    collider.fireCollisionEvent(event);
-
-    // 2. fire collision event on the involved entities with the collider entity
-    CollisionEvent colliderEvent = new CollisionEvent(collider);
-    for (ICollisionEntity involved : involvedEntities) {
-      involved.fireCollisionEvent(colliderEvent);
-    }
-  }
-
-  /**
-   * A helper class that contains the intersection of a collision event and the involved entities.
-   * This is basically just a {@link Rectangle2D} with some additional information.
-   */
-  @SuppressWarnings("serial")
-  private class Intersection extends Rectangle2D.Double {
-    private final transient ICollisionEntity[] involvedEntities;
-
-    public Intersection(Rectangle2D rect, ICollisionEntity... entities) {
-      super(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
-      this.involvedEntities = entities;
-    }
-  }
-}
