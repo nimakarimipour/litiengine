@@ -325,7 +325,12 @@ public final class Environment implements IRenderable {
       return;
     }
     this.addEntity(entity);
-    this.miscEntities.get(entity.getRenderType()).put(entity.getMapId(), entity);
+    Map<Integer, IEntity> entityMap = this.miscEntities.get(entity.getRenderType());
+    if (entityMap == null) {
+      entityMap = new ConcurrentHashMap<>();
+      this.miscEntities.put(entity.getRenderType(), entityMap);
+    }
+    entityMap.put(entity.getMapId(), entity);
     this.fireEntityEvent(l -> l.entityAdded(entity));
   }
 
