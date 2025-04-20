@@ -34,7 +34,7 @@ public abstract class ColorLayer implements IRenderable {
   }
 
   public Color getColor() {
-    return this.color;
+    return this.color != null ? this.color : Color.BLACK;
   }
 
   public void setAlpha(int ambientAlpha) {
