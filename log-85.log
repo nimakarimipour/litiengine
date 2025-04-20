@@ -1,0 +1,614 @@
+====================
+Type='DEREFERENCE_NULLABLE', message='dereferenced expression this.renderListeners.get(renderType) is @Nullable'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/Environment.java:458
+      this.renderListeners.get(renderType).clear();
+Log:
+---NullAway.lambda$resolveRemainingErrors$17---
+==============================
+---NullAway.lambda$resolveRemainingErrors$17---
+TOP LEVEL CALL TO FIX ERROR: Type='DEREFERENCE_NULLABLE', message='dereferenced expression this.renderListeners.get(renderType) is @Nullable'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/Environment.java:458
+      this.renderListeners.get(renderType).clear();
+---ChatGPT.ask---
+Asking ChatGPT:
+I want to resolve a warning reported by NullAway.
+The error is of the type of "DEREFERENCE_NULLABLE" and the full error message is: "dereferenced expression this.renderListeners.get(renderType) is @Nullable".
+The line with the error is: "      this.renderListeners.get(renderType).clear();".
+
+The error is within "the method: clear()" and the code surrounding the error is:
+```java
+import de.gurkenlabs.litiengine.environment.tilemap.ILayer;
+import de.gurkenlabs.litiengine.environment.tilemap.IMap;
+import de.gurkenlabs.litiengine.environment.tilemap.IMapObject;
+import de.gurkenlabs.litiengine.environment.tilemap.IMapObjectLayer;
+import de.gurkenlabs.litiengine.environment.tilemap.MapObjectType;
+import de.gurkenlabs.litiengine.environment.tilemap.MapProperty;
+import de.gurkenlabs.litiengine.environment.tilemap.MapRenderer;
+import de.gurkenlabs.litiengine.environment.tilemap.MapUtilities;
+import de.gurkenlabs.litiengine.environment.tilemap.xml.Blueprint;
+import de.gurkenlabs.litiengine.graphics.AmbientLight;
+import de.gurkenlabs.litiengine.graphics.ColorLayer;
+import de.gurkenlabs.litiengine.graphics.DebugRenderer;
+import de.gurkenlabs.litiengine.graphics.IRenderable;
+import de.gurkenlabs.litiengine.graphics.RenderEngine;
+import de.gurkenlabs.litiengine.graphics.RenderType;
+import de.gurkenlabs.litiengine.graphics.StaticShadowLayer;
+import de.gurkenlabs.litiengine.graphics.StaticShadowType;
+import de.gurkenlabs.litiengine.graphics.emitters.Emitter;
+import de.gurkenlabs.litiengine.physics.GravityForce;
+import de.gurkenlabs.litiengine.physics.IMovementController;
+import de.gurkenlabs.litiengine.resources.Resources;
+import de.gurkenlabs.litiengine.util.TimeUtilities;
+import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Shape;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.EnumMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import javax.annotation.Nullable;
+
+public final class Environment implements IRenderable {
+  private static final Map<String, IMapObjectLoader> mapObjectLoaders = new ConcurrentHashMap<>();
+  private static final String GRAVITY_IDENTIFIER = "GRAVITY";
+  private static final Logger log = Logger.getLogger(Environment.class.getName());
+
+  private static int localIdSequence = 0;
+
+  private final Map<Integer, ICombatEntity> combatEntities = new ConcurrentHashMap<>();
+  private final Map<Integer, IMobileEntity> mobileEntities = new ConcurrentHashMap<>();
+  private final Map<Integer, GravityForce> gravityForces = new ConcurrentHashMap<>();
+  private final Map<RenderType, Map<Integer, IEntity>> miscEntities =
+      Collections.synchronizedMap(new EnumMap<>(RenderType.class));
+  private final Map<IMapObjectLayer, List<IEntity>> layerEntities = new ConcurrentHashMap<>();
+  private final Map<String, Collection<IEntity>> entitiesByTag = new ConcurrentHashMap<>();
+  private final Map<Integer, IEntity> allEntities = new ConcurrentHashMap<>();
+
+  private final Map<RenderType, Collection<EnvironmentRenderedListener>> renderListeners =
+      Collections.synchronizedMap(new EnumMap<>(RenderType.class));
+  private final Collection<EnvironmentListener> listeners = ConcurrentHashMap.newKeySet();
+  private final Collection<EnvironmentEntityListener> entityListeners =
+      ConcurrentHashMap.newKeySet();
+
+  private final Map<RenderType, Collection<IRenderable>> renderables =
+      Collections.synchronizedMap(new EnumMap<>(RenderType.class));
+  private final Collection<Emitter> emitters = ConcurrentHashMap.newKeySet();
+  private final Collection<CollisionBox> colliders = ConcurrentHashMap.newKeySet();
+  private final Collection<Prop> props = ConcurrentHashMap.newKeySet();
+  private final Collection<Creature> creatures = ConcurrentHashMap.newKeySet();
+  private final Collection<StaticShadow> staticShadows = ConcurrentHashMap.newKeySet();
+  private final Collection<LightSource> lightSources = ConcurrentHashMap.newKeySet();
+  private final Collection<SoundSource> soundSources = ConcurrentHashMap.newKeySet();
+  private final Collection<Spawnpoint> spawnPoints = ConcurrentHashMap.newKeySet();
+  private final Collection<MapArea> mapAreas = ConcurrentHashMap.newKeySet();
+  private final Collection<Trigger> triggers = ConcurrentHashMap.newKeySet();
+
+  @Nullable private AmbientLight ambientLight;
+  @Nullable private StaticShadowLayer staticShadowLayer;
+  private boolean loaded;
+  private boolean initialized;
+  @Nullable private IMap map;
+
+  private int gravity;
+
+  private boolean rendering;
+
+  static {
+    registerMapObjectLoader(new PropMapObjectLoader());
+    registerMapObjectLoader(new CollisionBoxMapObjectLoader());
+    registerMapObjectLoader(new TriggerMapObjectLoader());
+    registerMapObjectLoader(new EmitterMapObjectLoader());
+    registerMapObjectLoader(new LightSourceMapObjectLoader());
+    registerMapObjectLoader(new SpawnpointMapObjectLoader());
+    registerMapObjectLoader(new MapAreaMapObjectLoader());
+    registerMapObjectLoader(new StaticShadowMapObjectLoader());
+    registerMapObjectLoader(new CreatureMapObjectLoader());
+    registerMapObjectLoader(new SoundSourceMapObjectLoader());
+  }
+
+  /**
+   * Instantiates a new {@code Environment} for the specified map.
+   *
+   * @param map The map that defines this environment.
+   */
+  public Environment(final IMap map) {
+    this();
+    this.map = map;
+    if (this.getMap() != null) {
+      Game.physics().setBounds(this.getMap().getBounds());
+      this.setGravity(this.getMap().getIntValue(MapProperty.GRAVITY));
+    }
+  }
+
+  /**
+   * Instantiates a new {@code Environment} for the specified map.
+   *
+   * @param mapPath The path to the map resource that defines this environment.
+   */
+  public Environment(final String mapPath) {
+    this(Resources.maps().get(mapPath));
+  }
+
+  private Environment() {
+    for (RenderType renderType : RenderType.values()) {
+      this.miscEntities.put(renderType, new ConcurrentHashMap<>());
+      this.renderListeners.put(renderType, ConcurrentHashMap.newKeySet());
+      this.renderables.put(renderType, ConcurrentHashMap.newKeySet());
+    }
+  }
+
+  /**
+   * Registers a custom loader instance that is responsible for loading and initializing entities of
+   * the defined MapObjectType. <br>
+   * <br>
+   * There can only be one loader for a particular type. Calling this method again for the same type
+   * will overwrite the previously registered loader.
+   *
+   * @param mapObjectLoader The MapObjectLoader instance to be registered.
+   * @see IMapObjectLoader#getMapObjectType()
+   */
+  public static void registerMapObjectLoader(IMapObjectLoader mapObjectLoader) {
+    mapObjectLoaders.put(mapObjectLoader.getMapObjectType(), mapObjectLoader);
+  }
+
+  /**
+   * Registers a custom {@code IEntity} implementation to support being loaded from an {@code IMap}
+   * instance. Note that the specified class needs to be accessible in a static manner. Inner
+   * classes that aren't declared statically are not supported.
+   *
+   * <p>This is an overload of the {@link #registerCustomEntityType(Class)} method that allows to
+   * explicitly specify the {@code MapObjectType} without having to provide an {@code EntityInfo}
+   * annotation containing this information.
+   *
+   * <p>Custom entity types need to provide at least one constructor that matches the following
+   * criteria:
+   *
+   * <ul>
+   *   <li>has 2 parameters: {@code Environment, IMapObject}
+   *   <li>has 2 parameters: {@code IMapObject, Environment}
+   *   <li>has 1 parameter: {@code IMapObject}
+   *   <li>has 1 parameter: {@code Environment}
+   *   <li>is empty constructor
+   * </ul>
+   *
+   * @param mapObjectType The custom mapobjectType that is used by {@code IMapObjects} to determine
+   *     the target entity implementation.
+   * @param entityType The class type of the custom entity implementation.
+   * @see IMapObject#getType()
+   * @see EntityInfo#customMapObjectType()
+   */
+  public static void registerCustomEntityType(
+      String mapObjectType, Class<? extends IEntity> entityType) {
+    if (entityType.isInterface() || Modifier.isAbstract(entityType.getModifiers())) {
+      log.log(
+          Level.WARNING,
+          "Cannot register the custom entity type [{0}]: Type must not be an interface or abstract class.",
+          entityType.getName());
+      return;
+    }
+
+    CustomMapObjectLoader.ConstructorInvocation invocation =
+        CustomMapObjectLoader.findConstructor(entityType);
+    if (invocation == null) {
+      log.log(
+          Level.WARNING,
+          "Cannot register the custom entity type [{0}]: No matching constructor found.",
+          entityType.getName());
+      return;
+    }
+
+    CustomMapObjectLoader mapObjectLoader = new CustomMapObjectLoader(mapObjectType, invocation);
+    registerMapObjectLoader(mapObjectLoader);
+  }
+
+  /**
+   * Registers a custom {@code IEntity} implementation to support being loaded from an {@code IMap}
+   * instance. Note that the specified class needs to be accessible in a static manner. Inner
+   * classes that aren't declared statically are not supported.
+   *
+   * <p>This implementation uses the provided {@code EntityInfo.customMapObjectType()} to determine
+   * for which type the specified class should be used.
+   *
+   * @param entityType The class type of the custom entity implementation.
+   * @see Environment#registerCustomEntityType(String, Class)
+   * @see IMapObject#getType()
+   * @see EntityInfo#customMapObjectType()
+   */
+  public static void registerCustomEntityType(Class<? extends IEntity> entityType) {
+    EntityInfo info = entityType.getAnnotation(EntityInfo.class);
+    if (info == null || info.customMapObjectType().isEmpty()) {
+      log.log(
+          Level.WARNING,
+          "Cannot register the custom entity type [{0}]: EntityInfo.customMapObjectType must be specified.\nAdd an EntityInfo annotation to the class and provide the required information or use the registerCustomEntityType overload and provide the type explicitly.",
+          entityType.getName());
+      return;
+    }
+
+    registerCustomEntityType(info.customMapObjectType(), entityType);
+  }
+
+  /**
+   * Adds the specified environment rendered listener to receive events when this instance renders
+   * the specified renderType.
+   *
+   * @param renderType The type that defines to which render process this listener should be
+   *     attached.
+   * @param listener The listener to add.
+   */
+  public void onRendered(RenderType renderType, EnvironmentRenderedListener listener) {
+    this.renderListeners.get(renderType).add(listener);
+  }
+
+  /**
+   * Removes the specified environment rendered listener.
+   *
+   * @param listener The listener to remove.
+   */
+  public void removeListener(EnvironmentRenderedListener listener) {
+    for (Collection<EnvironmentRenderedListener> rends : this.renderListeners.values()) {
+      rends.remove(listener);
+    }
+  }
+
+  /**
+   * Adds the specified environment listener to receive events about the basic environment
+   * life-cycle.
+   *
+   * @param listener The listener to add.
+   */
+  public void addListener(EnvironmentListener listener) {
+    this.listeners.add(listener);
+  }
+
+  /**
+   * Removes the environment listener.
+   *
+   * @param listener The listener to remove.
+   */
+  public void removeListener(EnvironmentListener listener) {
+    this.listeners.remove(listener);
+  }
+
+  /**
+   * Adds the specified environment entity listener to receive events about entities on this
+   * environment.
+   *
+   * @param listener The listener to add.
+   */
+  public void addEntityListener(EnvironmentEntityListener listener) {
+    this.entityListeners.add(listener);
+  }
+
+  /**
+   * Removes the environment entity listener listener.
+   *
+   * @param listener The listener to remove.
+   */
+  public void removeEntityListener(EnvironmentEntityListener listener) {
+    this.entityListeners.remove(listener);
+  }
+
+  /**
+   * Adds the specified entity to the environment container. This also loads the entity (registers
+   * entity and controllers for update) if the environment has already been loaded. The entity will
+   * not be bound to a layer.
+   *
+   * @param entity The entity to add to the environment.
+   * @see #isLoaded()
+   * @see IEntity#loaded(Environment)
+   * @see EnvironmentEntityListener#entityAdded(IEntity)
+   */
+  public void add(IEntity entity) {
+    if (entity == null) {
+      return;
+    }
+    this.addEntity(entity);
+    this.miscEntities.get(entity.getRenderType()).put(entity.getMapId(), entity);
+    this.fireEntityEvent(l -> l.entityAdded(entity));
+  }
+
+  /**
+   * Adds all the specified entities to the environment container.
+   *
+   * @param <T> The type of the entity.
+   * @param entities The entities to be added to the environment.
+   * @see #add(IEntity)
+   * @see #addAll(IEntity...)
+   * @see #remove(IEntity)
+   * @see #removeAll(Iterable)
+   */
+  public <T extends IEntity> void addAll(Iterable<T> entities) {
+    if (entities == null) {
+      return;
+    }
+
+    for (T ent : entities) {
+      this.add(ent);
+    }
+  }
+
+  /**
+   * Adds all the specified entities to the environment container.
+   *
+   * @param entities The entities to be added to the environment.
+   * @see #add(IEntity)
+   * @see #addAll(Iterable)
+   * @see #remove(IEntity)
+   * @see #removeAll(Iterable)
+   */
+  public void addAll(IEntity... entities) {
+    this.addAll(Arrays.asList(entities));
+  }
+
+  /**
+   * Forces an update on the lighting layers for the entire map.
+   *
+   * @see #getStaticShadowLayer()
+   * @see #getAmbientLight()
+   * @see ColorLayer#updateSection(Rectangle2D)
+   */
+  public void updateLighting() {
+    if (this.getMap() != null) {
+      this.updateLighting(this.getMap().getBounds());
+    }
+  }
+
+  /**
+   * Forces an update on the lighting layers for the specified section on the map.
+   *
+   * @param section The section for which to update the lighting layers.
+   * @see #getStaticShadowLayer()
+   * @see #getAmbientLight()
+   * @see ColorLayer#updateSection(Rectangle2D)
+   */
+  public void updateLighting(Rectangle2D section) {
+    if (this.staticShadowLayer != null) {
+      this.staticShadowLayer.updateSection(section);
+    }
+
+    if (this.ambientLight != null) {
+      this.ambientLight.updateSection(section);
+    }
+  }
+
+  /**
+   * Adds the specified instance to be rendered with the defined {@code RenderType} whenever the
+   * environment's render pipeline is executed.
+   *
+   * <p>This method can be used for any custom rendering that is not related to an entity, a GUI
+   * component or the map.
+   *
+   * <p>Note that you don't need to explicitly add an {@code Entity} if it implements {@code
+   * IRenderable}. The render engine will inherently call an entity's render method.
+   *
+   * @param renderable The instance that should be rendered.
+   * @param renderType The render type that determines how the instance is processed by the
+   *     environment's render pipeline.
+   * @see #render(Graphics2D)
+   * @see RenderEngine#renderEntity(Graphics2D, IEntity)
+   */
+  public void add(IRenderable renderable, RenderType renderType) {
+    this.renderables.get(renderType).add(renderable);
+  }
+
+  /**
+   * Adds entities by the specified blueprint to this environment at the defined location.
+   *
+   * @param blueprint The blueprint, defining the map object to load the entities from.
+   * @param x The x-coordinate of the location at which to spawn the entities.
+   * @param y The y-coordinate of the location at which to spawn the entities.
+   * @return A collection with all added entities.
+   */
+  public Collection<IEntity> build(Blueprint blueprint, double x, double y) {
+    return this.build(blueprint, new Point2D.Double(x, y));
+  }
+
+  /**
+   * Adds entities by the specified blueprint to this environment at the defined location.
+   *
+   * @param blueprint The blueprint, defining the map object to load the entities from.
+   * @param location The location at which to spawn the entities.
+   * @return A collection with all added entities.
+   */
+  public Collection<IEntity> build(Blueprint blueprint, Point2D location) {
+    Collection<IMapObject> mapObjects = blueprint.build(location);
+    Collection<IEntity> loadedEntities = new ArrayList<>();
+    for (IMapObject obj : mapObjects) {
+      loadedEntities.addAll(this.load(obj));
+    }
+
+    return loadedEntities;
+  }
+
+  /** Clears all loaded entities and renderable instances from this environment. */
+  public void clear() {
+    Game.physics().clear();
+
+    this.combatEntities.clear();
+    this.mobileEntities.clear();
+    this.gravityForces.clear();
+    this.layerEntities.clear();
+    this.entitiesByTag.clear();
+    this.allEntities.clear();
+
+    for (RenderType renderType : RenderType.values()) {
+      this.miscEntities.get(renderType).clear();
+      this.renderListeners.get(renderType).clear();
+      this.renderables.get(renderType).clear();
+    }
+
+    dispose(this.allEntities.values());
+    dispose(this.triggers);
+    this.emitters.clear();
+    this.colliders.clear();
+    this.props.clear();
+    this.creatures.clear();
+    this.staticShadows.clear();
+    this.combatEntities.clear();
+    this.mobileEntities.clear();
+    this.lightSources.clear();
+    this.spawnPoints.clear();
+    this.soundSources.clear();
+    this.mapAreas.clear();
+    this.triggers.clear();
+
+    this.ambientLight = null;
+    this.staticShadowLayer = null;
+
+    for (Map<Integer, IEntity> type : this.miscEntities.values()) {
+      type.clear();
+    }
+
+    this.initialized = false;
+
+    this.fireEvent(l -> l.cleared(this));
+```
+
+Give me the fixed code snippet (ONLY THE METHOD REWRITE OF "clear()") in XML format in <response> tag like the example below. I will apply the fix to my codebase.
+Do not import any additional libraries or classes or java comments.
+If you can provide the fixed code snippet, provide it in the following format and place the code snippet in the <code> tag within ```java block.
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  Your fixed code snippet here
+  ```
+    ]]>
+  </code>
+</response>
+
+---ChatGPT.sendRequestToOpenAI---
+Sending request to OpenAI...
+---ChatGPT.sendRequestToOpenAI---
+Response received from OpenAI.
+---Response.<init>---
+Creating Response:
+```xml
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  public void clear() {
+    Game.physics().clear();
+
+    this.combatEntities.clear();
+    this.mobileEntities.clear();
+    this.gravityForces.clear();
+    this.layerEntities.clear();
+    this.entitiesByTag.clear();
+    this.allEntities.clear();
+
+    for (RenderType renderType : RenderType.values()) {
+      Map<Integer, IEntity> miscEntityMap = this.miscEntities.get(renderType);
+      if (miscEntityMap != null) {
+        miscEntityMap.clear();
+      }
+
+      Collection<EnvironmentRenderedListener> renderListenerSet = this.renderListeners.get(renderType);
+      if (renderListenerSet != null) {
+        renderListenerSet.clear();
+      }
+
+      Collection<IRenderable> renderableSet = this.renderables.get(renderType);
+      if (renderableSet != null) {
+        renderableSet.clear();
+      }
+    }
+
+    dispose(this.allEntities.values());
+    dispose(this.triggers);
+    this.emitters.clear();
+    this.colliders.clear();
+    this.props.clear();
+    this.creatures.clear();
+    this.staticShadows.clear();
+    this.combatEntities.clear();
+    this.mobileEntities.clear();
+    this.lightSources.clear();
+    this.spawnPoints.clear();
+    this.soundSources.clear();
+    this.mapAreas.clear();
+    this.triggers.clear();
+
+    this.ambientLight = null;
+    this.staticShadowLayer = null;
+
+    this.initialized = false;
+
+    this.fireEvent(l -> l.cleared(this));
+  }
+  ```
+    ]]>
+  </code>
+</response>
+```
+---Response.<init>---
+Response created:
+public void clear() {
+    Game.physics().clear();
+
+    this.combatEntities.clear();
+    this.mobileEntities.clear();
+    this.gravityForces.clear();
+    this.layerEntities.clear();
+    this.entitiesByTag.clear();
+    this.allEntities.clear();
+
+    for (RenderType renderType : RenderType.values()) {
+      Map<Integer, IEntity> miscEntityMap = this.miscEntities.get(renderType);
+      if (miscEntityMap != null) {
+        miscEntityMap.clear();
+      }
+
+      Collection<EnvironmentRenderedListener> renderListenerSet = this.renderListeners.get(renderType);
+      if (renderListenerSet != null) {
+        renderListenerSet.clear();
+      }
+
+      Collection<IRenderable> renderableSet = this.renderables.get(renderType);
+      if (renderableSet != null) {
+        renderableSet.clear();
+      }
+    }
+
+    dispose(this.allEntities.values());
+    dispose(this.triggers);
+    this.emitters.clear();
+    this.colliders.clear();
+    this.props.clear();
+    this.creatures.clear();
+    this.staticShadows.clear();
+    this.combatEntities.clear();
+    this.mobileEntities.clear();
+    this.lightSources.clear();
+    this.spawnPoints.clear();
+    this.soundSources.clear();
+    this.mapAreas.clear();
+    this.triggers.clear();
+
+    this.ambientLight = null;
+    this.staticShadowLayer = null;
+
+    this.initialized = false;
+
+    this.fireEvent(l -> l.cleared(this));
+  }
