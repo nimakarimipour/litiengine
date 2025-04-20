@@ -338,12 +338,13 @@ public class TileData {
     return parsed;
   }
 
-  protected static List<Tile> parseCsvData(String value) throws InvalidTileLayerException {
-    if (value == null) {
-      throw new InvalidTileLayerException("Input value is null");
-    }
+  protected static List<Tile> parseCsvData(@Nullable String value)
+      throws InvalidTileLayerException {
 
     List<Tile> parsed = new ArrayList<>();
+
+    // trim 'space', 'tab', 'newline'. pay attention to additional unicode chars
+    // like \u2028, \u2029, \u0085 if necessary
     String[] csvTileIds = value.trim().split("[\\s]*,[\\s]*");
 
     for (String gid : csvTileIds) {
