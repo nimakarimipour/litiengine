@@ -203,6 +203,9 @@ public final class GameWindow {
    * @return The {@code GameWindow}'s internal resolution as a {@link Dimension}.
    */
   public Dimension getResolution() {
+    if (this.resolution == null) {
+      throw new IllegalStateException("Resolution has not been set.");
+    }
     return this.resolution;
   }
 
