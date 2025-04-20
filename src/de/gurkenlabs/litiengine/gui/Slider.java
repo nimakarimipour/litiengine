@@ -35,12 +35,6 @@ public abstract class Slider extends GuiComponent {
     this.minValue = minValue;
     this.maxValue = maxValue;
     this.stepSize = stepSize;
-
-    // Ensure button1 and button2 are initialized.
-    this.button1 = new ImageComponent(); // Or use a specific constructor
-    this.button2 = new ImageComponent(); // Or use a specific constructor
-    this.sliderComponent = new ImageComponent(); // Or use a specific constructor
-
     this.onChange(e -> this.sliderComponent.setLocation(this.getRelativeSliderPosition()));
   }
 
