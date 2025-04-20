@@ -184,6 +184,7 @@ public class AnimationController implements IAnimationController {
     return this.currentAnimation;
   }
 
+  @Nullable
   @Override
   public BufferedImage getCurrentImage() {
     if (!this.isEnabled()) {
@@ -205,11 +206,6 @@ public class AnimationController implements IAnimationController {
 
     BufferedImage sprite =
         current.getSpritesheet().getSprite(current.getCurrentKeyFrame().getSpriteIndex());
-
-    if (sprite == null) {
-      return null; // Handle potential null sprite here
-    }
-
     for (final ImageEffect effect : this.getImageEffects()) {
       sprite = effect.apply(sprite);
     }
