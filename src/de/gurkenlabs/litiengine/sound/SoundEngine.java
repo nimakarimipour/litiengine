@@ -646,16 +646,15 @@ public final class SoundEngine implements IUpdateable, ILaunchable {
   }
 
   private SFXPlayback playSound(
-      Sound sound, Supplier<Point2D> supplier, boolean loop, int range, float volume) {
+      @Nullable Sound sound, Supplier<Point2D> supplier, boolean loop, int range, float volume) {
     if (sound == null) {
-      throw new IllegalArgumentException("Sound cannot be null");
+      return null;
     }
 
     SFXPlayback playback = createSound(sound, supplier, loop, range, volume);
     if (playback == null) {
-      throw new IllegalStateException("Failed to create sound playback");
+      return null;
     }
-
     playback.start();
     return playback;
   }
