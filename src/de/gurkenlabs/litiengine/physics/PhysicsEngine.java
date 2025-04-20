@@ -538,30 +538,28 @@ public final class PhysicsEngine implements IUpdateable {
    * @return A {@code RaycastHit} determining the hit point, ray length, and corresponding {@code
    *     ICollisionEntity}.
    */
-  public RaycastHit raycast(Line2D line, Collision collision, ICollisionEntity entity) {
+  @Nullable
+  public RaycastHit raycast(Line2D line, Collision collision, @Nullable ICollisionEntity entity) {
     final Point2D rayCastSource = new Point2D.Double(line.getX1(), line.getY1());
 
-    List<ICollisionEntity> entities = this.collisionEntities.get(collision);
-    if (entities != null) {
-      for (final ICollisionEntity collisionEntity : entities) {
-        if (!canCollide(entity, collisionEntity)) {
-          continue;
-        }
+    for (final ICollisionEntity collisionEntity : this.collisionEntities.get(collision)) {
+      if (!canCollide(entity, collisionEntity)) {
+        continue;
+      }
 
-        if (collisionEntity.getCollisionBox().intersectsLine(line)) {
-          double closestDist = -1;
-          Point2D closestPoint = null;
-          for (final Point2D intersection :
-              GeometricUtilities.getIntersectionPoints(line, collisionEntity.getCollisionBox())) {
-            final double dist = intersection.distance(rayCastSource);
-            if (closestPoint == null || dist < closestDist) {
-              closestPoint = intersection;
-              closestDist = dist;
-            }
+      if (collisionEntity.getCollisionBox().intersectsLine(line)) {
+        double closestDist = -1;
+        Point2D closestPoint = null;
+        for (final Point2D intersection :
+            GeometricUtilities.getIntersectionPoints(line, collisionEntity.getCollisionBox())) {
+          final double dist = intersection.distance(rayCastSource);
+          if (closestPoint == null || dist < closestDist) {
+            closestPoint = intersection;
+            closestDist = dist;
           }
-
-          return new RaycastHit(closestPoint, collisionEntity, closestDist);
         }
+
+        return new RaycastHit(closestPoint, collisionEntity, closestDist);
       }
     }
 
