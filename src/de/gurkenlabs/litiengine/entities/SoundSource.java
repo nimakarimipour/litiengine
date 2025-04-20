@@ -51,7 +51,11 @@ public class SoundSource extends Entity {
    * @see Sounds#get(String)
    */
   public SoundSource(String name) {
-    this.setSound(name);
+    Sound foundSound = Resources.sounds().get(name);
+    if (foundSound == null) {
+      throw new IllegalArgumentException("Sound not found for name: " + name);
+    }
+    this.setSound(foundSound);
   }
 
   /**
