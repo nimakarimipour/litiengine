@@ -1,3 +1,22 @@
+====================
+Type='RETURN_NULLABLE', message='returning @Nullable expression from method with @NonNull return type'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/input/Input.java:69
+    return mouse;
+Log:
+---NullAway.lambda$resolveRemainingErrors$17---
+==============================
+---NullAway.lambda$resolveRemainingErrors$17---
+TOP LEVEL CALL TO FIX ERROR: Type='RETURN_NULLABLE', message='returning @Nullable expression from method with @NonNull return type'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/input/Input.java:69
+    return mouse;
+---ChatGPT.ask---
+Asking ChatGPT:
+I want to resolve a warning reported by NullAway.
+The error is of the type of "RETURN_NULLABLE" and the full error message is: "returning @Nullable expression from method with @NonNull return type".
+The line with the error is: "    return mouse;".
+
+The error is within "the method: mouse()" and the code surrounding the error is:
+```java
 package de.gurkenlabs.litiengine.input;
 
 import de.gurkenlabs.litiengine.Game;
@@ -66,50 +85,49 @@ public final class Input {
    * @return The mouse input device.
    */
   public static IMouse mouse() {
+    return mouse;
+```
+
+Give me the fixed code snippet (ONLY THE METHOD REWRITE OF "mouse()") in XML format in <response> tag like the example below. I will apply the fix to my codebase.
+Do not import any additional libraries or classes or java comments.
+If you can provide the fixed code snippet, provide it in the following format and place the code snippet in the <code> tag within ```java block.
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  Your fixed code snippet here
+  ```
+    ]]>
+  </code>
+</response>
+
+---ChatGPT.sendRequestToOpenAI---
+Sending request to OpenAI...
+---ChatGPT.sendRequestToOpenAI---
+Response received from OpenAI.
+---Response.<init>---
+Creating Response:
+```xml
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  public static IMouse mouse() {
     if (mouse == null) {
       throw new IllegalStateException("Mouse input device not initialized");
     }
     return mouse;
   }
-
-  public static final class InputGameAdapter implements GameListener {
-    @Override
-    public void terminated() {
-      if (gamePadManager != null) {
-        gamePadManager.terminate();
-      }
+  ```
+  ]]>
+  </code>
+</response>
+```
+---Response.<init>---
+Response created:
+public static IMouse mouse() {
+    if (mouse == null) {
+      throw new IllegalStateException("Mouse input device not initialized");
     }
-
-    @Override
-    public void initialized(String... args) {
-      init();
-    }
-
-    @Override
-    public void started() {
-      if (gamePadManager != null) {
-        gamePadManager.start();
-      }
-    }
-
-    private static void init() {
-      try {
-        keyboard = new Keyboard();
-        Mouse m = new Mouse();
-
-        if (!Game.isInNoGUIMode()) {
-          Game.window().getRenderComponent().addMouseListener(m);
-          Game.window().getRenderComponent().addMouseMotionListener(m);
-          Game.window().getRenderComponent().addMouseWheelListener(m);
-        }
-
-        mouse = m;
-        if (Game.config().input().isGamepadSupport()) {
-          gamePadManager = new GamepadManager();
-        }
-      } catch (AWTException e) {
-        log.log(Level.SEVERE, e.getMessage(), e);
-      }
-    }
+    return mouse;
   }
-}
