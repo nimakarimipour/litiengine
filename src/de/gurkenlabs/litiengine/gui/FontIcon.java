@@ -36,7 +36,7 @@ public class FontIcon {
    * @return the font
    */
   public Font getFont() {
-    return this.font;
+    return this.font != null ? this.font : new Font("Default", Font.PLAIN, 12);
   }
 
   /**
