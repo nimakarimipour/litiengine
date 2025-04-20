@@ -19,7 +19,7 @@ public class TileAnimation implements ITileAnimation {
 
   @Override
   public List<ITileAnimationFrame> getFrames() {
-    return this.frames;
+    return this.frames != null ? this.frames : List.of();
   }
 
   @Override
