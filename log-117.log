@@ -1,0 +1,333 @@
+====================
+Type='RETURN_NULLABLE', message='returning @Nullable expression from method with @NonNull return type'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/Game.java:269
+    return gameWindow;
+Log:
+---NullAway.lambda$resolveRemainingErrors$17---
+==============================
+---NullAway.lambda$resolveRemainingErrors$17---
+TOP LEVEL CALL TO FIX ERROR: Type='RETURN_NULLABLE', message='returning @Nullable expression from method with @NonNull return type'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/Game.java:269
+    return gameWindow;
+---ChatGPT.ask---
+Asking ChatGPT:
+I want to resolve a warning reported by NullAway.
+The error is of the type of "RETURN_NULLABLE" and the full error message is: "returning @Nullable expression from method with @NonNull return type".
+The line with the error is: "    return gameWindow;".
+
+The error is within "the method: window()" and the code surrounding the error is:
+```java
+package de.gurkenlabs.litiengine;
+
+import de.gurkenlabs.litiengine.configuration.ClientConfiguration;
+import de.gurkenlabs.litiengine.configuration.DebugConfiguration;
+import de.gurkenlabs.litiengine.configuration.GameConfiguration;
+import de.gurkenlabs.litiengine.configuration.GraphicConfiguration;
+import de.gurkenlabs.litiengine.configuration.InputConfiguration;
+import de.gurkenlabs.litiengine.configuration.SoundConfiguration;
+import de.gurkenlabs.litiengine.entities.ICollisionEntity;
+import de.gurkenlabs.litiengine.entities.IMobileEntity;
+import de.gurkenlabs.litiengine.environment.Environment;
+import de.gurkenlabs.litiengine.environment.GameWorld;
+import de.gurkenlabs.litiengine.environment.tilemap.ICustomPropertyProvider;
+import de.gurkenlabs.litiengine.graphics.Camera;
+import de.gurkenlabs.litiengine.graphics.DebugRenderer;
+import de.gurkenlabs.litiengine.graphics.ImageRenderer;
+import de.gurkenlabs.litiengine.graphics.RenderComponent;
+import de.gurkenlabs.litiengine.graphics.RenderEngine;
+import de.gurkenlabs.litiengine.graphics.ShapeRenderer;
+import de.gurkenlabs.litiengine.graphics.TextRenderer;
+import de.gurkenlabs.litiengine.gui.screens.Screen;
+import de.gurkenlabs.litiengine.gui.screens.ScreenManager;
+import de.gurkenlabs.litiengine.input.Input;
+import de.gurkenlabs.litiengine.input.Input.InputGameAdapter;
+import de.gurkenlabs.litiengine.physics.PhysicsEngine;
+import de.gurkenlabs.litiengine.resources.Resources;
+import de.gurkenlabs.litiengine.sound.Sound;
+import de.gurkenlabs.litiengine.sound.SoundEngine;
+import de.gurkenlabs.litiengine.sound.SoundPlayback;
+import de.gurkenlabs.litiengine.tweening.TweenEngine;
+import de.gurkenlabs.litiengine.util.ArrayUtilities;
+import de.gurkenlabs.litiengine.util.io.XmlUtilities;
+import java.awt.event.KeyEvent;
+import java.lang.Thread.UncaughtExceptionHandler;
+import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.annotation.Nullable;
+
+/***
+ * <p>
+ * The {@code Game} class is without any doubt one of the classes that you will call a lot when creating a game with the LITIENGINE.
+ * It is designed to be the static container that provides access to all important aspects of the engine, e.g. it holds the {@code GameInfo},
+ * the {@code RenderEngine}, the {@code SoundEngine} and many other major components.
+ * </p>
+ * <p>
+ * We designed the API such that all important parts that make up the game are directly accessible via the {@code Game} class in a static manner.
+ * To be a little bit more technical, it is essentially a collection of core Singleton instances.
+ * </p>
+ * <p>
+ * This class will also be your starting point when setting up a new LITIENGINE project. In order to launch your game,
+ * you need to at least call {@link Game#init(String...)} and {@link Game#start()} from your programs {@code main(String[])} method.
+ * </p>
+ * <p>
+ * Additionally, it provides an interface to hook up event listeners (e.g. {@code GameListener} or {@code EnvironmentLoadedListener}) for
+ * the most basic operations of a Game life cycle.
+ * </p>
+ *
+ * @see GameListener
+ */
+public final class Game {
+  public static final int EXIT_GAME_CLOSED = 0;
+  public static final int EXIT_GAME_CRASHED = -1;
+
+  public static final String COMMADLINE_ARG_RELEASE = "-release";
+  public static final String COMMADLINE_ARG_NOGUI = "-nogui";
+
+  private static final List<GameListener> gameListeners = new CopyOnWriteArrayList<>();
+
+  private static final RenderEngine graphicsEngine = new RenderEngine();
+  private static final SoundEngine soundEngine = new SoundEngine();
+  private static final PhysicsEngine physicsEngine = new PhysicsEngine();
+
+  private static final GameConfiguration configuration = new GameConfiguration();
+  private static final GameMetrics metrics = new GameMetrics();
+  private static final GameLog log = new GameLog();
+  private static final GameTime gameTime = new GameTime();
+  private static final GameRandom random = new GameRandom();
+  @Nullable private static GameInfo gameInfo = new GameInfo();
+  private static final TweenEngine tweenEngine = new TweenEngine();
+
+  private static GameLoop gameLoop;
+  @Nullable private static ScreenManager screenManager;
+  @Nullable private static GameWindow gameWindow;
+
+  private static GameWorld world = new GameWorld();
+
+  private static boolean debug = true;
+  private static boolean noGUIMode = false;
+  private static boolean hasStarted;
+  private static boolean initialized;
+
+  static {
+    world.onLoaded(gameTime);
+    addGameListener(new InputGameAdapter());
+  }
+
+  private Game() {
+    throw new UnsupportedOperationException();
+  }
+
+  /**
+   * Adds the specified game listener to receive events about the basic game life-cycle.
+   *
+   * @param listener The listener to add.
+   */
+  public static void addGameListener(GameListener listener) {
+    gameListeners.add(listener);
+  }
+
+  /**
+   * Removes the specified game listener.
+   *
+   * @param listener The listener to remove.
+   */
+  public static void removeGameListener(GameListener listener) {
+    gameListeners.remove(listener);
+  }
+
+  /**
+   * This flag indicates if the game currently supports debugging. This should be set to false for
+   * release builds.
+   *
+   * <p>The default value here is true and will allow debugging unless explicitly disabled by
+   * calling this method or providing the command line argument {@link #COMMADLINE_ARG_RELEASE} when
+   * running the game.
+   *
+   * @param allow If set to true, the game will be told to allow debugging.
+   */
+  public static void allowDebug(boolean allow) {
+    debug = allow;
+  }
+
+  /**
+   * This flag indicates whether the game should display the {@code GameWindow} or not. This can
+   * only be set before the game has been initialized with the {@code Game.init(String...)} method.
+   * Afterwards it doesn't have an effect anymore. If enabled, the {@code
+   * ScreenManager#setVisible(boolean)} method won't be set to true and the {@code RenderLoop} won't
+   * be started. Also the {@code Camera} won't be updated.
+   *
+   * @param noGui If set to true, the GUI will be hidden.
+   * @see GameWindow
+   * @see Game#init(String...)
+   * @see Camera
+   * @see #isInNoGUIMode()
+   */
+  public static void hideGUI(boolean noGui) {
+    noGUIMode = noGui;
+  }
+
+  /**
+   * This flag globally controls the game's debugging state. If enabled, debugging functionality
+   * (e.g. rendering collision boxes) can potentially be enabled in the configuration.
+   *
+   * @return True if debugging functionality is enabled; otherwise false.
+   * @see Game#allowDebug(boolean)
+   * @see GameConfiguration#debug()
+   */
+  public static boolean isDebug() {
+    return debug;
+  }
+
+  /**
+   * Indicates whether the game should display the {@code GameWindow} or not.
+   *
+   * @return True if the game should display visual components; otherwise false.
+   */
+  public static boolean isInNoGUIMode() {
+    return noGUIMode;
+  }
+
+  /**
+   * Indicates whether the game has already been started.
+   *
+   * @return True if the game has been started; otherwise false.
+   * @see Game#start()
+   */
+  public static boolean hasStarted() {
+    return hasStarted;
+  }
+
+  /**
+   * Gets the static meta information about this game.<br>
+   * This can be used to define meta information about your game, like it's name, version or web
+   * site.<br>
+   * <br>
+   * <i>It's also possible to provide additional custom information using the method group <br>
+   * {@code Game.getInfo().setValue("CUSTOM_STRING", "my-value")}.</i>
+   *
+   * @return The game's basic meta information.
+   * @see GameInfo
+   * @see ICustomPropertyProvider
+   * @see GameInfo#setName(String)
+   * @see GameInfo#setValue(String, String)
+   */
+  @Nullable
+  public static GameInfo info() {
+    return gameInfo;
+  }
+
+  /**
+   * Gets the game's runtime configuration.<br>
+   * It contains default engine settings for the game client, graphics, audio, input and debugging.
+   * <br>
+   * Additionally, it can be used to register and manage custom settings that are specific to your
+   * game.
+   *
+   * <p><i> Elements of this configuration are also presented in a config.properties file in the
+   * game's root directory. <br>
+   * This way its possible to adjust elements without having to recompile the game. </i>
+   *
+   * @return The game's runtime configuration.
+   * @see SoundConfiguration
+   * @see GraphicConfiguration
+   * @see ClientConfiguration
+   * @see DebugConfiguration
+   * @see InputConfiguration
+   */
+  public static GameConfiguration config() {
+    return configuration;
+  }
+
+  /**
+   * Gets basic client metrics about the game's runtime. This includes information about network,
+   * the frames-per-second or the updates-per-second and the used memory.
+   *
+   * <p><i> This information can be rendered by setting <br>
+   * {@code Game.config().client().setShowGameMetrics(boolean)} to true or <br>
+   * {@code cl_showGameMetrics=true} in the config.settings. </i>
+   *
+   * @return Metrics about the game's runtime.
+   * @see GameMetrics#getFramesPerSecond()
+   * @see ClientConfiguration#setShowGameMetrics(boolean)
+   */
+  public static GameMetrics metrics() {
+    return metrics;
+  }
+
+  /**
+   * Gets time information about the running game/environment.
+   *
+   * <p>This allow to measure the time between actions, track how long something took, evaluate
+   * cooldowns or just get information about the played game time.
+   *
+   * @return The game's temporal information.
+   * @see GameTime#now()
+   */
+  public static GameTime time() {
+    return gameTime;
+  }
+
+  /**
+   * Gets the game's window in which the {@code RenderComponent} lives.<br>
+   * This class e.g. provides the possibility to set a title, provide an icon, get information about
+   * the resolution or set a cursor.
+   *
+   * @return The window that hosts the game's {@code RenderComponent}.
+   * @see RenderComponent
+   * @see GameWindow#getResolution()
+   * @see GameWindow#setTitle(String)
+   * @see GameWindow#setIcon(java.awt.Image)
+   * @see GameWindow#cursor()
+   */
+  public static GameWindow window() {
+    return gameWindow;
+```
+
+Give me the fixed code snippet (ONLY THE METHOD REWRITE OF "window()") in XML format in <response> tag like the example below. I will apply the fix to my codebase.
+Do not import any additional libraries or classes or java comments.
+If you can provide the fixed code snippet, provide it in the following format and place the code snippet in the <code> tag within ```java block.
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  Your fixed code snippet here
+  ```
+    ]]>
+  </code>
+</response>
+
+---ChatGPT.sendRequestToOpenAI---
+Sending request to OpenAI...
+---ChatGPT.sendRequestToOpenAI---
+Response received from OpenAI.
+---Response.<init>---
+Creating Response:
+```xml
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  public static GameWindow window() {
+    if (gameWindow == null) {
+      throw new IllegalStateException("GameWindow has not been initialized.");
+    }
+    return gameWindow;
+  }
+  ```
+  ]]>
+  </code>
+</response>
+```
+---Response.<init>---
+Response created:
+public static GameWindow window() {
+    if (gameWindow == null) {
+      throw new IllegalStateException("GameWindow has not been initialized.");
+    }
+    return gameWindow;
+  }
