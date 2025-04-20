@@ -157,9 +157,6 @@ public class Creature extends CombatEntity implements IMobileEntity {
 
   @Override
   public Attribute<Float> getVelocity() {
-    if (this.velocity == null) {
-      throw new IllegalStateException("Velocity attribute is not initialized");
-    }
     return this.velocity;
   }
 
