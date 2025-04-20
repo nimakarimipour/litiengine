@@ -110,7 +110,7 @@ public class CustomProperty implements ICustomProperty {
 
   @Override
   public void setValue(Color value) {
-    this.value = value != null ? ColorHelper.encode(value) : "";
+    this.value = ColorHelper.encode(Objects.requireNonNull(value));
     this.location = null;
   }
 
