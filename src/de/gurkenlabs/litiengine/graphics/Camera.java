@@ -135,12 +135,18 @@ public class Camera implements ICamera {
   }
 
   @Override
-  public void setFocus(final Point2D focus) {
-    if (focus == null) {
-      throw new IllegalArgumentException("Focus point cannot be null");
-    }
+  public void setFocus(@Nullable final Point2D focus) {
     this.focus = this.clampToMap(focus);
 
+    // dunno why but without the factor of 0.01 sometimes everything starts to
+    // get wavy while rendering ...
+    // it seems to be an issue with the focus location being exactly dividable
+    // by up to 4?? (maybe even more for higher renderscales)
+    // this is somehow related to the rendering scale: if the rendering scale is
+    // lower this will only be affected by lower dividable numbers (e.g.
+    // renderscale of 6 only has an issue with 1 and 0.5)
+    // seems like java cannot place certain images onto their exact pixel
+    // location with an AffineTransform...
     final double fraction = this.focus.getY() - Math.floor(this.focus.getY());
     if (MathUtilities.isInt(fraction * 4)) {
       this.focus.setLocation(this.focus.getX(), this.focus.getY() + 0.01);
