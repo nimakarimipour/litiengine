@@ -186,8 +186,12 @@ public abstract class ResourcesContainer<T> {
    * @param resourceName The resource's name.
    * @return The resource with the specified name or null if not found.
    */
-  public T get(@Nullable String resourceName) {
-    return this.get(this.getIdentifier(resourceName), false);
+  public T get(String resourceName) {
+    T result = this.get(this.getIdentifier(resourceName), false);
+    if (result == null) {
+      throw new NullPointerException("Resource not found: " + resourceName);
+    }
+    return result;
   }
 
   @Nullable
