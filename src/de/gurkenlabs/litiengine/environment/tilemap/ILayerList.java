@@ -65,10 +65,11 @@ public interface ILayerList extends ICustomPropertyProvider {
     return null;
   }
 
-  @Nullable
   public default IMapObjectLayer getMapObjectLayer(String layerName) {
     Optional<IMapObjectLayer> layer =
-        this.getMapObjectLayers().stream().filter(x -> x.getName().equals(layerName)).findFirst();
+        this.getMapObjectLayers().stream()
+            .filter(x -> layerName != null && x.getName() != null && x.getName().equals(layerName))
+            .findFirst();
     return layer.orElse(null);
   }
 
