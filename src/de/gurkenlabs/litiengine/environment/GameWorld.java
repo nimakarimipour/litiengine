@@ -228,6 +228,9 @@ public final class GameWorld implements IUpdateable {
    * @see ICamera
    */
   public ICamera camera() {
+    if (this.camera == null) {
+      throw new NullPointerException("Camera is not initialized");
+    }
     return this.camera;
   }
 
