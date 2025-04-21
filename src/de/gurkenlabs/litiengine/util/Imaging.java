@@ -393,14 +393,10 @@ public final class Imaging {
     }
 
     final BufferedImage dimg = getCompatibleImage(w, h);
-    if (dimg != null) {
-      final Graphics2D g = dimg.createGraphics();
-      g.drawImage(img, 0, 0 + h, w, -h, null);
-      g.dispose();
-      return dimg;
-    } else {
-      return img; // or handle the null case as required
-    }
+    final Graphics2D g = dimg.createGraphics();
+    g.drawImage(img, 0, 0 + h, w, -h, null);
+    g.dispose();
+    return dimg;
   }
 
   /**
