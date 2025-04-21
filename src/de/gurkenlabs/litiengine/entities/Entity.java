@@ -308,16 +308,7 @@ public abstract class Entity implements IEntity, EntityRenderListener, Tweenable
       return;
     }
 
-    EntityAction action = this.actions.get(actionName);
-
-    if (action != null) {
-      action.perform();
-    } else {
-      log.log(
-          Level.WARNING,
-          "Entity \"{0}\" found no action associated with \"{1}\". This should not happen as the action existence is checked before.",
-          new Object[] {this, actionName});
-    }
+    this.actions.get(actionName).perform();
   }
 
   @Nullable
