@@ -63,8 +63,6 @@ public class SoundSource extends Entity {
   public SoundSource(double x, double y) {
     this.setX(x);
     this.setY(y);
-    this.setSound("defaultSound");
-    this.playback = new Playback(); // Ensure playback is initialized
   }
 
   /**
