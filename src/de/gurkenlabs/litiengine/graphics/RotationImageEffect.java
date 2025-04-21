@@ -4,7 +4,6 @@ import de.gurkenlabs.litiengine.util.Imaging;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
-import javax.annotation.Nullable;
 
 public class RotationImageEffect extends ImageEffect {
   private final float angle;
@@ -20,7 +19,6 @@ public class RotationImageEffect extends ImageEffect {
     this.angle = angle;
   }
 
-  @Nullable
   @Override
   public BufferedImage apply(final BufferedImage image) {
     if (image == null) {
@@ -29,6 +27,10 @@ public class RotationImageEffect extends ImageEffect {
 
     final int size = Math.max(image.getWidth(), image.getHeight()) * 2;
     final BufferedImage img = Imaging.getCompatibleImage(size, size);
+    if (img == null) {
+      return null;
+    }
+
     final Graphics2D g = img.createGraphics();
     ImageRenderer.renderRotated(g, image, new Point2D.Double(0, 0), this.getAngle());
     g.dispose();
