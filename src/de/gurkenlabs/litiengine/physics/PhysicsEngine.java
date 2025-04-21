@@ -840,6 +840,10 @@ public final class PhysicsEngine implements IUpdateable {
   }
 
   private Point2D clamptoMap(IMobileEntity entity, Point2D newLocation) {
+    if (this.getBounds() == null) {
+      throw new IllegalStateException("Bounds must not be null");
+    }
+
     double collisionLocationX =
         entity.getCollisionBoxAlign().getLocation(entity.getWidth(), entity.getCollisionBoxWidth());
     double leftBoundX = this.getBounds().getMinX() - collisionLocationX;
