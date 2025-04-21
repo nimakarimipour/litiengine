@@ -46,7 +46,6 @@ public final class Input {
       log.log(
           Level.SEVERE,
           "Cannot access gamepads because gamepad support is disabled in the configuration.");
-      return new GamepadManager(); // Return an empty instance or default value
     }
 
     return gamePadManager;
