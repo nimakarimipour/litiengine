@@ -68,21 +68,15 @@ public final class XmlUtilities {
     }
   }
 
-  public static <T> JAXBContext getContext(Class<T> cls) {
-    try {
-      final JAXBContext jaxbContext;
-      if (jaxbContexts.containsKey(cls)) {
-        jaxbContext = jaxbContexts.get(cls);
-      } else {
-        jaxbContext = JAXBContext.newInstance(cls);
-        jaxbContexts.put(cls, jaxbContext);
-      }
-      return jaxbContext;
-    } catch (final JAXBException e) {
-      log.log(Level.SEVERE, e.getMessage(), e);
+  public static <T> JAXBContext getContext(Class<T> cls) throws JAXBException {
+    final JAXBContext jaxbContext;
+    if (jaxbContexts.containsKey(cls)) {
+      jaxbContext = jaxbContexts.get(cls);
+    } else {
+      jaxbContext = JAXBContext.newInstance(cls);
+      jaxbContexts.put(cls, jaxbContext);
     }
-
-    return null;
+    return jaxbContext;
   }
 
   @Nullable
