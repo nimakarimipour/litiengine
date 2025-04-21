@@ -208,7 +208,7 @@ public final class Spritesheet implements Comparable<Spritesheet> {
 
   public boolean isLoaded() {
     return Resources.spritesheets().contains(this.getName())
-        && Resources.spritesheets().get(this.getName()).equals(this);
+        && this.equals(Resources.spritesheets().get(this.getName()));
   }
 
   public void setSpriteHeight(final int spriteHeight) {
