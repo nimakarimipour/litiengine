@@ -417,15 +417,12 @@ public abstract class Entity implements IEntity, EntityRenderListener, Tweenable
   @Override
   public void removeTag(String tag) {
     this.getTags().remove(tag);
-    if (Game.world().environment() == null || this.getEnvironment() == null) {
+    if (Game.world().environment() == null) {
       return;
     }
-    List<Entity> entities = this.getEnvironment().getEntitiesByTag().get(tag);
-    if (entities != null) {
-      entities.remove(this);
-      if (entities.isEmpty()) {
-        this.getEnvironment().getEntitiesByTag().remove(tag);
-      }
+    this.getEnvironment().getEntitiesByTag().get(tag).remove(this);
+    if (this.getEnvironment().getEntitiesByTag().get(tag).isEmpty()) {
+      this.getEnvironment().getEntitiesByTag().remove(tag);
     }
   }
 
