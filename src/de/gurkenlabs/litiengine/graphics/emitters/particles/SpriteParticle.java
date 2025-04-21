@@ -21,12 +21,16 @@ public class SpriteParticle extends Particle {
   public SpriteParticle(final Spritesheet spritesheet) {
     super(0, 0);
     this.spritesheet = spritesheet;
-    if (spritesheet == null) {
-      return;
+
+    if (spritesheet != null) {
+      this.setWidth(spritesheet.getSpriteWidth());
+      this.setHeight(spritesheet.getSpriteHeight());
+      this.animation = new AnimationController(this.spritesheet);
+    } else {
+      this.animation =
+          new AnimationController(
+              new Spritesheet(null, 0, 0)); // Or provide a default Spritesheet if needed
     }
-    this.setWidth(spritesheet.getSpriteWidth());
-    this.setHeight(spritesheet.getSpriteHeight());
-    this.animation = new AnimationController(this.spritesheet);
   }
 
   @Override
