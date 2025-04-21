@@ -38,7 +38,9 @@ public class StateMachine implements IUpdateable {
       if (transition.conditionsFullfilled()) {
         this.currentState.exit();
         this.currentState = transition.getNextState();
-        this.currentState.enter();
+        if (this.currentState != null) {
+          this.currentState.enter();
+        }
         return;
       }
     }
