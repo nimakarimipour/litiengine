@@ -41,7 +41,7 @@ public class NumberAdjuster extends TextFieldComponent {
   }
 
   public BigDecimal getCurrentValue() {
-    return this.currentValue != null ? this.currentValue : BigDecimal.ZERO;
+    return this.currentValue;
   }
 
   public BigDecimal getLowerBound() {
