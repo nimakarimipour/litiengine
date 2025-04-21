@@ -121,10 +121,7 @@ public class TweenEngine implements IUpdateable, ILaunchable {
   public void remove(final Tweenable target, final TweenType type) {
     final Tween tween = this.getTween(target, type);
     if (tween != null) {
-      Map<TweenType, Tween> tweensMap = this.getTweens().get(target);
-      if (tweensMap != null) {
-        tweensMap.remove(type);
-      }
+      this.getTweens().get(target).remove(type);
     }
   }
 
