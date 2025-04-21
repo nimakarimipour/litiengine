@@ -2303,9 +2303,11 @@ public final class Environment implements IRenderable {
     }
 
     // 3. Render entities
-    Game.graphics()
-        .renderEntities(
-            g, this.miscEntities.get(renderType).values(), renderType == RenderType.NORMAL);
+    if (this.miscEntities.get(renderType) != null) {
+      Game.graphics()
+          .renderEntities(
+              g, this.miscEntities.get(renderType).values(), renderType == RenderType.NORMAL);
+    }
 
     // 4. fire event
     this.fireRenderEvent(g, renderType);
@@ -2322,7 +2324,11 @@ public final class Environment implements IRenderable {
                       .filter(m -> m.getRenderType() == renderType)
                       .count()),
               new GameMetrics.RenderInfo("renderables", this.getRenderables(renderType).size()),
-              new GameMetrics.RenderInfo("entities", this.miscEntities.get(renderType).size()));
+              new GameMetrics.RenderInfo(
+                  "entities",
+                  this.miscEntities.get(renderType) != null
+                      ? this.miscEntities.get(renderType).size()
+                      : 0));
     }
   }
 
