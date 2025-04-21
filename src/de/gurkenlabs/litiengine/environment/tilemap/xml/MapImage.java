@@ -41,7 +41,7 @@ public class MapImage extends CustomPropertyProvider implements IMapImage {
     super(original);
 
     if (original == null) {
-      return;
+      throw new IllegalArgumentException("original cannot be null");
     }
 
     this.source = original.getSource();
@@ -52,10 +52,19 @@ public class MapImage extends CustomPropertyProvider implements IMapImage {
               original.getTransparentColor().getGreen(),
               original.getTransparentColor().getBlue(),
               original.getTransparentColor().getAlpha());
+    } else {
+      this.transparentcolor = new Color(0, 0, 0, 0); // Default or placeholder value
     }
     this.width = original.getWidth();
     this.height = original.getHeight();
     this.absolutePath = original.getAbsoluteSourcePath();
+    if (this.absolutePath == null) {
+      try {
+        this.absolutePath = new URL("http://example.com"); // Default or placeholder value
+      } catch (MalformedURLException e) {
+        e.printStackTrace();
+      }
+    }
   }
 
   @Override
