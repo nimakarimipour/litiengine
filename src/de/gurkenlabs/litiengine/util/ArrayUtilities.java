@@ -331,8 +331,10 @@ public final class ArrayUtilities {
    * @param collection The list that provides the elements to be joined.
    * @return A string with all joined elements, separated by the delimiter.
    */
-  @Nullable
-  public static String join(@Nullable Collection<?> collection) {
+  public static String join(Collection<?> collection) {
+    if (collection == null) {
+      throw new IllegalArgumentException("Collection must not be null");
+    }
     return joinArray(collection.toArray(), DEFAULT_STRING_DELIMITER);
   }
 
