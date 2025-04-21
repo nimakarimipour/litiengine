@@ -1,0 +1,114 @@
+====================
+Type='DEREFERENCE_NULLABLE', message='dereferenced expression this.collisionEntities.get(entity.getCollisionType()) is @Nullable'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/physics/PhysicsEngine.java:102
+        this.collisionEntities.get(entity.getCollisionType()).remove(entity);
+Log:
+---NullAway.lambda$resolveRemainingErrors$17---
+==============================
+---NullAway.lambda$resolveRemainingErrors$17---
+TOP LEVEL CALL TO FIX ERROR: Type='DEREFERENCE_NULLABLE', message='dereferenced expression this.collisionEntities.get(entity.getCollisionType()) is @Nullable'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/physics/PhysicsEngine.java:102
+        this.collisionEntities.get(entity.getCollisionType()).remove(entity);
+---ChatGPT.ask---
+Asking ChatGPT:
+I want to resolve a warning reported by NullAway.
+The error is of the type of "DEREFERENCE_NULLABLE" and the full error message is: "dereferenced expression this.collisionEntities.get(entity.getCollisionType()) is @Nullable".
+The line with the error is: "        this.collisionEntities.get(entity.getCollisionType()).remove(entity);".
+
+The error is within "the method: remove(de.gurkenlabs.litiengine.entities.ICollisionEntity)" and the code surrounding the error is:
+```java
+        return;
+    }
+
+    this.collisionEntities.get(Collision.ANY).add(entity);
+  }
+
+  /**
+   * Removes the specified entity from any collision processing. Typically this method is implicitly
+   * called when an entity is removed from the current environment.
+   *
+   * @param entity The entity that is about to be removed.
+   */
+  public void remove(final ICollisionEntity entity) {
+    if (entity.getCollisionType() == null) {
+      return;
+    }
+
+    switch (entity.getCollisionType()) {
+      case DYNAMIC:
+      case STATIC:
+        this.collisionEntities.get(entity.getCollisionType()).remove(entity);
+        break;
+      default:
+        return;
+    }
+
+    this.collisionEntities.get(Collision.ANY).remove(entity);
+  }
+
+  /**
+   * Clears all previously registered participants in the collision process from this instance. This
+   * includes all entities, static collision boxes and the map boundaries.
+   */
+  public void clear() {
+    for (Collision type : Collision.values()) {
+      if (type == Collision.NONE) {
+        continue;
+      }
+
+      this.collisionEntities.get(type).clear();
+```
+
+Give me the fixed code snippet (ONLY THE METHOD REWRITE OF "remove(de.gurkenlabs.litiengine.entities.ICollisionEntity)") in XML format in <response> tag like the example below. I will apply the fix to my codebase.
+Do not import any additional libraries or classes or java comments.
+If you can provide the fixed code snippet, provide it in the following format and place the code snippet in the <code> tag within ```java block.
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  Your fixed code snippet here
+  ```
+    ]]>
+  </code>
+</response>
+
+---ChatGPT.sendRequestToOpenAI---
+Sending request to OpenAI...
+---ChatGPT.sendRequestToOpenAI---
+Response received from OpenAI.
+---Response.<init>---
+Creating Response:
+```xml
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  public void remove(final ICollisionEntity entity) {
+    if (entity.getCollisionType() == null) {
+      return;
+    }
+
+    if (this.collisionEntities.get(entity.getCollisionType()) != null) {
+      this.collisionEntities.get(entity.getCollisionType()).remove(entity);
+    }
+
+    this.collisionEntities.get(Collision.ANY).remove(entity);
+  }
+  ```
+    ]]>
+  </code>
+</response>
+```
+---Response.<init>---
+Response created:
+public void remove(final ICollisionEntity entity) {
+    if (entity.getCollisionType() == null) {
+      return;
+    }
+
+    if (this.collisionEntities.get(entity.getCollisionType()) != null) {
+      this.collisionEntities.get(entity.getCollisionType()).remove(entity);
+    }
+
+    this.collisionEntities.get(Collision.ANY).remove(entity);
+  }
