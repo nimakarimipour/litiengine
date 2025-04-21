@@ -152,10 +152,12 @@ public class SpeechBubble implements IUpdateable, IRenderable {
   public void render(final Graphics2D g) {
     if (this.currentText == null
         || this.textIndex <= 0
-        || !Game.graphics().canRender(this.entity)) {
+        || !Game.graphics().canRender(this.entity)
+        || this.getEntity().getCenter() == null) {
       return;
     }
 
+    final Point2D entityCenter = this.getEntity().getCenter();
     final float deltaX = (float) (this.textBoxWidth / 2.0 + this.getAppearance().getPadding());
     final float deltaY =
         (float)
