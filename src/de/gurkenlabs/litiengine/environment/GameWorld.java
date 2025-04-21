@@ -238,6 +238,9 @@ public final class GameWorld implements IUpdateable {
    * @see Environment
    */
   public Environment environment() {
+    if (this.environment == null) {
+      throw new NullPointerException("Environment is not initialized");
+    }
     return this.environment;
   }
 
