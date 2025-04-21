@@ -160,8 +160,8 @@ public final class GamepadManager extends GamepadEvents implements ILaunchable {
    * @see #current()
    */
   public Gamepad get(final int index) {
-    if (this.gamePads.isEmpty()) {
-      return null;
+    if (this.gamePads.isEmpty() || index < 0 || index >= this.gamePads.size()) {
+      throw new IndexOutOfBoundsException("No gamepad available at index: " + index);
     }
 
     return this.gamePads.get(index);
