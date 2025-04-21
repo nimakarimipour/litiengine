@@ -1,0 +1,126 @@
+====================
+Type='PASS_NULLABLE', message='passing @Nullable parameter 'focus' where @NonNull is required'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/graphics/Camera.java:139
+    this.focus = this.clampToMap(focus);
+Log:
+---NullAway.lambda$resolveRemainingErrors$17---
+==============================
+---NullAway.lambda$resolveRemainingErrors$17---
+TOP LEVEL CALL TO FIX ERROR: Type='PASS_NULLABLE', message='passing @Nullable parameter 'focus' where @NonNull is required'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/graphics/Camera.java:139
+    this.focus = this.clampToMap(focus);
+---ChatGPT.ask---
+Asking ChatGPT:
+I want to resolve a warning reported by NullAway.
+The error is of the type of "PASS_NULLABLE" and the full error message is: "passing @Nullable parameter 'focus' where @NonNull is required".
+The line with the error is: "    this.focus = this.clampToMap(focus);".
+
+The error is within "the method: setFocus(java.awt.geom.Point2D)" and the code surrounding the error is:
+```java
+    this.zoomListeners.add(listener);
+  }
+
+  @Override
+  public void removeZoomListener(ZoomChangedListener listener) {
+    this.zoomListeners.remove(listener);
+  }
+
+  @Override
+  public void onFocus(final FocusChangedListener listener) {
+    this.focusChangedListeners.add(listener);
+  }
+
+  @Override
+  public void removeFocusListener(FocusChangedListener listener) {
+    this.focusChangedListeners.remove(listener);
+  }
+
+  @Override
+  public void setFocus(@Nullable final Point2D focus) {
+    this.focus = this.clampToMap(focus);
+
+    // dunno why but without the factor of 0.01 sometimes everything starts to
+    // get wavy while rendering ...
+    // it seems to be an issue with the focus location being exactly dividable
+    // by up to 4?? (maybe even more for higher renderscales)
+    // this is somehow related to the rendering scale: if the rendering scale is
+    // lower this will only be affected by lower dividable numbers (e.g.
+    // renderscale of 6 only has an issue with 1 and 0.5)
+    // seems like java cannot place certain images onto their exact pixel
+    // location with an AffineTransform...
+    final double fraction = this.focus.getY() - Math.floor(this.focus.getY());
+    if (MathUtilities.isInt(fraction * 4)) {
+      this.focus.setLocation(this.focus.getX(), this.focus.getY() + 0.01);
+    }
+
+    final FocusChangedEvent event = new FocusChangedEvent(this, this.focus);
+    for (FocusChangedListener listener : this.focusChangedListeners) {
+      listener.focusChanged(event);
+    }
+```
+
+Give me the fixed code snippet (ONLY THE METHOD REWRITE OF "setFocus(java.awt.geom.Point2D)") in XML format in <response> tag like the example below. I will apply the fix to my codebase.
+Do not import any additional libraries or classes or java comments.
+If you can provide the fixed code snippet, provide it in the following format and place the code snippet in the <code> tag within ```java block.
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  Your fixed code snippet here
+  ```
+    ]]>
+  </code>
+</response>
+
+---ChatGPT.sendRequestToOpenAI---
+Sending request to OpenAI...
+---ChatGPT.sendRequestToOpenAI---
+Response received from OpenAI.
+---Response.<init>---
+Creating Response:
+```xml
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  @Override
+  public void setFocus(final Point2D focus) {
+    if (focus == null) {
+      throw new IllegalArgumentException("Focus point cannot be null");
+    }
+    this.focus = this.clampToMap(focus);
+
+    final double fraction = this.focus.getY() - Math.floor(this.focus.getY());
+    if (MathUtilities.isInt(fraction * 4)) {
+      this.focus.setLocation(this.focus.getX(), this.focus.getY() + 0.01);
+    }
+
+    final FocusChangedEvent event = new FocusChangedEvent(this, this.focus);
+    for (FocusChangedListener listener : this.focusChangedListeners) {
+      listener.focusChanged(event);
+    }
+  }
+  ```
+    ]]>
+  </code>
+</response>
+```
+---Response.<init>---
+Response created:
+@Override
+  public void setFocus(final Point2D focus) {
+    if (focus == null) {
+      throw new IllegalArgumentException("Focus point cannot be null");
+    }
+    this.focus = this.clampToMap(focus);
+
+    final double fraction = this.focus.getY() - Math.floor(this.focus.getY());
+    if (MathUtilities.isInt(fraction * 4)) {
+      this.focus.setLocation(this.focus.getX(), this.focus.getY() + 0.01);
+    }
+
+    final FocusChangedEvent event = new FocusChangedEvent(this, this.focus);
+    for (FocusChangedListener listener : this.focusChangedListeners) {
+      listener.focusChanged(event);
+    }
+  }
