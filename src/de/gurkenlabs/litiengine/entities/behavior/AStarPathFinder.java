@@ -182,9 +182,13 @@ public class AStarPathFinder extends PathFinder {
     final List<AStarNode> path = new ArrayList<>();
     AStarNode currentNode = targetNode.getPredecessor();
 
-    while (currentNode != startNode) {
+    while (currentNode != null && currentNode != startNode) {
       path.add(currentNode);
       currentNode = currentNode.getPredecessor();
+    }
+    if (currentNode == null) {
+      throw new IllegalStateException(
+          "Path construction failed: no valid path to the start node found.");
     }
     Collections.reverse(path);
 
