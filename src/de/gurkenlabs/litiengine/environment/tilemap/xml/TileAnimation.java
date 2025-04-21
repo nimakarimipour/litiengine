@@ -19,6 +19,9 @@ public class TileAnimation implements ITileAnimation {
 
   @Override
   public List<ITileAnimationFrame> getFrames() {
+    if (this.frames == null) {
+      throw new IllegalStateException("Frames list is not initialized");
+    }
     return this.frames;
   }
 
