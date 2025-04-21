@@ -479,7 +479,6 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
     if (this.orientation != null) {
       this.mapOrientation = MapOrientations.forName(this.orientation);
     }
-
     if (this.mapOrientation == null) {
       this.mapOrientation = MapOrientations.ORTHOGONAL;
     }
@@ -498,6 +497,20 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
 
     if (this.isInfinite()) {
       this.updateDimensionsByTileLayers();
+    }
+
+    // Ensure @NonNull fields are initialized
+    if (this.renderorder == null) {
+      this.renderorder = "defaultRenderOrder"; // Replace with the appropriate default
+    }
+    if (this.hexsidelength == null) {
+      this.hexsidelength = 0; // Replace with the appropriate default
+    }
+    if (this.nextLayerId == null) {
+      this.nextLayerId = 1; // Replace with the appropriate default
+    }
+    if (this.nextObjectId == null) {
+      this.nextObjectId = 1; // Replace with the appropriate default
     }
   }
 
