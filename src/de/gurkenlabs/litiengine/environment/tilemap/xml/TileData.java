@@ -283,12 +283,10 @@ public class TileData {
     return this.offsetY;
   }
 
-  protected static List<Tile> parseBase64Data(String value, String compression)
+  protected static List<Tile> parseBase64Data(@Nullable String value, @Nullable String compression)
       throws InvalidTileLayerException {
-    if (value == null) {
-      throw new InvalidTileLayerException("value cannot be null");
-    }
     List<Tile> parsed = new ArrayList<>();
+
     String enc = value.trim();
     byte[] dec;
     try {
@@ -298,6 +296,7 @@ public class TileData {
     }
     try (ByteArrayInputStream bais = new ByteArrayInputStream(dec)) {
       InputStream is;
+
       if (compression == null || compression.isEmpty()) {
         is = bais;
       } else if (compression.equals(Compression.GZIP)) {
@@ -308,26 +307,34 @@ public class TileData {
         throw new IllegalArgumentException(
             "Unsupported tile layer compression method " + compression);
       }
+
       int read;
+
       while ((read = is.read()) != -1) {
         int tileId = 0;
         tileId |= read;
+
         read = is.read();
         int flags = read << Byte.SIZE;
+
         read = is.read();
         flags |= read << Byte.SIZE * 2;
+
         read = is.read();
         flags |= read << Byte.SIZE * 3;
         tileId |= flags;
+
         if (tileId == Tile.NONE) {
           parsed.add(Tile.EMPTY);
         } else {
           parsed.add(new Tile(tileId));
         }
       }
+
     } catch (IOException e) {
       throw new InvalidTileLayerException(e);
     }
+
     return parsed;
   }
 
