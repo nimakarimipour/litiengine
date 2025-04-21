@@ -101,6 +101,9 @@ public abstract class Particle implements ITimeToLive {
   }
 
   public Color getColor() {
+    if (this.color == null) {
+      throw new NullPointerException("Color is null");
+    }
     return this.color;
   }
 
