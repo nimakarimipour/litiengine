@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.Nullable;
 import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageWriteParam;
@@ -22,7 +21,6 @@ public final class ImageSerializer {
     throw new UnsupportedOperationException();
   }
 
-  @Nullable
   public static BufferedImage loadImage(final String fileName) {
     final File file = new File(fileName);
     if (!file.exists()) {
@@ -38,6 +36,11 @@ public final class ImageSerializer {
 
       final BufferedImage compatibleImg =
           Imaging.getCompatibleImage(img.getWidth(), img.getHeight());
+
+      if (compatibleImg == null) {
+        return null;
+      }
+
       compatibleImg.createGraphics().drawImage(img, 0, 0, null);
       compatibleImg.createGraphics().dispose();
 
