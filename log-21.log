@@ -1,0 +1,106 @@
+====================
+Type='DEREFERENCE_NULLABLE', message='dereferenced expression resourceName is @Nullable'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/resources/ResourcesContainer.java:116
+    this.add(resourceName.toString(), resource);
+Log:
+---NullAway.lambda$resolveRemainingErrors$17---
+==============================
+---NullAway.lambda$resolveRemainingErrors$17---
+TOP LEVEL CALL TO FIX ERROR: Type='DEREFERENCE_NULLABLE', message='dereferenced expression resourceName is @Nullable'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/resources/ResourcesContainer.java:116
+    this.add(resourceName.toString(), resource);
+---ChatGPT.ask---
+Asking ChatGPT:
+I want to resolve a warning reported by NullAway.
+The error is of the type of "DEREFERENCE_NULLABLE" and the full error message is: "dereferenced expression resourceName is @Nullable".
+The line with the error is: "    this.add(resourceName.toString(), resource);".
+
+The error is within "the method: add(java.net.URL,T)" and the code surrounding the error is:
+```java
+   *
+   * <p>Use this method to make a resource accessible over this container during runtime.
+   *
+   * @param resourceName The name that the resource is managed by.
+   * @param resource The resource instance.
+   * @see #get(Predicate)
+   * @see #get(String)
+   * @see #get(String, boolean)
+   * @see #remove(String)
+   * @see #tryGet(String)
+   */
+  public void add(@Nullable String resourceName, @Nullable T resource) {
+    this.resources.put(resourceName, resource);
+
+    for (ResourcesContainerListener<? super T> listener : this.listeners) {
+      listener.added(resourceName, resource);
+    }
+  }
+
+  public void add(@Nullable URL resourceName, T resource) {
+    this.add(resourceName.toString(), resource);
+  }
+
+  /** Clears the resource container by removing all previously loaded resources. */
+  public void clear() {
+    this.resources.clear();
+
+    for (ResourcesContainerListener<? super T> listener : this.listeners) {
+      listener.cleared();
+    }
+  }
+
+  /**
+   * Checks if this instance contains a resource with the specified name.
+   *
+   * <p>Note that the name is <b>not case-sensitive</b>.
+   *
+   * @param resourceName The resource's name.
+   * @return True if this container contains a resource with the specified name; otherwise false.
+   * @see ResourcesContainer#contains(Object)
+```
+
+Give me the fixed code snippet (ONLY THE METHOD REWRITE OF "add(java.net.URL,T)") in XML format in <response> tag like the example below. I will apply the fix to my codebase.
+Do not import any additional libraries or classes or java comments.
+If you can provide the fixed code snippet, provide it in the following format and place the code snippet in the <code> tag within ```java block.
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  Your fixed code snippet here
+  ```
+    ]]>
+  </code>
+</response>
+
+---ChatGPT.sendRequestToOpenAI---
+Sending request to OpenAI...
+---ChatGPT.sendRequestToOpenAI---
+Response received from OpenAI.
+---Response.<init>---
+Creating Response:
+```xml
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  public void add(URL resourceName, T resource) {
+    if (resourceName != null) {
+      this.add(resourceName.toString(), resource);
+    } else {
+      throw new IllegalArgumentException("resourceName cannot be null");
+    }
+  }
+  ```
+    ]]>
+  </code>
+</response>
+```
+---Response.<init>---
+Response created:
+public void add(URL resourceName, T resource) {
+    if (resourceName != null) {
+      this.add(resourceName.toString(), resource);
+    } else {
+      throw new IllegalArgumentException("resourceName cannot be null");
+    }
+  }
