@@ -225,9 +225,6 @@ public abstract class GuiComponent
    * @return the GuiComponent's font
    */
   public Font getFont() {
-    if (this.font == null) {
-      throw new IllegalStateException("Font is not initialized");
-    }
     return this.font;
   }
 
