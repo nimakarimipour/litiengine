@@ -145,12 +145,18 @@ public class TileData {
   }
 
   @Initializer
-  public void setValue(@Nullable String value) {
+  public void setValue(String value) {
+    Objects.requireNonNull(value, "value cannot be null");
     this.value = value;
+    if (this.encoding == null) {
+      throw new IllegalStateException("encoding cannot be null");
+    }
+    if (this.compression == null) {
+      throw new IllegalStateException("compression cannot be null");
+    }
     if (this.rawValue == null) {
       this.rawValue = new CopyOnWriteArrayList<>();
     }
-
     this.rawValue.add(0, value);
   }
 
