@@ -35,12 +35,13 @@ public class TileLayer extends Layer implements ITileLayer {
     this.data = data;
   }
 
-  @Nullable
   @Override
   public ITile getTileByLocation(final Point2D location) {
     final Optional<ITile> tile =
-        this.getTiles().stream().filter(x -> x.getTileCoordinate().equals(location)).findFirst();
-    return tile.isPresent() ? tile.get() : null;
+        this.getTiles().stream()
+            .filter(x -> x.getTileCoordinate() != null && x.getTileCoordinate().equals(location))
+            .findFirst();
+    return tile.orElse(null);
   }
 
   @Nullable
