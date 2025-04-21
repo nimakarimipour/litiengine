@@ -6,18 +6,18 @@ import de.gurkenlabs.litiengine.util.io.XmlUtilities;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import javax.annotation.Nullable;
 import javax.xml.bind.JAXBException;
 
 public class Tilesets extends ResourcesContainer<Tileset> {
 
   Tilesets() {}
 
-  @Override
-  protected Tileset load(@Nullable URL resourceName) throws IOException, URISyntaxException {
+  protected Tileset load(URL resourceName) throws IOException, URISyntaxException {
     try {
       Tileset tileset = XmlUtilities.read(Tileset.class, resourceName);
-      tileset.finish(resourceName);
+      if (tileset != null) {
+        tileset.finish(resourceName);
+      }
       return tileset;
     } catch (JAXBException e) {
       throw new TmxException(e);
