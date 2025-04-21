@@ -107,10 +107,7 @@ public final class FileUtilities {
     }
   }
 
-  public static String getFileName(URL path) {
-    if (path == null) {
-      return "";
-    }
+  public static String getFileName(@Nullable URL path) {
     return getFileName(path.getPath());
   }
 
