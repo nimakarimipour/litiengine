@@ -60,6 +60,7 @@ public class CreatureShadowImageEffect extends ImageEffect {
     return this;
   }
 
+  @Override
   public BufferedImage apply(BufferedImage image) {
     if (this.getCreature().isDead()) {
       return image;
@@ -67,9 +68,6 @@ public class CreatureShadowImageEffect extends ImageEffect {
 
     final BufferedImage buffer =
         Imaging.getCompatibleImage(image.getWidth() * 2 + 2, image.getHeight() * 2);
-    if (buffer == null) {
-      throw new IllegalStateException("Failed to create a compatible image.");
-    }
     final Graphics2D graphics = buffer.createGraphics();
     float x = image.getWidth() / 2.0f;
     float y = image.getHeight() / 2.0f;
