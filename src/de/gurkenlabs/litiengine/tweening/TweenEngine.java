@@ -33,8 +33,7 @@ public class TweenEngine implements IUpdateable, ILaunchable {
     Tween tween = this.getTween(target, type);
     if (tween == null) {
       tween = new Tween(target, type, duration).ease(TweenFunction.QUAD_INOUT);
-      // Ensure that the map for the target is initialized before using it
-      this.getTweens().computeIfAbsent(target, k -> new ConcurrentHashMap<>()).put(type, tween);
+      this.getTweens().get(target).put(type, tween);
     } else {
       tween.setDuration(duration);
     }
