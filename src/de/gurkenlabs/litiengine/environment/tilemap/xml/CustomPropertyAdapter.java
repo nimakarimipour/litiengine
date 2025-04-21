@@ -113,8 +113,10 @@ public class CustomPropertyAdapter
 
   @Override
   public Map<String, ICustomProperty> unmarshal(PropertyList v) {
-    Map<String, ICustomProperty> map =
-        new HashMap<>(v.properties.size()); // use hashtable to reject null keys/values
+    if (v == null || v.properties == null) {
+      return Collections.emptyMap();
+    }
+    Map<String, ICustomProperty> map = new HashMap<>(v.properties.size());
     for (Property property : v.properties) {
       CustomProperty prop =
           new CustomProperty(
