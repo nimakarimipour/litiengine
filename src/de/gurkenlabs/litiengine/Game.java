@@ -634,7 +634,7 @@ public final class Game {
       }
     }
 
-    gameLoop = null;
+    gameLoop = GameLoop.getDefaultInstance();
     screenManager = null;
     gameWindow = null;
   }
