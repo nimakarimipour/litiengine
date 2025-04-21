@@ -51,9 +51,6 @@ public class SoundSource extends Entity {
    * @see Sounds#get(String)
    */
   public SoundSource(String name) {
-    if (name == null) {
-      throw new IllegalArgumentException("Name cannot be null");
-    }
     this.setSound(name);
   }
 
