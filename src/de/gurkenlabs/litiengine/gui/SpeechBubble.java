@@ -254,6 +254,9 @@ public class SpeechBubble implements IUpdateable, IRenderable {
   }
 
   private void createBubbleImage() {
+    if (this.currentText == null) {
+      throw new IllegalStateException("currentText cannot be null");
+    }
     final BufferedImage img = Imaging.getCompatibleImage(500, 500);
     final Graphics2D g = img.createGraphics();
     g.setFont(this.getFont());
@@ -283,7 +286,6 @@ public class SpeechBubble implements IUpdateable, IRenderable {
 
     final Area ar = new Area(bounds);
     if (this.getAppearance().isRenderIndicator()) {
-      // Build a path
       final GeneralPath path = new GeneralPath();
       path.moveTo(bounds.getWidth() / 2.0, bounds.getHeight());
       path.lineTo(bounds.getWidth() / 2.0, bounds.getHeight() + TRIANGLE_SIZE);
