@@ -270,12 +270,6 @@ public class ListField extends GuiComponent {
           continue;
         }
 
-        /* Added null check for getListEntry(column, row) */
-        ListEntry entry = this.getListEntry(column, row);
-        if (entry == null) {
-          continue;
-        }
-
         if (row + this.getVerticalLowerBound()
                 < this.getContent()[column + this.getHorizontalLowerBound()].length
             && this.getContent()[column + this.getHorizontalLowerBound()][
@@ -284,48 +278,40 @@ public class ListField extends GuiComponent {
           if (this.getContent()[column + this.getHorizontalLowerBound()][
                   row + this.getVerticalLowerBound()]
               instanceof Image) {
-            entry.setImage(
-                (Image)
-                    this.getContent()[column + this.getHorizontalLowerBound()][
-                        row + this.getVerticalLowerBound()]);
+            this.getListEntry(column, row)
+                .setImage(
+                    (Image)
+                        this.getContent()[column + this.getHorizontalLowerBound()][
+                            row + this.getVerticalLowerBound()]);
           } else {
-            entry.setText(
-                this
-                    .getContent()[column + this.getHorizontalLowerBound()][
-                    row + this.getVerticalLowerBound()]
-                    .toString());
+            this.getListEntry(column, row)
+                .setText(
+                    this
+                        .getContent()[column + this.getHorizontalLowerBound()][
+                        row + this.getVerticalLowerBound()]
+                        .toString());
           }
         } else {
-          entry.setText("");
+          this.getListEntry(column, row).setText("");
         }
       }
     }
 
-    /* Check if selectedComponent should be updated and is entry not null */
     if (!this.isEntireRowSelected()
         && this.selectionColumn >= this.getHorizontalLowerBound()
         && this.selectionColumn < this.getHorizontalLowerBound() + this.getNumberOfShownColumns()
         && this.selectionRow >= this.getVerticalLowerBound()
         && this.selectionRow < this.getVerticalLowerBound() + this.getNumberOfShownRows()) {
-      ListEntry entry =
+      this.selectedComponent =
           this.getListEntry(this.selectionColumn - this.getHorizontalLowerBound())
               .get(this.selectionRow - this.getVerticalLowerBound());
-      if (entry != null) {
-        this.selectedComponent = entry;
-      } else {
-        this.selectedComponent = null;
-      }
     } else if (this.isEntireRowSelected()
         && this.selectionColumn >= 0
         && this.selectionColumn < this.nbOfColumns
         && this.selectionRow >= this.getVerticalLowerBound()
         && this.selectionRow < this.getVerticalLowerBound() + this.getNumberOfShownRows()) {
-      ListEntry entry = this.getListEntry(0).get(this.selectionRow - this.getVerticalLowerBound());
-      if (entry != null) {
-        this.selectedComponent = entry;
-      } else {
-        this.selectedComponent = null;
-      }
+      this.selectedComponent =
+          this.getListEntry(0).get(this.selectionRow - this.getVerticalLowerBound());
     } else {
       this.selectedComponent = null;
     }
