@@ -66,7 +66,9 @@ public final class Input {
    * @return The mouse input device.
    */
   public static IMouse mouse() {
-    return mouse;
+    return mouse != null
+        ? mouse
+        : new DefaultMouse(); // Assuming DefaultMouse is a valid non-null object of type IMouse
   }
 
   public static final class InputGameAdapter implements GameListener {
