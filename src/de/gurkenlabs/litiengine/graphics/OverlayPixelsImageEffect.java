@@ -21,16 +21,8 @@ public class OverlayPixelsImageEffect extends ImageEffect {
 
   @Override
   public BufferedImage apply(final BufferedImage image) {
-    if (image == null) {
-      throw new IllegalArgumentException("Image cannot be null");
-    }
-
     final BufferedImage bimage =
         Imaging.getCompatibleImage(image.getWidth(null), image.getHeight(null));
-
-    if (bimage == null) {
-      throw new IllegalStateException("Could not create a compatible BufferedImage");
-    }
 
     // Draw the image on to the buffered image
     final Graphics2D bGr = bimage.createGraphics();
