@@ -219,7 +219,7 @@ public class Tileset extends CustomPropertyProvider implements ITileset {
     }
 
     ITerrain[] terrains = new ITerrain[4];
-    if (!this.containsTile(tileId) || this.allTiles == null) {
+    if (!this.containsTile(tileId)) {
       return terrains;
     }
 
@@ -261,6 +261,7 @@ public class Tileset extends CustomPropertyProvider implements ITileset {
     return this.tilecount != null ? this.tilecount : 0;
   }
 
+  @Nullable
   @Override
   public ITilesetEntry getTile(int id) {
     if (this.sourceTileset != null) {
@@ -271,8 +272,7 @@ public class Tileset extends CustomPropertyProvider implements ITileset {
       return null;
     }
 
-    // Ensure allTiles is not null before dereferencing
-    return this.allTiles != null ? this.allTiles.get(id) : null;
+    return this.allTiles.get(id);
   }
 
   @Override
