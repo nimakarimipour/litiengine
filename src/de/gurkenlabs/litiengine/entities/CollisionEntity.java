@@ -87,7 +87,6 @@ public abstract class CollisionEntity extends Entity implements ICollisionEntity
    *
    * @return the collision box
    */
-  @Nullable
   @Override
   public Rectangle2D getCollisionBox() {
     return this.collisionBox;
@@ -132,11 +131,8 @@ public abstract class CollisionEntity extends Entity implements ICollisionEntity
 
   @Override
   public Point2D getCollisionBoxCenter() {
-    Rectangle2D collisionBox = this.getCollisionBox();
-    if (collisionBox == null) {
-      throw new NullPointerException("Collision box is null");
-    }
-    return new Point2D.Double(collisionBox.getCenterX(), collisionBox.getCenterY());
+    return new Point2D.Double(
+        this.getCollisionBox().getCenterX(), this.getCollisionBox().getCenterY());
   }
 
   @Override
