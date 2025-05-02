@@ -1,0 +1,17 @@
+====================
+Type='PASS_NULLABLE', message='passing @Nullable parameter 'sprite' where @NonNull is required'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/graphics/animation/AnimationController.java:210
+      sprite = effect.apply(sprite);
+Log:
+---NullAway.lambda$resolveRemainingErrors$17---
+==============================
+---NullAway.lambda$resolveRemainingErrors$17---
+TOP LEVEL CALL TO FIX ERROR: Type='PASS_NULLABLE', message='passing @Nullable parameter 'sprite' where @NonNull is required'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/graphics/animation/AnimationController.java:210
+      sprite = effect.apply(sprite);
+---AdvancedNullAwayCodeFix.fix---
+Fixing error: Type='PASS_NULLABLE', message='passing @Nullable parameter 'sprite' where @NonNull is required'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/graphics/animation/AnimationController.java:210
+      sprite = effect.apply(sprite);
+---AdvancedNullAwayCodeFix.fix---
+Error type not supported: PASS_NULLABLE. Error message: passing @Nullable parameter 'sprite' where @NonNull is required
