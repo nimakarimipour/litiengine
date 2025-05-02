@@ -255,9 +255,6 @@ public class SpeechBubble implements IUpdateable, IRenderable {
 
   private void createBubbleImage() {
     final BufferedImage img = Imaging.getCompatibleImage(500, 500);
-    if (img == null) {
-      return; // Handle the case where the image could not be created
-    }
     final Graphics2D g = img.createGraphics();
     g.setFont(this.getFont());
     final float stringWidth = g.getFontMetrics().stringWidth(this.currentText);
