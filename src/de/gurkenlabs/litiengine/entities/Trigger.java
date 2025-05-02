@@ -334,9 +334,15 @@ public class Trigger extends CollisionEntity implements IUpdateable {
       this.collisionActivated.add(activator);
     }
 
+    Environment env = this.getEnvironment();
+    if (env == null) {
+      log.log(Level.WARNING, "trigger [{0}] was activated, but the environment is null", this);
+      return false;
+    }
+
     // if we actually have a trigger target, we send the message to the target
     for (final int target : triggerTargets) {
-      final IEntity entity = this.getEnvironment().get(target);
+      final IEntity entity = env.get(target);
       if (entity == null) {
         log.log(
             Level.WARNING,
@@ -354,7 +360,7 @@ public class Trigger extends CollisionEntity implements IUpdateable {
     }
 
     if (this.isOneTimeTrigger) {
-      this.getEnvironment().remove(this);
+      env.remove(this);
     }
 
     this.lastActivation = Game.time().now();
