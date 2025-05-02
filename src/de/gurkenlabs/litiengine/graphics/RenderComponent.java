@@ -105,7 +105,6 @@ public class RenderComponent extends Canvas {
     Graphics2D g = null;
     do {
       try {
-
         g = (Graphics2D) this.currentBufferStrategy.getDrawGraphics();
 
         g.setColor(this.getBackground());
@@ -125,14 +124,28 @@ public class RenderComponent extends Canvas {
                 ? RenderingHints.VALUE_INTERPOLATION_BILINEAR
                 : RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
 
-        final Screen currentScreen = Game.screens().current();
-        if (currentScreen != null) {
-          long renderStart = System.nanoTime();
-          currentScreen.render(g);
+        // Check if Game.screens() is non-null before dereferencing
+        if (Game.screens() != null) {
+          final Screen currentScreen = Game.screens().current();
+          if (currentScreen != null) {
+            long renderStart = System.nanoTime();
+            currentScreen.render(g);
 
-          if (Game.config().debug().trackRenderTimes()) {
-            final double totalRenderTime = TimeUtilities.nanoToMs(System.nanoTime() - renderStart);
-            Game.metrics().trackRenderTime("screen", totalRenderTime);
+            if (Game.config().debug().trackRenderTimes()) {
+              final double totalRenderTime =
+                  TimeUtilities.nanoToMs(System.nanoTime() - renderStart);
+              Game.metrics().trackRenderTime("screen", totalRenderTime);
+            }
+          }
+
+          if (this.takeScreenShot && currentScreen != null) {
+            final BufferedImage img =
+                new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
+            final Graphics2D imgGraphics = img.createGraphics();
+            currentScreen.render(imgGraphics);
+
+            imgGraphics.dispose();
+            this.saveScreenShot(img);
           }
         }
 
@@ -148,16 +161,6 @@ public class RenderComponent extends Canvas {
           g.setColor(
               new Color(this.getBackground().getRGB() & 0xffffff | visibleAlpha << 24, true));
           g.fill(bounds);
-        }
-
-        if (this.takeScreenShot && currentScreen != null) {
-          final BufferedImage img =
-              new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
-          final Graphics2D imgGraphics = img.createGraphics();
-          currentScreen.render(imgGraphics);
-
-          imgGraphics.dispose();
-          this.saveScreenShot(img);
         }
       } finally {
         if (g != null) {
