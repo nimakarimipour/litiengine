@@ -16,7 +16,6 @@ import javax.xml.bind.annotation.XmlElements;
 
 public class GroupLayer extends Layer implements IGroupLayer {
 
-  @Nullable
   @XmlElements({
     @XmlElement(name = "imagelayer", type = ImageLayer.class),
     @XmlElement(name = "layer", type = TileLayer.class),
