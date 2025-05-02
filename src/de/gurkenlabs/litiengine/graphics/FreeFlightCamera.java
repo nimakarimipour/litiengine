@@ -78,19 +78,22 @@ public class FreeFlightCamera extends Camera implements IUpdateable {
     double y = this.getFocus().getY();
 
     double deltaX = 0;
-    if (mouseLocation.getX() < this.getScrollPadding()) {
-      deltaX -= scrollSpeed;
-    } else if (Game.window().getResolution().getWidth() - mouseLocation.getX()
-        < this.getScrollPadding()) {
-      deltaX += scrollSpeed;
+    Dimension windowResolution = Game.window().getResolution();
+    if (windowResolution != null) {
+      if (mouseLocation.getX() < this.getScrollPadding()) {
+        deltaX -= scrollSpeed;
+      } else if (windowResolution.getWidth() - mouseLocation.getX() < this.getScrollPadding()) {
+        deltaX += scrollSpeed;
+      }
     }
 
     double deltaY = 0;
-    if (mouseLocation.getY() < this.getScrollPadding()) {
-      deltaY -= scrollSpeed;
-    } else if (Game.window().getResolution().getHeight() - mouseLocation.getY()
-        < this.getScrollPadding()) {
-      deltaY += scrollSpeed;
+    if (windowResolution != null) {
+      if (mouseLocation.getY() < this.getScrollPadding()) {
+        deltaY -= scrollSpeed;
+      } else if (windowResolution.getHeight() - mouseLocation.getY() < this.getScrollPadding()) {
+        deltaY += scrollSpeed;
+      }
     }
 
     x += deltaX;
