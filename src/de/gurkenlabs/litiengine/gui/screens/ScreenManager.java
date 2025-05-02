@@ -154,7 +154,6 @@ public final class ScreenManager {
     }
 
     if (this.screens.stream()
-        .filter(element -> element.getName() != null)
         .noneMatch(element -> element.getName().equalsIgnoreCase(screenName))) {
       log.log(
           Level.WARNING,
@@ -179,14 +178,9 @@ public final class ScreenManager {
    */
   @Nullable
   public Screen get(String screenName) {
-    if (screenName == null) {
-      return null;
-    }
     Optional<Screen> opt =
         this.screens.stream()
-            .filter(
-                element ->
-                    element.getName() != null && element.getName().equalsIgnoreCase(screenName))
+            .filter(element -> element.getName().equalsIgnoreCase(screenName))
             .findFirst();
     return opt.orElse(null);
   }
