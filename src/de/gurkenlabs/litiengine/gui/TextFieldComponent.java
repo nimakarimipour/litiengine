@@ -3,7 +3,6 @@ package de.gurkenlabs.litiengine.gui;
 import de.gurkenlabs.litiengine.Align;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.input.Input;
-import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -64,7 +63,6 @@ public class TextFieldComponent extends ImageComponent {
     return this.maxLength;
   }
 
-  @Nullable
   @Override
   public String getText() {
     return this.fullText;
@@ -80,7 +78,7 @@ public class TextFieldComponent extends ImageComponent {
         this.handleBackSpace();
         break;
       case KeyEvent.VK_SPACE:
-        if (!Nullability.castToNonnull(this.getText(), "reason...").equals("")) {
+        if (!this.getText().equals("")) {
           this.setText(this.getText() + " ");
         }
         break;
@@ -140,7 +138,7 @@ public class TextFieldComponent extends ImageComponent {
 
   private void handleBackSpace() {
     if (Input.keyboard().isPressed(KeyEvent.VK_SHIFT)) {
-      while (Nullability.castToNonnull(this.getText(), "reason...").length() >= 1
+      while (this.getText().length() >= 1
           && this.getText().charAt(this.getText().length() - 1) == ' ') {
         this.setText(this.getText().substring(0, this.getText().length() - 1));
       }
@@ -159,8 +157,7 @@ public class TextFieldComponent extends ImageComponent {
   }
 
   private void handleNormalTyping(KeyEvent event) {
-    if (this.getMaxLength() > 0
-        && Nullability.castToNonnull(this.getText(), "reason...").length() >= this.getMaxLength()) {
+    if (this.getMaxLength() > 0 && this.getText().length() >= this.getMaxLength()) {
       return;
     }
 
