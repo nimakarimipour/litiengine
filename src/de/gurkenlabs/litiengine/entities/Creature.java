@@ -93,12 +93,7 @@ public class Creature extends CombatEntity implements IMobileEntity {
   public float[] getTweenValues(TweenType tweenType) {
     switch (tweenType) {
       case VELOCITY:
-        Attribute<Float> velocity = this.getVelocity();
-        if (velocity != null && velocity.get() != null) {
-          return new float[] {velocity.get()};
-        } else {
-          throw new NullPointerException("Velocity attribute or its value is null");
-        }
+        return new float[] {this.getVelocity().get()};
       default:
         return super.getTweenValues(tweenType);
     }
@@ -108,10 +103,7 @@ public class Creature extends CombatEntity implements IMobileEntity {
   public void setTweenValues(TweenType tweenType, float[] newValues) {
     switch (tweenType) {
       case VELOCITY:
-        Attribute<Float> velocity = this.getVelocity();
-        if (velocity != null) {
-          velocity.setBaseValue(newValues[0]);
-        }
+        this.getVelocity().setBaseValue(newValues[0]);
         break;
       default:
         super.setTweenValues(tweenType, newValues);
@@ -157,14 +149,12 @@ public class Creature extends CombatEntity implements IMobileEntity {
   public float getTickVelocity() {
     // pixels per ms multiplied by the passed ms
     // ensure that entities don't travel too far in case of lag
-    Attribute<Float> velocity = this.getVelocity();
     return Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG)
         * 0.001F
-        * (velocity != null ? velocity.get() : 0.0F)
+        * this.getVelocity().get()
         * Game.loop().getTimeScale();
   }
 
-  @Nullable
   @Override
   public Attribute<Float> getVelocity() {
     return this.velocity;
@@ -234,10 +224,7 @@ public class Creature extends CombatEntity implements IMobileEntity {
 
   @Override
   public void setVelocity(float velocity) {
-    Attribute<Float> velocityAttribute = this.getVelocity();
-    if (velocityAttribute != null) {
-      velocityAttribute.setBaseValue(velocity);
-    }
+    this.getVelocity().setBaseValue(velocity);
   }
 
   @Override
