@@ -118,8 +118,15 @@ public final class PhysicsEngine implements IUpdateable {
         continue;
       }
 
-      this.collisionEntities.get(type).clear();
-      this.collisionBoxes.get(type).clear();
+      List<Entity> entities = this.collisionEntities.get(type);
+      if (entities != null) {
+        entities.clear();
+      }
+
+      List<CollisionBox> boxes = this.collisionBoxes.get(type);
+      if (boxes != null) {
+        boxes.clear();
+      }
     }
 
     this.setBounds(null);
