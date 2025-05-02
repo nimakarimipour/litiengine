@@ -2,7 +2,6 @@ package de.gurkenlabs.litiengine.environment.tilemap;
 
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.util.MathUtilities;
-import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.awt.Point;
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
@@ -271,8 +270,7 @@ public final class MapUtilities {
     }
 
     if (mapObject.isPolyline()) {
-      return Nullability.castToNonnull(mapObject.getPolyline(), "reason...")
-          .getAbsolutePoints(mapObject.getLocation());
+      return mapObject.getPolyline().getAbsolutePoints(mapObject.getLocation());
     }
 
     return new ArrayList<>();
