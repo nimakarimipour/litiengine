@@ -82,7 +82,10 @@ public final class PhysicsEngine implements IUpdateable {
         return;
     }
 
-    this.collisionEntities.get(Collision.ANY).add(entity);
+    List<ICollisionEntity> anyCollisionList = this.collisionEntities.get(Collision.ANY);
+    if (anyCollisionList != null) {
+      anyCollisionList.add(entity);
+    }
   }
 
   /**
