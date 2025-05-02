@@ -2,7 +2,6 @@ package de.gurkenlabs.litiengine.graphics.emitters.xml;
 
 import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.util.io.XmlUtilities;
-import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.net.URL;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -32,7 +31,7 @@ public class EmitterLoader {
 
   @Nullable
   public static EmitterData load(@Nullable URL emitterXml) {
-    final String name = Nullability.castToNonnull(emitterXml, "reason...").getFile();
+    final String name = emitterXml.getFile();
     if (loadedEmitters.containsKey(name)) {
       return loadedEmitters.get(name);
     }
