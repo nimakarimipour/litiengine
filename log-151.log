@@ -1,0 +1,17 @@
+====================
+Type='PASS_NULLABLE', message='passing @Nullable parameter 'involvedEntities' where @NonNull is required'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/physics/PhysicsEngine.java:906
+    CollisionEvent event = new CollisionEvent(collider, involvedEntities);
+Log:
+---NullAway.lambda$resolveRemainingErrors$17---
+==============================
+---NullAway.lambda$resolveRemainingErrors$17---
+TOP LEVEL CALL TO FIX ERROR: Type='PASS_NULLABLE', message='passing @Nullable parameter 'involvedEntities' where @NonNull is required'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/physics/PhysicsEngine.java:906
+    CollisionEvent event = new CollisionEvent(collider, involvedEntities);
+---AdvancedNullAwayCodeFix.fix---
+Fixing error: Type='PASS_NULLABLE', message='passing @Nullable parameter 'involvedEntities' where @NonNull is required'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/physics/PhysicsEngine.java:906
+    CollisionEvent event = new CollisionEvent(collider, involvedEntities);
+---AdvancedNullAwayCodeFix.fix---
+Error type not supported: PASS_NULLABLE. Error message: passing @Nullable parameter 'involvedEntities' where @NonNull is required
