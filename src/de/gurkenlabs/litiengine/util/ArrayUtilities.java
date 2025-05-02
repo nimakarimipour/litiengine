@@ -332,10 +332,7 @@ public final class ArrayUtilities {
    * @return A string with all joined elements, separated by the delimiter.
    */
   @Nullable
-  public static String join(Collection<?> collection) {
-    if (collection == null) {
-      return null;
-    }
+  public static String join(@Nullable Collection<?> collection) {
     return joinArray(collection.toArray(), DEFAULT_STRING_DELIMITER);
   }
 
