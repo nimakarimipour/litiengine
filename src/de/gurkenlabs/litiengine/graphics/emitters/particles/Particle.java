@@ -100,7 +100,6 @@ public abstract class Particle implements ITimeToLive {
     return this.collisionType;
   }
 
-  @Nullable
   public Color getColor() {
     return this.color;
   }
@@ -150,10 +149,11 @@ public abstract class Particle implements ITimeToLive {
   }
 
   public float getOpacity() {
-    Color color = this.getColor();
-    if (color != null && this.isFading() && this.getTimeToLive() > 0) {
+    if (this.isFading() && this.getTimeToLive() > 0) {
       return MathUtilities.clamp(
-          color.getAlpha() / 255f - (float) this.getAliveTime() / this.getTimeToLive(), 0, 1);
+          this.getColor().getAlpha() / 255f - (float) this.getAliveTime() / this.getTimeToLive(),
+          0,
+          1);
     }
     return 1;
   }
