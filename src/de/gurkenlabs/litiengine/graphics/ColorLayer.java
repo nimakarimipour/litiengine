@@ -4,7 +4,6 @@ import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.environment.Environment;
 import de.gurkenlabs.litiengine.util.Imaging;
 import de.gurkenlabs.litiengine.util.MathUtilities;
-import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
@@ -34,7 +33,6 @@ public abstract class ColorLayer implements IRenderable {
     ImageRenderer.render(g, this.layer, -viewport.getX(), -viewport.getY());
   }
 
-  @Nullable
   public Color getColor() {
     return this.color;
   }
@@ -42,7 +40,7 @@ public abstract class ColorLayer implements IRenderable {
   public void setAlpha(int ambientAlpha) {
     this.setColor(
         new Color(
-            Nullability.castToNonnull(this.getColor(), "reason...").getRed(),
+            this.getColor().getRed(),
             this.getColor().getGreen(),
             this.getColor().getBlue(),
             MathUtilities.clamp(ambientAlpha, 0, 255)));
