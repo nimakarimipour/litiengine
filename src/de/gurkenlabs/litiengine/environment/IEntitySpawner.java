@@ -4,6 +4,7 @@ import de.gurkenlabs.litiengine.IUpdateable;
 import de.gurkenlabs.litiengine.entities.IEntity;
 import de.gurkenlabs.litiengine.entities.Spawnpoint;
 import java.util.List;
+import javax.annotation.Nullable;
 
 public interface IEntitySpawner<T extends IEntity> extends IUpdateable {
 
@@ -73,6 +74,7 @@ public interface IEntitySpawner<T extends IEntity> extends IUpdateable {
    *
    * @return the spawn points
    */
+  @Nullable
   List<Spawnpoint> getSpawnPoints();
 
   /**
