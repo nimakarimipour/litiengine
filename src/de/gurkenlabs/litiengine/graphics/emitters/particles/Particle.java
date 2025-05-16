@@ -25,8 +25,10 @@ public abstract class Particle implements ITimeToLive {
   @Nullable private Color color;
   private float deltaHeight;
   private float deltaWidth;
+
   /** The horizontal velocity (horizontal movement per update) for this particle. */
   private float velocityX;
+
   /** The vertical velocity (vertical movement per update) for this particle. */
   private float velocityY;
 

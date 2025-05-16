@@ -10,7 +10,14 @@ plugins {
     id 'org.sonarqube' version '3.1.1'
     id 'jacoco'
     id("net.ltgt.errorprone") version "4.1.0"
-    id 'com.github.sherter.google-java-format' version '0.9'
+    id 'com.diffplug.spotless' version '6.25.0'
+}
+
+spotless {
+    java {
+        googleJavaFormat('1.17.0') // or latest compatible with Java 17
+        target 'src/**/*.java'
+    }
 }
 
 repositories {

@@ -36,8 +36,10 @@ public class LightSource extends Entity implements IRenderable {
 
   private static final float OBSTRUCTED_VISION_RADIUS = 200f;
   private static final float SHADOW_GRADIENT_SIZE = 100f;
+
   /** The fractions for our shadow gradient, going from 0.0 (black) to 1.0 (transparent). */
   private static final float[] SHADOW_GRADIENT_FRACTIONS = new float[] {0f, 1f};
+
   /** The colors for our shadow, going from opaque black to transparent black. */
   private static final Color[] SHADOW_GRADIENT_COLORS =
       new Color[] {new Color(0, 0, 0, .3f), new Color(0f, 0f, 0f, 0f)};

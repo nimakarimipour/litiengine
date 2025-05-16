@@ -22,6 +22,7 @@ import javax.annotation.Nullable;
  */
 public class Animation implements IUpdateable, ILaunchable {
   private final List<KeyFrameListener> listeners;
+
   /** The default frame duration in milliseconds. */
   public static final int DEFAULT_FRAME_DURATION = 120;
 

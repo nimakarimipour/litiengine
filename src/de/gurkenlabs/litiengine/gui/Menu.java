@@ -10,6 +10,7 @@ import javax.annotation.Nullable;
 public class Menu extends ImageComponentList {
 
   private int currentSelection;
+
   /** The menu buttons. */
   private final String[] items;
 

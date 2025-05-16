@@ -76,6 +76,7 @@ public class DebugConfiguration extends ConfigurationGroup {
   public boolean renderGuiComponentBoundingBoxes() {
     return this.isDebugEnabled() && this.renderGuiComponentBoundingBoxes;
   }
+
   /**
    * Show mouse target metric.
    *

@@ -26,6 +26,7 @@ public abstract class GamepadEvents {
     this.pressedListeners = ConcurrentHashMap.newKeySet();
     this.releasedListeners = ConcurrentHashMap.newKeySet();
   }
+
   /**
    * Adds the specified gamepad poll listener to receive events when the component with the defined
    * identifier has been polled.
@@ -57,6 +58,7 @@ public abstract class GamepadEvents {
   public void onPressed(String identifier, GamepadPressedListener listener) {
     addComponentListener(this.componentPressedListeners, identifier, listener);
   }
+
   /**
    * Unregister the specified pressed listener from gamepad events.
    *
@@ -87,6 +89,7 @@ public abstract class GamepadEvents {
   public void removeReleasedListener(String identifier, GamepadReleasedListener listener) {
     removeComponentListener(this.componentReleasedListeners, identifier, listener);
   }
+
   /**
    * Adds the specified gamepad poll listener to receive events when any component has been polled.
    *

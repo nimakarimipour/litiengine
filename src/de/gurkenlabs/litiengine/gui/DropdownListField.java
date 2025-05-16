@@ -18,6 +18,7 @@ public class DropdownListField extends GuiComponent {
   private final Object[] content;
 
   private ListField contentList;
+
   /** The drop down button. */
   private ImageComponent dropDownButton;
 

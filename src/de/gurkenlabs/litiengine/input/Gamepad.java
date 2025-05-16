@@ -346,23 +346,31 @@ public final class Gamepad extends GamepadEvents implements IUpdateable {
   public static class DPad {
     /** Standard value for center HAT position */
     public static final float OFF = 0.0f;
+
     /** Synonmous with OFF */
     public static final float CENTER = OFF;
+
     /** Standard value for down HAT position */
     public static final float DOWN = 0.75f;
+
     /** Standard value for down-left HAT position */
     public static final float DOWN_LEFT = 0.875f;
+
     /** Standard value for down-right HAT position */
     public static final float DOWN_RIGHT = 0.625f;
+
     /** Standard value for left HAT position */
     public static final float LEFT = 1.0f;
 
     /** Standard value for right HAT position */
     public static final float RIGHT = 0.50f;
+
     /** Standard value for up HAT position */
     public static final float UP = 0.25f;
+
     /** Standard value for up-left HAT position */
     public static final float UP_LEFT = 0.125f;
+
     /** Standard value for up-right HAT position */
     public static final float UP_RIGHT = 0.375f;
 
