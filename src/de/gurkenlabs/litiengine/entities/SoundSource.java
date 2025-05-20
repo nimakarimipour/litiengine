@@ -51,12 +51,7 @@ public class SoundSource extends Entity {
    * @see Sounds#get(String)
    */
   public SoundSource(String name) {
-    try {
-      this.setSound(name);
-    } catch (Exception e) {
-      // Handle exception and ensure fields are assigned or rethrow if critical
-      throw new IllegalArgumentException("Unable to initialize SoundSource", e);
-    }
+    this.setSound(name);
   }
 
   /**
