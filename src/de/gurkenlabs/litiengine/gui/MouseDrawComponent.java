@@ -71,11 +71,9 @@ public class MouseDrawComponent extends ImageComponent {
   }
 
   public void clearDrawingSpace() {
-    if (this.drawingSpace != null) {
-      Graphics2D g = (Graphics2D) this.drawingSpace.getGraphics();
-      g.setComposite(AlphaComposite.Clear);
-      g.fillRect(0, 0, (int) this.getWidth(), (int) this.getHeight());
-    }
+    Graphics2D g = (Graphics2D) this.drawingSpace.getGraphics();
+    g.setComposite(AlphaComposite.Clear);
+    g.fillRect(0, 0, (int) this.getWidth(), (int) this.getHeight());
   }
 
   @Nullable
