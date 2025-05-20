@@ -47,10 +47,12 @@ public final class EntityControllers {
 
   public <T extends IEntityController> void clearControllers(Class<T> clss) {
     Optional<Class<? extends IEntityController>> typeKey =
-        this.controllers.keySet().stream().filter(x -> clss.isAssignableFrom(clss)).findFirst();
+        this.controllers.keySet().stream().filter(x -> clss.isAssignableFrom(x)).findFirst();
     if (typeKey.isPresent()) {
       IEntityController controller = this.controllers.get(typeKey.get());
-      controller.detach();
+      if (controller != null) {
+        controller.detach();
+      }
       this.controllers.remove(typeKey.get());
       this.animationController = null;
     }
