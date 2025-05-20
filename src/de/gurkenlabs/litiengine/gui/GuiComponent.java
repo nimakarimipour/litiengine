@@ -225,10 +225,6 @@ public abstract class GuiComponent
    * @return the GuiComponent's font
    */
   public Font getFont() {
-    if (this.font == null) {
-      // Handle the case where font is null, e.g., throw an exception or return a default font
-      throw new IllegalStateException("Font must not be null");
-    }
     return this.font;
   }
 
