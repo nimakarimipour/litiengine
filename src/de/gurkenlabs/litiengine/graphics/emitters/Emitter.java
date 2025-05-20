@@ -346,14 +346,11 @@ public class Emitter extends Entity implements IUpdateable, ITimeToLive, IRender
    *
    * @return the particle
    */
+  @Nullable
   protected Particle createNewParticle() {
 
-    if (this.data() == null) {
-      return null;
-    }
-
-    float width = (float) this.data().getParticleWidth().orElse(0f);
-    float height = (float) this.data().getParticleHeight().orElse(0f);
+    float width = (float) this.data().getParticleWidth().get();
+    float height = (float) this.data().getParticleHeight().get();
 
     Particle particle;
     switch (this.data().getParticleType()) {
@@ -374,7 +371,7 @@ public class Emitter extends Entity implements IUpdateable, ITimeToLive, IRender
         break;
       case TEXT:
         String text;
-        if (this.data().getTexts() == null || this.data().getTexts().isEmpty()) {
+        if (this.data().getTexts().isEmpty()) {
           text = EmitterData.DEFAULT_TEXT;
         } else {
           text = Game.random().choose(this.data().getTexts());
@@ -382,9 +379,6 @@ public class Emitter extends Entity implements IUpdateable, ITimeToLive, IRender
         particle = new TextParticle(text);
         break;
       case SPRITE:
-        if (this.data().getSpritesheet() == null) {
-          return null;
-        }
         Spritesheet sprite = Resources.spritesheets().get(this.data().getSpritesheet());
         if (sprite == null || sprite.getTotalNumberOfSprites() <= 0) {
           return null;
