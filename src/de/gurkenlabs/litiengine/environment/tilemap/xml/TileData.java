@@ -283,8 +283,12 @@ public class TileData {
     return this.offsetY;
   }
 
-  protected static List<Tile> parseBase64Data(@Nullable String value, @Nullable String compression)
+  protected static List<Tile> parseBase64Data(String value, String compression)
       throws InvalidTileLayerException {
+    if (value == null) {
+      throw new InvalidTileLayerException("Input value is null");
+    }
+
     List<Tile> parsed = new ArrayList<>();
 
     String enc = value.trim();
