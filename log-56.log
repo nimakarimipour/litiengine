@@ -1,0 +1,112 @@
+====================
+Type='DEREFERENCE_NULLABLE', message='dereferenced expression spritesheet is @Nullable'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/graphics/animation/Animation.java:75
+    this(spritesheet.getName(), spritesheet, loop, randomizeStart, keyFrameDurations);
+Log:
+---NullAway.lambda$resolveRemainingErrors$17---
+==============================
+---NullAway.lambda$resolveRemainingErrors$17---
+TOP LEVEL CALL TO FIX ERROR: Type='DEREFERENCE_NULLABLE', message='dereferenced expression spritesheet is @Nullable'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/graphics/animation/Animation.java:75
+    this(spritesheet.getName(), spritesheet, loop, randomizeStart, keyFrameDurations);
+---ChatGPT.ask---
+Asking ChatGPT:
+I want to resolve a warning reported by NullAway.
+The error is of the type of "DEREFERENCE_NULLABLE" and the full error message is: "dereferenced expression spritesheet is @Nullable".
+The line with the error is: "    this(spritesheet.getName(), spritesheet, loop, randomizeStart, keyFrameDurations);".
+
+The error is within "the method: Animation(de.gurkenlabs.litiengine.graphics.Spritesheet,boolean,boolean,int[])" and the code surrounding the error is:
+```java
+      final boolean loop,
+      final boolean randomizeStart,
+      final int... keyFrameDurations) {
+    this(Resources.spritesheets().get(spriteSheetName), loop, randomizeStart, keyFrameDurations);
+  }
+
+  /**
+   * Initializes a new instance of the {@code Animation} class.
+   *
+   * @param spritesheet The spritesheet used by this animation.
+   * @param loop A flag indicating whether the animation should be looped or played only once.
+   * @param randomizeStart A flag indicating whether this animation should choose a random keyframe
+   *     to start.
+   * @param keyFrameDurations The duration of each keyframe.
+   */
+  public Animation(
+      @Nullable final Spritesheet spritesheet,
+      final boolean loop,
+      final boolean randomizeStart,
+      final int... keyFrameDurations) {
+    this(spritesheet.getName(), spritesheet, loop, randomizeStart, keyFrameDurations);
+  }
+
+  /**
+   * Initializes a new instance of the {@code Animation} class.
+   *
+   * @param spritesheet The spritesheet used by this animation.
+   * @param loop A flag indicating whether the animation should be looped or played only once.
+   * @param keyFrameDurations The duration of each keyframe.
+   */
+  public Animation(
+      final Spritesheet spritesheet, final boolean loop, final int... keyFrameDurations) {
+    this(spritesheet.getName(), spritesheet, loop, keyFrameDurations);
+  }
+
+  /**
+   * Initializes a new instance of the {@code Animation} class.
+   *
+   * @param name The name of this animation.
+   * @param spritesheet The spritesheet used by this animation.
+```
+
+Give me the fixed code snippet (ONLY THE METHOD REWRITE OF "Animation(de.gurkenlabs.litiengine.graphics.Spritesheet,boolean,boolean,int[])") in XML format in <response> tag like the example below. I will apply the fix to my codebase.
+Do not import any additional libraries or classes or java comments.
+If you can provide the fixed code snippet, provide it in the following format and place the code snippet in the <code> tag within ```java block.
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  Your fixed code snippet here
+  ```
+    ]]>
+  </code>
+</response>
+
+---ChatGPT.sendRequestToOpenAI---
+Sending request to OpenAI...
+---ChatGPT.sendRequestToOpenAI---
+Response received from OpenAI.
+---Response.<init>---
+Creating Response:
+```xml
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  public Animation(
+       final Spritesheet spritesheet,
+      final boolean loop,
+      final boolean randomizeStart,
+      final int... keyFrameDurations) {
+    if (spritesheet == null) {
+      throw new IllegalArgumentException("spritesheet cannot be null");
+    }
+    this(spritesheet.getName(), spritesheet, loop, randomizeStart, keyFrameDurations);
+  }
+  ```
+    ]]>
+  </code>
+</response>
+```
+---Response.<init>---
+Response created:
+public Animation(
+       final Spritesheet spritesheet,
+      final boolean loop,
+      final boolean randomizeStart,
+      final int... keyFrameDurations) {
+    if (spritesheet == null) {
+      throw new IllegalArgumentException("spritesheet cannot be null");
+    }
+    this(spritesheet.getName(), spritesheet, loop, randomizeStart, keyFrameDurations);
+  }

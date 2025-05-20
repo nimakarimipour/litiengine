@@ -68,10 +68,13 @@ public class Animation implements IUpdateable, ILaunchable {
    * @param keyFrameDurations The duration of each keyframe.
    */
   public Animation(
-      @Nullable final Spritesheet spritesheet,
+      final Spritesheet spritesheet,
       final boolean loop,
       final boolean randomizeStart,
       final int... keyFrameDurations) {
+    if (spritesheet == null) {
+      throw new IllegalArgumentException("spritesheet cannot be null");
+    }
     this(spritesheet.getName(), spritesheet, loop, randomizeStart, keyFrameDurations);
   }
 
