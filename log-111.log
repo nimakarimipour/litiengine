@@ -1,0 +1,122 @@
+====================
+Type='RETURN_NULLABLE', message='returning @Nullable expression from method with @NonNull return type'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/util/io/XmlUtilities.java:85
+    return null;
+Log:
+---NullAway.lambda$resolveRemainingErrors$17---
+==============================
+---NullAway.lambda$resolveRemainingErrors$17---
+TOP LEVEL CALL TO FIX ERROR: Type='RETURN_NULLABLE', message='returning @Nullable expression from method with @NonNull return type'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/util/io/XmlUtilities.java:85
+    return null;
+---ChatGPT.ask---
+Asking ChatGPT:
+I want to resolve a warning reported by NullAway.
+The error is of the type of "RETURN_NULLABLE" and the full error message is: "returning @Nullable expression from method with @NonNull return type".
+The line with the error is: "    return null;".
+
+The error is within "the method: getContext(java.lang.Class)" and the code surrounding the error is:
+```java
+      fos.close();
+    } catch (TransformerFactoryConfigurationError | TransformerException | IOException e) {
+      log.log(Level.SEVERE, e.getMessage(), e);
+    }
+  }
+
+  public static <T> JAXBContext getContext(Class<T> cls) {
+    try {
+      final JAXBContext jaxbContext;
+      if (jaxbContexts.containsKey(cls)) {
+        jaxbContext = jaxbContexts.get(cls);
+      } else {
+        jaxbContext = JAXBContext.newInstance(cls);
+        jaxbContexts.put(cls, jaxbContext);
+      }
+      return jaxbContext;
+    } catch (final JAXBException e) {
+      log.log(Level.SEVERE, e.getMessage(), e);
+    }
+
+    return null;
+  }
+
+  @Nullable
+  public static <T> T read(Class<T> cls, @Nullable URL path) throws JAXBException {
+    final JAXBContext jaxbContext = getContext(cls);
+    if (jaxbContext == null) {
+      return null;
+    }
+
+    final Unmarshaller um = jaxbContext.createUnmarshaller();
+    um.setAdapter(new URLAdapter(path));
+
+    return cls.cast(um.unmarshal(path));
+  }
+
+  @Nullable
+  public static File save(Object object, String fileName) {
+    if (fileName == null || fileName.isEmpty()) {
+      return null;
+```
+
+Give me the fixed code snippet (ONLY THE METHOD REWRITE OF "getContext(java.lang.Class)") in XML format in <response> tag like the example below. I will apply the fix to my codebase.
+Do not import any additional libraries or classes or java comments.
+If you can provide the fixed code snippet, provide it in the following format and place the code snippet in the <code> tag within ```java block.
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  Your fixed code snippet here
+  ```
+    ]]>
+  </code>
+</response>
+
+---ChatGPT.sendRequestToOpenAI---
+Sending request to OpenAI...
+---ChatGPT.sendRequestToOpenAI---
+Response received from OpenAI.
+---Response.<init>---
+Creating Response:
+```xml
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  public static <T> JAXBContext getContext(Class<T> cls) {
+    try {
+      final JAXBContext jaxbContext;
+      if (jaxbContexts.containsKey(cls)) {
+        jaxbContext = jaxbContexts.get(cls);
+      } else {
+        jaxbContext = JAXBContext.newInstance(cls);
+        jaxbContexts.put(cls, jaxbContext);
+      }
+      return jaxbContext;
+    } catch (final JAXBException e) {
+      log.log(Level.SEVERE, e.getMessage(), e);
+      throw new RuntimeException("Failed to create JAXBContext for class: " + cls.getName(), e);
+    }
+  }
+  ```
+    ]]>
+  </code>
+</response>
+```
+---Response.<init>---
+Response created:
+public static <T> JAXBContext getContext(Class<T> cls) {
+    try {
+      final JAXBContext jaxbContext;
+      if (jaxbContexts.containsKey(cls)) {
+        jaxbContext = jaxbContexts.get(cls);
+      } else {
+        jaxbContext = JAXBContext.newInstance(cls);
+        jaxbContexts.put(cls, jaxbContext);
+      }
+      return jaxbContext;
+    } catch (final JAXBException e) {
+      log.log(Level.SEVERE, e.getMessage(), e);
+      throw new RuntimeException("Failed to create JAXBContext for class: " + cls.getName(), e);
+    }
+  }
