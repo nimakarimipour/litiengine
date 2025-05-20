@@ -634,9 +634,7 @@ public final class Game {
       }
     }
 
-    if (gameLoop != null) {
-      gameLoop = null;
-    }
+    gameLoop = null;
     screenManager = null;
     gameWindow = null;
   }
