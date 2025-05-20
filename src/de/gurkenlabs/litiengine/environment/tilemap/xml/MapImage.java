@@ -41,6 +41,8 @@ public class MapImage extends CustomPropertyProvider implements IMapImage {
     super(original);
 
     if (original == null) {
+      this.transparentcolor = new Color(0, 0, 0, 0); // Default initialization
+      this.absolutePath = new URL("http://example.com"); // Default initialization
       return;
     }
 
@@ -52,10 +54,16 @@ public class MapImage extends CustomPropertyProvider implements IMapImage {
               original.getTransparentColor().getGreen(),
               original.getTransparentColor().getBlue(),
               original.getTransparentColor().getAlpha());
+    } else {
+      this.transparentcolor = new Color(0, 0, 0, 0); // Default initialization if null
     }
+
     this.width = original.getWidth();
     this.height = original.getHeight();
-    this.absolutePath = original.getAbsoluteSourcePath();
+    this.absolutePath =
+        original.getAbsoluteSourcePath() != null
+            ? original.getAbsoluteSourcePath()
+            : new URL("http://example.com"); // Default initialization if null
   }
 
   @Override
