@@ -219,7 +219,7 @@ public class Tileset extends CustomPropertyProvider implements ITileset {
     }
 
     ITerrain[] terrains = new ITerrain[4];
-    if (!this.containsTile(tileId)) {
+    if (this.allTiles == null || !this.containsTile(tileId)) {
       return terrains;
     }
 
