@@ -275,24 +275,30 @@ public class ListField extends GuiComponent {
             && this.getContent()[column + this.getHorizontalLowerBound()][
                     row + this.getVerticalLowerBound()]
                 != null) {
-          if (this.getContent()[column + this.getHorizontalLowerBound()][
-                  row + this.getVerticalLowerBound()]
-              instanceof Image) {
-            this.getListEntry(column, row)
-                .setImage(
-                    (Image)
-                        this.getContent()[column + this.getHorizontalLowerBound()][
-                            row + this.getVerticalLowerBound()]);
-          } else {
-            this.getListEntry(column, row)
-                .setText(
-                    this
-                        .getContent()[column + this.getHorizontalLowerBound()][
-                        row + this.getVerticalLowerBound()]
-                        .toString());
+          Object listEntry = this.getListEntry(column, row);
+          if (listEntry != null) {
+            if (this.getContent()[column + this.getHorizontalLowerBound()][
+                    row + this.getVerticalLowerBound()]
+                instanceof Image) {
+              ((YourListEntryType) listEntry)
+                  .setImage(
+                      (Image)
+                          this.getContent()[column + this.getHorizontalLowerBound()][
+                              row + this.getVerticalLowerBound()]);
+            } else {
+              ((YourListEntryType) listEntry)
+                  .setText(
+                      this
+                          .getContent()[column + this.getHorizontalLowerBound()][
+                          row + this.getVerticalLowerBound()]
+                          .toString());
+            }
           }
         } else {
-          this.getListEntry(column, row).setText("");
+          Object listEntry = this.getListEntry(column, row);
+          if (listEntry != null) {
+            ((YourListEntryType) listEntry).setText("");
+          }
         }
       }
     }
