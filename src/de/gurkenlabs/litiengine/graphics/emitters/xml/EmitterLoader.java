@@ -29,8 +29,12 @@ public class EmitterLoader {
     return load(Resources.getLocation(emitterXml));
   }
 
-  @Nullable
-  public static EmitterData load(@Nullable URL emitterXml) {
+  public static EmitterData load(URL emitterXml) {
+    if (emitterXml == null) {
+      log.log(Level.SEVERE, "The URL provided for emitterXml is null.");
+      return null;
+    }
+
     final String name = emitterXml.getFile();
     if (loadedEmitters.containsKey(name)) {
       return loadedEmitters.get(name);
