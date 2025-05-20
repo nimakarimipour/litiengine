@@ -80,13 +80,14 @@ public class TextureAtlas {
     return this.sprites;
   }
 
+  @Nullable
   public Sprite getSprite(String name) {
     if (name == null || name.isEmpty()) {
       return null;
     }
 
     return this.getSprites().stream()
-        .filter(x -> x.getName() != null && x.getName().equals(name))
+        .filter(x -> x.getName().equals(name))
         .findFirst()
         .orElse(null);
   }
