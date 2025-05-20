@@ -182,10 +182,18 @@ public class AStarPathFinder extends PathFinder {
     final List<AStarNode> path = new ArrayList<>();
     AStarNode currentNode = targetNode.getPredecessor();
 
-    while (currentNode != startNode) {
+    while (currentNode != null && currentNode != startNode) {
       path.add(currentNode);
       currentNode = currentNode.getPredecessor();
     }
+
+    if (currentNode == null) {
+      // Handle the error according to your application's requirements
+      // For now, you might return an empty path or handle the error differently
+      return new Path(
+          startNode.getLocation(), targetNode.getLocation(), new GeneralPath(), new ArrayList<>());
+    }
+
     Collections.reverse(path);
 
     final Path2D path2D = new GeneralPath(Path2D.WIND_NON_ZERO);
