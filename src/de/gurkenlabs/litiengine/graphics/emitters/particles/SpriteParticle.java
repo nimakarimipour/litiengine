@@ -20,10 +20,10 @@ public class SpriteParticle extends Particle {
 
   public SpriteParticle(final Spritesheet spritesheet) {
     super(0, 0);
-    if (spritesheet == null) {
-      throw new IllegalArgumentException("Spritesheet cannot be null");
-    }
     this.spritesheet = spritesheet;
+    if (spritesheet == null) {
+      return;
+    }
     this.setWidth(spritesheet.getSpriteWidth());
     this.setHeight(spritesheet.getSpriteHeight());
     this.animation = new AnimationController(this.spritesheet);
