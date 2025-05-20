@@ -265,7 +265,10 @@ public final class Maps extends ResourcesContainer<IMap> {
      * @param mapObject The mapObject to be added to the specified {@code MapObjectLayer}.
      * @return The added map object.
      */
-    public IMapObject add(@Nullable IMapObjectLayer layer, IMapObject mapObject) {
+    public IMapObject add(IMapObjectLayer layer, IMapObject mapObject) {
+      if (layer == null) {
+        throw new IllegalArgumentException("layer cannot be null");
+      }
       layer.addMapObject(mapObject);
       return mapObject;
     }
