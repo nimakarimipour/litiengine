@@ -196,8 +196,7 @@ public class StaticShadow extends MapArea {
   }
 
   private void createArea() {
-    StaticShadowType shadowType = this.getShadowType();
-    if (shadowType == StaticShadowType.NONE) {
+    if (this.getShadowType() == StaticShadowType.NONE) {
       return;
     }
 
