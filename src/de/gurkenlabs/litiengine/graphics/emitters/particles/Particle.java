@@ -103,7 +103,7 @@ public abstract class Particle implements ITimeToLive {
   }
 
   public Color getColor() {
-    return this.color;
+    return this.color != null ? this.color : Color.BLACK; // or any other default color
   }
 
   public float getDeltaHeight() {
