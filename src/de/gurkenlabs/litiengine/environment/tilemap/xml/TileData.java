@@ -338,29 +338,30 @@ public class TileData {
     return parsed;
   }
 
-  protected static List<Tile> parseCsvData(String value) throws InvalidTileLayerException {
+  protected static List<Tile> parseCsvData(@Nullable String value)
+      throws InvalidTileLayerException {
 
     List<Tile> parsed = new ArrayList<>();
 
-    if (value != null) {
-      String[] csvTileIds = value.trim().split("[\\s]*,[\\s]*");
+    // trim 'space', 'tab', 'newline'. pay attention to additional unicode chars
+    // like \u2028, \u2029, \u0085 if necessary
+    String[] csvTileIds = value.trim().split("[\\s]*,[\\s]*");
 
-      for (String gid : csvTileIds) {
-        int tileId;
-        try {
-          tileId = Integer.parseUnsignedInt(gid);
-        } catch (NumberFormatException e) {
-          throw new InvalidTileLayerException(e);
-        }
+    for (String gid : csvTileIds) {
+      int tileId;
+      try {
+        tileId = Integer.parseUnsignedInt(gid);
+      } catch (NumberFormatException e) {
+        throw new InvalidTileLayerException(e);
+      }
 
-        if (tileId > Integer.MAX_VALUE) {
-          parsed.add(new Tile(tileId));
+      if (tileId > Integer.MAX_VALUE) {
+        parsed.add(new Tile(tileId));
+      } else {
+        if (tileId == Tile.NONE) {
+          parsed.add(Tile.EMPTY);
         } else {
-          if (tileId == Tile.NONE) {
-            parsed.add(Tile.EMPTY);
-          } else {
-            parsed.add(new Tile(tileId));
-          }
+          parsed.add(new Tile(tileId));
         }
       }
     }
