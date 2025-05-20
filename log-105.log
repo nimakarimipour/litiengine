@@ -1,0 +1,106 @@
+====================
+Type='RETURN_NULLABLE', message='returning @Nullable expression from method with @NonNull return type'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/GameWorld.java:241
+    return this.environment;
+Log:
+---NullAway.lambda$resolveRemainingErrors$17---
+==============================
+---NullAway.lambda$resolveRemainingErrors$17---
+TOP LEVEL CALL TO FIX ERROR: Type='RETURN_NULLABLE', message='returning @Nullable expression from method with @NonNull return type'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/GameWorld.java:241
+    return this.environment;
+---ChatGPT.ask---
+Asking ChatGPT:
+I want to resolve a warning reported by NullAway.
+The error is of the type of "RETURN_NULLABLE" and the full error message is: "returning @Nullable expression from method with @NonNull return type".
+The line with the error is: "    return this.environment;".
+
+The error is within "the method: environment()" and the code surrounding the error is:
+```java
+    remove(this.updatables, mapName, updateable);
+  }
+
+  /**
+   * Gets the game's current {@code Camera}.
+   *
+   * @return The currently active camera.
+   * @see ICamera
+   */
+  public ICamera camera() {
+    return this.camera;
+  }
+
+  /**
+   * Gets the game's current {@code Environment}.
+   *
+   * @return The currently active environment.
+   * @see Environment
+   */
+  public Environment environment() {
+    return this.environment;
+  }
+
+  /**
+   * Gets the game worlds gravity that is applied to any environment. This can e.g. be useful for
+   * platformers.
+   *
+   * @return The gravity of the game world that gets applied to any environment.
+   */
+  public int gravity() {
+    return this.gravity;
+  }
+
+  /**
+   * Clears the currently active camera and environment, removes all previously loaded environments
+   * and clears all listener lists.
+   */
+  public void clear() {
+    this.unloadEnvironment();
+    this.environments.clear();
+```
+
+Give me the fixed code snippet (ONLY THE METHOD REWRITE OF "environment()") in XML format in <response> tag like the example below. I will apply the fix to my codebase.
+Do not import any additional libraries or classes or java comments.
+If you can provide the fixed code snippet, provide it in the following format and place the code snippet in the <code> tag within ```java block.
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  Your fixed code snippet here
+  ```
+    ]]>
+  </code>
+</response>
+
+---ChatGPT.sendRequestToOpenAI---
+Sending request to OpenAI...
+---ChatGPT.sendRequestToOpenAI---
+Response received from OpenAI.
+---Response.<init>---
+Creating Response:
+Here is the fixed code snippet for the `environment()` method:
+
+```xml
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  public Environment environment() {
+    if (this.environment == null) {
+      throw new IllegalStateException("Environment has not been initialized.");
+    }
+    return this.environment;
+  }
+  ```
+    ]]>
+  </code>
+</response>
+```
+---Response.<init>---
+Response created:
+public Environment environment() {
+    if (this.environment == null) {
+      throw new IllegalStateException("Environment has not been initialized.");
+    }
+    return this.environment;
+  }
