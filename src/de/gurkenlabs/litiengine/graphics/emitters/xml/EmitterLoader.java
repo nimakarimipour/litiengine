@@ -47,11 +47,13 @@ public class EmitterLoader {
     return load(loaded);
   }
 
-  public static EmitterData load(@Nullable EmitterData emitterData) {
+  public static EmitterData load(EmitterData emitterData) {
+    if (emitterData == null || emitterData.getName() == null) {
+      return null;
+    }
     if (loadedEmitters.containsKey(emitterData.getName())) {
       return loadedEmitters.get(emitterData.getName());
     }
-
     loadedEmitters.put(emitterData.getName(), emitterData);
     return emitterData;
   }
