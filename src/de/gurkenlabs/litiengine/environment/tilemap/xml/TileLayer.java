@@ -109,9 +109,6 @@ public class TileLayer extends Layer implements ITileLayer {
   }
 
   protected List<Tile> getData() {
-    if (this.data == null) {
-      throw new IllegalStateException("data is null");
-    }
     return this.data.getTiles();
   }
 
