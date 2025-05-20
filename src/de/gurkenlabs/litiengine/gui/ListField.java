@@ -278,28 +278,21 @@ public class ListField extends GuiComponent {
           if (this.getContent()[column + this.getHorizontalLowerBound()][
                   row + this.getVerticalLowerBound()]
               instanceof Image) {
-            var listEntry = this.getListEntry(column, row);
-            if (listEntry != null) {
-              listEntry.setImage(
-                  (Image)
-                      this.getContent()[column + this.getHorizontalLowerBound()][
-                          row + this.getVerticalLowerBound()]);
-            }
+            this.getListEntry(column, row)
+                .setImage(
+                    (Image)
+                        this.getContent()[column + this.getHorizontalLowerBound()][
+                            row + this.getVerticalLowerBound()]);
           } else {
-            var listEntry = this.getListEntry(column, row);
-            if (listEntry != null) {
-              listEntry.setText(
-                  this
-                      .getContent()[column + this.getHorizontalLowerBound()][
-                      row + this.getVerticalLowerBound()]
-                      .toString());
-            }
+            this.getListEntry(column, row)
+                .setText(
+                    this
+                        .getContent()[column + this.getHorizontalLowerBound()][
+                        row + this.getVerticalLowerBound()]
+                        .toString());
           }
         } else {
-          var listEntry = this.getListEntry(column, row);
-          if (listEntry != null) {
-            listEntry.setText("");
-          }
+          this.getListEntry(column, row).setText("");
         }
       }
     }
