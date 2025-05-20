@@ -113,7 +113,6 @@ public class AttributeModifier<T extends Number> implements Comparable<Attribute
     this.active = active;
   }
 
-  @SuppressWarnings("unchecked")
   private T ensureType(final Double modValue, final T originalValue) {
     if (originalValue instanceof Double) {
       return (T) modValue;
@@ -127,8 +126,8 @@ public class AttributeModifier<T extends Number> implements Comparable<Attribute
       return (T) Short.valueOf(modValue.shortValue());
     } else if (originalValue instanceof Integer) {
       return (T) Integer.valueOf(modValue.intValue());
+    } else {
+      throw new IllegalArgumentException("Unsupported type: " + originalValue.getClass().getName());
     }
-
-    return null;
   }
 }
