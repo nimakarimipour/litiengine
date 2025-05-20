@@ -1258,6 +1258,9 @@ public final class Environment implements IRenderable {
    * @return The map of this environment.
    */
   public IMap getMap() {
+    if (this.map == null) {
+      throw new NullPointerException("Map is not initialized.");
+    }
     return this.map;
   }
 
