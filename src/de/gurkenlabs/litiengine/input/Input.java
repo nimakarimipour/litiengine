@@ -66,9 +66,6 @@ public final class Input {
    * @return The mouse input device.
    */
   public static IMouse mouse() {
-    if (mouse == null) {
-      throw new IllegalStateException("Mouse has not been initialized");
-    }
     return mouse;
   }
 
