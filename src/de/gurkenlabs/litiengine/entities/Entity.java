@@ -308,7 +308,7 @@ public abstract class Entity implements IEntity, EntityRenderListener, Tweenable
       return;
     }
 
-    NullabilityUtil.castToNonnull(this.actions.get(actionName), "checked by exists").perform();
+    this.actions.get(actionName).perform();
   }
 
   @Nullable
