@@ -119,7 +119,7 @@ public class TileLayer extends Layer implements ITileLayer {
 
   @Initializer
   @Override
-  void finish(URL location) throws TmxException {
+  void finish(@Nullable URL location) throws TmxException {
     super.finish(location);
     this.tileList = new CopyOnWriteArrayList<>(this.getData());
     this.tiles = new Tile[this.getHeight()][this.getWidth()];
@@ -132,10 +132,8 @@ public class TileLayer extends Layer implements ITileLayer {
       this.tileList.add(tile);
       this.tiles[y][x] = tile;
     }
-    if (this.getMap() != null) {
-      for (Tile tile : getData()) {
-        tile.setTilesetEntry(this.getMap().getTilesetEntry(tile.getGridId()));
-      }
+    for (Tile tile : getData()) {
+      tile.setTilesetEntry(this.getMap().getTilesetEntry(tile.getGridId()));
     }
   }
 }
