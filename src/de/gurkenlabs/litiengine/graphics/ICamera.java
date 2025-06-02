@@ -132,7 +132,7 @@ public interface ICamera extends IUpdateable {
    */
   default float getRenderScale() {
     return Game.graphics().getBaseRenderScale()
-        * NullabilityUtil.castToNonnull(Game.window(), "properly initialized").getResolutionScale()
+        * Game.window().getResolutionScale()
         * this.getZoom();
   }
 

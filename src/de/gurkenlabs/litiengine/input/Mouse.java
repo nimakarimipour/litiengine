@@ -360,9 +360,7 @@ public final class Mouse
 
     if (this.isGrabMouse()) {
       Game.window().cursor().hideDefaultCursor();
-    } else if (!NullabilityUtil.castToNonnull(Game.window(), "properly initialized")
-        .cursor()
-        .isVisible()) {
+    } else if (!Game.window().cursor().isVisible()) {
       Game.window().cursor().showDefaultCursor();
     }
   }
@@ -378,8 +376,7 @@ public final class Mouse
 
     final MouseEvent mouseEvent =
         new MouseEvent(
-            NullabilityUtil.castToNonnull(Game.window(), "properly initialized")
-                .getRenderComponent(),
+            Game.window().getRenderComponent(),
             MouseEvent.MOUSE_MOVED,
             0,
             0,
@@ -428,25 +425,27 @@ public final class Mouse
     double diffX;
     double diffY;
     if (!this.grabMouse) {
+      // get diff relative from last mouse location
       diffX = e.getX() - this.lastLocation.getX();
       diffY = e.getY() - this.lastLocation.getY();
       this.lastLocation = new Point(e.getX(), e.getY());
     } else {
-      final double screenCenterX =
-          NullabilityUtil.castToNonnull(Game.window(), "properly initialized")
-                  .getResolution()
-                  .getWidth()
-              * 0.5;
+      // get diff relative from grabbed position
+      final double screenCenterX = Game.window().getResolution().getWidth() * 0.5;
       final double screenCenterY = Game.window().getResolution().getHeight() * 0.5;
       final Point screenLocation = Game.window().getLocationOnScreen();
       final int grabX = (int) (screenLocation.x + screenCenterX);
       final int grabY = (int) (screenLocation.y + screenCenterY);
 
+      // lock original mouse back to the center of the screen
       this.robot.mouseMove(grabX, grabY);
+
+      // calculate diffs and new location for the ingame mouse
       diffX = e.getXOnScreen() - (double) grabX;
       diffY = e.getYOnScreen() - (double) grabY;
     }
 
+    // set new mouse location
     double newX = this.getLocation().getX() + diffX * this.sensitivity;
     double newY = this.getLocation().getY() + diffY * this.sensitivity;
     newX = MathUtilities.clamp(newX, 0, Game.window().getResolution().getWidth());

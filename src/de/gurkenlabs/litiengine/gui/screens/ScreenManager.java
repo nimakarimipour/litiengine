@@ -78,8 +78,7 @@ public final class ScreenManager {
    * @param screen The screen to add.
    */
   public void add(final Screen screen) {
-    screen.setWidth(
-        NullabilityUtil.castToNonnull(Game.window(), "game properly initialized").getWidth());
+    screen.setWidth(Game.window().getWidth());
     screen.setHeight(Game.window().getHeight());
     this.screens.add(screen);
 
