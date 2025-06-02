@@ -33,6 +33,7 @@ public abstract class ColorLayer implements IRenderable {
     ImageRenderer.render(g, this.layer, -viewport.getX(), -viewport.getY());
   }
 
+  @Nullable
   public Color getColor() {
     return this.color;
   }
@@ -40,9 +41,9 @@ public abstract class ColorLayer implements IRenderable {
   public void setAlpha(int ambientAlpha) {
     this.setColor(
         new Color(
-            this.getColor().getRed(),
-            this.getColor().getGreen(),
-            this.getColor().getBlue(),
+            NullabilityUtil.castToNonnull(this.getColor(), "color always initialized").getRed(),
+            NullabilityUtil.castToNonnull(this.getColor(), "color always initialized").getGreen(),
+            NullabilityUtil.castToNonnull(this.getColor(), "color always initialized").getBlue(),
             MathUtilities.clamp(ambientAlpha, 0, 255)));
     this.updateSection(this.environment.getMap().getBounds());
   }
