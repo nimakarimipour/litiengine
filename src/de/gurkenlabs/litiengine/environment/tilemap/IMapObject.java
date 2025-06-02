@@ -57,6 +57,7 @@ public interface IMapObject extends ICustomPropertyProvider, Resource {
   @Nullable
   public IMapObjectText getText();
 
+  @Nullable
   public IMapObjectLayer getLayer();
 
   public void setGridId(int gid);
