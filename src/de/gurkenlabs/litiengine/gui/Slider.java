@@ -137,23 +137,23 @@ public abstract class Slider extends GuiComponent {
   protected void setSliderComponent(final ImageComponent slider) {
     this.sliderComponent = slider;
     this.sliderComponent.onMousePressed(e -> this.isDragging = true);
-    Input.mouse()
-        .onDragged(
-            e -> {
-              if (this.isDragging()) {
-                this.setValueRelativeToMousePosition();
-                this.getChangeConsumer()
-                    .forEach(consumer -> consumer.accept(this.getCurrentValue()));
-              }
-            });
+    IMouse mouseInstance = Input.mouse();
+    if (mouseInstance != null) {
+      mouseInstance.onDragged(
+          e -> {
+            if (this.isDragging()) {
+              this.setValueRelativeToMousePosition();
+              this.getChangeConsumer().forEach(consumer -> consumer.accept(this.getCurrentValue()));
+            }
+          });
 
-    Input.mouse()
-        .onReleased(
-            e -> {
-              if (this.isDragging()) {
-                this.isDragging = false;
-              }
-            });
+      mouseInstance.onReleased(
+          e -> {
+            if (this.isDragging()) {
+              this.isDragging = false;
+            }
+          });
+    }
     this.getComponents().add(this.getSliderComponent());
   }
 }

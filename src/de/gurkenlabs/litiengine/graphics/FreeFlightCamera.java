@@ -67,7 +67,11 @@ public class FreeFlightCamera extends Camera implements IUpdateable {
       return;
     }
 
-    final Point2D mouseLocation = Input.mouse().getLocation();
+    IMouse mouse = Input.mouse();
+    if (mouse == null) {
+      return;
+    }
+    final Point2D mouseLocation = mouse.getLocation();
 
     final double scrollSpeed =
         this.getVelocity()
