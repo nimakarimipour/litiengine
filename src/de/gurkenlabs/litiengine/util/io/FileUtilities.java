@@ -107,8 +107,8 @@ public final class FileUtilities {
     }
   }
 
-  public static String getFileName(@Nullable URL path) {
-    return getFileName(path.getPath());
+  public static String getFileName(URL path) {
+    return getFileName(NullabilityUtil.castToNonnull(path, "cannot be null").getPath());
   }
 
   public static String getFileName(@Nullable final String path) {
