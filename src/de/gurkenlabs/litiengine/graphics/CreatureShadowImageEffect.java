@@ -68,8 +68,7 @@ public class CreatureShadowImageEffect extends ImageEffect {
 
     final BufferedImage buffer =
         Imaging.getCompatibleImage(image.getWidth() * 2 + 2, image.getHeight() * 2);
-    final Graphics2D graphics =
-        NullabilityUtil.castToNonnull(buffer, "non-zero dimensions").createGraphics();
+    final Graphics2D graphics = buffer.createGraphics();
     float x = image.getWidth() / 2.0f;
     float y = image.getHeight() / 2.0f;
 
