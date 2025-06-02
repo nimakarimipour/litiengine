@@ -88,6 +88,7 @@ public class VerticalSlider extends Slider {
             this.getSliderSpritesheet(),
             "",
             null));
-    this.getSliderComponent().setSpriteSheet(this.getSliderSpritesheet());
+    NullabilityUtil.castToNonnull(this.getSliderComponent(), "set before use")
+        .setSpriteSheet(this.getSliderSpritesheet());
   }
 }
