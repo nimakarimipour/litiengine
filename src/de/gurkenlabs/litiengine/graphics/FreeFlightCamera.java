@@ -38,7 +38,7 @@ public class FreeFlightCamera extends Camera implements IUpdateable {
     this.scrollPadding = DEFAULT_SCROLL_PADDING;
     this.setClampToMap(true);
 
-    Game.loop().attach(this);
+    NullabilityUtil.castToNonnull(Game.loop(), "initialized in init").attach(this);
   }
 
   public double getVelocity() {
@@ -71,7 +71,8 @@ public class FreeFlightCamera extends Camera implements IUpdateable {
 
     final double scrollSpeed =
         this.getVelocity()
-            / (double) Game.loop().getTickRate()
+            / (double)
+                NullabilityUtil.castToNonnull(Game.loop(), "properly initialized").getTickRate()
             * Game.config().input().getMouseSensitivity();
 
     double x = this.getFocus().getX();

@@ -108,7 +108,7 @@ public final class ScreenManager {
    *
    * @param screen The screen to be displayed.
    */
-  public void display(@Nullable final Screen screen) {
+  public void display(final Screen screen) {
     if (Game.hasStarted() && Game.time().since(this.lastScreenChange) < this.getChangeCooldown()) {
       log.log(
           Level.INFO,
@@ -131,7 +131,8 @@ public final class ScreenManager {
       this.current().prepare();
     }
 
-    this.lastScreenChange = Game.loop().getTicks();
+    this.lastScreenChange =
+        NullabilityUtil.castToNonnull(Game.loop(), "initialized before usage").getTicks();
 
     final ScreenChangedEvent event = new ScreenChangedEvent(this.current(), previous);
     for (final ScreenChangedListener listener : this.screenChangedListeners) {

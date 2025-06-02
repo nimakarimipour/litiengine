@@ -200,7 +200,7 @@ public class Prop extends CombatEntity {
     IEntityAnimationController<?> controller = this.createAnimationController();
     this.getControllers().addController(controller);
     if (Game.world().environment() != null && Game.world().environment().isLoaded()) {
-      Game.loop().attach(controller);
+      NullabilityUtil.castToNonnull(Game.loop(), "cannot return null").attach(controller);
     }
   }
 }

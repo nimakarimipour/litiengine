@@ -130,7 +130,7 @@ public class Emitter extends Entity implements IUpdateable, ITimeToLive, IRender
 
     this.activated = true;
     this.activationTick = Game.time().now();
-    Game.loop().attach(this);
+    NullabilityUtil.castToNonnull(Game.loop(), "initialized before access").attach(this);
   }
 
   /**
@@ -156,7 +156,7 @@ public class Emitter extends Entity implements IUpdateable, ITimeToLive, IRender
     this.aliveTime = 0;
     this.activationTick = 0;
     this.lastSpawn = 0;
-    Game.loop().detach(this);
+    NullabilityUtil.castToNonnull(Game.loop(), "initialization guarantees non-null").detach(this);
   }
 
   public void delete() {
@@ -313,7 +313,9 @@ public class Emitter extends Entity implements IUpdateable, ITimeToLive, IRender
       return;
     }
 
-    final float updateRatio = (float) this.data().getUpdateRate() / Game.loop().getTickRate();
+    final float updateRatio =
+        (float) this.data().getUpdateRate()
+            / NullabilityUtil.castToNonnull(Game.loop(), "guaranteed non-null").getTickRate();
     for (final Particle p : this.getParticles().stream().collect(Collectors.toList())) {
       if (this.particleCanBeRemoved(p)) {
         // remove dead particles

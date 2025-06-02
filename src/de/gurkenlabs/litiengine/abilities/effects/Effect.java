@@ -81,7 +81,7 @@ public abstract class Effect implements IUpdateable {
 
     // if it is the first appliance -> register for update
     if (this.appliances.size() == 1) {
-      Game.loop().attach(this);
+      NullabilityUtil.castToNonnull(Game.loop(), "always initialized before use").attach(this);
     }
   }
 
@@ -155,7 +155,6 @@ public abstract class Effect implements IUpdateable {
     for (final Iterator<EffectApplication> iterator = this.getActiveAppliances().iterator();
         iterator.hasNext(); ) {
       final EffectApplication appliance = iterator.next();
-      // if the effect duration is reached
       if (this.hasEnded(appliance)) {
 
         iterator.remove();
@@ -163,9 +162,8 @@ public abstract class Effect implements IUpdateable {
       }
     }
 
-    // 4. unregister if all appliances are finished
     if (this.getActiveAppliances().isEmpty()) {
-      Game.loop().detach(this);
+      NullabilityUtil.castToNonnull(Game.loop(), "ensured non-null post-init").detach(this);
     }
   }
 

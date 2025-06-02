@@ -28,12 +28,12 @@ public class MovementController<T extends IMobileEntity> implements IMovementCon
 
   @Override
   public void attach() {
-    Game.loop().attach(this);
+    NullabilityUtil.castToNonnull(Game.loop(), "initialized before usage").attach(this);
   }
 
   @Override
   public void detach() {
-    Game.loop().detach(this);
+    NullabilityUtil.castToNonnull(Game.loop(), "guaranteed to be non-null").detach(this);
   }
 
   @Override
@@ -92,9 +92,10 @@ public class MovementController<T extends IMobileEntity> implements IMovementCon
       return;
     }
 
-    // max distance an entity can travel within one tick
     final double maxPixelsPerTick = this.getEntity().getTickVelocity();
-    final double deltaTime = Game.loop().getDeltaTime() * Game.loop().getTimeScale();
+    final double deltaTime =
+        NullabilityUtil.castToNonnull(Game.loop(), "initialized before use").getDeltaTime()
+            * NullabilityUtil.castToNonnull(Game.loop(), "initialized before use").getTimeScale();
 
     final double acceleration =
         this.getEntity().getAcceleration() == 0
@@ -127,7 +128,6 @@ public class MovementController<T extends IMobileEntity> implements IMovementCon
       return;
     }
 
-    // actually move entity
     this.moveEntity(dx, dy);
   }
 
@@ -176,7 +176,6 @@ public class MovementController<T extends IMobileEntity> implements IMovementCon
   }
 
   private void handleForces() {
-    // clean up forces
     this.activeForces.forEach(
         x -> {
           if (x.hasEnded()) {
@@ -188,7 +187,6 @@ public class MovementController<T extends IMobileEntity> implements IMovementCon
       return;
     }
 
-    // disable turn-on-move for force handling
     boolean turn = this.getEntity().turnOnMove();
     this.getEntity().setTurnOnMove(false);
     try {
@@ -204,7 +202,11 @@ public class MovementController<T extends IMobileEntity> implements IMovementCon
         final double angle =
             GeometricUtilities.calcRotationAngleInDegrees(collisionBoxCenter, force.getLocation());
         final double strength =
-            Game.loop().getDeltaTime() * 0.001f * force.getStrength() * Game.loop().getTimeScale();
+            NullabilityUtil.castToNonnull(Game.loop(), "guaranteed to be non-null").getDeltaTime()
+                * 0.001f
+                * force.getStrength()
+                * NullabilityUtil.castToNonnull(Game.loop(), "guaranteed to be non-null")
+                    .getTimeScale();
         deltaX += GeometricUtilities.getDeltaX(angle, strength);
         deltaY += GeometricUtilities.getDeltaY(angle, strength);
       }

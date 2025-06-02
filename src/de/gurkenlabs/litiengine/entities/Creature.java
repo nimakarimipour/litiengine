@@ -147,9 +147,9 @@ public class Creature extends CombatEntity implements IMobileEntity {
 
   @Override
   public float getTickVelocity() {
-    // pixels per ms multiplied by the passed ms
-    // ensure that entities don't travel too far in case of lag
-    return Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG)
+    return Math.min(
+            NullabilityUtil.castToNonnull(Game.loop(), "cannot return null").getDeltaTime(),
+            GameLoop.TICK_DELTATIME_LAG)
         * 0.001F
         * this.getVelocity().get()
         * Game.loop().getTimeScale();
@@ -250,7 +250,7 @@ public class Creature extends CombatEntity implements IMobileEntity {
     IEntityAnimationController<?> controller = this.createAnimationController();
     this.getControllers().addController(controller);
     if (Game.world().environment() != null && Game.world().environment().isLoaded()) {
-      Game.loop().attach(controller);
+      NullabilityUtil.castToNonnull(Game.loop(), "cannot return null").attach(controller);
     }
   }
 
