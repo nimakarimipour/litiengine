@@ -125,17 +125,14 @@ public class RenderComponent extends Canvas {
                 ? RenderingHints.VALUE_INTERPOLATION_BILINEAR
                 : RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
 
-        if (Game.screens() != null) {
-          final Screen currentScreen = Game.screens().current();
-          if (currentScreen != null) {
-            long renderStart = System.nanoTime();
-            currentScreen.render(g);
+        final Screen currentScreen = Game.screens().current();
+        if (currentScreen != null) {
+          long renderStart = System.nanoTime();
+          currentScreen.render(g);
 
-            if (Game.config().debug().trackRenderTimes()) {
-              final double totalRenderTime =
-                  TimeUtilities.nanoToMs(System.nanoTime() - renderStart);
-              Game.metrics().trackRenderTime("screen", totalRenderTime);
-            }
+          if (Game.config().debug().trackRenderTimes()) {
+            final double totalRenderTime = TimeUtilities.nanoToMs(System.nanoTime() - renderStart);
+            Game.metrics().trackRenderTime("screen", totalRenderTime);
           }
         }
 
@@ -153,7 +150,7 @@ public class RenderComponent extends Canvas {
           g.fill(bounds);
         }
 
-        if (this.takeScreenShot && Game.screens() != null && currentScreen != null) {
+        if (this.takeScreenShot && currentScreen != null) {
           final BufferedImage img =
               new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
           final Graphics2D imgGraphics = img.createGraphics();
