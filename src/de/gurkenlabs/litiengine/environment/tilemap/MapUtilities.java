@@ -270,8 +270,7 @@ public final class MapUtilities {
     }
 
     if (mapObject.isPolyline()) {
-      return NullabilityUtil.castToNonnull(mapObject.getPolyline(), "implementation reliable")
-          .getAbsolutePoints(mapObject.getLocation());
+      return mapObject.getPolyline().getAbsolutePoints(mapObject.getLocation());
     }
 
     return new ArrayList<>();
