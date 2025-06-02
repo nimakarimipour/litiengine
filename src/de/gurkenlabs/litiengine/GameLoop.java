@@ -90,7 +90,9 @@ public final class GameLoop extends UpdateLoop implements IGameLoop {
 
     Game.world().camera().updateFocus();
     if (!Game.isInNoGUIMode()) {
-      Game.window().getRenderComponent().render();
+      NullabilityUtil.castToNonnull(Game.window(), "cannot return null")
+          .getRenderComponent()
+          .render();
     }
 
     this.trackRenderMetric();

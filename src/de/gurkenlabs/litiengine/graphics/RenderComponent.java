@@ -136,7 +136,7 @@ public class RenderComponent extends Canvas {
           }
         }
 
-        Game.window().cursor().render(g);
+        NullabilityUtil.castToNonnull(Game.window(), "properly initialized").cursor().render(g);
 
         for (final Consumer<Graphics2D> consumer : this.renderedConsumer) {
           consumer.accept(g);
@@ -165,7 +165,6 @@ public class RenderComponent extends Canvas {
         }
       }
 
-      // PERFORMANCE HINT: this method call basically takes up all the time required by this method
       this.currentBufferStrategy.show();
     } while (this.currentBufferStrategy.contentsLost());
 

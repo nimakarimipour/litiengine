@@ -80,7 +80,10 @@ public class FreeFlightCamera extends Camera implements IUpdateable {
     double deltaX = 0;
     if (mouseLocation.getX() < this.getScrollPadding()) {
       deltaX -= scrollSpeed;
-    } else if (Game.window().getResolution().getWidth() - mouseLocation.getX()
+    } else if (NullabilityUtil.castToNonnull(Game.window(), "initialized before use")
+                .getResolution()
+                .getWidth()
+            - mouseLocation.getX()
         < this.getScrollPadding()) {
       deltaX += scrollSpeed;
     }

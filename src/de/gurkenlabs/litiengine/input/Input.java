@@ -95,7 +95,9 @@ public final class Input {
         Mouse m = new Mouse();
 
         if (!Game.isInNoGUIMode()) {
-          Game.window().getRenderComponent().addMouseListener(m);
+          NullabilityUtil.castToNonnull(Game.window(), "properly initialized")
+              .getRenderComponent()
+              .addMouseListener(m);
           Game.window().getRenderComponent().addMouseMotionListener(m);
           Game.window().getRenderComponent().addMouseWheelListener(m);
         }
