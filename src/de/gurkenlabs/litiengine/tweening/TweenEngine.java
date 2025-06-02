@@ -162,9 +162,6 @@ public class TweenEngine implements IUpdateable, ILaunchable {
           tween.stop();
           continue;
         }
-        if (tween.getEquation() == null) {
-          throw new NullPointerException("Tween equation is null");
-        }
         final float[] currentValues = new float[tween.getTargetValues().length];
         for (int i = 0; i < tween.getTargetValues().length; i++) {
           currentValues[i] =
