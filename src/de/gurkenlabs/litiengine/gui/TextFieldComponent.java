@@ -43,15 +43,13 @@ public class TextFieldComponent extends ImageComponent {
           }
         });
 
-    final IMouse mouse = Input.mouse();
-    if (mouse != null) {
-      mouse.onClicked(
-          e -> {
-            if (!this.getBoundingBox().contains(mouse.getLocation())) {
-              this.setSelected(false);
-            }
-          });
-    }
+    Input.mouse()
+        .onClicked(
+            e -> {
+              if (!this.getBoundingBox().contains(Input.mouse().getLocation())) {
+                this.setSelected(false);
+              }
+            });
 
     this.setTextAlign(Align.LEFT);
   }

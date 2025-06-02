@@ -88,15 +88,12 @@ public class HorizontalSlider extends Slider {
 
   @Override
   public void setValueRelativeToMousePosition() {
-    IMouse mouse = Input.mouse();
-    if (mouse != null) {
-      final double mouseX = mouse.getLocation().getX();
-      if (mouseX >= this.minSliderX && mouseX <= this.maxSliderX) {
-        final double relativeMouseX = mouseX - this.minSliderX;
-        final double percentage = relativeMouseX / (this.maxSliderX - this.minSliderX);
-        this.setCurrentValue(
-            (float) (this.getMinValue() + percentage * (this.getMaxValue() - this.getMinValue())));
-      }
+    final double mouseX = Input.mouse().getLocation().getX();
+    if (mouseX >= this.minSliderX && mouseX <= this.maxSliderX) {
+      final double relativeMouseX = mouseX - this.minSliderX;
+      final double percentage = relativeMouseX / (this.maxSliderX - this.minSliderX);
+      this.setCurrentValue(
+          (float) (this.getMinValue() + percentage * (this.getMaxValue() - this.getMinValue())));
     }
   }
 }
