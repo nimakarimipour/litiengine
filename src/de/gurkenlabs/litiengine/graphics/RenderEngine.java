@@ -140,13 +140,11 @@ public final class RenderEngine {
       return;
     }
 
-    if (Game.world().camera() != null) {
-      final Point2D viewPortLocation = Game.world().camera().getViewportLocation(x, y);
-      double viewPortX = (float) viewPortLocation.getX() * Game.world().camera().getRenderScale();
-      double yiewPortY = (float) viewPortLocation.getY() * Game.world().camera().getRenderScale();
+    final Point2D viewPortLocation = Game.world().camera().getViewportLocation(x, y);
+    double viewPortX = (float) viewPortLocation.getX() * Game.world().camera().getRenderScale();
+    double yiewPortY = (float) viewPortLocation.getY() * Game.world().camera().getRenderScale();
 
-      TextRenderer.render(g, text, viewPortX, yiewPortY, antialias);
-    }
+    TextRenderer.render(g, text, viewPortX, yiewPortY, antialias);
   }
 
   /**
@@ -226,14 +224,10 @@ public final class RenderEngine {
         antialiasing ? RenderingHints.VALUE_ANTIALIAS_ON : RenderingHints.VALUE_ANTIALIAS_OFF);
     final AffineTransform t = new AffineTransform();
     if (Game.world().environment() == null || !Game.world().environment().isRendering()) {
-      if (Game.world().camera() != null) {
-        t.scale(Game.world().camera().getRenderScale(), Game.world().camera().getRenderScale());
-      }
+      t.scale(Game.world().camera().getRenderScale(), Game.world().camera().getRenderScale());
     }
 
-    if (Game.world().camera() != null) {
-      t.translate(Game.world().camera().getPixelOffsetX(), Game.world().camera().getPixelOffsetY());
-    }
+    t.translate(Game.world().camera().getPixelOffsetX(), Game.world().camera().getPixelOffsetY());
     t.rotate(
         Math.toRadians(angle),
         shape.getBounds().getX() + shape.getBounds().getWidth() * 0.5,
@@ -250,9 +244,7 @@ public final class RenderEngine {
    * @param shape The shape to be rendered.
    */
   public void renderOutline(final Graphics2D g, final Shape shape) {
-    if (Game.world().camera() != null) {
-      renderOutline(g, shape, new BasicStroke(1 / Game.world().camera().getRenderScale()));
-    }
+    renderOutline(g, shape, new BasicStroke(1 / Game.world().camera().getRenderScale()));
   }
 
   /**
@@ -263,10 +255,8 @@ public final class RenderEngine {
    * @param antialiasing Configure whether or not to render the shape with antialiasing.
    */
   public void renderOutline(final Graphics2D g, final Shape shape, boolean antialiasing) {
-    if (Game.world().camera() != null) {
-      renderOutline(
-          g, shape, new BasicStroke(1 / Game.world().camera().getRenderScale()), antialiasing);
-    }
+    renderOutline(
+        g, shape, new BasicStroke(1 / Game.world().camera().getRenderScale()), antialiasing);
   }
 
   /**
@@ -314,7 +304,7 @@ public final class RenderEngine {
       final Stroke stroke,
       boolean antialiasing,
       double angle) {
-    if (shape == null || Game.world().camera() == null) {
+    if (shape == null) {
       return;
     }
 
@@ -358,10 +348,6 @@ public final class RenderEngine {
    * @param location The location of the image.
    */
   public void renderImage(Graphics2D g, final Image image, Point2D location) {
-    if (Game.world().camera() == null) {
-      return; // or handle the null case appropriately
-    }
-
     Point2D viewPortLocation = Game.world().camera().getViewportLocation(location);
     ImageRenderer.render(
         g,
@@ -399,11 +385,9 @@ public final class RenderEngine {
     final List<? extends IEntity> entitiesToRender =
         entities.stream()
             .filter(
-                x -> {
-                  ICamera camera = Game.world().camera();
-                  return camera != null && camera.getViewport().intersects(x.getBoundingBox())
-                      || x instanceof Emitter;
-                })
+                x ->
+                    Game.world().camera().getViewport().intersects(x.getBoundingBox())
+                        || x instanceof Emitter)
             .collect(Collectors.toList());
 
     // in order to render the entities in a 2.5D manner, we sort them by their max Y Coordinate
@@ -473,14 +457,12 @@ public final class RenderEngine {
         if (animationController.isAutoScaling()) {
           final double ratioX = entity.getWidth() / img.getWidth();
           final double ratioY = entity.getHeight() / img.getHeight();
-          if (Game.world().camera() != null) {
-            ImageRenderer.renderScaled(
-                g,
-                img,
-                Game.world().camera().getViewportLocation(entity.getLocation()),
-                ratioX,
-                ratioY);
-          }
+          ImageRenderer.renderScaled(
+              g,
+              img,
+              Game.world().camera().getViewportLocation(entity.getLocation()),
+              ratioX,
+              ratioY);
         } else {
           // center the image relative to the entity dimensions -> the pivot point for rendering is
           // the center of the entity
@@ -495,16 +477,14 @@ public final class RenderEngine {
             deltaY += (img.getHeight() - (img.getHeight() * transform.getScaleY())) / 2.0;
           }
 
-          if (Game.world().camera() != null) {
-            Point2D renderLocation =
-                Game.world()
-                    .camera()
-                    .getViewportLocation(entity.getX() + deltaX, entity.getY() + deltaY);
-            ImageRenderer.renderTransformed(
-                g, img, renderLocation.getX(), renderLocation.getY(), transform);
-          }
+          Point2D renderLocation =
+              Game.world()
+                  .camera()
+                  .getViewportLocation(entity.getX() + deltaX, entity.getY() + deltaY);
+          ImageRenderer.renderTransformed(
+              g, img, renderLocation.getX(), renderLocation.getY(), transform);
 
-          if (Game.world().camera() != null && Game.config().debug().renderBoundingBoxes()) {
+          if (Game.config().debug().renderBoundingBoxes()) {
             g.setColor(new Color(255, 0, 0, 50));
             renderOutline(
                 g,

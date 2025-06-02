@@ -252,21 +252,10 @@ public class LightSource extends Entity implements IRenderable {
     final float ry = (float) bounds.getHeight() / 2f;
 
     // get relative center of entity
-    Point2D relativeCenter = null;
-    if (Game.world() != null && Game.world().camera() != null) {
-      relativeCenter =
-          Game.world()
-              .camera()
-              .getViewportLocation(
-                  new Point((int) (bounds.getX() + r), (int) (bounds.getY() + ry)));
-    }
-
-    // Check if relativeCenter is null before using it
-    if (relativeCenter == null) {
-      // Handle the case when relativeCenter is null. Return or throw an exception as appropriate.
-      return new Area();
-    }
-
+    final Point2D relativeCenter =
+        Game.world()
+            .camera()
+            .getViewportLocation(new Point((int) (bounds.getX() + r), (int) (bounds.getY() + ry)));
     final double cx = relativeCenter.getX();
     final double cy = relativeCenter.getY();
 
@@ -306,12 +295,9 @@ public class LightSource extends Entity implements IRenderable {
     shadowPolygon.addPoint((int) pointC.getX(), (int) pointC.getY());
 
     final Point2D shadowRenderLocation =
-        (Game.world() != null && Game.world().camera() != null)
-            ? Game.world()
-                .camera()
-                .getViewportLocation(new Point2D.Double(shadowEllipse.getX(), shadowEllipse.getY()))
-            : new Point2D.Double(0, 0);
-
+        Game.world()
+            .camera()
+            .getViewportLocation(new Point2D.Double(shadowEllipse.getX(), shadowEllipse.getY()));
     final Ellipse2D relativeEllipse =
         new Ellipse2D.Double(
             shadowRenderLocation.getX(),
@@ -354,10 +340,6 @@ public class LightSource extends Entity implements IRenderable {
   private void renderShadows(final Graphics2D g) {
     if (!Game.world().environment().getCombatEntities().stream()
         .anyMatch(isInRange(this.getCenter(), SHADOW_GRADIENT_SIZE))) {
-      return;
-    }
-
-    if (Game.world().camera() == null) {
       return;
     }
 

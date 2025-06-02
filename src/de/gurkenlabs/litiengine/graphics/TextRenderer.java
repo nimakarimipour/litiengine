@@ -348,14 +348,13 @@ public final class TextRenderer {
       final double y,
       final Color outlineColor,
       final boolean antiAliasing) {
-    ICamera camera = Game.world().camera();
-    if (camera == null) {
-      return;
-    }
     float stroke =
         (float)
             MathUtilities.clamp(
-                (g.getFont().getSize2D() * 1 / 5f) * Math.log(camera.getRenderScale()), 1, 100);
+                (g.getFont().getSize2D() * 1 / 5f)
+                    * Math.log(Game.world().camera().getRenderScale()),
+                1,
+                100);
     renderWithOutline(g, text, x, y, outlineColor, stroke, antiAliasing);
   }
 

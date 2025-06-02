@@ -136,7 +136,7 @@ public final class DebugRenderer {
     }
 
     // draw collision boxes from shape layer
-    if (Game.config().debug().renderCollisionBoxes() && Game.world().camera() != null) {
+    if (Game.config().debug().renderCollisionBoxes()) {
       final BasicStroke shapeStroke = new BasicStroke(1 / Game.world().camera().getRenderScale());
       for (final Rectangle2D shape : Game.physics().getCollisionBoxes(Collision.STATIC)) {
         g.setColor(Color.RED);
@@ -158,17 +158,14 @@ public final class DebugRenderer {
   private static void drawMapId(final Graphics2D g, final IEntity entity) {
     g.setColor(Color.RED);
     g.setFont(g.getFont().deriveFont(Font.PLAIN, 4f));
-
-    if (Game.world().camera() != null) {
-      final double x = Game.world().camera().getViewportDimensionCenter(entity).getX() + 10;
-      final double y = Game.world().camera().getViewportDimensionCenter(entity).getY();
-      TextRenderer.render(g, Integer.toString(entity.getMapId()), x, y);
-      final String locationString =
-          new DecimalFormat("##.##").format(entity.getX())
-              + ";"
-              + new DecimalFormat("##.##").format(entity.getY());
-      TextRenderer.render(g, locationString, x, y + 5.0);
-    }
+    final double x = Game.world().camera().getViewportDimensionCenter(entity).getX() + 10;
+    final double y = Game.world().camera().getViewportDimensionCenter(entity).getY();
+    TextRenderer.render(g, Integer.toString(entity.getMapId()), x, y);
+    final String locationString =
+        new DecimalFormat("##.##").format(entity.getX())
+            + ";"
+            + new DecimalFormat("##.##").format(entity.getY());
+    TextRenderer.render(g, locationString, x, y + 5.0);
   }
 
   private static void drawTileBoundingBox(
@@ -185,26 +182,24 @@ public final class DebugRenderer {
     final String locationText = tileLocation.x + ", " + tileLocation.y;
     g.setFont(g.getFont().deriveFont(3f));
     final FontMetrics fm = g.getFontMetrics();
-    if (Game.world().camera() != null) {
-      final Point2D relative =
-          Game.world().camera().getViewportLocation(playerTile.getX(), playerTile.getY());
-      TextRenderer.render(
-          g,
-          locationText,
-          (float) (relative.getX() + playerTile.getWidth() + 3),
-          (float) (relative.getY() + fm.getHeight()));
+    final Point2D relative =
+        Game.world().camera().getViewportLocation(playerTile.getX(), playerTile.getY());
+    TextRenderer.render(
+        g,
+        locationText,
+        (float) (relative.getX() + playerTile.getWidth() + 3),
+        (float) (relative.getY() + fm.getHeight()));
 
-      final List<ITile> tiles = MapUtilities.getTilesByPixelLocation(map, location);
-      final StringBuilder sb = new StringBuilder();
-      for (final ITile tile : tiles) {
-        sb.append("[gid: " + tile.getGridId() + "] ");
-      }
-
-      TextRenderer.render(
-          g,
-          sb.toString(),
-          (float) (relative.getX() + playerTile.getWidth() + 3),
-          (float) (relative.getY() + fm.getHeight() * 2 + 2));
+    final List<ITile> tiles = MapUtilities.getTilesByPixelLocation(map, location);
+    final StringBuilder sb = new StringBuilder();
+    for (final ITile tile : tiles) {
+      sb.append("[gid: " + tile.getGridId() + "] ");
     }
+
+    TextRenderer.render(
+        g,
+        sb.toString(),
+        (float) (relative.getX() + playerTile.getWidth() + 3),
+        (float) (relative.getY() + fm.getHeight() * 2 + 2));
   }
 }

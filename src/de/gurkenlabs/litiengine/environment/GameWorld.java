@@ -227,7 +227,6 @@ public final class GameWorld implements IUpdateable {
    * @return The currently active camera.
    * @see ICamera
    */
-  @Nullable
   public ICamera camera() {
     return this.camera;
   }
@@ -346,7 +345,7 @@ public final class GameWorld implements IUpdateable {
    * @param env The environment to be loaded.
    * @see GameWorld#environment()
    */
-  public void loadEnvironment(final Environment env) {
+  public void loadEnvironment(@Nullable final Environment env) {
     Lock lock = Game.loop().getLock();
     lock.lock();
     try {
@@ -369,7 +368,7 @@ public final class GameWorld implements IUpdateable {
         if (mapName != null && this.environmentLoadedListeners.containsKey(mapName)) {
 
           // for the default camera we center the camera on the environment
-          if (this.camera() != null && this.camera().getClass().equals(Camera.class)) {
+          if (this.camera().getClass().equals(Camera.class)) {
             camera().setFocus(env.getCenter());
           }
 
