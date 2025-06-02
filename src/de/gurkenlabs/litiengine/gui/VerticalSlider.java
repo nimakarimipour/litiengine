@@ -64,7 +64,8 @@ public class VerticalSlider extends Slider {
     this.setButton1(
         new ImageComponent(
             this.getX(), this.getY(), this.getWidth(), this.getWidth(), ARROW_UP.getText()));
-    this.getButton1().setFont(ARROW_UP.getFont());
+    NullabilityUtil.castToNonnull(this.getButton1(), "explicitly set before use")
+        .setFont(ARROW_UP.getFont());
     this.getButton1().setSpriteSheet(this.getButtonSpritesheet());
     this.setButton2(
         new ImageComponent(
