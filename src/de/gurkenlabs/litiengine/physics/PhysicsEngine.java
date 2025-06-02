@@ -76,10 +76,7 @@ public final class PhysicsEngine implements IUpdateable {
     switch (entity.getCollisionType()) {
       case DYNAMIC:
       case STATIC:
-        NullabilityUtil.castToNonnull(
-                this.collisionEntities.get(entity.getCollisionType()),
-                "initialized for known types")
-            .add(entity);
+        this.collisionEntities.get(entity.getCollisionType()).add(entity);
         break;
       default:
         return;
