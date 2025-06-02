@@ -117,7 +117,7 @@ public final class Codec {
   }
 
   @Nullable
-  public static String encode(final BufferedImage image, ImageFormat imageFormat) {
+  public static String encode(@Nullable final BufferedImage image, ImageFormat imageFormat) {
     if (image == null) {
       return null;
     }
