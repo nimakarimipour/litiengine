@@ -2116,52 +2116,55 @@ public final class Environment implements IRenderable {
     this.rendering = true;
 
     try {
-      g.scale(Game.world().camera().getRenderScale(), Game.world().camera().getRenderScale());
-      if (this.getMap() != null && this.getMap().getBackgroundColor() != null) {
-        g.setColor(this.getMap().getBackgroundColor());
-        g.fill(
-            new Rectangle2D.Double(
-                0.0,
-                0.0,
-                Game.world().camera().getViewport().getWidth(),
-                Game.world().camera().getViewport().getHeight()));
-      }
+      if (Game.world().camera() != null) {
+        g.scale(Game.world().camera().getRenderScale(), Game.world().camera().getRenderScale());
 
-      this.render(g, RenderType.BACKGROUND);
+        if (this.getMap() != null && this.getMap().getBackgroundColor() != null) {
+          g.setColor(this.getMap().getBackgroundColor());
+          g.fill(
+              new Rectangle2D.Double(
+                  0.0,
+                  0.0,
+                  Game.world().camera().getViewport().getWidth(),
+                  Game.world().camera().getViewport().getHeight()));
+        }
 
-      this.render(g, RenderType.GROUND);
-      DebugRenderer.renderMapDebugInfo(g, this.getMap());
+        this.render(g, RenderType.BACKGROUND);
 
-      this.render(g, RenderType.SURFACE);
-      this.render(g, RenderType.NORMAL);
-      this.render(g, RenderType.OVERLAY);
+        this.render(g, RenderType.GROUND);
+        DebugRenderer.renderMapDebugInfo(g, this.getMap());
 
-      long ambientStart = System.nanoTime();
-      if (Game.config().graphics().getGraphicQuality().ordinal() >= Quality.MEDIUM.ordinal()
-          && this.getAmbientLight() != null
-          && this.getAmbientLight().getColor().getAlpha() != 0) {
-        this.getAmbientLight().render(g);
-      }
+        this.render(g, RenderType.SURFACE);
+        this.render(g, RenderType.NORMAL);
+        this.render(g, RenderType.OVERLAY);
 
-      final double ambientTime = TimeUtilities.nanoToMs(System.nanoTime() - ambientStart);
+        long ambientStart = System.nanoTime();
+        if (Game.config().graphics().getGraphicQuality().ordinal() >= Quality.MEDIUM.ordinal()
+            && this.getAmbientLight() != null
+            && this.getAmbientLight().getColor().getAlpha() != 0) {
+          this.getAmbientLight().render(g);
+        }
 
-      long shadowRenderStart = System.nanoTime();
-      if (this.getStaticShadows().stream()
-          .anyMatch(x -> x.getShadowType() != StaticShadowType.NONE)) {
-        this.getStaticShadowLayer().render(g);
-      }
+        final double ambientTime = TimeUtilities.nanoToMs(System.nanoTime() - ambientStart);
 
-      final double shadowTime = TimeUtilities.nanoToMs(System.nanoTime() - shadowRenderStart);
+        long shadowRenderStart = System.nanoTime();
+        if (this.getStaticShadows().stream()
+            .anyMatch(x -> x.getShadowType() != StaticShadowType.NONE)) {
+          this.getStaticShadowLayer().render(g);
+        }
 
-      this.render(g, RenderType.UI);
+        final double shadowTime = TimeUtilities.nanoToMs(System.nanoTime() - shadowRenderStart);
 
-      if (Game.config().debug().trackRenderTimes()) {
+        this.render(g, RenderType.UI);
 
-        final double totalRenderTime = TimeUtilities.nanoToMs(System.nanoTime() - renderStart);
+        if (Game.config().debug().trackRenderTimes()) {
 
-        Game.metrics().trackRenderTime("shadow", shadowTime);
-        Game.metrics().trackRenderTime("ambient", ambientTime);
-        Game.metrics().trackRenderTime("world", totalRenderTime);
+          final double totalRenderTime = TimeUtilities.nanoToMs(System.nanoTime() - renderStart);
+
+          Game.metrics().trackRenderTime("shadow", shadowTime);
+          Game.metrics().trackRenderTime("ambient", ambientTime);
+          Game.metrics().trackRenderTime("world", totalRenderTime);
+        }
       }
     } finally {
       this.rendering = false;
@@ -2293,7 +2296,7 @@ public final class Environment implements IRenderable {
     long renderStart = System.nanoTime();
 
     // 1. Render map layers
-    if (this.getMap() != null) {
+    if (this.getMap() != null && Game.world().camera() != null) {
       MapRenderer.render(g, this.getMap(), Game.world().camera().getViewport(), this, renderType);
     }
 

@@ -71,10 +71,15 @@ public final class Mouse
       throw e;
     }
 
-    this.location =
-        new Point2D.Double(
-            Game.world().camera().getViewport().getCenterX(),
-            Game.world().camera().getViewport().getCenterY());
+    if (Game.world().camera() != null) {
+      this.location =
+          new Point2D.Double(
+              Game.world().camera().getViewport().getCenterX(),
+              Game.world().camera().getViewport().getCenterY());
+    } else {
+      this.location = new Point2D.Double(0, 0); // Default to (0,0) or handle appropriately
+    }
+
     this.lastLocation = this.location;
     this.sensitivity = Game.config().input().getMouseSensitivity();
     this.grabMouse = false;
@@ -105,12 +110,17 @@ public final class Mouse
 
   @Override
   public Point2D getMapLocation() {
-    return Game.world()
-        .camera()
-        .getMapLocation(
-            new Point2D.Double(
-                this.getLocation().getX() / Game.world().camera().getRenderScale(),
-                this.getLocation().getY() / Game.world().camera().getRenderScale()));
+    ICamera camera = Game.world().camera();
+    if (camera == null) {
+      // Handle the case where camera is null. This could be returning a default value or throwing
+      // an exception.
+      return new Point2D.Double(0, 0); // or handle it as appropriate
+    }
+
+    return camera.getMapLocation(
+        new Point2D.Double(
+            this.getLocation().getX() / camera.getRenderScale(),
+            this.getLocation().getY() / camera.getRenderScale()));
   }
 
   @Override
