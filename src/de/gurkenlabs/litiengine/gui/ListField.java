@@ -633,22 +633,20 @@ public class ListField extends GuiComponent {
 
     this.onChange(
         s -> {
-          if (this.getVerticalSlider() != null
-              && this.getVerticalSlider().getSliderComponent() != null) {
+          if (this.getVerticalSlider() != null) {
             this.getVerticalSlider().setCurrentValue(this.getVerticalLowerBound());
             this.getVerticalSlider()
                 .getSliderComponent()
                 .setLocation(this.getVerticalSlider().getRelativeSliderPosition());
           }
-          if (this.getHorizontalSlider() != null
-              && this.getHorizontalSlider().getSliderComponent() != null) {
+          if (this.getHorizontalSlider() != null) {
             this.getHorizontalSlider().setCurrentValue(this.getHorizontalLowerBound());
             this.getHorizontalSlider()
                 .getSliderComponent()
                 .setLocation(this.getHorizontalSlider().getRelativeSliderPosition());
           }
         });
-    if (this.getVerticalSlider() != null && this.getVerticalSlider().getSliderComponent() != null) {
+    if (this.getVerticalSlider() != null) {
       this.getVerticalSlider()
           .onChange(
               sliderValue -> {
@@ -659,8 +657,7 @@ public class ListField extends GuiComponent {
                 this.refresh();
               });
     }
-    if (this.getHorizontalSlider() != null
-        && this.getHorizontalSlider().getSliderComponent() != null) {
+    if (this.getHorizontalSlider() != null) {
       this.getHorizontalSlider()
           .onChange(
               sliderValue -> {
