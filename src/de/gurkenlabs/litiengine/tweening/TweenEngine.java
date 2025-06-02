@@ -121,8 +121,7 @@ public class TweenEngine implements IUpdateable, ILaunchable {
   public void remove(final Tweenable target, final TweenType type) {
     final Tween tween = this.getTween(target, type);
     if (tween != null) {
-      NullabilityUtil.castToNonnull(this.getTweens().get(target), "Tween exists, so non-null")
-          .remove(type);
+      this.getTweens().get(target).remove(type);
     }
   }
 
