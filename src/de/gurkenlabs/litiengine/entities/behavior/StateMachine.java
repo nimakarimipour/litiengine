@@ -38,7 +38,7 @@ public class StateMachine implements IUpdateable {
       if (transition.conditionsFullfilled()) {
         this.currentState.exit();
         this.currentState = transition.getNextState();
-        NullabilityUtil.castToNonnull(this.currentState, "early return ensures non-null").enter();
+        this.currentState.enter();
         return;
       }
     }
