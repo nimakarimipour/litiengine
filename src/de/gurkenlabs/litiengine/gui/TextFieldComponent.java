@@ -63,7 +63,6 @@ public class TextFieldComponent extends ImageComponent {
     return this.maxLength;
   }
 
-  @Nullable
   @Override
   public String getText() {
     return this.fullText;
@@ -74,25 +73,23 @@ public class TextFieldComponent extends ImageComponent {
       return;
     }
 
-    String currentText = this.getText() != null ? this.getText() : "";
-
     switch (event.getKeyCode()) {
       case KeyEvent.VK_BACK_SPACE:
         this.handleBackSpace();
         break;
       case KeyEvent.VK_SPACE:
-        if (!currentText.equals("")) {
-          this.setText(currentText + " ");
+        if (!this.getText().equals("")) {
+          this.setText(this.getText() + " ");
         }
         break;
       case KeyEvent.VK_ENTER:
         this.toggleSelection();
-        this.changeConfirmedConsumers.forEach(c -> c.accept(currentText));
+        this.changeConfirmedConsumers.forEach(c -> c.accept(this.getText()));
 
         log.log(
             Level.INFO,
             "{0} typed into TextField with ComponentID {1}",
-            new Object[] {currentText, this.getComponentId()});
+            new Object[] {this.getText(), this.getComponentId()});
         break;
       default:
         this.handleNormalTyping(event);
@@ -140,35 +137,27 @@ public class TextFieldComponent extends ImageComponent {
   }
 
   private void handleBackSpace() {
-    String text = this.getText();
-    if (text != null) {
-      if (Input.keyboard().isPressed(KeyEvent.VK_SHIFT)) {
-        while (text.length() >= 1 && text.charAt(text.length() - 1) == ' ') {
-          text = text.substring(0, text.length() - 1);
-          this.setText(text);
-        }
-
-        while (text.length() >= 1 && text.charAt(text.length() - 1) != ' ') {
-          text = text.substring(0, text.length() - 1);
-          this.setText(text);
-        }
-      } else if (text.length() >= 1) {
-        text = text.substring(0, text.length() - 1);
-        this.setText(text);
+    if (Input.keyboard().isPressed(KeyEvent.VK_SHIFT)) {
+      while (this.getText().length() >= 1
+          && this.getText().charAt(this.getText().length() - 1) == ' ') {
+        this.setText(this.getText().substring(0, this.getText().length() - 1));
       }
 
-      if (this.isKnownNumericFormat() && (text == null || text.isEmpty())) {
-        this.setText("0");
+      while (this.getText().length() >= 1
+          && this.getText().charAt(this.getText().length() - 1) != ' ') {
+        this.setText(this.getText().substring(0, this.getText().length() - 1));
       }
+    } else if (this.getText().length() >= 1) {
+      this.setText(this.getText().substring(0, this.getText().length() - 1));
+    }
+
+    if (this.isKnownNumericFormat() && (this.getText() == null || this.getText().isEmpty())) {
+      this.setText("0");
     }
   }
 
   private void handleNormalTyping(KeyEvent event) {
-    String currentText = this.getText();
-
-    if (currentText != null
-        && this.getMaxLength() > 0
-        && currentText.length() >= this.getMaxLength()) {
+    if (this.getMaxLength() > 0 && this.getText().length() >= this.getMaxLength()) {
       return;
     }
 
@@ -180,17 +169,17 @@ public class TextFieldComponent extends ImageComponent {
     // regex check to ensure certain formats
     if (this.getFormat() != null && !this.getFormat().isEmpty()) {
       final Pattern pat = Pattern.compile(this.getFormat());
-      final Matcher mat = pat.matcher(currentText + text);
+      final Matcher mat = pat.matcher(this.getText() + text);
       if (!mat.matches()) {
         return;
       }
     }
 
-    if (this.isKnownNumericFormat() && "0".equals(currentText)) {
+    if (this.isKnownNumericFormat() && this.getText().equals("0")) {
       this.setText("");
     }
 
-    this.setText(currentText + text);
+    this.setText(this.getText() + text);
   }
 
   private boolean isKnownNumericFormat() {
