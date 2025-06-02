@@ -83,7 +83,7 @@ public final class Game {
   @Nullable private static GameInfo gameInfo = new GameInfo();
   private static final TweenEngine tweenEngine = new TweenEngine();
 
-  @Nullable private static GameLoop gameLoop;
+  private static GameLoop gameLoop;
   @Nullable private static ScreenManager screenManager;
   @Nullable private static GameWindow gameWindow;
 
@@ -344,7 +344,6 @@ public final class Game {
    * @see ILoop#attach(IUpdateable)
    * @see ILoop#detach(IUpdateable)
    */
-  @Nullable
   public static IGameLoop loop() {
     return gameLoop;
   }
@@ -510,11 +509,9 @@ public final class Game {
    *
    * @param uncaughtExceptionHandler The handler to be used for uncaught exceptions.
    */
-  public static synchronized void setUncaughtExceptionHandler(
+  public static void setUncaughtExceptionHandler(
       UncaughtExceptionHandler uncaughtExceptionHandler) {
-    if (gameLoop != null) {
-      gameLoop.setUncaughtExceptionHandler(uncaughtExceptionHandler);
-    }
+    gameLoop.setUncaughtExceptionHandler(uncaughtExceptionHandler);
     Thread.setDefaultUncaughtExceptionHandler(uncaughtExceptionHandler);
   }
 
@@ -539,11 +536,6 @@ public final class Game {
     if (!initialized) {
       throw new IllegalStateException(
           "The game cannot be started without being first initialized. Call Game.init(...) before Game.start().");
-    }
-
-    if (gameLoop == null) {
-      throw new IllegalStateException(
-          "Game loop is not initialized. Ensure Game.init(...) has been called successfully.");
     }
 
     gameLoop.start();
@@ -620,7 +612,7 @@ public final class Game {
   }
 
   static synchronized void terminate() {
-    if (!initialized || gameLoop == null) {
+    if (!initialized) {
       return;
     }
 
