@@ -56,7 +56,7 @@ public class TileData {
     }
   }
 
-  @Nullable @XmlAttribute private String encoding;
+  @XmlAttribute private String encoding;
 
   @Nullable @XmlAttribute private String compression;
 
@@ -66,7 +66,7 @@ public class TileData {
 
   @Nullable @XmlTransient private String value;
 
-  @Nullable @XmlTransient private List<TileChunk> chunks;
+  @XmlTransient private List<TileChunk> chunks;
 
   @Nullable @XmlTransient private List<Tile> tiles;
 
@@ -119,7 +119,6 @@ public class TileData {
     this.height = height;
   }
 
-  @Nullable
   @XmlTransient
   public String getEncoding() {
     return this.encoding;
@@ -417,10 +416,6 @@ public class TileData {
 
   /** For infinite maps, the size of a tile layer depends on the {@code TileChunks} it contains. */
   private void updateDimensionsByTileData() {
-    if (this.chunks == null || this.chunks.isEmpty()) {
-      return;
-    }
-
     int minX = 0;
     int maxX = 0;
     int minY = 0;
@@ -459,19 +454,18 @@ public class TileData {
     // first fill a two-dimensional array with all the information of the chunks
     Tile[][] tileArr = new Tile[this.getHeight()][this.getWidth()];
 
-    String encoding = this.getEncoding();
-    if (encoding != null && encoding.equals(Encoding.BASE64)) {
+    if (this.getEncoding().equals(Encoding.BASE64)) {
       for (TileChunk chunk : this.chunks) {
         List<Tile> chunkTiles = parseBase64Data(chunk.getValue(), this.compression);
         this.addTiles(tileArr, chunk, chunkTiles);
       }
-    } else if (encoding != null && encoding.equals(Encoding.CSV)) {
+    } else if (this.getEncoding().equals(Encoding.CSV)) {
       for (TileChunk chunk : this.chunks) {
         List<Tile> chunkTiles = parseCsvData(chunk.getValue());
         this.addTiles(tileArr, chunk, chunkTiles);
       }
     } else {
-      throw new IllegalArgumentException("Unsupported tile layer encoding " + encoding);
+      throw new IllegalArgumentException("Unsupported tile layer encoding " + this.getEncoding());
     }
 
     // fill up the rest of the map with Tile.EMPTY
@@ -502,11 +496,6 @@ public class TileData {
 
   private List<Tile> parseData() throws InvalidTileLayerException {
     List<Tile> tmpTiles;
-
-    if (this.getEncoding() == null) {
-      throw new IllegalArgumentException("Encoding cannot be null");
-    }
-
     if (this.getEncoding().equals(Encoding.BASE64)) {
       tmpTiles = parseBase64Data(this.value, this.compression);
     } else if (this.getEncoding().equals(Encoding.CSV)) {
