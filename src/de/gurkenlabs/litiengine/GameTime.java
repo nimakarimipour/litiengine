@@ -29,7 +29,7 @@ public final class GameTime implements EnvironmentLoadedListener {
    * @see GameLoop#getTicks()
    */
   public long now() {
-    return NullabilityUtil.castToNonnull(Game.loop(), "always initialized before use").getTicks();
+    return Game.loop().getTicks();
   }
 
   /**
@@ -41,8 +41,7 @@ public final class GameTime implements EnvironmentLoadedListener {
    * @see #now()
    */
   public long since(final long tick) {
-    return toMilliseconds(
-        NullabilityUtil.castToNonnull(Game.loop(), "cannot be null").getTicks() - tick);
+    return toMilliseconds(Game.loop().getTicks() - tick);
   }
 
   /**
@@ -52,8 +51,7 @@ public final class GameTime implements EnvironmentLoadedListener {
    * @return The time since the game has been started.
    */
   public long sinceGameStart() {
-    return this.toMilliseconds(
-        NullabilityUtil.castToNonnull(Game.loop(), "initialized before used").getTicks());
+    return this.toMilliseconds(Game.loop().getTicks());
   }
 
   /**
@@ -72,8 +70,7 @@ public final class GameTime implements EnvironmentLoadedListener {
    * @return The milliseconds that correspond to the specified ticks.
    */
   public long toMilliseconds(final long ticks) {
-    return this.toMilliseconds(
-        ticks, NullabilityUtil.castToNonnull(Game.loop(), "cannot be null").getTickRate());
+    return this.toMilliseconds(ticks, Game.loop().getTickRate());
   }
 
   /**
@@ -95,9 +92,7 @@ public final class GameTime implements EnvironmentLoadedListener {
    * @return The ticks that correspond to the specified milliseconds.
    */
   public long toTicks(final int milliseconds) {
-    return this.toTicks(
-        milliseconds,
-        NullabilityUtil.castToNonnull(Game.loop(), "initialized before use").getTickRate());
+    return this.toTicks(milliseconds, Game.loop().getTickRate());
   }
 
   /**
@@ -113,6 +108,6 @@ public final class GameTime implements EnvironmentLoadedListener {
 
   @Override
   public void loaded(Environment environment) {
-    environmentLoaded = NullabilityUtil.castToNonnull(Game.loop(), "cannot return null").getTicks();
+    environmentLoaded = Game.loop().getTicks();
   }
 }

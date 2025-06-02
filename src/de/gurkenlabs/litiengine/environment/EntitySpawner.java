@@ -159,7 +159,7 @@ public abstract class EntitySpawner<T extends IEntity> implements IEntitySpawner
       case ALLSPAWNPOINTS:
         for (int i = 0; i < this.getSpawnPoints().size(); i++) {
           final int index = i;
-          NullabilityUtil.castToNonnull(Game.loop(), "guaranteed to be non-null")
+          Game.loop()
               .perform(
                   this.getSpawnDelay() + this.getSpawnDelay() * i,
                   () -> this.spawn(this.getSpawnPoints().get(index), this.getSpawnAmount()));
@@ -170,7 +170,7 @@ public abstract class EntitySpawner<T extends IEntity> implements IEntitySpawner
         break;
       case RANDOMSPAWNPOINTS:
         for (int i = 0; i < this.getSpawnAmount(); i++) {
-          NullabilityUtil.castToNonnull(Game.loop(), "guaranteed to be non-null")
+          Game.loop()
               .perform(
                   this.getSpawnDelay() + this.getSpawnDelay() * i,
                   () -> this.spawn(Game.random().choose(this.getSpawnPoints()), 1));
@@ -184,7 +184,7 @@ public abstract class EntitySpawner<T extends IEntity> implements IEntitySpawner
 
         int index = 0;
         for (Spawnpoint spawn : spawnPoints) {
-          NullabilityUtil.castToNonnull(Game.loop(), "guaranteed to be non-null")
+          Game.loop()
               .perform(
                   this.getSpawnDelay() + this.getSpawnDelay() * index, () -> this.spawn(spawn, 1));
           index++;

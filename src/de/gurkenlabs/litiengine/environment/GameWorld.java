@@ -345,9 +345,8 @@ public final class GameWorld implements IUpdateable {
    * @param env The environment to be loaded.
    * @see GameWorld#environment()
    */
-  public void loadEnvironment(final Environment env) {
-    Lock lock =
-        NullabilityUtil.castToNonnull(Game.loop(), "initialized during game setup").getLock();
+  public void loadEnvironment(@Nullable final Environment env) {
+    Lock lock = Game.loop().getLock();
     lock.lock();
     try {
       unloadEnvironment();
@@ -511,9 +510,9 @@ public final class GameWorld implements IUpdateable {
    *
    * @param cam The new camera to be set.
    */
-  public void setCamera(final ICamera cam) {
+  public void setCamera(@Nullable final ICamera cam) {
     if (this.camera() != null) {
-      NullabilityUtil.castToNonnull(Game.loop(), "guaranteed non-null post-init").detach(camera);
+      Game.loop().detach(camera);
     }
 
     camera = cam;

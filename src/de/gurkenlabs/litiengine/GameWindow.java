@@ -378,10 +378,7 @@ public final class GameWindow {
           if (e.getNewState() == Frame.ICONIFIED) {
             Game.loop().setTickRate(ICONIFIED_MAX_FPS);
           } else {
-            Game.loop()
-                .setTickRate(
-                    NullabilityUtil.castToNonnull(
-                        Game.config().client().getMaxFps(), "cannot return null"));
+            Game.loop().setTickRate(Game.config().client().getMaxFps());
           }
         });
 
@@ -390,15 +387,13 @@ public final class GameWindow {
           @Override
           public void windowLostFocus(WindowEvent e) {
             if (Game.config().graphics().reduceFramesWhenNotFocused()) {
-              NullabilityUtil.castToNonnull(Game.loop(), "cannot return null")
-                  .setTickRate(NONE_FOCUS_MAX_FPS);
+              Game.loop().setTickRate(NONE_FOCUS_MAX_FPS);
             }
           }
 
           @Override
           public void windowGainedFocus(WindowEvent e) {
-            NullabilityUtil.castToNonnull(Game.loop(), "guaranteed not null")
-                .setTickRate(Game.config().client().getMaxFps());
+            Game.loop().setTickRate(Game.config().client().getMaxFps());
           }
         });
 

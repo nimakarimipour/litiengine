@@ -139,7 +139,7 @@ public class AnimationController implements IAnimationController {
    * @see ILoop
    */
   public void attach() {
-    NullabilityUtil.castToNonnull(Game.loop(), "always initialized before use").attach(this);
+    Game.loop().attach(this);
   }
 
   @Override
@@ -154,7 +154,7 @@ public class AnimationController implements IAnimationController {
    * @see ILoop
    */
   public void detach() {
-    NullabilityUtil.castToNonnull(Game.loop(), "cannot return null").detach(this);
+    Game.loop().detach(this);
   }
 
   @Nullable

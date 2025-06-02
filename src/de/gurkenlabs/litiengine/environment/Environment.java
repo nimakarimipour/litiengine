@@ -2275,16 +2275,14 @@ public final class Environment implements IRenderable {
         emitter.activate();
       }
     } else if (entity instanceof IUpdateable) {
-      NullabilityUtil.castToNonnull(Game.loop(), "init ensures non-null")
-          .attach((IUpdateable) entity);
+      Game.loop().attach((IUpdateable) entity);
     }
   }
 
   private static void dispose(final Collection<? extends IEntity> entities) {
     for (final IEntity entity : entities) {
       if (entity instanceof IUpdateable) {
-        NullabilityUtil.castToNonnull(Game.loop(), "initially non-nullable")
-            .detach((IUpdateable) entity);
+        Game.loop().detach((IUpdateable) entity);
       }
 
       entity.detachControllers();
@@ -2425,8 +2423,7 @@ public final class Environment implements IRenderable {
 
     // 2. unregister from update
     if (entity instanceof IUpdateable) {
-      NullabilityUtil.castToNonnull(Game.loop(), "init guarantees non-null")
-          .detach((IUpdateable) entity);
+      Game.loop().detach((IUpdateable) entity);
     }
 
     if (entity instanceof IMobileEntity) {

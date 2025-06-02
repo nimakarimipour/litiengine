@@ -58,7 +58,10 @@ public class SpeechBubble implements IUpdateable, IRenderable {
   @Nullable private Point2D entityCenter;
 
   private SpeechBubble(
-      final IEntity entity, final String text, SpeechBubbleAppearance appearance, Font font) {
+      final IEntity entity,
+      final String text,
+      @Nullable SpeechBubbleAppearance appearance,
+      @Nullable Font font) {
     if (appearance == null) {
       this.appearance = DEFAULT_APPEARANCE;
     } else {
@@ -80,7 +83,7 @@ public class SpeechBubble implements IUpdateable, IRenderable {
     this.lastTextDisplay = Game.time().now();
     this.createBubbleImage();
     entity.getEnvironment().add(this, RenderType.UI);
-    NullabilityUtil.castToNonnull(Game.loop(), "must call init first").attach(this);
+    Game.loop().attach(this);
     activeSpeechBubbles.put(entity, this);
   }
 
@@ -239,7 +242,7 @@ public class SpeechBubble implements IUpdateable, IRenderable {
 
   public void hide() {
     Game.world().environment().removeRenderable(this);
-    NullabilityUtil.castToNonnull(Game.loop(), "guaranteed non-null").detach(this);
+    Game.loop().detach(this);
     if (activeSpeechBubbles.get(this.getEntity()) != null
         && activeSpeechBubbles.remove(this.getEntity()).equals(this)) {
       activeSpeechBubbles.remove(this.getEntity());

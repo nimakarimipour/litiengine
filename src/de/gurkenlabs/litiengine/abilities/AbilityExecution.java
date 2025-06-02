@@ -21,7 +21,7 @@ public class AbilityExecution implements IUpdateable {
     this.executionTicks = Game.time().now();
     this.impactArea = ability.calculateImpactArea();
     this.castLocation = ability.getExecutor().getCenter();
-    NullabilityUtil.castToNonnull(Game.loop(), "initialized in Game.init").attach(this);
+    Game.loop().attach(this);
   }
 
   public Ability getAbility() {
@@ -50,13 +50,17 @@ public class AbilityExecution implements IUpdateable {
    */
   @Override
   public void update() {
+    // if there a no effects to apply -> unregister this instance and we're done
     if (this.getAbility().getEffects().isEmpty()
         || this.getAbility().getEffects().size() == this.getAppliedEffects().size()) {
-      NullabilityUtil.castToNonnull(Game.loop(), "cannot return null").detach(this);
+      Game.loop().detach(this);
       return;
     }
 
+    // handle all effects from the ability that were not applied yet
     for (final Effect effect : this.getAbility().getEffects()) {
+      // if the ability was not executed yet or the delay of the effect is not
+      // yet reached
       if (this.getAppliedEffects().contains(effect)
           || Game.time().since(this.getExecutionTicks()) < effect.getDelay()) {
         continue;

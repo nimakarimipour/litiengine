@@ -83,7 +83,7 @@ public final class Game {
   @Nullable private static GameInfo gameInfo = new GameInfo();
   private static final TweenEngine tweenEngine = new TweenEngine();
 
-  @Nullable private static GameLoop gameLoop;
+  private static GameLoop gameLoop;
   @Nullable private static ScreenManager screenManager;
   @Nullable private static GameWindow gameWindow;
 
@@ -344,7 +344,6 @@ public final class Game {
    * @see ILoop#attach(IUpdateable)
    * @see ILoop#detach(IUpdateable)
    */
-  @Nullable
   public static IGameLoop loop() {
     return gameLoop;
   }
@@ -452,15 +451,17 @@ public final class Game {
     Locale.setDefault(new Locale(config().client().getCountry(), config().client().getLanguage()));
 
     gameLoop = new GameLoop("Main Update Loop", config().client().getMaxFps());
-    NullabilityUtil.castToNonnull(loop(), "gameLoop is non-nullified").attach(physics());
+    loop().attach(physics());
     loop().attach(world());
 
+    // setup default exception handling for render and update loop
     setUncaughtExceptionHandler(
         new DefaultUncaughtExceptionHandler(config().client().exitOnError()));
 
     screenManager = new ScreenManager();
     gameWindow = new GameWindow();
 
+    // initialize  the game window
     window().init();
     world.setCamera(new Camera());
 
@@ -488,6 +489,7 @@ public final class Game {
           .onKeyTyped(
               KeyEvent.VK_PRINTSCREEN,
               key -> {
+                // don't take a screenshot if a modifier is active
                 if (key.getModifiers() != 0) {
                   return;
                 }
@@ -507,11 +509,9 @@ public final class Game {
    *
    * @param uncaughtExceptionHandler The handler to be used for uncaught exceptions.
    */
-  public static synchronized void setUncaughtExceptionHandler(
+  public static void setUncaughtExceptionHandler(
       UncaughtExceptionHandler uncaughtExceptionHandler) {
-    if (gameLoop != null) {
-      gameLoop.setUncaughtExceptionHandler(uncaughtExceptionHandler);
-    }
+    gameLoop.setUncaughtExceptionHandler(uncaughtExceptionHandler);
     Thread.setDefaultUncaughtExceptionHandler(uncaughtExceptionHandler);
   }
 
@@ -536,11 +536,6 @@ public final class Game {
     if (!initialized) {
       throw new IllegalStateException(
           "The game cannot be started without being first initialized. Call Game.init(...) before Game.start().");
-    }
-
-    if (gameLoop == null) {
-      throw new IllegalStateException(
-          "Game loop is not initialized. Ensure Game.init(...) has been called successfully.");
     }
 
     gameLoop.start();
@@ -617,7 +612,7 @@ public final class Game {
   }
 
   static synchronized void terminate() {
-    if (!initialized || gameLoop == null) {
+    if (!initialized) {
       return;
     }
 

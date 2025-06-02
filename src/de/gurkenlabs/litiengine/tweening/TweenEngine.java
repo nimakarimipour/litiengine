@@ -107,7 +107,7 @@ public class TweenEngine implements IUpdateable, ILaunchable {
   /** Start. */
   @Override
   public void start() {
-    NullabilityUtil.castToNonnull(Game.loop(), "initialized before usage").attach(this);
+    Game.loop().attach(this);
   }
 
   /**
@@ -146,7 +146,7 @@ public class TweenEngine implements IUpdateable, ILaunchable {
   /** Terminate. */
   @Override
   public void terminate() {
-    NullabilityUtil.castToNonnull(Game.loop(), "initialized before use").detach(this);
+    Game.loop().detach(this);
   }
 
   /** Updates all registered Tweens by applying the {@code TweenEquation}. */

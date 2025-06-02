@@ -41,7 +41,7 @@ public class EntityNavigator implements IUpdateable, IRenderable {
     this.entity = entity;
     this.pathFinder = pathFinder;
     this.setAcceptableError(DEFAULT_ACCEPTABLE_ERROR);
-    NullabilityUtil.castToNonnull(Game.loop(), "init must be called").attach(this);
+    Game.loop().attach(this);
   }
 
   public void addNavigationListener(NavigationListener listener) {

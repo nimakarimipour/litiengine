@@ -85,11 +85,7 @@ public final class GameMetrics implements IRenderable {
     this.drawTitle(g, "[client]");
     this.drawMetric(g, "fps       : " + this.getFramesPerSecond());
     this.drawMetric(g, "max fps   : " + this.maxFramesPerSecond);
-    this.drawMetric(
-        g,
-        "updatables: "
-            + NullabilityUtil.castToNonnull(Game.loop(), "not nullable after init")
-                .getUpdatableCount());
+    this.drawMetric(g, "updatables: " + Game.loop().getUpdatableCount());
 
     // render jvm metrics if debug is enabled
     if (Game.config().debug().isDebugEnabled()) {

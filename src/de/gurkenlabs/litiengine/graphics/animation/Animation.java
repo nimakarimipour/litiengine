@@ -299,8 +299,7 @@ public class Animation implements IUpdateable, ILaunchable {
   /** Restarts this animation at its first frame. */
   public void restart() {
     this.currentFrame = this.firstFrame;
-    this.lastFrameUpdate =
-        NullabilityUtil.castToNonnull(Game.loop(), "non-null initialization").getTicks();
+    this.lastFrameUpdate = Game.loop().getTicks();
   }
 
   @Override
@@ -315,16 +314,19 @@ public class Animation implements IUpdateable, ILaunchable {
 
   @Override
   public void update() {
+    // do nothing if the animation is not playing or the current keyframe is not finished
     if (!this.isPlaying()
         || Game.time().since(this.lastFrameUpdate) < this.getCurrentKeyFrame().getDuration()) {
       return;
     }
 
+    // if we are not looping and the last keyframe is finished, we terminate the animation
     if (!this.isLooping() && this.isLastKeyFrame()) {
       this.terminate();
       return;
     }
 
+    // make sure, we stay inside the keyframe list
     final int newFrameIndex =
         (this.getKeyframes().indexOf(this.currentFrame) + 1) % this.getKeyframes().size();
     final KeyFrame previousFrame = this.currentFrame;
@@ -334,8 +336,7 @@ public class Animation implements IUpdateable, ILaunchable {
       listener.currentFrameChanged(previousFrame, this.currentFrame);
     }
 
-    this.lastFrameUpdate =
-        NullabilityUtil.castToNonnull(Game.loop(), "guaranteed non-null").getTicks();
+    this.lastFrameUpdate = Game.loop().getTicks();
   }
 
   @Nullable
