@@ -112,8 +112,10 @@ public abstract class ResourcesContainer<T> {
     }
   }
 
-  public void add(@Nullable URL resourceName, T resource) {
-    this.add(resourceName.toString(), resource);
+  public void add(URL resourceName, T resource) {
+    this.add(
+        NullabilityUtil.castToNonnull(resourceName, "URL's toString is non-nullable").toString(),
+        resource);
   }
 
   /** Clears the resource container by removing all previously loaded resources. */
