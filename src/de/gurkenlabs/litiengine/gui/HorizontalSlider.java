@@ -46,8 +46,7 @@ public class HorizontalSlider extends Slider {
             this.getButtonSpritesheet(),
             ARROW_LEFT.getText(),
             null));
-    NullabilityUtil.castToNonnull(this.getButton1(), "just assigned non-null")
-        .setFont(ARROW_LEFT.getFont());
+    this.getButton1().setFont(ARROW_LEFT.getFont());
     this.setButton2(
         new ImageComponent(
             this.getX() + this.getWidth() - this.getHeight(),
