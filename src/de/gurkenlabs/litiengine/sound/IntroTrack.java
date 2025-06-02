@@ -50,7 +50,8 @@ public class IntroTrack implements Track {
   public IntroTrack(Sound intro, Sound loop) {
     Objects.requireNonNull(intro);
     Objects.requireNonNull(loop);
-    if (!intro.getFormat().matches(loop.getFormat())) {
+    if (!NullabilityUtil.castToNonnull(intro.getFormat(), "cannot be null")
+        .matches(loop.getFormat())) {
       throw new IllegalArgumentException(intro.getFormat() + " does not match " + loop.getFormat());
     }
     this.intro = intro;
