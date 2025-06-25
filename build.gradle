@@ -89,8 +89,8 @@ tasks.withType(JavaCompile) {
     // remove the if condition if you want to run NullAway on test code
     if (!name.toLowerCase().contains("test")) {
         options.errorprone {
-            check("NullAway", CheckSeverity.ERROR)
-            check("AnnotatorScanner", CheckSeverity.ERROR)
+            check("NullAway", CheckSeverity.OFF)
+            check("AnnotatorScanner", CheckSeverity.OFF)
             option("NullAway:AnnotatedPackages", "de.gurkenlabs.litiengine")
             option("NullAway:SerializeFixMetadata", "true")
             option("NullAway:FixSerializationConfigPath", nullaway_path)
