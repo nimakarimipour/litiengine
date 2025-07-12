@@ -682,19 +682,20 @@ public final class PhysicsEngine implements IUpdateable {
    */
   @Override
   public void update() {
-    // retrieve all collision box rectangles once per update
     for (Collision type : Collision.values()) {
       if (type == Collision.NONE) {
         continue;
       }
 
-      this.collisionBoxes.get(type).clear();
-      this.collisionBoxes
-          .get(type)
-          .addAll(
-              this.collisionEntities.get(type).stream()
-                  .map(ICollisionEntity::getCollisionBox)
-                  .collect(Collectors.toList()));
+      if (this.collisionEntities.get(type) != null) {
+        this.collisionBoxes.get(type).clear();
+        this.collisionBoxes
+            .get(type)
+            .addAll(
+                this.collisionEntities.get(type).stream()
+                    .map(ICollisionEntity::getCollisionBox)
+                    .collect(Collectors.toList()));
+      }
     }
   }
 
