@@ -71,14 +71,17 @@ public class CustomPropertyAdapter
     }
 
     @SuppressWarnings("unused")
-    private void beforeMarshal(Marshaller m) throws URISyntaxException {
-      if (this.type.equals(PropertyType.STRING)) {
-        this.type = null;
+      private void beforeMarshal(Marshaller m) throws URISyntaxException {
+          if (this.type == null) {
+              this.type = PropertyType.STRING;
+          }
+          if (this.type.equals(PropertyType.STRING)) {
+              this.type = null;
+          }
+          if (this.location != null) {
+              this.value = m.getAdapter(URLAdapter.class).marshal(this.location);
+          }
       }
-      if (this.location != null) {
-        this.value = m.getAdapter(URLAdapter.class).marshal(this.location);
-      }
-    }
 
     @Override
     public int compareTo(Property o) {
@@ -112,20 +115,20 @@ public class CustomPropertyAdapter
   }
 
   @Override
-  public Map<String, ICustomProperty> unmarshal(PropertyList v) {
-    Map<String, ICustomProperty> map =
-        new HashMap<>(v.properties.size()); // use hashtable to reject null keys/values
-    for (Property property : v.properties) {
-      CustomProperty prop =
-          new CustomProperty(
-              property.type, property.value != null ? property.value : property.contents);
-      if (property.location != null) {
-        prop.setValue(property.location);
+    public Map<String, ICustomProperty> unmarshal(PropertyList v) {
+      if (v == null || v.properties == null) {
+        return Collections.emptyMap();
       }
-      map.put(property.name, prop);
+      Map<String, ICustomProperty> map = new HashMap<>(v.properties.size()); // use hashtable to reject null keys/values
+      for (Property property : v.properties) {
+        CustomProperty prop = new CustomProperty(property.type, property.value != null ? property.value : property.contents);
+        if (property.location != null) {
+          prop.setValue(property.location);
+        }
+        map.put(property.name, prop);
+      }
+      return map;
     }
-    return map;
-  }
 
   @Nullable
   @Override
