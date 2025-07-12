@@ -103,9 +103,6 @@ public class EntityNavigator implements IUpdateable, IRenderable {
   }
 
   public void rotateTowards(final Point2D target) {
-    if (this.entity.getCollisionBox() == null) {
-      return;
-    }
     final double angle =
         GeometricUtilities.calcRotationAngleInDegrees(
             this.entity.getCollisionBox().getCenterX(),
@@ -151,6 +148,9 @@ public class EntityNavigator implements IUpdateable, IRenderable {
       return;
     }
 
+    // although at max 6 elements are returned, sometimes the path
+    // implementation tries to access index 20 ... don't know why, but this
+    // prevents it
     final double[] startCoordinates = new double[22];
     final double[] coordinates = new double[22];
     for (int i = 0; i <= this.currentSegment; i++) {
@@ -170,11 +170,12 @@ public class EntityNavigator implements IUpdateable, IRenderable {
 
     pi.currentSegment(coordinates);
 
-    final Rectangle2D collisionBox =
-        Nullability.castToNonnull(this.entity.getCollisionBox(), "Collision box must not be null");
     final double distance =
         GeometricUtilities.distance(
-            collisionBox.getCenterX(), collisionBox.getCenterY(), coordinates[0], coordinates[1]);
+            this.entity.getCollisionBox().getCenterX(),
+            this.entity.getCollisionBox().getCenterY(),
+            coordinates[0],
+            coordinates[1]);
     if (distance < this.getAcceptableError()) {
       ++this.currentSegment;
       return;
@@ -182,7 +183,10 @@ public class EntityNavigator implements IUpdateable, IRenderable {
 
     final double angle =
         GeometricUtilities.calcRotationAngleInDegrees(
-            collisionBox.getCenterX(), collisionBox.getCenterY(), coordinates[0], coordinates[1]);
+            this.entity.getCollisionBox().getCenterX(),
+            this.entity.getCollisionBox().getCenterY(),
+            coordinates[0],
+            coordinates[1]);
     final float pixelsPerTick = this.entity.getTickVelocity();
     Game.physics()
         .move(
