@@ -2318,11 +2318,9 @@ public final class Environment implements IRenderable {
               renderTime,
               new GameMetrics.RenderInfo(
                   "layers",
-                  this.getMap() != null && this.getMap().getRenderLayers() != null
-                      ? this.getMap().getRenderLayers().stream()
-                          .filter(m -> m.getRenderType() == renderType)
-                          .count()
-                      : 0),
+                  this.getMap().getRenderLayers().stream()
+                      .filter(m -> m.getRenderType() == renderType)
+                      .count()),
               new GameMetrics.RenderInfo("renderables", this.getRenderables(renderType).size()),
               new GameMetrics.RenderInfo("entities", this.miscEntities.get(renderType).size()));
     }
