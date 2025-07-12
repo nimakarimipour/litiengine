@@ -29,8 +29,11 @@ public abstract class ColorLayer implements IRenderable {
 
   @Override
   public void render(Graphics2D g) {
-    final Rectangle2D viewport = Game.world().camera().getViewport();
-    ImageRenderer.render(g, this.layer, -viewport.getX(), -viewport.getY());
+    final ICamera camera = Game.world().camera();
+    if (camera != null) {
+      final Rectangle2D viewport = camera.getViewport();
+      ImageRenderer.render(g, this.layer, -viewport.getX(), -viewport.getY());
+    }
   }
 
   public Color getColor() {

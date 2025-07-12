@@ -182,24 +182,26 @@ public final class DebugRenderer {
     final String locationText = tileLocation.x + ", " + tileLocation.y;
     g.setFont(g.getFont().deriveFont(3f));
     final FontMetrics fm = g.getFontMetrics();
-    final Point2D relative =
-        Game.world().camera().getViewportLocation(playerTile.getX(), playerTile.getY());
-    TextRenderer.render(
-        g,
-        locationText,
-        (float) (relative.getX() + playerTile.getWidth() + 3),
-        (float) (relative.getY() + fm.getHeight()));
+    if (Game.world().camera() != null) {
+      final Point2D relative =
+          Game.world().camera().getViewportLocation(playerTile.getX(), playerTile.getY());
+      TextRenderer.render(
+          g,
+          locationText,
+          (float) (relative.getX() + playerTile.getWidth() + 3),
+          (float) (relative.getY() + fm.getHeight()));
 
-    final List<ITile> tiles = MapUtilities.getTilesByPixelLocation(map, location);
-    final StringBuilder sb = new StringBuilder();
-    for (final ITile tile : tiles) {
-      sb.append("[gid: " + tile.getGridId() + "] ");
+      final List<ITile> tiles = MapUtilities.getTilesByPixelLocation(map, location);
+      final StringBuilder sb = new StringBuilder();
+      for (final ITile tile : tiles) {
+        sb.append("[gid: " + tile.getGridId() + "] ");
+      }
+
+      TextRenderer.render(
+          g,
+          sb.toString(),
+          (float) (relative.getX() + playerTile.getWidth() + 3),
+          (float) (relative.getY() + fm.getHeight() * 2 + 2));
     }
-
-    TextRenderer.render(
-        g,
-        sb.toString(),
-        (float) (relative.getX() + playerTile.getWidth() + 3),
-        (float) (relative.getY() + fm.getHeight() * 2 + 2));
   }
 }

@@ -2293,7 +2293,7 @@ public final class Environment implements IRenderable {
     long renderStart = System.nanoTime();
 
     // 1. Render map layers
-    if (this.getMap() != null) {
+    if (this.getMap() != null && Game.world().camera() != null) {
       MapRenderer.render(g, this.getMap(), Game.world().camera().getViewport(), this, renderType);
     }
 

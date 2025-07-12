@@ -46,7 +46,14 @@ public final class SoundEngine implements IUpdateable, ILaunchable {
 
   private static final Logger log = Logger.getLogger(SoundEngine.class.getName());
   @Nullable private Point2D listenerLocation;
-  private UnaryOperator<Point2D> listenerLocationCallback = old -> Game.world().camera().getFocus();
+  private UnaryOperator<Point2D> listenerLocationCallback =
+      old -> {
+        if (Game.world().camera() != null) {
+          return Game.world().camera().getFocus();
+        } else {
+          return new Point2D.Double(0, 0); // or any default value you see fit
+        }
+      };
   private int maxDist = DEFAULT_MAX_DISTANCE;
   @Nullable private MusicPlayback music;
   private final Collection<MusicPlayback> allMusic = ConcurrentHashMap.newKeySet();
