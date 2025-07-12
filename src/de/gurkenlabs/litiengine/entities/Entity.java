@@ -417,12 +417,13 @@ public abstract class Entity implements IEntity, EntityRenderListener, Tweenable
   @Override
   public void removeTag(String tag) {
     this.getTags().remove(tag);
-    if (Game.world().environment() == null) {
+    Environment env = this.getEnvironment();
+    if (env == null || Game.world().environment() == null) {
       return;
     }
-    this.getEnvironment().getEntitiesByTag().get(tag).remove(this);
-    if (this.getEnvironment().getEntitiesByTag().get(tag).isEmpty()) {
-      this.getEnvironment().getEntitiesByTag().remove(tag);
+    env.getEntitiesByTag().get(tag).remove(this);
+    if (env.getEntitiesByTag().get(tag).isEmpty()) {
+      env.getEntitiesByTag().remove(tag);
     }
   }
 
@@ -497,6 +498,7 @@ public abstract class Entity implements IEntity, EntityRenderListener, Tweenable
     return sb.toString();
   }
 
+  @Nullable
   @Override
   public Environment getEnvironment() {
     return this.environment;
