@@ -38,8 +38,13 @@ public final class ImageSerializer {
 
       final BufferedImage compatibleImg =
           Imaging.getCompatibleImage(img.getWidth(), img.getHeight());
-      compatibleImg.createGraphics().drawImage(img, 0, 0, null);
-      compatibleImg.createGraphics().dispose();
+      if (compatibleImg == null) {
+        return null;
+      }
+
+      Graphics2D graphics = compatibleImg.createGraphics();
+      graphics.drawImage(img, 0, 0, null);
+      graphics.dispose();
 
       return compatibleImg;
     } catch (final Exception e) {
