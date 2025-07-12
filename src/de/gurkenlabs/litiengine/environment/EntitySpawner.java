@@ -3,6 +3,7 @@ package de.gurkenlabs.litiengine.environment;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.entities.IEntity;
 import de.gurkenlabs.litiengine.entities.Spawnpoint;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -100,6 +101,7 @@ public abstract class EntitySpawner<T extends IEntity> implements IEntitySpawner
     return this.spawnMode;
   }
 
+  @Nullable
   @Override
   public List<Spawnpoint> getSpawnPoints() {
     return this.spawnpoints;
@@ -151,39 +153,48 @@ public abstract class EntitySpawner<T extends IEntity> implements IEntitySpawner
    * @see SpawnMode
    */
   protected void spawnNewEntities() {
-    if (this.getSpawnMode() != SpawnMode.CUSTOMSPAWNPOINTS && this.getSpawnPoints().isEmpty()) {
+    List<Spawnpoint> spawnPoints = this.getSpawnPoints();
+    if (this.getSpawnMode() != SpawnMode.CUSTOMSPAWNPOINTS
+        && (spawnPoints == null || spawnPoints.isEmpty())) {
       return;
     }
 
     switch (this.getSpawnMode()) {
       case ALLSPAWNPOINTS:
-        for (int i = 0; i < this.getSpawnPoints().size(); i++) {
+        for (int i = 0;
+            i
+                < Nullability.castToNonnull(this.getSpawnPoints(), "spawnPoints checked initially")
+                    .size();
+            i++) {
           final int index = i;
           Game.loop()
               .perform(
                   this.getSpawnDelay() + this.getSpawnDelay() * i,
-                  () -> this.spawn(this.getSpawnPoints().get(index), this.getSpawnAmount()));
+                  () ->
+                      this.spawn(
+                          Nullability.castToNonnull(spawnPoints, "checked before if").get(index),
+                          this.getSpawnAmount()));
         }
         break;
       case ONERANDOMSPAWNPOINT:
-        this.spawn(Game.random().choose(this.getSpawnPoints()), this.getSpawnAmount());
+        this.spawn(Game.random().choose(spawnPoints), this.getSpawnAmount());
         break;
       case RANDOMSPAWNPOINTS:
         for (int i = 0; i < this.getSpawnAmount(); i++) {
           Game.loop()
               .perform(
                   this.getSpawnDelay() + this.getSpawnDelay() * i,
-                  () -> this.spawn(Game.random().choose(this.getSpawnPoints()), 1));
+                  () -> this.spawn(Game.random().choose(spawnPoints), 1));
         }
         break;
       case CUSTOMSPAWNPOINTS:
-        List<Spawnpoint> spawnPoints =
+        List<Spawnpoint> customSpawnPoints =
             this.customSpawnpoints != null
                 ? this.customSpawnpoints.apply(this)
                 : this.getCustomSpawnpoints();
 
         int index = 0;
-        for (Spawnpoint spawn : spawnPoints) {
+        for (Spawnpoint spawn : customSpawnPoints) {
           Game.loop()
               .perform(
                   this.getSpawnDelay() + this.getSpawnDelay() * index, () -> this.spawn(spawn, 1));
