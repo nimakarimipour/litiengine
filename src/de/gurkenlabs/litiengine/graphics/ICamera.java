@@ -109,7 +109,10 @@ public interface ICamera extends IUpdateable {
    * @param entity the entity
    * @return the screen location
    */
-  default Point2D getViewportLocation(IEntity entity) {
+  public Point2D getViewportLocation(IEntity entity) {
+    if (entity == null || entity.getLocation() == null) {
+      return null; // or handle this scenario as appropriate for your application
+    }
     Point2D entityLocation = entity.getLocation();
     return getViewportLocation(entityLocation.getX(), entityLocation.getY());
   }
