@@ -12,7 +12,7 @@ public class CollisionEvent extends EventObject {
 
   private final transient List<ICollisionEntity> involved;
 
-  public CollisionEvent(ICollisionEntity source, @Nullable ICollisionEntity... involved) {
+  public CollisionEvent(ICollisionEntity source, ICollisionEntity... involved) {
     super(source);
     this.involved = Collections.unmodifiableList(Arrays.asList(involved));
   }
