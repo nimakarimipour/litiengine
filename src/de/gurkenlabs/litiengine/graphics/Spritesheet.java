@@ -104,6 +104,7 @@ public final class Spritesheet implements Comparable<Spritesheet> {
     return scaled;
   }
 
+  @Nullable
   public BufferedImage getImage() {
     return this.image;
   }
@@ -226,10 +227,18 @@ public final class Spritesheet implements Comparable<Spritesheet> {
   }
 
   private void checkWidth(int value) {
+    if (this.getImage() == null) {
+      log.warning("No image available for '" + this.getName() + "' while checking width.");
+      return;
+    }
     checkDimension(value, this.getImage().getWidth(), this.getName(), "width");
   }
 
   private void checkHeight(int value) {
+    if (this.getImage() == null) {
+      log.warning("Image is null for sprite '" + this.getName() + "'");
+      return;
+    }
     checkDimension(value, this.getImage().getHeight(), this.getName(), "height");
   }
 
@@ -285,6 +294,10 @@ public final class Spritesheet implements Comparable<Spritesheet> {
 
   private void updateRowsAndCols() {
     final BufferedImage sprite = this.getImage();
+    if (sprite == null) {
+      log.warning("Image is null for sprite");
+      return;
+    }
     this.columns = sprite.getWidth() / this.spriteWidth;
     this.rows = sprite.getHeight() / this.spriteHeight;
   }
