@@ -3,7 +3,6 @@ package de.gurkenlabs.litiengine.graphics;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.IUpdateable;
 import de.gurkenlabs.litiengine.input.Input;
-import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.awt.geom.Point2D;
 
 public class FreeFlightCamera extends Camera implements IUpdateable {
@@ -72,8 +71,7 @@ public class FreeFlightCamera extends Camera implements IUpdateable {
 
     final double scrollSpeed =
         this.getVelocity()
-            / (double)
-                Nullability.castToNonnull(Game.loop(), "gameLoop always initialized").getTickRate()
+            / (double) Game.loop().getTickRate()
             * Game.config().input().getMouseSensitivity();
 
     double x = this.getFocus().getX();

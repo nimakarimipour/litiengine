@@ -3,7 +3,6 @@ package de.gurkenlabs.litiengine.gui.screens;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.GameWindow;
 import de.gurkenlabs.litiengine.graphics.RenderComponent;
-import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -132,8 +131,7 @@ public final class ScreenManager {
       this.current().prepare();
     }
 
-    this.lastScreenChange =
-        Nullability.castToNonnull(Game.loop(), "initialized before usage").getTicks();
+    this.lastScreenChange = Game.loop().getTicks();
 
     final ScreenChangedEvent event = new ScreenChangedEvent(this.current(), previous);
     for (final ScreenChangedListener listener : this.screenChangedListeners) {

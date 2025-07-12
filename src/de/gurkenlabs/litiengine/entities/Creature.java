@@ -14,7 +14,6 @@ import de.gurkenlabs.litiengine.graphics.animation.IEntityAnimationController;
 import de.gurkenlabs.litiengine.physics.IMovementController;
 import de.gurkenlabs.litiengine.physics.MovementController;
 import de.gurkenlabs.litiengine.tweening.TweenType;
-import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.awt.geom.Point2D;
 import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
@@ -251,7 +250,7 @@ public class Creature extends CombatEntity implements IMobileEntity {
     IEntityAnimationController<?> controller = this.createAnimationController();
     this.getControllers().addController(controller);
     if (Game.world().environment() != null && Game.world().environment().isLoaded()) {
-      Nullability.castToNonnull(Game.loop(), "expected to be non-null").attach(controller);
+      Game.loop().attach(controller);
     }
   }
 

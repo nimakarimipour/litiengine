@@ -6,7 +6,6 @@ import de.gurkenlabs.litiengine.graphics.ImageEffect;
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.util.Imaging;
-import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -155,7 +154,7 @@ public class AnimationController implements IAnimationController {
    * @see ILoop
    */
   public void detach() {
-    Nullability.castToNonnull(Game.loop(), "always initialized if running").detach(this);
+    Game.loop().detach(this);
   }
 
   @Nullable

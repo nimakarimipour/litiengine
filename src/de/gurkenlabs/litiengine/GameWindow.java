@@ -5,7 +5,6 @@ import de.gurkenlabs.litiengine.configuration.GraphicConfiguration;
 import de.gurkenlabs.litiengine.graphics.MouseCursor;
 import de.gurkenlabs.litiengine.graphics.RenderComponent;
 import de.gurkenlabs.litiengine.gui.screens.Resolution;
-import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
@@ -377,8 +376,7 @@ public final class GameWindow {
     window.addWindowStateListener(
         e -> {
           if (e.getNewState() == Frame.ICONIFIED) {
-            Nullability.castToNonnull(Game.loop(), "initialized by Game.init")
-                .setTickRate(ICONIFIED_MAX_FPS);
+            Game.loop().setTickRate(ICONIFIED_MAX_FPS);
           } else {
             Game.loop().setTickRate(Game.config().client().getMaxFps());
           }
