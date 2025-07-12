@@ -156,13 +156,6 @@ public class SpeechBubble implements IUpdateable, IRenderable {
       return;
     }
 
-    // Ensure entityCenter is updated and non-null
-    this.entityCenter = Game.world().camera().getViewportLocation(this.getEntity().getCenter());
-    if (this.entityCenter == null) {
-      // If somehow still null, then we should not render
-      return;
-    }
-
     final float deltaX = (float) (this.textBoxWidth / 2.0 + this.getAppearance().getPadding());
     final float deltaY =
         (float)
@@ -261,16 +254,7 @@ public class SpeechBubble implements IUpdateable, IRenderable {
   }
 
   private void createBubbleImage() {
-    if (this.currentText == null) {
-      return;
-    }
-
     final BufferedImage img = Imaging.getCompatibleImage(500, 500);
-    if (img == null) {
-      // Early return if img is null
-      return;
-    }
-
     final Graphics2D g = img.createGraphics();
     g.setFont(this.getFont());
     final float stringWidth = g.getFontMetrics().stringWidth(this.currentText);
