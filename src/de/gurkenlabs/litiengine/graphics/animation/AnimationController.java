@@ -93,6 +93,11 @@ public class AnimationController implements IAnimationController {
   }
 
   public static Animation flipAnimation(Animation anim, String newSpriteName) {
+    if (anim == null || anim.getSpritesheet() == null) {
+      // Handle the null condition appropriately, e.g., return null or throw an exception.
+      return null;
+    }
+
     final BufferedImage flippedImage = Imaging.flipSpritesHorizontally(anim.getSpritesheet());
     Spritesheet flippedSpritesheet =
         Resources.spritesheets()
