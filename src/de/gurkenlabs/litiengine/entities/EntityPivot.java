@@ -54,7 +54,11 @@ public class EntityPivot {
   public Point2D getPoint() {
     EntityPivotType type = this.getType();
     if (type == COLLISIONBOX_CENTER) {
-      Rectangle2D collisionBox = ((ICollisionEntity) this.getEntity()).getCollisionBox();
+      ICollisionEntity collisionEntity = (ICollisionEntity) this.getEntity();
+      Rectangle2D collisionBox = collisionEntity.getCollisionBox();
+      if (collisionBox == null) {
+        return new Point2D.Double(this.getOffsetX(), this.getOffsetY());
+      }
       return new Point2D.Double(
           collisionBox.getCenterX() + this.getOffsetX(),
           collisionBox.getCenterY() + this.getOffsetY());

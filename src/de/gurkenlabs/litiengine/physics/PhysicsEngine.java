@@ -8,6 +8,7 @@ import de.gurkenlabs.litiengine.entities.IMobileEntity;
 import de.gurkenlabs.litiengine.util.ArrayUtilities;
 import de.gurkenlabs.litiengine.util.MathUtilities;
 import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.awt.Shape;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
@@ -252,7 +253,10 @@ public final class PhysicsEngine implements IUpdateable {
     return this.collides(
         entity,
         collision,
-        e -> GeometricUtilities.getIntersectionPoint(line, e.getCollisionBox()) != null);
+        e ->
+            GeometricUtilities.getIntersectionPoint(
+                    line, Nullability.castToNonnull(e.getCollisionBox()))
+                != null);
   }
 
   /**
@@ -372,7 +376,12 @@ public final class PhysicsEngine implements IUpdateable {
     }
 
     return collides(
-        entity, collision, otherEntity -> otherEntity.getCollisionBox().contains(location));
+        entity,
+        collision,
+        otherEntity -> {
+          Rectangle2D collisionBox = otherEntity.getCollisionBox();
+          return collisionBox != null && collisionBox.contains(location);
+        });
   }
 
   /**
@@ -441,7 +450,7 @@ public final class PhysicsEngine implements IUpdateable {
    * @see Collision
    */
   public boolean collides(ICollisionEntity entity, Collision collision) {
-    return this.collides(entity.getCollisionBox(), collision, entity);
+    return this.collides(Nullability.castToNonnull(entity.getCollisionBox()), collision, entity);
   }
 
   /**
@@ -547,11 +556,16 @@ public final class PhysicsEngine implements IUpdateable {
         continue;
       }
 
-      if (collisionEntity.getCollisionBox().intersectsLine(line)) {
+      final Shape collisionBox = collisionEntity.getCollisionBox();
+      if (collisionBox == null) {
+        return null;
+      }
+
+      if (collisionBox.intersectsLine(line)) {
         double closestDist = -1;
         Point2D closestPoint = null;
         for (final Point2D intersection :
-            GeometricUtilities.getIntersectionPoints(line, collisionEntity.getCollisionBox())) {
+            GeometricUtilities.getIntersectionPoints(line, collisionBox)) {
           final double dist = intersection.distance(rayCastSource);
           if (closestPoint == null || dist < closestDist) {
             closestPoint = intersection;
@@ -742,8 +756,13 @@ public final class PhysicsEngine implements IUpdateable {
         continue;
       }
 
-      if (GeometricUtilities.intersects(otherEntity.getCollisionBox(), rect)) {
-        Rectangle2D intersection = otherEntity.getCollisionBox().createIntersection(rect);
+      Rectangle2D otherCollisionBox = otherEntity.getCollisionBox();
+      if (otherCollisionBox == null) {
+        return null;
+      }
+
+      if (GeometricUtilities.intersects(otherCollisionBox, rect)) {
+        Rectangle2D intersection = otherCollisionBox.createIntersection(rect);
         if (result != null) {
           result =
               new Intersection(
@@ -803,12 +822,13 @@ public final class PhysicsEngine implements IUpdateable {
     final Rectangle2D targetCollisionBoxX = entity.getCollisionBox(resolvedPosition);
     final Intersection intersectionX = this.getIntersection(entity, targetCollisionBoxX);
     if (intersectionX != null) {
-      if (entity.getCollisionBox().getX() < targetCollisionBoxX.getX()) {
+      Rectangle2D collisionBox = entity.getCollisionBox();
+      if (collisionBox != null && collisionBox.getX() < targetCollisionBoxX.getX()) {
         // entity was moved left -> right, so push out to the left
         resolvedPosition.setLocation(
             Math.max(entity.getX(), resolvedPosition.getX() - intersectionX.getWidth()),
             resolvedPosition.getY());
-      } else {
+      } else if (collisionBox != null) {
         // push it out to the right
         resolvedPosition.setLocation(
             Math.min(entity.getX(), resolvedPosition.getX() + intersectionX.getWidth()),
@@ -822,12 +842,13 @@ public final class PhysicsEngine implements IUpdateable {
     final Rectangle2D targetCollisionBoxY = entity.getCollisionBox(resolvedPosition);
     final Intersection intersectionY = this.getIntersection(entity, targetCollisionBoxY);
     if (intersectionY != null) {
-      if (entity.getCollisionBox().getY() < targetCollisionBoxY.getY()) {
+      Rectangle2D collisionBox = entity.getCollisionBox();
+      if (collisionBox != null && collisionBox.getY() < targetCollisionBoxY.getY()) {
         // entity was moved top -> bottom so push out towards the top
         resolvedPosition.setLocation(
             resolvedPosition.getX(),
             Math.max(entity.getY(), resolvedPosition.getY() - intersectionY.getHeight()));
-      } else {
+      } else if (collisionBox != null) {
         resolvedPosition.setLocation(
             resolvedPosition.getX(),
             Math.min(entity.getY(), resolvedPosition.getY() + intersectionY.getHeight()));
@@ -874,12 +895,18 @@ public final class PhysicsEngine implements IUpdateable {
 
   private boolean resolveCollisionForRaycastToNewPosition(
       ICollisionEntity entity, Point2D newPosition) {
-    // special case to prevent entities to glitch through collision boxes if
+    // Check if the collision box is null
+    Rectangle2D collisionBox = entity.getCollisionBox();
+    if (collisionBox == null) {
+      return false; // or handle the null case appropriately
+    }
+
+    // Special case to prevent entities from glitching through collision boxes if
     // they have a large enough step size
     final Line2D line =
         new Line2D.Double(
-            entity.getCollisionBox().getCenterX(),
-            entity.getCollisionBox().getCenterY(),
+            collisionBox.getCenterX(),
+            collisionBox.getCenterY(),
             entity.getCollisionBox(newPosition).getCenterX(),
             entity.getCollisionBox(newPosition).getCenterY());
     return this.collides(line, Collision.ANY, entity);

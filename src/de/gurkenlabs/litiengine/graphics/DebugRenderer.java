@@ -13,6 +13,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.ITile;
 import de.gurkenlabs.litiengine.environment.tilemap.MapUtilities;
 import de.gurkenlabs.litiengine.input.Input;
 import de.gurkenlabs.litiengine.physics.Collision;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
@@ -121,7 +122,8 @@ public final class DebugRenderer {
     if (Game.config().debug().renderCollisionBoxes() && entity instanceof ICollisionEntity) {
       final ICollisionEntity collisionEntity = (ICollisionEntity) entity;
       g.setColor(collisionEntity.hasCollision() ? Color.RED : Color.ORANGE);
-      Game.graphics().renderOutline(g, collisionEntity.getCollisionBox());
+      Game.graphics()
+          .renderOutline(g, Nullability.castToNonnull(collisionEntity.getCollisionBox()));
     }
 
     final EntityRenderEvent event = new EntityRenderEvent(g, entity);

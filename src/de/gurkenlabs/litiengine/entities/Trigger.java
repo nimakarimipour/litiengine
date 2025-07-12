@@ -8,6 +8,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.TmxProperty;
 import de.gurkenlabs.litiengine.environment.tilemap.TmxType;
 import de.gurkenlabs.litiengine.graphics.RenderType;
 import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -216,7 +217,8 @@ public class Trigger extends CollisionEntity implements IUpdateable {
    */
   public boolean canTrigger(ICollisionEntity entity) {
     return entity.canCollideWith(this)
-        && GeometricUtilities.intersects(this.getCollisionBox(), entity.getCollisionBox());
+        && GeometricUtilities.intersects(
+            this.getCollisionBox(), Nullability.castToNonnull(entity.getCollisionBox()));
   }
 
   public boolean isOneTimeTrigger() {
@@ -386,7 +388,8 @@ public class Trigger extends CollisionEntity implements IUpdateable {
         continue;
       }
 
-      if (coll.getCollisionBox().intersects(this.getCollisionBox())) {
+      final Rectangle2D collBox = coll.getCollisionBox();
+      if (collBox != null && collBox.intersects(this.getCollisionBox())) {
         collEntities.add(coll);
       }
     }
