@@ -275,24 +275,28 @@ public class ListField extends GuiComponent {
             && this.getContent()[column + this.getHorizontalLowerBound()][
                     row + this.getVerticalLowerBound()]
                 != null) {
-          if (this.getContent()[column + this.getHorizontalLowerBound()][
-                  row + this.getVerticalLowerBound()]
-              instanceof Image) {
-            this.getListEntry(column, row)
-                .setImage(
-                    (Image)
-                        this.getContent()[column + this.getHorizontalLowerBound()][
-                            row + this.getVerticalLowerBound()]);
-          } else {
-            this.getListEntry(column, row)
-                .setText(
-                    this
-                        .getContent()[column + this.getHorizontalLowerBound()][
-                        row + this.getVerticalLowerBound()]
-                        .toString());
+          ImageComponent listEntry = this.getListEntry(column, row);
+          if (listEntry != null) {
+            if (this.getContent()[column + this.getHorizontalLowerBound()][
+                    row + this.getVerticalLowerBound()]
+                instanceof Image) {
+              listEntry.setImage(
+                  (Image)
+                      this.getContent()[column + this.getHorizontalLowerBound()][
+                          row + this.getVerticalLowerBound()]);
+            } else {
+              listEntry.setText(
+                  this
+                      .getContent()[column + this.getHorizontalLowerBound()][
+                      row + this.getVerticalLowerBound()]
+                      .toString());
+            }
           }
         } else {
-          this.getListEntry(column, row).setText("");
+          ImageComponent listEntry = this.getListEntry(column, row);
+          if (listEntry != null) {
+            listEntry.setText("");
+          }
         }
       }
     }
