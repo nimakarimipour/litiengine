@@ -454,9 +454,19 @@ public final class Environment implements IRenderable {
     this.allEntities.clear();
 
     for (RenderType renderType : RenderType.values()) {
-      this.miscEntities.get(renderType).clear();
-      this.renderListeners.get(renderType).clear();
-      this.renderables.get(renderType).clear();
+      Map<Integer, IEntity> miscEntity = this.miscEntities.get(renderType);
+      List<IRenderListener> renderListener = this.renderListeners.get(renderType);
+      List<IRenderable> renderable = this.renderables.get(renderType);
+
+      if (miscEntity != null) {
+        miscEntity.clear();
+      }
+      if (renderListener != null) {
+        renderListener.clear();
+      }
+      if (renderable != null) {
+        renderable.clear();
+      }
     }
 
     dispose(this.allEntities.values());
