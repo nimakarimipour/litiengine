@@ -10,7 +10,6 @@ import de.gurkenlabs.litiengine.environment.GameWorld;
 import de.gurkenlabs.litiengine.graphics.animation.IAnimationController;
 import de.gurkenlabs.litiengine.graphics.animation.IEntityAnimationController;
 import de.gurkenlabs.litiengine.graphics.emitters.Emitter;
-import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -461,17 +460,19 @@ public final class RenderEngine {
           ImageRenderer.renderScaled(
               g,
               img,
-              Game.world()
-                  .camera()
-                  .getViewportLocation(Nullability.castToNonnull(entity.getLocation())),
+              Game.world().camera().getViewportLocation(entity.getLocation()),
               ratioX,
               ratioY);
         } else {
+          // center the image relative to the entity dimensions -> the pivot point for rendering is
+          // the center of the entity
           double deltaX = (entity.getWidth() - img.getWidth()) / 2.0;
           double deltaY = (entity.getHeight() - img.getHeight()) / 2.0;
 
           final AffineTransform transform = animationController.getAffineTransform();
           if (transform != null) {
+            // center the scaled image relative to the desired render location if the transform
+            // provides a scaling element
             deltaX += (img.getWidth() - (img.getWidth() * transform.getScaleX())) / 2.0;
             deltaY += (img.getHeight() - (img.getHeight() * transform.getScaleY())) / 2.0;
           }
