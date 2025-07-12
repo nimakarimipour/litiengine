@@ -18,7 +18,6 @@ public class SinglePlayTrack implements Track {
       return this.hasNext;
     }
 
-    @Nullable
     @Override
     public Sound next() {
       if (!this.hasNext) {
@@ -55,9 +54,6 @@ public class SinglePlayTrack implements Track {
   @Nullable
   @Override
   public AudioFormat getFormat() {
-    if (this.sound == null) {
-      return null;
-    }
     return this.sound.getFormat();
   }
 
@@ -69,12 +65,11 @@ public class SinglePlayTrack implements Track {
   @Override
   public int hashCode() {
     // add a constant to avoid collisions with LoopedTrack
-    int soundHash = this.sound == null ? 1 : this.sound.hashCode();
-    return soundHash + 0xdb9857d0;
+    return this.sound.hashCode() + 0xdb9857d0;
   }
 
   @Override
   public String toString() {
-    return "track: " + (this.sound == null ? "null" : this.sound.getName()) + " (not looped)";
+    return "track: " + this.sound.getName() + " (not looped)";
   }
 }
