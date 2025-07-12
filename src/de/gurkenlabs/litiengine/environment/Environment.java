@@ -410,7 +410,10 @@ public final class Environment implements IRenderable {
    * @see RenderEngine#renderEntity(Graphics2D, IEntity)
    */
   public void add(IRenderable renderable, RenderType renderType) {
-    this.renderables.get(renderType).add(renderable);
+    List<IRenderable> renderList = this.renderables.get(renderType);
+    if (renderList != null) {
+      renderList.add(renderable);
+    }
   }
 
   /**
