@@ -9,7 +9,6 @@ import de.gurkenlabs.litiengine.attributes.RangeAttribute;
 import de.gurkenlabs.litiengine.environment.tilemap.MapObjectProperty;
 import de.gurkenlabs.litiengine.environment.tilemap.TmxProperty;
 import de.gurkenlabs.litiengine.tweening.TweenType;
-import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import java.util.Collection;
@@ -259,10 +258,8 @@ public class CombatEntity extends CollisionEntity implements ICombatEntity {
       return;
     }
 
-    Nullability.castToNonnull(this.getHitPoints())
-        .modifyBaseValue(
-            new AttributeModifier<>(
-                Modification.SET, Nullability.castToNonnull(this.getHitPoints().getMax())));
+    this.getHitPoints()
+        .modifyBaseValue(new AttributeModifier<>(Modification.SET, this.getHitPoints().getMax()));
 
     for (final CombatEntityListener listener : this.listeners) {
       listener.resurrect(this);
