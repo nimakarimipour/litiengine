@@ -217,9 +217,7 @@ public class SpeechBubble implements IUpdateable, IRenderable {
       return;
     }
 
-    if (Game.world().camera() != null) {
-      this.entityCenter = Game.world().camera().getViewportLocation(this.getEntity().getCenter());
-    }
+    this.entityCenter = Game.world().camera().getViewportLocation(this.getEntity().getCenter());
 
     // old text was displayed long enough
     if (this.lastTextDisplay != 0
