@@ -4,7 +4,6 @@ import de.gurkenlabs.litiengine.Align;
 import de.gurkenlabs.litiengine.graphics.ShapeRenderer;
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.input.Input;
-import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -609,17 +608,11 @@ public class ListField extends GuiComponent {
           entryComponent.setY(
               this.getY()
                   + ((rowHeight
-                          - (Nullability.castToNonnull(
-                                  this.getHorizontalSlider().getSliderComponent().getWidth(),
-                                  "always initialized"))
-                              / this.getNumberOfShownRows()))
-                      * row);
+                          - (this.getHorizontalSlider().getHeight() / this.getNumberOfShownRows()))
+                      * row));
           entryComponent.setHeight(
               entryComponent.getHeight()
-                  - (Nullability.castToNonnull(
-                          this.getHorizontalSlider().getSliderComponent().getHeight(),
-                          "always initialized")
-                      / this.getNumberOfShownRows()));
+                  - (this.getHorizontalSlider().getHeight() / this.getNumberOfShownRows()));
         }
         entryComponent.setTextAlign(Align.LEFT);
         this.getListEntry(column).add(entryComponent);
@@ -642,14 +635,14 @@ public class ListField extends GuiComponent {
         s -> {
           if (this.getVerticalSlider() != null) {
             this.getVerticalSlider().setCurrentValue(this.getVerticalLowerBound());
-            Nullability.castToNonnull(
-                    this.getVerticalSlider().getSliderComponent(), "checked by caller")
+            this.getVerticalSlider()
+                .getSliderComponent()
                 .setLocation(this.getVerticalSlider().getRelativeSliderPosition());
           }
           if (this.getHorizontalSlider() != null) {
             this.getHorizontalSlider().setCurrentValue(this.getHorizontalLowerBound());
-            Nullability.castToNonnull(
-                    this.getHorizontalSlider().getSliderComponent(), "not null if checked")
+            this.getHorizontalSlider()
+                .getSliderComponent()
                 .setLocation(this.getHorizontalSlider().getRelativeSliderPosition());
           }
         });
@@ -658,8 +651,8 @@ public class ListField extends GuiComponent {
           .onChange(
               sliderValue -> {
                 this.setVerticalLowerBound(sliderValue.intValue());
-                Nullability.castToNonnull(
-                        this.getVerticalSlider().getSliderComponent(), "checked by caller")
+                this.getVerticalSlider()
+                    .getSliderComponent()
                     .setLocation(this.getVerticalSlider().getRelativeSliderPosition());
                 this.refresh();
               });
@@ -669,8 +662,8 @@ public class ListField extends GuiComponent {
           .onChange(
               sliderValue -> {
                 this.setHorizontalLowerBound(sliderValue.intValue());
-                Nullability.castToNonnull(
-                        this.getHorizontalSlider().getSliderComponent(), "not null if checked")
+                this.getHorizontalSlider()
+                    .getSliderComponent()
                     .setLocation(this.getHorizontalSlider().getRelativeSliderPosition());
                 this.refresh();
               });
