@@ -3,6 +3,7 @@ package de.gurkenlabs.litiengine.abilities;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.IUpdateable;
 import de.gurkenlabs.litiengine.abilities.effects.Effect;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.awt.Shape;
 import java.awt.geom.Point2D;
 import java.util.List;
@@ -21,7 +22,7 @@ public class AbilityExecution implements IUpdateable {
     this.executionTicks = Game.time().now();
     this.impactArea = ability.calculateImpactArea();
     this.castLocation = ability.getExecutor().getCenter();
-    Game.loop().attach(this);
+    Nullability.castToNonnull(Game.loop(), "proper initialization done").attach(this);
   }
 
   public Ability getAbility() {

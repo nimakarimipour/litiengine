@@ -2,6 +2,7 @@ package de.gurkenlabs.litiengine;
 
 import de.gurkenlabs.litiengine.environment.Environment;
 import de.gurkenlabs.litiengine.environment.EnvironmentLoadedListener;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 
 /**
  * The {@code GameTime} class provides temporal information that can be used to perform time based
@@ -29,7 +30,7 @@ public final class GameTime implements EnvironmentLoadedListener {
    * @see GameLoop#getTicks()
    */
   public long now() {
-    return Game.loop().getTicks();
+    return Nullability.castToNonnull(Game.loop(), "initialized after initialization").getTicks();
   }
 
   /**
@@ -108,6 +109,7 @@ public final class GameTime implements EnvironmentLoadedListener {
 
   @Override
   public void loaded(Environment environment) {
-    environmentLoaded = Game.loop().getTicks();
+    environmentLoaded =
+        Nullability.castToNonnull(Game.loop(), "properly initialized and started").getTicks();
   }
 }

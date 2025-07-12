@@ -43,6 +43,7 @@ import de.gurkenlabs.litiengine.physics.IMovementController;
 import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.util.TimeUtilities;
 import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
@@ -2275,7 +2276,8 @@ public final class Environment implements IRenderable {
         emitter.activate();
       }
     } else if (entity instanceof IUpdateable) {
-      Game.loop().attach((IUpdateable) entity);
+      Nullability.castToNonnull(Game.loop(), "initialized through init")
+          .attach((IUpdateable) entity);
     }
   }
 

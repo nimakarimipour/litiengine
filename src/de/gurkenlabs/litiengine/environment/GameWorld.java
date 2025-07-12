@@ -7,6 +7,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.IMap;
 import de.gurkenlabs.litiengine.graphics.Camera;
 import de.gurkenlabs.litiengine.graphics.ICamera;
 import de.gurkenlabs.litiengine.resources.Resources;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -518,7 +519,7 @@ public final class GameWorld implements IUpdateable {
     camera = cam;
 
     if (cam != null && !Game.isInNoGUIMode()) {
-      Game.loop().attach(cam);
+      Nullability.castToNonnull(Game.loop(), "synchronized initialization").attach(cam);
       cam.updateFocus();
     }
   }

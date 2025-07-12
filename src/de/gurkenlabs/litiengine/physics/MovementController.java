@@ -4,6 +4,7 @@ import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.entities.IMobileEntity;
 import de.gurkenlabs.litiengine.util.MathUtilities;
 import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.awt.geom.Point2D;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -28,7 +29,7 @@ public class MovementController<T extends IMobileEntity> implements IMovementCon
 
   @Override
   public void attach() {
-    Game.loop().attach(this);
+    Nullability.castToNonnull(Game.loop(), "properly initialized before use").attach(this);
   }
 
   @Override
