@@ -164,16 +164,10 @@ public class MapRenderer {
     if (image != null) {
       Point p = map.getOrientation().getLocation(x, y, map);
       p.y -= image.getHeight();
-      ITilesetEntry tilesetEntry = tile.getTilesetEntry();
-      if (tilesetEntry != null) {
-        ITileset tileset = tilesetEntry.getTileset();
-        if (tileset != null) {
-          ITileOffset offset = tileset.getTileOffset();
-          if (offset != null) {
-            p.x += offset.getX();
-            p.y += offset.getY();
-          }
-        }
+      ITileOffset offset = tile.getTilesetEntry().getTileset().getTileOffset();
+      if (offset != null) {
+        p.x += offset.getX();
+        p.y += offset.getY();
       }
       if (viewport.intersects(p.x, p.y, image.getWidth(), image.getHeight())) {
         ImageRenderer.render(g, image, p.x - viewport.getX(), p.y - viewport.getY());
