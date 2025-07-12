@@ -4,7 +4,6 @@ import de.gurkenlabs.litiengine.graphics.RenderComponent;
 import de.gurkenlabs.litiengine.input.Input;
 import de.gurkenlabs.litiengine.input.Keyboard;
 import de.gurkenlabs.litiengine.input.Mouse;
-import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -91,9 +90,7 @@ public final class GameLoop extends UpdateLoop implements IGameLoop {
 
     Game.world().camera().updateFocus();
     if (!Game.isInNoGUIMode()) {
-      Nullability.castToNonnull(Game.window(), "non-null post-initialization")
-          .getRenderComponent()
-          .render();
+      Game.window().getRenderComponent().render();
     }
 
     this.trackRenderMetric();

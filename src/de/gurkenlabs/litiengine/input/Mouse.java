@@ -4,7 +4,6 @@ import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.IUpdateable;
 import de.gurkenlabs.litiengine.environment.tilemap.MapUtilities;
 import de.gurkenlabs.litiengine.util.MathUtilities;
-import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.awt.AWTException;
 import java.awt.Point;
 import java.awt.Robot;
@@ -360,12 +359,8 @@ public final class Mouse
     this.grabMouse = grab;
 
     if (this.isGrabMouse()) {
-      Nullability.castToNonnull(Game.window(), "post initialization usage")
-          .cursor()
-          .hideDefaultCursor();
-    } else if (!Nullability.castToNonnull(Game.window(), "post initialization usage")
-        .cursor()
-        .isVisible()) {
+      Game.window().cursor().hideDefaultCursor();
+    } else if (!Game.window().cursor().isVisible()) {
       Game.window().cursor().showDefaultCursor();
     }
   }
@@ -381,8 +376,7 @@ public final class Mouse
 
     final MouseEvent mouseEvent =
         new MouseEvent(
-            Nullability.castToNonnull(Game.window(), "initialized in Game.init")
-                .getRenderComponent(),
+            Game.window().getRenderComponent(),
             MouseEvent.MOUSE_MOVED,
             0,
             0,
@@ -424,50 +418,38 @@ public final class Mouse
    * @param e The event containing information about the original mouse.
    */
   private void setLocation(final MouseEvent e) {
-    if (this.grabMouse
-        && !Nullability.castToNonnull(Game.window(), "initialized during init").isFocusOwner()) {
+    if (this.grabMouse && !Game.window().isFocusOwner()) {
       return;
     }
 
     double diffX;
     double diffY;
     if (!this.grabMouse) {
+      // get diff relative from last mouse location
       diffX = e.getX() - this.lastLocation.getX();
       diffY = e.getY() - this.lastLocation.getY();
       this.lastLocation = new Point(e.getX(), e.getY());
     } else {
-      final double screenCenterX =
-          Nullability.castToNonnull(Game.window(), "initialized during init")
-                  .getResolution()
-                  .getWidth()
-              * 0.5;
+      // get diff relative from grabbed position
+      final double screenCenterX = Game.window().getResolution().getWidth() * 0.5;
       final double screenCenterY = Game.window().getResolution().getHeight() * 0.5;
       final Point screenLocation = Game.window().getLocationOnScreen();
       final int grabX = (int) (screenLocation.x + screenCenterX);
       final int grabY = (int) (screenLocation.y + screenCenterY);
 
+      // lock original mouse back to the center of the screen
       this.robot.mouseMove(grabX, grabY);
 
+      // calculate diffs and new location for the ingame mouse
       diffX = e.getXOnScreen() - (double) grabX;
       diffY = e.getYOnScreen() - (double) grabY;
     }
 
+    // set new mouse location
     double newX = this.getLocation().getX() + diffX * this.sensitivity;
     double newY = this.getLocation().getY() + diffY * this.sensitivity;
-    newX =
-        MathUtilities.clamp(
-            newX,
-            0,
-            Nullability.castToNonnull(Game.window(), "initialized in Game.init")
-                .getResolution()
-                .getWidth());
-    newY =
-        MathUtilities.clamp(
-            newY,
-            0,
-            Nullability.castToNonnull(Game.window(), "initialized in Game.init")
-                .getResolution()
-                .getHeight());
+    newX = MathUtilities.clamp(newX, 0, Game.window().getResolution().getWidth());
+    newY = MathUtilities.clamp(newY, 0, Game.window().getResolution().getHeight());
 
     this.location = new Point2D.Double(newX, newY);
   }
