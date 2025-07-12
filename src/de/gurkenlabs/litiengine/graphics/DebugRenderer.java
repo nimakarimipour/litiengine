@@ -145,8 +145,11 @@ public final class DebugRenderer {
     }
 
     if (Game.config().debug().showTilesMetric()) {
-      // draw mouse tile info
-      drawTileBoundingBox(g, map, Input.mouse().getMapLocation());
+      // Ensure mouse is not null before dereferencing
+      IMouse mouse = Input.mouse();
+      if (mouse != null) {
+        drawTileBoundingBox(g, map, mouse.getMapLocation());
+      }
     }
 
     final MapRenderedEvent event = new MapRenderedEvent(g, map);
