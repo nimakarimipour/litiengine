@@ -8,6 +8,7 @@ import de.gurkenlabs.litiengine.entities.Creature;
 import de.gurkenlabs.litiengine.entities.EntityPivot;
 import de.gurkenlabs.litiengine.graphics.IRenderable;
 import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -90,7 +91,7 @@ public abstract class Ability implements IRenderable {
   }
 
   public Ellipse2D calculatePotentialImpactArea() {
-    final int range = this.getAttributes().impact().get();
+    final int range = Nullability.castToNonnull(this).getAttributes().impact().get();
     final double arcX = this.getExecutor().getCollisionBox().getCenterX() - range * 0.5;
     final double arcY = this.getExecutor().getCollisionBox().getCenterY() - range * 0.5;
 
@@ -104,7 +105,8 @@ public abstract class Ability implements IRenderable {
   public boolean isOnCooldown() {
     return (this.getCurrentExecution() != null
         && this.getCurrentExecution().getExecutionTicks() > 0
-        && Game.time().since(this.getCurrentExecution().getExecutionTicks())
+        && Game.time()
+                .since(Nullability.castToNonnull(this).getCurrentExecution().getExecutionTicks())
             < this.getAttributes().cooldown().get());
   }
 
@@ -139,7 +141,7 @@ public abstract class Ability implements IRenderable {
   }
 
   public float getCooldownInSeconds() {
-    return (float) (this.getAttributes().cooldown().get() * 0.001);
+    return (float) (Nullability.castToNonnull(this).getAttributes().cooldown().get() * 0.001);
   }
 
   @Nullable
@@ -173,16 +175,17 @@ public abstract class Ability implements IRenderable {
     // calculate cooldown in seconds
     return (float)
         (!this.canCast()
-            ? (this.getAttributes().cooldown().get()
+            ? (Nullability.castToNonnull(this).getAttributes().cooldown().get()
                     - Game.time().since(this.getCurrentExecution().getExecutionTicks()))
                 * 0.001
             : 0);
   }
 
   public boolean isActive() {
-    return this.getCurrentExecution() != null
-        && Game.time().since(this.getCurrentExecution().getExecutionTicks())
-            < this.getAttributes().duration().get();
+    return Nullability.castToNonnull(this).getCurrentExecution() != null
+        && Game.time()
+                .since(Nullability.castToNonnull(this).getCurrentExecution().getExecutionTicks())
+            < Nullability.castToNonnull(this).getAttributes().duration().get();
   }
 
   public boolean isMultiTarget() {
@@ -225,15 +228,16 @@ public abstract class Ability implements IRenderable {
   }
 
   protected Shape internalCalculateImpactArea(final double angle) {
-    final int impact = this.getAttributes().impact().get();
-    final int impactAngle = this.getAttributes().impactAngle().get();
-    final double arcX = this.getPivot().getPoint().getX() - impact * 0.5;
-    final double arcY = this.getPivot().getPoint().getY() - impact * 0.5;
+    final int impact = Nullability.castToNonnull(this).getAttributes().impact().get();
+    final int impactAngle = Nullability.castToNonnull(this).getAttributes().impactAngle().get();
+    final double arcX = Nullability.castToNonnull(this).getPivot().getPoint().getX() - impact * 0.5;
+    final double arcY = Nullability.castToNonnull(this).getPivot().getPoint().getY() - impact * 0.5;
 
-    // project
     final Point2D appliedRange =
         GeometricUtilities.project(
-            new Point2D.Double(arcX, arcY), angle, this.getAttributes().range().get() * 0.5);
+            new Point2D.Double(arcX, arcY),
+            angle,
+            Nullability.castToNonnull(this).getAttributes().range().get() * 0.5);
     final double start = angle - 90 - (impactAngle / 2.0);
     if (impactAngle % 360 == 0) {
       return new Ellipse2D.Double(appliedRange.getX(), appliedRange.getY(), impact, impact);
