@@ -1,0 +1,35 @@
+====================
+Type='WRONG_OVERRIDE_RETURN', message='method returns @Nullable, but superclass method de.gurkenlabs.litiengine.environment.tilemap.IMapObject.getPolygon() returns @NonNull'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/tilemap/xml/MapObject.java:210
+  @Nullable
+Log:
+22:06:08.447 TRACE edu.ucr.cs.riple.core.checkers.nullaway.NullAway.lambda$resolveRemainingErrors$17
+==============================
+22:06:08.447 TRACE edu.ucr.cs.riple.core.checkers.nullaway.NullAway.lambda$resolveRemainingErrors$17
+CHATGPT.COUNT = 5
+22:06:08.447 TRACE edu.ucr.cs.riple.core.checkers.nullaway.NullAway.lambda$resolveRemainingErrors$17
+CHATGPT.PROMPTS SIZE = 5
+22:06:08.447 TRACE edu.ucr.cs.riple.core.checkers.nullaway.NullAway.lambda$resolveRemainingErrors$17
+Both set to 0 and cleared 0
+22:06:08.447 TRACE edu.ucr.cs.riple.core.checkers.nullaway.NullAway.lambda$resolveRemainingErrors$17
+80 : TOP LEVEL CALL TO FIX ERROR: Type='WRONG_OVERRIDE_RETURN', message='method returns @Nullable, but superclass method de.gurkenlabs.litiengine.environment.tilemap.IMapObject.getPolygon() returns @NonNull'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/tilemap/xml/MapObject.java:210
+  @Nullable
+22:06:08.447 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.AdvancedNullAwayCodeFix.fix
+Fixing error: Type='WRONG_OVERRIDE_RETURN', message='method returns @Nullable, but superclass method de.gurkenlabs.litiengine.environment.tilemap.IMapObject.getPolygon() returns @NonNull'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/tilemap/xml/MapObject.java:210
+  @Nullable
+22:06:08.447 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.AdvancedNullAwayCodeFix.resolveWrongOverrideReturnError
+Fixing wrong override return error.
+22:06:08.447 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.AdvancedNullAwayCodeFix.resolveWrongOverrideReturnError
+Making the super method nullable.
+22:06:08.448 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.AdvancedNullAwayCodeFix.resolveWrongOverrideReturnError
+Resolving triggered errors for making super method nullable.
+22:06:08.448 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.AdvancedNullAwayCodeFix.fixTriggeredErrorsForLocation
+Fixing triggered errors for location: OnMethod{method='getPolygon()', clazz='de.gurkenlabs.litiengine.environment.tilemap.xml.MapObject'}
+22:06:08.448 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.AdvancedNullAwayCodeFix.getTriggeredErrorsFromLocation
+Impact not found, re-evaluating the location.
+22:06:10.005 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.AdvancedNullAwayCodeFix.fixTriggeredErrorsForLocation
+Triggered errors size: 0
+22:06:10.005 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.AdvancedNullAwayCodeFix.fixTriggeredErrorsForLocation
+Adding annotations for resolvable errors, size: 0
