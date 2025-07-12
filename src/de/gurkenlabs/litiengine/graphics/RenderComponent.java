@@ -6,6 +6,7 @@ import de.gurkenlabs.litiengine.resources.ImageFormat;
 import de.gurkenlabs.litiengine.util.MathUtilities;
 import de.gurkenlabs.litiengine.util.TimeUtilities;
 import de.gurkenlabs.litiengine.util.io.ImageSerializer;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -136,7 +137,9 @@ public class RenderComponent extends Canvas {
           }
         }
 
-        Game.window().cursor().render(g);
+        Nullability.castToNonnull(Game.window(), "after initialization, not null")
+            .cursor()
+            .render(g);
 
         for (final Consumer<Graphics2D> consumer : this.renderedConsumer) {
           consumer.accept(g);
@@ -165,7 +168,6 @@ public class RenderComponent extends Canvas {
         }
       }
 
-      // PERFORMANCE HINT: this method call basically takes up all the time required by this method
       this.currentBufferStrategy.show();
     } while (this.currentBufferStrategy.contentsLost());
 

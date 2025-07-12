@@ -2,6 +2,7 @@ package de.gurkenlabs.litiengine.input;
 
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.GameListener;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.awt.AWTException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -95,7 +96,9 @@ public final class Input {
         Mouse m = new Mouse();
 
         if (!Game.isInNoGUIMode()) {
-          Game.window().getRenderComponent().addMouseListener(m);
+          Nullability.castToNonnull(Game.window(), "initialized in Game.init")
+              .getRenderComponent()
+              .addMouseListener(m);
           Game.window().getRenderComponent().addMouseMotionListener(m);
           Game.window().getRenderComponent().addMouseWheelListener(m);
         }

@@ -3,6 +3,7 @@ package de.gurkenlabs.litiengine.gui.screens;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.GameWindow;
 import de.gurkenlabs.litiengine.graphics.RenderComponent;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -78,7 +79,8 @@ public final class ScreenManager {
    * @param screen The screen to add.
    */
   public void add(final Screen screen) {
-    screen.setWidth(Game.window().getWidth());
+    screen.setWidth(
+        Nullability.castToNonnull(Game.window(), "post-initialization non-null").getWidth());
     screen.setHeight(Game.window().getHeight());
     this.screens.add(screen);
 

@@ -30,6 +30,7 @@ import de.gurkenlabs.litiengine.sound.SoundPlayback;
 import de.gurkenlabs.litiengine.tweening.TweenEngine;
 import de.gurkenlabs.litiengine.util.ArrayUtilities;
 import de.gurkenlabs.litiengine.util.io.XmlUtilities;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.awt.event.KeyEvent;
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.net.URL;
@@ -265,6 +266,7 @@ public final class Game {
    * @see GameWindow#setIcon(java.awt.Image)
    * @see GameWindow#cursor()
    */
+  @Nullable
   public static GameWindow window() {
     return gameWindow;
   }
@@ -454,15 +456,13 @@ public final class Game {
     loop().attach(physics());
     loop().attach(world());
 
-    // setup default exception handling for render and update loop
     setUncaughtExceptionHandler(
         new DefaultUncaughtExceptionHandler(config().client().exitOnError()));
 
     screenManager = new ScreenManager();
     gameWindow = new GameWindow();
 
-    // initialize  the game window
-    window().init();
+    Nullability.castToNonnull(window(), "initialized during init").init();
     world.setCamera(new Camera());
 
     for (GameListener listener : gameListeners) {
@@ -489,12 +489,12 @@ public final class Game {
           .onKeyTyped(
               KeyEvent.VK_PRINTSCREEN,
               key -> {
-                // don't take a screenshot if a modifier is active
                 if (key.getModifiers() != 0) {
                   return;
                 }
-
-                window().getRenderComponent().takeScreenshot();
+                Nullability.castToNonnull(window(), "initialized during init")
+                    .getRenderComponent()
+                    .takeScreenshot();
               });
     }
 

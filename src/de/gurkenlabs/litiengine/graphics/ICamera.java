@@ -5,6 +5,7 @@ import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.IUpdateable;
 import de.gurkenlabs.litiengine.Valign;
 import de.gurkenlabs.litiengine.entities.IEntity;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.EventListener;
@@ -130,9 +131,10 @@ public interface ICamera extends IUpdateable {
    * @see RenderEngine#setBaseRenderScale(float)
    * @return the scale factor
    */
-  default float getRenderScale() {
+  public float getRenderScale() {
     return Game.graphics().getBaseRenderScale()
-        * Game.window().getResolutionScale()
+        * Nullability.castToNonnull(Game.window(), "properly initialized before use")
+            .getResolutionScale()
         * this.getZoom();
   }
 

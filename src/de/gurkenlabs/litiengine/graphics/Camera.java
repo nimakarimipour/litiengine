@@ -6,6 +6,7 @@ import de.gurkenlabs.litiengine.Valign;
 import de.gurkenlabs.litiengine.entities.IEntity;
 import de.gurkenlabs.litiengine.graphics.animation.IAnimationController;
 import de.gurkenlabs.litiengine.util.MathUtilities;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.awt.Dimension;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
@@ -327,11 +328,17 @@ public class Camera implements ICamera {
   }
 
   protected double getViewportWidth() {
-    return Game.window().getResolution().getWidth() / this.getRenderScale();
+    if (Game.window() != null && Game.window().getResolution() != null) {
+      return Game.window().getResolution().getWidth() / this.getRenderScale();
+    }
+    return 0; // or handle this case appropriately
   }
 
   protected double getViewportHeight() {
-    return Game.window().getResolution().getHeight() / this.getRenderScale();
+    return Nullability.castToNonnull(Game.window(), "initialization guarantees nonnull")
+            .getResolution()
+            .getHeight()
+        / this.getRenderScale();
   }
 
   /**
