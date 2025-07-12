@@ -176,48 +176,53 @@ public class AmbientLight extends ColorLayer {
     // color to transparent
     final Shape lightShape = light.getLightShape();
 
-    final double radius =
-        lightShape.getBounds2D().getWidth() > lightShape.getBounds2D().getHeight()
-            ? lightShape.getBounds2D().getWidth()
-            : lightShape.getBounds2D().getHeight();
-    final Color[] transColors =
-        new Color[] {
-          light.getColor(),
-          new Color(
-              light.getColor().getRed(), light.getColor().getGreen(), light.getColor().getBlue(), 0)
-        };
-    final Point2D center =
-        new Point2D.Double(
-            lightShape.getBounds2D().getCenterX() - section.getX(),
-            lightShape.getBounds2D().getCenterY() - section.getY());
-    final Point2D focus =
-        new Point2D.Double(
-            center.getX() + lightShape.getBounds2D().getWidth() * light.getFocusOffsetX(),
-            center.getY() + lightShape.getBounds2D().getHeight() * light.getFocusOffsetY());
-    RadialGradientPaint paint =
-        new RadialGradientPaint(
-            center,
-            (float) (radius / 2d),
-            focus,
-            new float[] {0.0f, 1.00f},
-            transColors,
-            CycleMethod.NO_CYCLE);
+    if (lightShape != null) { // Add null check for lightShape
+      final double radius =
+          lightShape.getBounds2D().getWidth() > lightShape.getBounds2D().getHeight()
+              ? lightShape.getBounds2D().getWidth()
+              : lightShape.getBounds2D().getHeight();
+      final Color[] transColors =
+          new Color[] {
+            light.getColor(),
+            new Color(
+                light.getColor().getRed(),
+                light.getColor().getGreen(),
+                light.getColor().getBlue(),
+                0)
+          };
+      final Point2D center =
+          new Point2D.Double(
+              lightShape.getBounds2D().getCenterX() - section.getX(),
+              lightShape.getBounds2D().getCenterY() - section.getY());
+      final Point2D focus =
+          new Point2D.Double(
+              center.getX() + lightShape.getBounds2D().getWidth() * light.getFocusOffsetX(),
+              center.getY() + lightShape.getBounds2D().getHeight() * light.getFocusOffsetY());
+      RadialGradientPaint paint =
+          new RadialGradientPaint(
+              center,
+              (float) (radius / 2d),
+              focus,
+              new float[] {0.0f, 1.00f},
+              transColors,
+              CycleMethod.NO_CYCLE);
 
-    g.setPaint(paint);
+      g.setPaint(paint);
 
-    if (lightArea != null) {
-      lightArea.transform(AffineTransform.getTranslateInstance(-section.getX(), -section.getY()));
-      fillShape = lightArea;
-    } else {
-      fillShape =
-          new Rectangle2D.Double(
-              light.getBoundingBox().getX() - section.getX(),
-              light.getBoundingBox().getY() - section.getY(),
-              light.getBoundingBox().getWidth(),
-              light.getBoundingBox().getHeight());
+      if (lightArea != null) {
+        lightArea.transform(AffineTransform.getTranslateInstance(-section.getX(), -section.getY()));
+        fillShape = lightArea;
+      } else {
+        fillShape =
+            new Rectangle2D.Double(
+                light.getBoundingBox().getX() - section.getX(),
+                light.getBoundingBox().getY() - section.getY(),
+                light.getBoundingBox().getWidth(),
+                light.getBoundingBox().getHeight());
+      }
+
+      g.fill(fillShape);
     }
-
-    g.fill(fillShape);
     g.setPaint(oldPaint);
   }
 }
