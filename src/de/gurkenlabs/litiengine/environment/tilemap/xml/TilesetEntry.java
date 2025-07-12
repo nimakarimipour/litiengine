@@ -88,9 +88,12 @@ public class TilesetEntry extends CustomPropertyProvider implements ITilesetEntr
     if (this.image != null) {
       return Resources.images().get(this.image.getAbsoluteSourcePath());
     }
-    return this.tileset
-        .getSpritesheet()
-        .getSprite(this.getId(), this.tileset.getMargin(), this.tileset.getSpacing());
+    Spritesheet spritesheet = this.tileset != null ? this.tileset.getSpritesheet() : null;
+    if (spritesheet != null) {
+      return spritesheet.getSprite(
+          this.getId(), this.tileset.getMargin(), this.tileset.getSpacing());
+    }
+    return null;
   }
 
   @Override
