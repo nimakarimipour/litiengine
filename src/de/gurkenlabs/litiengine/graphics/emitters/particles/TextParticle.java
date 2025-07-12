@@ -51,18 +51,22 @@ public class TextParticle extends Particle {
     g.setFont(g.getFont().deriveFont(rotate));
 
     RenderingHints originalHints = g.getRenderingHints();
-    g.setColor(
-        new Color(
-            this.getColor().getRed() / 255f,
-            this.getColor().getGreen() / 255f,
-            this.getColor().getBlue() / 255f,
-            this.getOpacity()));
+
+    Color currentColor = this.getColor();
+    if (currentColor != null) {
+      g.setColor(
+          new Color(
+              currentColor.getRed() / 255f,
+              currentColor.getGreen() / 255f,
+              currentColor.getBlue() / 255f,
+              this.getOpacity()));
+    }
 
     if (this.isAntiAliased()) {
       TextRenderer.enableTextAntiAliasing(g);
     }
 
-    g.drawString(text, (float) renderLocation.getX(), (float) renderLocation.getY());
+    g.drawString(this.getText(), (float) renderLocation.getX(), (float) renderLocation.getY());
     g.setFont(oldFont);
     g.setRenderingHints(originalHints);
   }
