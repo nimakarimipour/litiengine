@@ -41,6 +41,9 @@ public class NumberAdjuster extends TextFieldComponent {
   }
 
   public BigDecimal getCurrentValue() {
+    if (this.currentValue == null) {
+      throw new IllegalStateException("Current value is null");
+    }
     return this.currentValue;
   }
 
