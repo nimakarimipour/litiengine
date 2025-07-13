@@ -14,7 +14,6 @@ import de.gurkenlabs.litiengine.graphics.animation.IEntityAnimationController;
 import de.gurkenlabs.litiengine.physics.IMovementController;
 import de.gurkenlabs.litiengine.physics.MovementController;
 import de.gurkenlabs.litiengine.tweening.TweenType;
-import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.awt.geom.Point2D;
 import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
@@ -148,9 +147,11 @@ public class Creature extends CombatEntity implements IMobileEntity {
 
   @Override
   public float getTickVelocity() {
+    // pixels per ms multiplied by the passed ms
+    // ensure that entities don't travel too far in case of lag
     return Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG)
         * 0.001F
-        * Nullability.castToNonnull(this.getVelocity().get())
+        * this.getVelocity().get()
         * Game.loop().getTimeScale();
   }
 
