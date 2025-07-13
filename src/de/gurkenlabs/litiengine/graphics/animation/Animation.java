@@ -314,17 +314,19 @@ public class Animation implements IUpdateable, ILaunchable {
 
   @Override
   public void update() {
+    // do nothing if the animation is not playing or the current keyframe is not finished
     if (!this.isPlaying()
-        || this.getCurrentKeyFrame() == null
         || Game.time().since(this.lastFrameUpdate) < this.getCurrentKeyFrame().getDuration()) {
       return;
     }
 
+    // if we are not looping and the last keyframe is finished, we terminate the animation
     if (!this.isLooping() && this.isLastKeyFrame()) {
       this.terminate();
       return;
     }
 
+    // make sure, we stay inside the keyframe list
     final int newFrameIndex =
         (this.getKeyframes().indexOf(this.currentFrame) + 1) % this.getKeyframes().size();
     final KeyFrame previousFrame = this.currentFrame;
