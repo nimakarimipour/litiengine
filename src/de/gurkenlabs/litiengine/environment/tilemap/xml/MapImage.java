@@ -30,13 +30,6 @@ public class MapImage extends CustomPropertyProvider implements IMapImage {
   /** Instantiates a new {@code MapImage} instance. */
   public MapImage() {
     super();
-    this.transparentcolor = new Color(0, 0, 0, 0); // or another default color
-    try {
-      this.absolutePath = new URL("http://default.url"); // replace with a valid default URL
-    } catch (MalformedURLException e) {
-      // Handle the exception or rethrow it as needed
-      throw new RuntimeException("Invalid default URL", e);
-    }
   }
 
   /**
