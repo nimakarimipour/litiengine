@@ -36,18 +36,10 @@ public final class ImageSerializer {
         return null;
       }
 
-      // The warning was caused by a potential null return, handling it
       final BufferedImage compatibleImg =
           Imaging.getCompatibleImage(img.getWidth(), img.getHeight());
-      if (compatibleImg == null) {
-        return null;
-      }
-      Graphics2D g2d = compatibleImg.createGraphics();
-      try {
-        g2d.drawImage(img, 0, 0, null);
-      } finally {
-        g2d.dispose();
-      }
+      compatibleImg.createGraphics().drawImage(img, 0, 0, null);
+      compatibleImg.createGraphics().dispose();
 
       return compatibleImg;
     } catch (final Exception e) {
