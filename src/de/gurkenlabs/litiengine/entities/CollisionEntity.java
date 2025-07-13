@@ -89,6 +89,9 @@ public abstract class CollisionEntity extends Entity implements ICollisionEntity
    */
   @Override
   public Rectangle2D getCollisionBox() {
+    if (this.collisionBox == null) {
+      throw new NullPointerException("collisionBox is null");
+    }
     return this.collisionBox;
   }
 
