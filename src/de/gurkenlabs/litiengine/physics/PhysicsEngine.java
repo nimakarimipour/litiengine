@@ -888,13 +888,13 @@ public final class PhysicsEngine implements IUpdateable {
   private static void fireCollisionEvents(
       ICollisionEntity collider, @Nullable Intersection... intersections) {
     // aggregate the involved entities of all intersections
-    ICollisionEntity[] involvedEntities = new ICollisionEntity[0];
+    ICollisionEntity[] involvedEntities = null;
     for (Intersection inter : intersections) {
       if (inter == null) {
         continue;
       }
 
-      if (involvedEntities.length == 0) {
+      if (involvedEntities == null) {
         involvedEntities = inter.involvedEntities;
         continue;
       }
