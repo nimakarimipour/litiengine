@@ -145,11 +145,7 @@ public final class ScreenManager {
    * @param screenName The name of the screen to be displayed.
    */
   public void display(final String screenName) {
-    Screen currentScreen = this.current();
-    if (currentScreen != null
-        && screenName != null
-        && currentScreen.getName() != null
-        && currentScreen.getName().equalsIgnoreCase(screenName)) {
+    if (this.current() != null && this.current().getName().equalsIgnoreCase(screenName)) {
       log.log(
           Level.INFO,
           "Skipping displaying of screen {0} because it is already the current screen.",
@@ -158,7 +154,6 @@ public final class ScreenManager {
     }
 
     if (this.screens.stream()
-        .filter(element -> element.getName() != null)
         .noneMatch(element -> element.getName().equalsIgnoreCase(screenName))) {
       log.log(
           Level.WARNING,
@@ -183,14 +178,9 @@ public final class ScreenManager {
    */
   @Nullable
   public Screen get(String screenName) {
-    if (screenName == null) {
-      return null;
-    }
     Optional<Screen> opt =
         this.screens.stream()
-            .filter(
-                element ->
-                    element.getName() != null && element.getName().equalsIgnoreCase(screenName))
+            .filter(element -> element.getName().equalsIgnoreCase(screenName))
             .findFirst();
     return opt.orElse(null);
   }
