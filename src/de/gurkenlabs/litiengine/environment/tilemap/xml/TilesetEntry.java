@@ -39,9 +39,7 @@ public class TilesetEntry extends CustomPropertyProvider implements ITilesetEntr
   private MapObjectLayer collisionData;
 
   /** Instantiates a new {@code TilesetEntry}. */
-  public TilesetEntry() {
-    this.tileset = new Tileset(); // Assuming a no-arg constructor is available for Tileset
-  }
+  public TilesetEntry() {}
 
   /**
    * Instantiates a new {@code TilesetEntry} from the specified tileset.
