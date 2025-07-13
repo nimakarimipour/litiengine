@@ -31,11 +31,6 @@ public class EmitterLoader {
 
   @Nullable
   public static EmitterData load(@Nullable URL emitterXml) {
-    if (emitterXml == null) {
-      log.log(Level.SEVERE, "The URL provided for emitterXml is null.");
-      return null;
-    }
-
     final String name = emitterXml.getFile();
     if (loadedEmitters.containsKey(name)) {
       return loadedEmitters.get(name);
