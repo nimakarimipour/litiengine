@@ -50,23 +50,25 @@ public class MouseDrawComponent extends ImageComponent {
   public void mouseDragged(MouseEvent e) {
     super.mouseDragged(e);
 
-    double brushX = e.getX();
-    double brushY = e.getY();
-    Graphics2D g = (Graphics2D) this.drawingSpace.getGraphics();
-    int brushXInt = (int) (brushX - this.getX() - this.brushSize * 1 / 2);
-    int brushYInt = (int) (brushY - this.getY() - this.brushSize * 1 / 2);
-    int brushSizeInt = (int) (this.brushSize);
-    g.setColor(this.getDrawingColor());
-    if (SwingUtilities.isLeftMouseButton(e)) {
-      g.setComposite(AlphaComposite.SrcOver);
-      g.fillRect(brushXInt, brushYInt, brushSizeInt, brushSizeInt);
-    } else if (SwingUtilities.isRightMouseButton(e)) {
-      g.setComposite(AlphaComposite.Clear);
-      g.fillRect(
-          brushXInt - brushSizeInt / 2,
-          brushYInt - brushSizeInt / 2,
-          brushSizeInt * 2,
-          brushSizeInt * 2);
+    if (this.drawingSpace != null) {
+      double brushX = e.getX();
+      double brushY = e.getY();
+      Graphics2D g = (Graphics2D) this.drawingSpace.getGraphics();
+      int brushXInt = (int) (brushX - this.getX() - this.brushSize * 1 / 2);
+      int brushYInt = (int) (brushY - this.getY() - this.brushSize * 1 / 2);
+      int brushSizeInt = (int) (this.brushSize);
+      g.setColor(this.getDrawingColor());
+      if (SwingUtilities.isLeftMouseButton(e)) {
+        g.setComposite(AlphaComposite.SrcOver);
+        g.fillRect(brushXInt, brushYInt, brushSizeInt, brushSizeInt);
+      } else if (SwingUtilities.isRightMouseButton(e)) {
+        g.setComposite(AlphaComposite.Clear);
+        g.fillRect(
+            brushXInt - brushSizeInt / 2,
+            brushYInt - brushSizeInt / 2,
+            brushSizeInt * 2,
+            brushSizeInt * 2);
+      }
     }
   }
 
