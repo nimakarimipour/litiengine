@@ -275,30 +275,24 @@ public class ListField extends GuiComponent {
             && this.getContent()[column + this.getHorizontalLowerBound()][
                     row + this.getVerticalLowerBound()]
                 != null) {
-          Object listEntry = this.getListEntry(column, row);
-          if (listEntry != null) {
-            if (this.getContent()[column + this.getHorizontalLowerBound()][
-                    row + this.getVerticalLowerBound()]
-                instanceof Image) {
-              ((YourListEntryType) listEntry)
-                  .setImage(
-                      (Image)
-                          this.getContent()[column + this.getHorizontalLowerBound()][
-                              row + this.getVerticalLowerBound()]);
-            } else {
-              ((YourListEntryType) listEntry)
-                  .setText(
-                      this
-                          .getContent()[column + this.getHorizontalLowerBound()][
-                          row + this.getVerticalLowerBound()]
-                          .toString());
-            }
+          if (this.getContent()[column + this.getHorizontalLowerBound()][
+                  row + this.getVerticalLowerBound()]
+              instanceof Image) {
+            this.getListEntry(column, row)
+                .setImage(
+                    (Image)
+                        this.getContent()[column + this.getHorizontalLowerBound()][
+                            row + this.getVerticalLowerBound()]);
+          } else {
+            this.getListEntry(column, row)
+                .setText(
+                    this
+                        .getContent()[column + this.getHorizontalLowerBound()][
+                        row + this.getVerticalLowerBound()]
+                        .toString());
           }
         } else {
-          Object listEntry = this.getListEntry(column, row);
-          if (listEntry != null) {
-            ((YourListEntryType) listEntry).setText("");
-          }
+          this.getListEntry(column, row).setText("");
         }
       }
     }
