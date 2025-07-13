@@ -178,10 +178,6 @@ public class Animation implements IUpdateable, ILaunchable {
       this.initKeyFrames();
     }
 
-    if (this.spritesheet == null) {
-      throw new IllegalStateException("Spritesheet is null");
-    }
-
     return this.spritesheet;
   }
 
