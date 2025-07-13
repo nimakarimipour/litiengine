@@ -275,34 +275,40 @@ public class ListField extends GuiComponent {
             && this.getContent()[column + this.getHorizontalLowerBound()][
                     row + this.getVerticalLowerBound()]
                 != null) {
-          if (this.getContent()[column + this.getHorizontalLowerBound()][
-                  row + this.getVerticalLowerBound()]
-              instanceof Image) {
-            this.getListEntry(column, row)
-                .setImage(
-                    (Image)
-                        this.getContent()[column + this.getHorizontalLowerBound()][
-                            row + this.getVerticalLowerBound()]);
-          } else {
-            this.getListEntry(column, row)
-                .setText(
-                    this
-                        .getContent()[column + this.getHorizontalLowerBound()][
-                        row + this.getVerticalLowerBound()]
-                        .toString());
+          ImageComponent listEntry = this.getListEntry(column, row);
+          if (listEntry != null) {
+            if (this.getContent()[column + this.getHorizontalLowerBound()][
+                    row + this.getVerticalLowerBound()]
+                instanceof Image) {
+              listEntry.setImage(
+                  (Image)
+                      this.getContent()[column + this.getHorizontalLowerBound()][
+                          row + this.getVerticalLowerBound()]);
+            } else {
+              listEntry.setText(
+                  this
+                      .getContent()[column + this.getHorizontalLowerBound()][
+                      row + this.getVerticalLowerBound()]
+                      .toString());
+            }
           }
         } else {
-          this.getListEntry(column, row).setText("");
+          ImageComponent listEntry = this.getListEntry(column, row);
+          if (listEntry != null) {
+            listEntry.setText("");
+          }
         }
       }
     }
+
+    ImageComponent selectedEntry = null;
 
     if (!this.isEntireRowSelected()
         && this.selectionColumn >= this.getHorizontalLowerBound()
         && this.selectionColumn < this.getHorizontalLowerBound() + this.getNumberOfShownColumns()
         && this.selectionRow >= this.getVerticalLowerBound()
         && this.selectionRow < this.getVerticalLowerBound() + this.getNumberOfShownRows()) {
-      this.selectedComponent =
+      selectedEntry =
           this.getListEntry(this.selectionColumn - this.getHorizontalLowerBound())
               .get(this.selectionRow - this.getVerticalLowerBound());
     } else if (this.isEntireRowSelected()
@@ -310,11 +316,10 @@ public class ListField extends GuiComponent {
         && this.selectionColumn < this.nbOfColumns
         && this.selectionRow >= this.getVerticalLowerBound()
         && this.selectionRow < this.getVerticalLowerBound() + this.getNumberOfShownRows()) {
-      this.selectedComponent =
-          this.getListEntry(0).get(this.selectionRow - this.getVerticalLowerBound());
-    } else {
-      this.selectedComponent = null;
+      selectedEntry = this.getListEntry(0).get(this.selectionRow - this.getVerticalLowerBound());
     }
+
+    this.selectedComponent = selectedEntry;
 
     if (this.selectedComponent != null) {
       this.selectedComponent.setSelected(true);
