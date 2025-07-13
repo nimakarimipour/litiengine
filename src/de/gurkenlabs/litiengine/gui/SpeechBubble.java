@@ -9,6 +9,7 @@ import de.gurkenlabs.litiengine.graphics.RenderType;
 import de.gurkenlabs.litiengine.graphics.ShapeRenderer;
 import de.gurkenlabs.litiengine.sound.Sound;
 import de.gurkenlabs.litiengine.util.Imaging;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -255,7 +256,7 @@ public class SpeechBubble implements IUpdateable, IRenderable {
 
   private void createBubbleImage() {
     final BufferedImage img = Imaging.getCompatibleImage(500, 500);
-    final Graphics2D g = img.createGraphics();
+    final Graphics2D g = Nullability.castToNonnull(img, "dimensions are non-zero").createGraphics();
     g.setFont(this.getFont());
     final float stringWidth = g.getFontMetrics().stringWidth(this.currentText);
     if (stringWidth < this.textBoxWidth) {
@@ -283,7 +284,6 @@ public class SpeechBubble implements IUpdateable, IRenderable {
 
     final Area ar = new Area(bounds);
     if (this.getAppearance().isRenderIndicator()) {
-      // Build a path
       final GeneralPath path = new GeneralPath();
       path.moveTo(bounds.getWidth() / 2.0, bounds.getHeight());
       path.lineTo(bounds.getWidth() / 2.0, bounds.getHeight() + TRIANGLE_SIZE);
