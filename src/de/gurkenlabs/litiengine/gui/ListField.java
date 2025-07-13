@@ -156,7 +156,7 @@ public class ListField extends GuiComponent {
   }
 
   public HorizontalSlider getHorizontalSlider() {
-    return this.horizontalSlider;
+    return Objects.requireNonNull(this.horizontalSlider);
   }
 
   /**
