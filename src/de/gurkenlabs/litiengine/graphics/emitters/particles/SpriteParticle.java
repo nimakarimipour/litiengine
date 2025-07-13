@@ -77,6 +77,9 @@ public class SpriteParticle extends Particle {
 
   public void setLoopSprite(boolean loopSprite) {
     this.loopSprite = loopSprite;
-    this.animation.getDefault().setLooping(loopSprite);
+    Animation defaultAnimation = this.animation.getDefault();
+    if (defaultAnimation != null) {
+      defaultAnimation.setLooping(loopSprite);
+    }
   }
 }
