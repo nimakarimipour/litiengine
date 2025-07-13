@@ -212,7 +212,9 @@ public class ResourceBundle implements Serializable {
 
     List<Tileset> distinctTilesets = new ArrayList<>();
     for (Tileset tileset : this.getTilesets()) {
-      if (distinctTilesets.stream().anyMatch(x -> x.getName().equals(tileset.getName()))) {
+      if (distinctTilesets.stream()
+          .filter(x -> x.getName() != null) // Ensure x.getName() is not null
+          .anyMatch(x -> x.getName().equals(tileset.getName()))) {
         continue;
       }
 
