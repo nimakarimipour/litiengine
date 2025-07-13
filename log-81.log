@@ -1,0 +1,49 @@
+====================
+Type='DEREFERENCE_NULLABLE', message='dereferenced expression debugCursorImg is @Nullable'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/graphics/MouseCursor.java:46
+    Graphics2D g = debugCursorImg.createGraphics();
+Log:
+12:02:59.998 TRACE edu.ucr.cs.riple.core.checkers.nullaway.NullAway.lambda$resolveRemainingErrors$19
+==============================
+12:02:59.998 TRACE edu.ucr.cs.riple.core.checkers.nullaway.NullAway.lambda$resolveRemainingErrors$19
+CHATGPT.COUNT = 0
+12:02:59.998 TRACE edu.ucr.cs.riple.core.checkers.nullaway.NullAway.lambda$resolveRemainingErrors$19
+CHATGPT.PROMPTS SIZE = 0
+12:02:59.998 TRACE edu.ucr.cs.riple.core.checkers.nullaway.NullAway.lambda$resolveRemainingErrors$19
+Both set to 0 and cleared 0
+12:02:59.998 TRACE edu.ucr.cs.riple.core.checkers.nullaway.NullAway.lambda$resolveRemainingErrors$19
+81 : TOP LEVEL CALL TO FIX ERROR: Type='DEREFERENCE_NULLABLE', message='dereferenced expression debugCursorImg is @Nullable'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/graphics/MouseCursor.java:46
+    Graphics2D g = debugCursorImg.createGraphics();
+12:03:01.566 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.AdvancedNullAwayCodeFix.fix
+Fixing error: Type='DEREFERENCE_NULLABLE', message='dereferenced expression debugCursorImg is @Nullable'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/graphics/MouseCursor.java:46
+    Graphics2D g = debugCursorImg.createGraphics();
+12:03:01.566 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.AdvancedNullAwayCodeFix.resolveDereferenceError
+Resolving dereference error: Type='DEREFERENCE_NULLABLE', message='dereferenced expression debugCursorImg is @Nullable'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/graphics/MouseCursor.java:46
+    Graphics2D g = debugCursorImg.createGraphics();
+12:03:01.566 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.AdvancedNullAwayCodeFix.resolveDereferenceError
+Checking nullability possibility at error point
+12:03:01.566 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.Response.<init>
+Creating Response:
+<response>
+<value>YES</value>
+</response>
+12:03:01.566 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.Response.<init>
+Response created:
+Agreement: 
+12:03:01.567 TRACE edu.ucr.cs.riple.core.checkers.nullaway.NullAway.lambda$resolveRemainingErrors$19
+--------Exception occurred in computing fix-------- | 81
+java.lang.NullPointerException: null
+	at edu.ucr.cs.riple.core.checkers.nullaway.codefix.AdvancedNullAwayCodeFix.resolveDereferenceErrorElementType(AdvancedNullAwayCodeFix.java:420)
+	at edu.ucr.cs.riple.core.checkers.nullaway.codefix.AdvancedNullAwayCodeFix.resolveDereferenceError(AdvancedNullAwayCodeFix.java:403)
+	at edu.ucr.cs.riple.core.checkers.nullaway.codefix.AdvancedNullAwayCodeFix.fix(AdvancedNullAwayCodeFix.java:138)
+	at edu.ucr.cs.riple.core.checkers.nullaway.NullAway.lambda$resolveRemainingErrors$19(NullAway.java:436)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1541)
+	at edu.ucr.cs.riple.core.checkers.nullaway.NullAway.lambda$resolveRemainingErrors$20(NullAway.java:404)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1337)
+	at edu.ucr.cs.riple.core.checkers.nullaway.NullAway.resolveRemainingErrors(NullAway.java:402)
+	at edu.ucr.cs.riple.core.Annotator.annotate(Annotator.java:131)
+	at edu.ucr.cs.riple.core.Annotator.start(Annotator.java:87)
+	at edu.ucr.cs.riple.core.Main.main(Main.java:196)
