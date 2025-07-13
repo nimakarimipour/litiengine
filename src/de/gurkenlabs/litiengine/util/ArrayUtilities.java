@@ -333,9 +333,6 @@ public final class ArrayUtilities {
    */
   @Nullable
   public static String join(@Nullable Collection<?> collection) {
-    if (collection == null) {
-      throw new IllegalArgumentException("Collection must not be null");
-    }
     return joinArray(collection.toArray(), DEFAULT_STRING_DELIMITER);
   }
 
