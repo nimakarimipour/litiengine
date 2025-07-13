@@ -8,6 +8,7 @@ import de.gurkenlabs.litiengine.entities.IMobileEntity;
 import de.gurkenlabs.litiengine.util.ArrayUtilities;
 import de.gurkenlabs.litiengine.util.MathUtilities;
 import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.awt.Shape;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
@@ -682,7 +683,6 @@ public final class PhysicsEngine implements IUpdateable {
    */
   @Override
   public void update() {
-    // retrieve all collision box rectangles once per update
     for (Collision type : Collision.values()) {
       if (type == Collision.NONE) {
         continue;
@@ -692,7 +692,7 @@ public final class PhysicsEngine implements IUpdateable {
       this.collisionBoxes
           .get(type)
           .addAll(
-              this.collisionEntities.get(type).stream()
+              Nullability.castToNonnull(this.collisionEntities.get(type)).stream()
                   .map(ICollisionEntity::getCollisionBox)
                   .collect(Collectors.toList()));
     }
