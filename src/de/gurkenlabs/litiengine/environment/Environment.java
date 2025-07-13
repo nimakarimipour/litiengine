@@ -43,6 +43,7 @@ import de.gurkenlabs.litiengine.physics.IMovementController;
 import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.util.TimeUtilities;
 import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
@@ -1257,6 +1258,7 @@ public final class Environment implements IRenderable {
    *
    * @return The map of this environment.
    */
+  @Nullable
   public IMap getMap() {
     return this.map;
   }
@@ -1749,6 +1751,10 @@ public final class Environment implements IRenderable {
    * @see #getMap()
    */
   public Point2D getCenter() {
+    if (this.getMap() == null) {
+      // Handle the null case appropriately, perhaps return a default Point2D or throw an exception.
+      return new Point2D.Double(0, 0);
+    }
     return new Point2D.Double(
         this.getMap().getSizeInPixels().getWidth() / 2.0,
         this.getMap().getSizeInPixels().getHeight() / 2.0);
@@ -1822,6 +1828,10 @@ public final class Environment implements IRenderable {
    * @return True if any entity could be loaded; otherwise false.
    */
   public boolean loadFromMap(final int mapId) {
+    if (this.getMap() == null) {
+      return false;
+    }
+
     for (final IMapObjectLayer layer : this.getMap().getMapObjectLayers()) {
       Optional<IMapObject> opt =
           layer.getMapObjects().stream()
@@ -2146,8 +2156,8 @@ public final class Environment implements IRenderable {
       final double ambientTime = TimeUtilities.nanoToMs(System.nanoTime() - ambientStart);
 
       long shadowRenderStart = System.nanoTime();
-      if (this.getStaticShadows().stream()
-          .anyMatch(x -> x.getShadowType() != StaticShadowType.NONE)) {
+      if (this.getStaticShadows().stream().anyMatch(x -> x.getShadowType() != StaticShadowType.NONE)
+          && this.getStaticShadowLayer() != null) {
         this.getStaticShadowLayer().render(g);
       }
 
@@ -2318,7 +2328,9 @@ public final class Environment implements IRenderable {
               renderTime,
               new GameMetrics.RenderInfo(
                   "layers",
-                  this.getMap().getRenderLayers().stream()
+                  Nullability.castToNonnull(this.getMap(), "constructed with a map")
+                      .getRenderLayers()
+                      .stream()
                       .filter(m -> m.getRenderType() == renderType)
                       .count()),
               new GameMetrics.RenderInfo("renderables", this.getRenderables(renderType).size()),
@@ -2327,12 +2339,17 @@ public final class Environment implements IRenderable {
   }
 
   private void addAmbientLight() {
-    final Color ambientColor =
-        this.getMap().getColorValue(MapProperty.AMBIENTCOLOR, AmbientLight.DEFAULT_COLOR);
-    this.ambientLight = new AmbientLight(this, ambientColor);
+    if (this.getMap() != null) {
+      final Color ambientColor =
+          this.getMap().getColorValue(MapProperty.AMBIENTCOLOR, AmbientLight.DEFAULT_COLOR);
+      this.ambientLight = new AmbientLight(this, ambientColor);
+    }
   }
 
   private void addStaticShadows() {
+    if (this.getMap() == null) {
+      return;
+    }
     final Color color =
         this.getMap().getColorValue(MapProperty.SHADOWCOLOR, StaticShadow.DEFAULT_COLOR);
     this.staticShadowLayer = new StaticShadowLayer(this, color);
@@ -2395,9 +2412,11 @@ public final class Environment implements IRenderable {
   }
 
   private void loadMapObjects() {
-    for (final IMapObjectLayer layer : this.getMap().getMapObjectLayers()) {
-      for (final IMapObject mapObject : layer.getMapObjects()) {
-        this.load(mapObject);
+    if (this.getMap() != null) {
+      for (final IMapObjectLayer layer : this.getMap().getMapObjectLayers()) {
+        for (final IMapObject mapObject : layer.getMapObjects()) {
+          this.load(mapObject);
+        }
       }
     }
   }
