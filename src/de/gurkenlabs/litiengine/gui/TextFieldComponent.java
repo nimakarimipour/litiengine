@@ -3,6 +3,7 @@ package de.gurkenlabs.litiengine.gui;
 import de.gurkenlabs.litiengine.Align;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.input.Input;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -116,7 +117,9 @@ public class TextFieldComponent extends ImageComponent {
           new Rectangle2D.Double(
               this.getX() + this.getTextX() + fm.stringWidth(this.getTextToRender(g)),
               this.getY() + this.getTextY(),
-              this.getFont().getSize2D() * 3 / 5,
+              Nullability.castToNonnull(this.getFont(), "constructor ensures non-null").getSize2D()
+                  * 3
+                  / 5,
               this.getFont().getSize2D() * 1 / 5);
       g.setColor(this.getAppearance().getForeColor());
       g.fill(cursor);
