@@ -178,14 +178,17 @@ public class AStarGrid implements IRenderable {
 
     // by default we calculate a penalty for props that cannot be destroyed
     int penalty = 0;
-    for (Prop prop : Game.world().environment().getProps()) {
-      if (!prop.hasCollision()
-          || !prop.isIndestructible()
-          || !prop.getBoundingBox().intersects(node.getBounds())) {
-        continue;
-      }
 
-      penalty += PENALTY_STATIC_PROP;
+    if (Game.world().environment() != null) {
+      for (Prop prop : Game.world().environment().getProps()) {
+        if (!prop.hasCollision()
+            || !prop.isIndestructible()
+            || !prop.getBoundingBox().intersects(node.getBounds())) {
+          continue;
+        }
+
+        penalty += PENALTY_STATIC_PROP;
+      }
     }
 
     // if neighbors are not walkable, we try to avoid this node
