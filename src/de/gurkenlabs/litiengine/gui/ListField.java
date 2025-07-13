@@ -4,7 +4,6 @@ import de.gurkenlabs.litiengine.Align;
 import de.gurkenlabs.litiengine.graphics.ShapeRenderer;
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.input.Input;
-import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -252,7 +251,6 @@ public class ListField extends GuiComponent {
     return this.verticalLowerBound;
   }
 
-  @Nullable
   public VerticalSlider getVerticalSlider() {
     return this.verticalSlider;
   }
@@ -597,24 +595,24 @@ public class ListField extends GuiComponent {
                   null);
         }
         if (this.isSliderInside() && this.getVerticalSlider() != null) {
-          VerticalSlider verticalSlider = this.getVerticalSlider();
           entryComponent.setX(
               this.getX()
-                  + ((columnWidth - (verticalSlider.getWidth() / this.getNumberOfShownColumns()))
+                  + ((columnWidth
+                          - (this.getVerticalSlider().getWidth() / this.getNumberOfShownColumns()))
                       * column));
           entryComponent.setWidth(
               entryComponent.getWidth()
-                  - (verticalSlider.getWidth() / this.getNumberOfShownColumns()));
+                  - (this.getVerticalSlider().getWidth() / this.getNumberOfShownColumns()));
         }
         if (this.isSliderInside() && this.getHorizontalSlider() != null) {
-          ImageComponent horizontalSlider = this.getHorizontalSlider();
           entryComponent.setY(
               this.getY()
-                  + ((rowHeight - (horizontalSlider.getHeight() / this.getNumberOfShownRows()))
+                  + ((rowHeight
+                          - (this.getHorizontalSlider().getHeight() / this.getNumberOfShownRows()))
                       * row));
           entryComponent.setHeight(
               entryComponent.getHeight()
-                  - (horizontalSlider.getHeight() / this.getNumberOfShownRows()));
+                  - (this.getHorizontalSlider().getHeight() / this.getNumberOfShownRows()));
         }
         entryComponent.setTextAlign(Align.LEFT);
         this.getListEntry(column).add(entryComponent);
@@ -636,41 +634,39 @@ public class ListField extends GuiComponent {
     this.onChange(
         s -> {
           if (this.getVerticalSlider() != null) {
-            VerticalSlider verticalSlider = this.getVerticalSlider();
-            verticalSlider.setCurrentValue(this.getVerticalLowerBound());
-            verticalSlider
+            this.getVerticalSlider().setCurrentValue(this.getVerticalLowerBound());
+            this.getVerticalSlider()
                 .getSliderComponent()
-                .setLocation(verticalSlider.getRelativeSliderPosition());
+                .setLocation(this.getVerticalSlider().getRelativeSliderPosition());
           }
           if (this.getHorizontalSlider() != null) {
-            ImageComponent horizontalSlider = this.getHorizontalSlider();
-            horizontalSlider.setCurrentValue(this.getHorizontalLowerBound());
-            horizontalSlider
+            this.getHorizontalSlider().setCurrentValue(this.getHorizontalLowerBound());
+            this.getHorizontalSlider()
                 .getSliderComponent()
-                .setLocation(horizontalSlider.getRelativeSliderPosition());
+                .setLocation(this.getHorizontalSlider().getRelativeSliderPosition());
           }
         });
     if (this.getVerticalSlider() != null) {
-      VerticalSlider verticalSlider = this.getVerticalSlider();
-      verticalSlider.onChange(
-          sliderValue -> {
-            this.setVerticalLowerBound(sliderValue.intValue());
-            verticalSlider
-                .getSliderComponent()
-                .setLocation(verticalSlider.getRelativeSliderPosition());
-            this.refresh();
-          });
+      this.getVerticalSlider()
+          .onChange(
+              sliderValue -> {
+                this.setVerticalLowerBound(sliderValue.intValue());
+                this.getVerticalSlider()
+                    .getSliderComponent()
+                    .setLocation(this.getVerticalSlider().getRelativeSliderPosition());
+                this.refresh();
+              });
     }
     if (this.getHorizontalSlider() != null) {
-      ImageComponent horizontalSlider = this.getHorizontalSlider();
-      horizontalSlider.onChange(
-          sliderValue -> {
-            this.setHorizontalLowerBound(sliderValue.intValue());
-            horizontalSlider
-                .getSliderComponent()
-                .setLocation(horizontalSlider.getRelativeSliderPosition());
-            this.refresh();
-          });
+      this.getHorizontalSlider()
+          .onChange(
+              sliderValue -> {
+                this.setHorizontalLowerBound(sliderValue.intValue());
+                this.getHorizontalSlider()
+                    .getSliderComponent()
+                    .setLocation(this.getHorizontalSlider().getRelativeSliderPosition());
+                this.refresh();
+              });
     }
   }
 
@@ -737,8 +733,7 @@ public class ListField extends GuiComponent {
                 this.getMaxRows() - this.getNumberOfShownRows(),
                 1);
       }
-      Nullability.castToNonnull(this.getVerticalSlider(), "maxNbOfRows positive")
-          .setCurrentValue(this.getVerticalLowerBound());
+      this.getVerticalSlider().setCurrentValue(this.getVerticalLowerBound());
       this.getComponents().add(this.getVerticalSlider());
     }
   }
