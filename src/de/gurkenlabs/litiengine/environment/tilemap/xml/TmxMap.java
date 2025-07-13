@@ -499,23 +499,6 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
     if (this.isInfinite()) {
       this.updateDimensionsByTileLayers();
     }
-
-    // Initialize the fields with non-null values or defaults if not already assigned
-    if (this.renderorder == null) {
-      this.renderorder = "defaultRenderOrder"; // Replace with appropriate default
-    }
-
-    if (this.hexsidelength == null) {
-      this.hexsidelength = "defaultHexSideLength"; // Replace with appropriate default
-    }
-
-    if (this.nextLayerId == null) {
-      this.nextLayerId = "defaultNextLayerId"; // Replace with appropriate default
-    }
-
-    if (this.nextObjectId == null) {
-      this.nextObjectId = "defaultNextObjectId"; // Replace with appropriate default
-    }
   }
 
   @SuppressWarnings("unused")
