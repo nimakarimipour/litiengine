@@ -1,0 +1,129 @@
+====================
+Type='RETURN_NULLABLE', message='returning @Nullable expression from method with @NonNull return type'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/resources/ResourcesContainer.java:190
+    return this.get(this.getIdentifier(resourceName), false);
+Log:
+11:48:41.710 TRACE edu.ucr.cs.riple.core.checkers.nullaway.NullAway.lambda$resolveRemainingErrors$19
+==============================
+11:48:41.710 TRACE edu.ucr.cs.riple.core.checkers.nullaway.NullAway.lambda$resolveRemainingErrors$19
+CHATGPT.COUNT = 1
+11:48:41.710 TRACE edu.ucr.cs.riple.core.checkers.nullaway.NullAway.lambda$resolveRemainingErrors$19
+CHATGPT.PROMPTS SIZE = 1
+11:48:41.710 TRACE edu.ucr.cs.riple.core.checkers.nullaway.NullAway.lambda$resolveRemainingErrors$19
+Both set to 0 and cleared 0
+11:48:41.710 TRACE edu.ucr.cs.riple.core.checkers.nullaway.NullAway.lambda$resolveRemainingErrors$19
+139 : TOP LEVEL CALL TO FIX ERROR: Type='RETURN_NULLABLE', message='returning @Nullable expression from method with @NonNull return type'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/resources/ResourcesContainer.java:190
+    return this.get(this.getIdentifier(resourceName), false);
+11:48:43.224 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.ChatGPT.ask
+Asking ChatGPT:
+I want to resolve a warning reported by NullAway.
+The error is of the type of "RETURN_NULLABLE" and the full error message is: "returning @Nullable expression from method with @NonNull return type".
+The line with the error is: "    return this.get(this.getIdentifier(resourceName), false);".
+
+The error is within "the method: get(java.lang.String)" and the code surrounding the error is:
+```java
+  public Collection<T> get(Predicate<? super T> pred) {
+    if (pred == null) {
+      return new ArrayList<>();
+    }
+
+    return this.resources.values().stream().filter(pred).collect(Collectors.toList());
+  }
+
+  /**
+   * Gets the resource with the specified name.<br>
+   *
+   * <p>This is the most common (and preferred) way to fetch resources from a container.
+   *
+   * <p>If not previously loaded, this method attempts to load the resource on the fly otherwise it
+   * will be retrieved from the cache.
+   *
+   * @param resourceName The resource's name.
+   * @return The resource with the specified name or null if not found.
+   */
+  public T get(@Nullable String resourceName) {
+    return this.get(this.getIdentifier(resourceName), false);
+  }
+
+  @Nullable
+  public T get(URL resourceName) {
+    return this.get(resourceName, false);
+  }
+
+  /**
+   * Gets the resource with the specified name.<br>
+   *
+   * <p>If no such resource is currently present on the container, it will be loaded with the
+   * specified {@code loadCallback} and added to this container.
+   *
+   * @param resourceName The resource's name.
+   * @param loadCallback The callback that is used to load the resource on-demand if it's not
+   *     present on this container.
+   * @return T The resource with the specified name.
+   */
+  public T get(String resourceName, Supplier<? extends T> loadCallback) {
+```
+
+Give me the fixed code snippet (ONLY THE METHOD REWRITE OF "get(java.lang.String)") in XML format in <response> tag like the example below. I will apply the fix to my codebase.
+Do not import any additional libraries or classes or java comments.
+If you can provide the fixed code snippet, provide it in the following format and place the code snippet in the <code> tag within ```java block.
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  Your fixed code snippet here
+  ```
+    ]]>
+  </code>
+</response>
+
+11:48:43.224 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.ChatGPT.ask
+Retrieving response from cache
+11:48:43.224 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.Response.tryCreate
+Trying to create Response:
+```xml
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  public T get(String resourceName) {
+    T resource = this.get(this.getIdentifier(resourceName), false);
+    if (resource == null) {
+      throw new NullPointerException("Resource not found: " + resourceName);
+    }
+    return resource;
+  }
+  ```
+    ]]>
+  </code>
+</response>
+```
+11:48:43.225 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.Response.<init>
+Creating Response:
+```xml
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  public T get(String resourceName) {
+    T resource = this.get(this.getIdentifier(resourceName), false);
+    if (resource == null) {
+      throw new NullPointerException("Resource not found: " + resourceName);
+    }
+    return resource;
+  }
+  ```
+    ]]>
+  </code>
+</response>
+```
+11:48:43.225 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.Response.<init>
+Response created:
+public T get(String resourceName) {
+    T resource = this.get(this.getIdentifier(resourceName), false);
+    if (resource == null) {
+      throw new NullPointerException("Resource not found: " + resourceName);
+    }
+    return resource;
+  }
