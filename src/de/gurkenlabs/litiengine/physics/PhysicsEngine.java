@@ -541,13 +541,8 @@ public final class PhysicsEngine implements IUpdateable {
   @Nullable
   public RaycastHit raycast(Line2D line, Collision collision, @Nullable ICollisionEntity entity) {
     final Point2D rayCastSource = new Point2D.Double(line.getX1(), line.getY1());
-    Collection<ICollisionEntity> collisionEntitiesForType = this.collisionEntities.get(collision);
 
-    if (collisionEntitiesForType == null) {
-      return null;
-    }
-
-    for (final ICollisionEntity collisionEntity : collisionEntitiesForType) {
+    for (final ICollisionEntity collisionEntity : this.collisionEntities.get(collision)) {
       if (!canCollide(entity, collisionEntity)) {
         continue;
       }
