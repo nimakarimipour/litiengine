@@ -146,12 +146,20 @@ public class TileData {
 
   @Initializer
   public void setValue(@Nullable String value) {
+    if (value == null) {
+      throw new IllegalArgumentException("value cannot be null");
+    }
     this.value = value;
     if (this.rawValue == null) {
       this.rawValue = new CopyOnWriteArrayList<>();
     }
-
     this.rawValue.add(0, value);
+    if (this.encoding == null) {
+      this.encoding = ""; // or a default value
+    }
+    if (this.chunks == null) {
+      this.chunks = new ArrayList<>(); // or other appropriate initialization
+    }
   }
 
   public List<Tile> getTiles() {
