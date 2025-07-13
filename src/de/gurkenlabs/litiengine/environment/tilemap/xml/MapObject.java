@@ -273,12 +273,8 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
   @Override
   @XmlTransient
   public void setX(float x) {
-    IMapObjectLayer layer = this.getLayer();
-    if (layer != null
-        && layer.getMap() != null
-        && layer.getMap().isInfinite()
-        && layer.getMap() instanceof TmxMap) {
-      TmxMap map = (TmxMap) layer.getMap();
+    if (this.isInfiniteMap()) {
+      TmxMap map = (TmxMap) this.getLayer().getMap();
       this.x = x + map.getChunkOffsetX() * map.getTileWidth();
       return;
     }
@@ -290,14 +286,9 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
   @XmlTransient
   public void setY(float y) {
     if (this.isInfiniteMap()) {
-      IMapObjectLayer layer = this.getLayer();
-      if (layer != null) {
-        TmxMap map = (TmxMap) layer.getMap();
-        if (map != null) {
-          this.y = y + map.getChunkOffsetY() * map.getTileHeight();
-          return;
-        }
-      }
+      TmxMap map = (TmxMap) this.getLayer().getMap();
+      this.y = y + map.getChunkOffsetY() * map.getTileHeight();
+      return;
     }
 
     this.y = y;
@@ -334,11 +325,8 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
   @Override
   public float getX() {
     if (this.isInfiniteMap()) {
-      IMapObjectLayer layer = this.getLayer();
-      if (layer != null && layer.getMap() != null) {
-        TmxMap map = (TmxMap) layer.getMap();
-        return this.x - map.getChunkOffsetX() * map.getTileWidth();
-      }
+      TmxMap map = (TmxMap) this.getLayer().getMap();
+      return this.x - map.getChunkOffsetX() * map.getTileWidth();
     }
 
     return this.x == null ? 0 : this.x;
@@ -347,10 +335,8 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
   @Override
   public float getY() {
     if (this.isInfiniteMap()) {
-      if (this.getLayer() != null) {
-        TmxMap map = (TmxMap) this.getLayer().getMap();
-        return this.y - map.getChunkOffsetY() * map.getTileHeight();
-      }
+      TmxMap map = (TmxMap) this.getLayer().getMap();
+      return this.y - map.getChunkOffsetY() * map.getTileHeight();
     }
 
     return this.y == null ? 0 : this.y;
@@ -378,7 +364,6 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
     return this.height;
   }
 
-  @Nullable
   @Override
   public IMapObjectLayer getLayer() {
     return this.layer;
@@ -428,7 +413,7 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
   @Override
   void finish(@Nullable URL location) throws TmxException {
     super.finish(location);
-    if (this.gid != null && this.getLayer() != null) {
+    if (this.gid != null) {
       this.tile = this.getLayer().getMap().getTilesetEntry(this.gid);
     }
   }
