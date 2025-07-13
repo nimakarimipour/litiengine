@@ -4,7 +4,6 @@ import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.IUpdateable;
 import de.gurkenlabs.litiengine.environment.tilemap.MapUtilities;
 import de.gurkenlabs.litiengine.util.MathUtilities;
-import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.awt.AWTException;
 import java.awt.Point;
 import java.awt.Robot;
@@ -426,47 +425,33 @@ public final class Mouse
     double diffX;
     double diffY;
     if (!this.grabMouse) {
+      // get diff relative from last mouse location
       diffX = e.getX() - this.lastLocation.getX();
       diffY = e.getY() - this.lastLocation.getY();
       this.lastLocation = new Point(e.getX(), e.getY());
     } else {
-      Dimension resolution = Game.window().getResolution();
-      if (resolution != null) {
-        final double screenCenterX = resolution.getWidth() * 0.5;
-        final double screenCenterY = resolution.getHeight() * 0.5;
-        final Point screenLocation = Game.window().getLocationOnScreen();
-        final int grabX = (int) (screenLocation.x + screenCenterX);
-        final int grabY = (int) (screenLocation.y + screenCenterY);
+      // get diff relative from grabbed position
+      final double screenCenterX = Game.window().getResolution().getWidth() * 0.5;
+      final double screenCenterY = Game.window().getResolution().getHeight() * 0.5;
+      final Point screenLocation = Game.window().getLocationOnScreen();
+      final int grabX = (int) (screenLocation.x + screenCenterX);
+      final int grabY = (int) (screenLocation.y + screenCenterY);
 
-        this.robot.mouseMove(grabX, grabY);
+      // lock original mouse back to the center of the screen
+      this.robot.mouseMove(grabX, grabY);
 
-        diffX = e.getXOnScreen() - (double) grabX;
-        diffY = e.getYOnScreen() - (double) grabY;
-      } else {
-        diffX = 0;
-        diffY = 0;
-      }
+      // calculate diffs and new location for the ingame mouse
+      diffX = e.getXOnScreen() - (double) grabX;
+      diffY = e.getYOnScreen() - (double) grabY;
     }
 
-    Dimension resolution = Game.window().getResolution();
-    if (resolution != null) {
-      double newX = this.getLocation().getX() + diffX * this.sensitivity;
-      double newY = this.getLocation().getY() + diffY * this.sensitivity;
-      newX =
-          MathUtilities.clamp(
-              newX,
-              0,
-              Nullability.castToNonnull(Game.window().getResolution(), "already checked")
-                  .getWidth());
-      newY =
-          MathUtilities.clamp(
-              newY,
-              0,
-              Nullability.castToNonnull(Game.window().getResolution(), "already checked")
-                  .getHeight());
+    // set new mouse location
+    double newX = this.getLocation().getX() + diffX * this.sensitivity;
+    double newY = this.getLocation().getY() + diffY * this.sensitivity;
+    newX = MathUtilities.clamp(newX, 0, Game.window().getResolution().getWidth());
+    newY = MathUtilities.clamp(newY, 0, Game.window().getResolution().getHeight());
 
-      this.location = new Point2D.Double(newX, newY);
-    }
+    this.location = new Point2D.Double(newX, newY);
   }
 
   /**
