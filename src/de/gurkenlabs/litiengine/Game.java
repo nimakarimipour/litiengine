@@ -30,6 +30,7 @@ import de.gurkenlabs.litiengine.sound.SoundPlayback;
 import de.gurkenlabs.litiengine.tweening.TweenEngine;
 import de.gurkenlabs.litiengine.util.ArrayUtilities;
 import de.gurkenlabs.litiengine.util.io.XmlUtilities;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.awt.event.KeyEvent;
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.net.URL;
@@ -83,7 +84,7 @@ public final class Game {
   @Nullable private static GameInfo gameInfo = new GameInfo();
   private static final TweenEngine tweenEngine = new TweenEngine();
 
-  private static GameLoop gameLoop;
+  @Nullable private static GameLoop gameLoop;
   @Nullable private static ScreenManager screenManager;
   @Nullable private static GameWindow gameWindow;
 
@@ -344,6 +345,7 @@ public final class Game {
    * @see ILoop#attach(IUpdateable)
    * @see ILoop#detach(IUpdateable)
    */
+  @Nullable
   public static IGameLoop loop() {
     return gameLoop;
   }
@@ -509,9 +511,12 @@ public final class Game {
    *
    * @param uncaughtExceptionHandler The handler to be used for uncaught exceptions.
    */
-  public static void setUncaughtExceptionHandler(
+  public static synchronized void setUncaughtExceptionHandler(
       UncaughtExceptionHandler uncaughtExceptionHandler) {
-    gameLoop.setUncaughtExceptionHandler(uncaughtExceptionHandler);
+    if (gameLoop != null) {
+      Nullability.castToNonnull(gameLoop, "null checked earlier")
+          .setUncaughtExceptionHandler(uncaughtExceptionHandler);
+    }
     Thread.setDefaultUncaughtExceptionHandler(uncaughtExceptionHandler);
   }
 
@@ -538,7 +543,12 @@ public final class Game {
           "The game cannot be started without being first initialized. Call Game.init(...) before Game.start().");
     }
 
-    gameLoop.start();
+    if (gameLoop == null) {
+      throw new IllegalStateException(
+          "Game loop is not initialized. Ensure Game.init(...) has been called successfully.");
+    }
+
+    Nullability.castToNonnull(gameLoop, "gameLoop cannot be null").start();
     tweenEngine.start();
     soundEngine.start();
 
@@ -612,7 +622,7 @@ public final class Game {
   }
 
   static synchronized void terminate() {
-    if (!initialized) {
+    if (!initialized || gameLoop == null) {
       return;
     }
 
