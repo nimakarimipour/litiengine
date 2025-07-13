@@ -113,11 +113,7 @@ public abstract class ResourcesContainer<T> {
   }
 
   public void add(@Nullable URL resourceName, T resource) {
-    if (resourceName != null) {
-      this.add(resourceName.toString(), resource);
-    } else {
-      throw new IllegalArgumentException("resourceName cannot be null");
-    }
+    this.add(resourceName.toString(), resource);
   }
 
   /** Clears the resource container by removing all previously loaded resources. */
