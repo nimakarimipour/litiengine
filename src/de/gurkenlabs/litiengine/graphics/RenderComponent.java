@@ -103,77 +103,74 @@ public class RenderComponent extends Canvas {
     }
     this.handleFade();
     Graphics2D g = null;
-    if (this.currentBufferStrategy != null) {
-      do {
-        try {
-          g = (Graphics2D) this.currentBufferStrategy.getDrawGraphics();
+    do {
+      try {
 
-          g.setColor(this.getBackground());
+        g = (Graphics2D) this.currentBufferStrategy.getDrawGraphics();
 
-          final Rectangle bounds = new Rectangle(0, 0, this.getWidth(), this.getHeight());
-          g.setClip(bounds);
-          g.fill(bounds);
+        g.setColor(this.getBackground());
 
-          g.setRenderingHint(
-              RenderingHints.KEY_ANTIALIASING,
-              Game.config().graphics().colorInterpolation()
-                  ? RenderingHints.VALUE_ANTIALIAS_ON
-                  : RenderingHints.VALUE_ANTIALIAS_OFF);
-          g.setRenderingHint(
-              RenderingHints.KEY_INTERPOLATION,
-              Game.config().graphics().colorInterpolation()
-                  ? RenderingHints.VALUE_INTERPOLATION_BILINEAR
-                  : RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
+        final Rectangle bounds = new Rectangle(0, 0, this.getWidth(), this.getHeight());
+        g.setClip(bounds);
+        g.fill(bounds);
 
-          final Screen currentScreen = Game.screens().current();
-          if (currentScreen != null) {
-            long renderStart = System.nanoTime();
-            currentScreen.render(g);
+        g.setRenderingHint(
+            RenderingHints.KEY_ANTIALIASING,
+            Game.config().graphics().colorInterpolation()
+                ? RenderingHints.VALUE_ANTIALIAS_ON
+                : RenderingHints.VALUE_ANTIALIAS_OFF);
+        g.setRenderingHint(
+            RenderingHints.KEY_INTERPOLATION,
+            Game.config().graphics().colorInterpolation()
+                ? RenderingHints.VALUE_INTERPOLATION_BILINEAR
+                : RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
 
-            if (Game.config().debug().trackRenderTimes()) {
-              final double totalRenderTime =
-                  TimeUtilities.nanoToMs(System.nanoTime() - renderStart);
-              Game.metrics().trackRenderTime("screen", totalRenderTime);
-            }
-          }
+        final Screen currentScreen = Game.screens().current();
+        if (currentScreen != null) {
+          long renderStart = System.nanoTime();
+          currentScreen.render(g);
 
-          Game.window().cursor().render(g);
-
-          for (final Consumer<Graphics2D> consumer : this.renderedConsumer) {
-            consumer.accept(g);
-          }
-
-          if (this.currentAlpha != Float.NaN) {
-            final int visibleAlpha =
-                MathUtilities.clamp(Math.round(255 * (1 - this.currentAlpha)), 0, 255);
-            g.setColor(
-                new Color(this.getBackground().getRGB() & 0xffffff | visibleAlpha << 24, true));
-            g.fill(bounds);
-          }
-
-          if (this.takeScreenShot && currentScreen != null) {
-            final BufferedImage img =
-                new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
-            final Graphics2D imgGraphics = img.createGraphics();
-            currentScreen.render(imgGraphics);
-
-            imgGraphics.dispose();
-            this.saveScreenShot(img);
-          }
-        } finally {
-          if (g != null) {
-            g.dispose();
+          if (Game.config().debug().trackRenderTimes()) {
+            final double totalRenderTime = TimeUtilities.nanoToMs(System.nanoTime() - renderStart);
+            Game.metrics().trackRenderTime("screen", totalRenderTime);
           }
         }
 
-        // PERFORMANCE HINT: this method call basically takes up all the time required by this
-        // method
-        this.currentBufferStrategy.show();
-      } while (this.currentBufferStrategy.contentsLost());
+        Game.window().cursor().render(g);
 
-      Toolkit.getDefaultToolkit().sync();
-      this.frameCount++;
-    }
+        for (final Consumer<Graphics2D> consumer : this.renderedConsumer) {
+          consumer.accept(g);
+        }
+
+        if (this.currentAlpha != Float.NaN) {
+          final int visibleAlpha =
+              MathUtilities.clamp(Math.round(255 * (1 - this.currentAlpha)), 0, 255);
+          g.setColor(
+              new Color(this.getBackground().getRGB() & 0xffffff | visibleAlpha << 24, true));
+          g.fill(bounds);
+        }
+
+        if (this.takeScreenShot && currentScreen != null) {
+          final BufferedImage img =
+              new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
+          final Graphics2D imgGraphics = img.createGraphics();
+          currentScreen.render(imgGraphics);
+
+          imgGraphics.dispose();
+          this.saveScreenShot(img);
+        }
+      } finally {
+        if (g != null) {
+          g.dispose();
+        }
+      }
+
+      // PERFORMANCE HINT: this method call basically takes up all the time required by this method
+      this.currentBufferStrategy.show();
+    } while (this.currentBufferStrategy.contentsLost());
+
+    Toolkit.getDefaultToolkit().sync();
+    this.frameCount++;
   }
 
   public void takeScreenshot() {
