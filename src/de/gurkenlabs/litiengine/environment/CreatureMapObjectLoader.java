@@ -78,11 +78,9 @@ public class CreatureMapObjectLoader extends MapObjectLoader {
   }
 
   protected Creature createNewCreature(IMapObject mapObject, @Nullable String spriteSheet) {
-    if (spriteSheet == null) {
-      // Handle the case where spriteSheet is null appropriately.
-      return new Creature("defaultSprite"); // or any suitable default value or behavior.
-    }
-
+    // for each known custom creature type, check if it was registered for the specified
+    // spriteSheetName
+    // if so: create an instance of the custom class instead of the default Creature class
     for (Class<? extends Creature> customCreature : customCreatureType) {
       for (String prefix : EntityAnimationController.getDefaultSpritePrefixes(customCreature)) {
         if (prefix != null && spriteSheet.equalsIgnoreCase(prefix)) {
@@ -94,6 +92,8 @@ public class CreatureMapObjectLoader extends MapObjectLoader {
       }
     }
 
+    // if no custom creature type war registered for the spriteSheet, we just create a new Creature
+    // instance
     return new Creature(spriteSheet);
   }
 
