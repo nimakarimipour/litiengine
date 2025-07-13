@@ -6,7 +6,6 @@ import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.util.AlphanumComparator;
 import de.gurkenlabs.litiengine.util.Imaging;
 import de.gurkenlabs.litiengine.util.io.FileUtilities;
-import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.awt.image.RasterFormatException;
@@ -209,8 +208,7 @@ public final class Spritesheet implements Comparable<Spritesheet> {
 
   public boolean isLoaded() {
     return Resources.spritesheets().contains(this.getName())
-        && Nullability.castToNonnull(Resources.spritesheets().get(this.getName()), "exists in map")
-            .equals(this);
+        && Resources.spritesheets().get(this.getName()).equals(this);
   }
 
   public void setSpriteHeight(final int spriteHeight) {
