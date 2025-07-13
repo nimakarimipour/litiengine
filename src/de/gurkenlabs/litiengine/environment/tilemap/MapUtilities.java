@@ -57,12 +57,18 @@ public final class MapUtilities {
   }
 
   public static Rectangle2D getTileBoundingBox(final IMap map, final Rectangle2D box) {
+    if (map == null || map.getOrientation() == null) {
+      return new Rectangle2D.Double();
+    }
+
     final int minX = (int) MathUtilities.clamp(box.getX(), 0, map.getSizeInPixels().width - 1);
     final int minY = (int) MathUtilities.clamp(box.getY(), 0, map.getSizeInPixels().height - 1);
     final int maxX = (int) MathUtilities.clamp(box.getMaxX(), 0, map.getSizeInPixels().width - 1);
     final int maxY = (int) MathUtilities.clamp(box.getMaxY(), 0, map.getSizeInPixels().height - 1);
+
     final Point minTilePoint = map.getOrientation().getTile(minX, minY, map);
     final Point maxTilePoint = map.getOrientation().getTile(maxX, maxY, map);
+
     int minTileX =
         map.getOrientation().getName().equals(MapOrientations.ISOMETRIC.getName())
             ? minTilePoint.x
@@ -79,6 +85,7 @@ public final class MapUtilities {
         map.getOrientation().getName().equals(MapOrientations.ISOMETRIC.getName())
             ? maxTilePoint.y
             : MathUtilities.clamp(maxTilePoint.y, 0, map.getWidth() - 1);
+
     final Rectangle2D minTileBounds =
         map.getOrientation()
             .getBounds(
@@ -124,7 +131,7 @@ public final class MapUtilities {
    * @return The x / y tile coordinate for the given mapLocation.
    */
   public static Point getTile(IMap map, final Point2D mapLocation) {
-    if (map == null) {
+    if (map == null || map.getOrientation() == null) {
       return new Point(-1, -1);
     }
     return map.getOrientation().getTile(mapLocation, map);
@@ -152,7 +159,10 @@ public final class MapUtilities {
 
   public static List<ITile> getTilesByPixelLocation(final IMap map, final Point2D location) {
     final List<ITile> tilesAtLocation = new ArrayList<>();
-    if (map.getTileLayers() == null || map.getTileLayers().isEmpty()) {
+    if (map == null
+        || map.getTileLayers() == null
+        || map.getTileLayers().isEmpty()
+        || map.getOrientation() == null) {
       return tilesAtLocation;
     }
 
@@ -179,6 +189,10 @@ public final class MapUtilities {
   @Nullable
   public static ITile getTopMostTile(final IMap map, final Point2D location) {
     if (map.getTileLayers() == null || map.getTileLayers().isEmpty()) {
+      return null;
+    }
+
+    if (map.getOrientation() == null) {
       return null;
     }
 
@@ -295,7 +309,7 @@ public final class MapUtilities {
 
   public static Rectangle2D getTileBoundingBox(
       @Nullable final IMap map, final Point2D mapLocation) {
-    if (map == null) {
+    if (map == null || map.getOrientation() == null) {
       return new Rectangle2D.Double();
     }
 
@@ -315,7 +329,7 @@ public final class MapUtilities {
   }
 
   public static Rectangle2D getTileBoundingBox(@Nullable final IMap map, final Point tile) {
-    if (map == null) {
+    if (map == null || map.getOrientation() == null) {
       return new Rectangle2D.Double();
     }
 

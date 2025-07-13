@@ -15,6 +15,7 @@ import de.gurkenlabs.litiengine.environment.tilemap.RenderOrder;
 import de.gurkenlabs.litiengine.environment.tilemap.StaggerAxis;
 import de.gurkenlabs.litiengine.environment.tilemap.StaggerIndex;
 import de.gurkenlabs.litiengine.util.io.FileUtilities;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Rectangle;
@@ -54,7 +55,7 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
 
   @XmlAttribute private String orientation;
 
-  @XmlTransient private IMapOrientation mapOrientation;
+  @Nullable @XmlTransient private IMapOrientation mapOrientation;
 
   @XmlAttribute private RenderOrder renderorder;
 
@@ -147,6 +148,7 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
     return this.nextLayerId;
   }
 
+  @Nullable
   @Override
   public IMapOrientation getOrientation() {
     if (this.mapOrientation == null) {
@@ -174,6 +176,9 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
 
   @Override
   public Dimension getSizeInPixels() {
+    if (this.getOrientation() == null) {
+      throw new IllegalStateException("Orientation must not be null");
+    }
     return this.getOrientation().getSize(this);
   }
 
@@ -503,7 +508,12 @@ public final class TmxMap extends CustomPropertyProvider implements IMap {
 
   @SuppressWarnings("unused")
   private void beforeMarshal(Marshaller m) {
-    this.orientation = this.mapOrientation.getName();
+    if (this.mapOrientation != null) {
+      this.orientation =
+          Nullability.castToNonnull(this.mapOrientation, "null check passed").getName();
+    } else {
+      this.orientation = "";
+    }
   }
 
   private void layerAdded(ILayer layer) {
