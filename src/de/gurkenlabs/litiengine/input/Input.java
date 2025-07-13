@@ -57,6 +57,9 @@ public final class Input {
    * @return The keyboard input device.
    */
   public static IKeyboard keyboard() {
+    if (keyboard == null) {
+      throw new IllegalStateException("Keyboard input device is not initialized.");
+    }
     return keyboard;
   }
 

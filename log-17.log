@@ -1,0 +1,126 @@
+====================
+Type='RETURN_NULLABLE', message='returning @Nullable expression from method with @NonNull return type'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/input/Input.java:60
+    return keyboard;
+Log:
+11:39:05.460 TRACE edu.ucr.cs.riple.core.checkers.nullaway.NullAway.lambda$resolveRemainingErrors$19
+==============================
+11:39:05.460 TRACE edu.ucr.cs.riple.core.checkers.nullaway.NullAway.lambda$resolveRemainingErrors$19
+CHATGPT.COUNT = 1
+11:39:05.460 TRACE edu.ucr.cs.riple.core.checkers.nullaway.NullAway.lambda$resolveRemainingErrors$19
+CHATGPT.PROMPTS SIZE = 1
+11:39:05.460 TRACE edu.ucr.cs.riple.core.checkers.nullaway.NullAway.lambda$resolveRemainingErrors$19
+Both set to 0 and cleared 0
+11:39:05.460 TRACE edu.ucr.cs.riple.core.checkers.nullaway.NullAway.lambda$resolveRemainingErrors$19
+17 : TOP LEVEL CALL TO FIX ERROR: Type='RETURN_NULLABLE', message='returning @Nullable expression from method with @NonNull return type'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/input/Input.java:60
+    return keyboard;
+11:39:06.989 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.ChatGPT.ask
+Asking ChatGPT:
+I want to resolve a warning reported by NullAway.
+The error is of the type of "RETURN_NULLABLE" and the full error message is: "returning @Nullable expression from method with @NonNull return type".
+The line with the error is: "    return keyboard;".
+
+The error is within "the method: keyboard()" and the code surrounding the error is:
+```java
+   * @return The gamepad manager.
+   * @see GamepadManager#current()
+   * @see GamepadManager#get(int)
+   */
+  public static GamepadManager gamepads() {
+    if (!Game.config().input().isGamepadSupport()) {
+      log.log(
+          Level.SEVERE,
+          "Cannot access gamepads because gamepad support is disabled in the configuration.");
+    }
+
+    return gamePadManager;
+  }
+
+  /**
+   * Gets the keyboard input device.
+   *
+   * @return The keyboard input device.
+   */
+  public static IKeyboard keyboard() {
+    return keyboard;
+  }
+
+  /**
+   * Gets the mouse input device.
+   *
+   * @return The mouse input device.
+   */
+  public static IMouse mouse() {
+    return mouse;
+  }
+
+  public static final class InputGameAdapter implements GameListener {
+    @Override
+    public void terminated() {
+      if (gamePadManager != null) {
+        gamePadManager.terminate();
+      }
+    }
+
+```
+
+Give me the fixed code snippet (ONLY THE METHOD REWRITE OF "keyboard()") in XML format in <response> tag like the example below. I will apply the fix to my codebase.
+Do not import any additional libraries or classes or java comments.
+If you can provide the fixed code snippet, provide it in the following format and place the code snippet in the <code> tag within ```java block.
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  Your fixed code snippet here
+  ```
+    ]]>
+  </code>
+</response>
+
+11:39:06.990 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.ChatGPT.ask
+Retrieving response from cache
+11:39:06.990 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.Response.tryCreate
+Trying to create Response:
+```xml
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  public static IKeyboard keyboard() {
+    if (keyboard == null) {
+      throw new IllegalStateException("Keyboard input device is not initialized.");
+    }
+    return keyboard;
+  }
+  ```
+    ]]>
+  </code>
+</response>
+```
+11:39:06.991 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.Response.<init>
+Creating Response:
+```xml
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  public static IKeyboard keyboard() {
+    if (keyboard == null) {
+      throw new IllegalStateException("Keyboard input device is not initialized.");
+    }
+    return keyboard;
+  }
+  ```
+    ]]>
+  </code>
+</response>
+```
+11:39:06.992 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.Response.<init>
+Response created:
+public static IKeyboard keyboard() {
+    if (keyboard == null) {
+      throw new IllegalStateException("Keyboard input device is not initialized.");
+    }
+    return keyboard;
+  }
