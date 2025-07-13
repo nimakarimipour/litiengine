@@ -132,10 +132,8 @@ public class TileLayer extends Layer implements ITileLayer {
       this.tileList.add(tile);
       this.tiles[y][x] = tile;
     }
-    if (this.getMap() != null) {
-      for (Tile tile : getData()) {
-        tile.setTilesetEntry(this.getMap().getTilesetEntry(tile.getGridId()));
-      }
+    for (Tile tile : getData()) {
+      tile.setTilesetEntry(this.getMap().getTilesetEntry(tile.getGridId()));
     }
   }
 }
