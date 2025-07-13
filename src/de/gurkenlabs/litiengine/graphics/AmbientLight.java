@@ -118,8 +118,6 @@ public class AmbientLight extends ColorLayer {
       return;
     }
 
-    // cut the light area where shadow Boxes are (this simulates light falling
-    // into and out of rooms)
     for (final StaticShadow col : this.getEnvironment().getStaticShadows()) {
       if (!light.getBoundingBox().intersects(col.getBoundingBox())) {
         continue;
@@ -153,7 +151,6 @@ public class AmbientLight extends ColorLayer {
         final Point2D shadowPoint2 =
             GeometricUtilities.project(lightFocus, line.getP2(), longerDimension);
 
-        // construct a shape from our points
         shadowParallelogram.moveTo(line.getP1().getX(), line.getP1().getY());
         shadowParallelogram.lineTo(shadowPoint1.getX(), shadowPoint1.getY());
         shadowParallelogram.lineTo(shadowPoint2.getX(), shadowPoint2.getY());
@@ -172,52 +169,54 @@ public class AmbientLight extends ColorLayer {
 
     final Paint oldPaint = g.getPaint();
 
-    // render parts that lie within the shadow with a gradient from the light
-    // color to transparent
     final Shape lightShape = light.getLightShape();
+    if (lightShape != null) {
+      final double radius =
+          lightShape.getBounds2D().getWidth() > lightShape.getBounds2D().getHeight()
+              ? lightShape.getBounds2D().getWidth()
+              : lightShape.getBounds2D().getHeight();
+      final Color[] transColors =
+          new Color[] {
+            light.getColor(),
+            new Color(
+                light.getColor().getRed(),
+                light.getColor().getGreen(),
+                light.getColor().getBlue(),
+                0)
+          };
+      final Point2D center =
+          new Point2D.Double(
+              lightShape.getBounds2D().getCenterX() - section.getX(),
+              lightShape.getBounds2D().getCenterY() - section.getY());
+      final Point2D focus =
+          new Point2D.Double(
+              center.getX() + lightShape.getBounds2D().getWidth() * light.getFocusOffsetX(),
+              center.getY() + lightShape.getBounds2D().getHeight() * light.getFocusOffsetY());
+      RadialGradientPaint paint =
+          new RadialGradientPaint(
+              center,
+              (float) (radius / 2d),
+              focus,
+              new float[] {0.0f, 1.00f},
+              transColors,
+              CycleMethod.NO_CYCLE);
 
-    final double radius =
-        lightShape.getBounds2D().getWidth() > lightShape.getBounds2D().getHeight()
-            ? lightShape.getBounds2D().getWidth()
-            : lightShape.getBounds2D().getHeight();
-    final Color[] transColors =
-        new Color[] {
-          light.getColor(),
-          new Color(
-              light.getColor().getRed(), light.getColor().getGreen(), light.getColor().getBlue(), 0)
-        };
-    final Point2D center =
-        new Point2D.Double(
-            lightShape.getBounds2D().getCenterX() - section.getX(),
-            lightShape.getBounds2D().getCenterY() - section.getY());
-    final Point2D focus =
-        new Point2D.Double(
-            center.getX() + lightShape.getBounds2D().getWidth() * light.getFocusOffsetX(),
-            center.getY() + lightShape.getBounds2D().getHeight() * light.getFocusOffsetY());
-    RadialGradientPaint paint =
-        new RadialGradientPaint(
-            center,
-            (float) (radius / 2d),
-            focus,
-            new float[] {0.0f, 1.00f},
-            transColors,
-            CycleMethod.NO_CYCLE);
+      g.setPaint(paint);
 
-    g.setPaint(paint);
+      if (lightArea != null) {
+        lightArea.transform(AffineTransform.getTranslateInstance(-section.getX(), -section.getY()));
+        fillShape = lightArea;
+      } else {
+        fillShape =
+            new Rectangle2D.Double(
+                light.getBoundingBox().getX() - section.getX(),
+                light.getBoundingBox().getY() - section.getY(),
+                light.getBoundingBox().getWidth(),
+                light.getBoundingBox().getHeight());
+      }
 
-    if (lightArea != null) {
-      lightArea.transform(AffineTransform.getTranslateInstance(-section.getX(), -section.getY()));
-      fillShape = lightArea;
-    } else {
-      fillShape =
-          new Rectangle2D.Double(
-              light.getBoundingBox().getX() - section.getX(),
-              light.getBoundingBox().getY() - section.getY(),
-              light.getBoundingBox().getWidth(),
-              light.getBoundingBox().getHeight());
+      g.fill(fillShape);
     }
-
-    g.fill(fillShape);
     g.setPaint(oldPaint);
   }
 }
