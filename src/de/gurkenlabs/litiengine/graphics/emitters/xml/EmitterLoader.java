@@ -48,10 +48,12 @@ public class EmitterLoader {
   }
 
   public static EmitterData load(@Nullable EmitterData emitterData) {
+    if (emitterData == null || emitterData.getName() == null) {
+      return null;
+    }
     if (loadedEmitters.containsKey(emitterData.getName())) {
       return loadedEmitters.get(emitterData.getName());
     }
-
     loadedEmitters.put(emitterData.getName(), emitterData);
     return emitterData;
   }
