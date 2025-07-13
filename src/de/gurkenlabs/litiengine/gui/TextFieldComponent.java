@@ -3,6 +3,7 @@ package de.gurkenlabs.litiengine.gui;
 import de.gurkenlabs.litiengine.Align;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.input.Input;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -63,6 +64,7 @@ public class TextFieldComponent extends ImageComponent {
     return this.maxLength;
   }
 
+  @Nullable
   @Override
   public String getText() {
     return this.fullText;
@@ -73,23 +75,25 @@ public class TextFieldComponent extends ImageComponent {
       return;
     }
 
+    String currentText = this.getText() != null ? this.getText() : "";
+
     switch (event.getKeyCode()) {
       case KeyEvent.VK_BACK_SPACE:
         this.handleBackSpace();
         break;
       case KeyEvent.VK_SPACE:
-        if (!this.getText().equals("")) {
-          this.setText(this.getText() + " ");
+        if (!currentText.equals("")) {
+          this.setText(currentText + " ");
         }
         break;
       case KeyEvent.VK_ENTER:
         this.toggleSelection();
-        this.changeConfirmedConsumers.forEach(c -> c.accept(this.getText()));
+        this.changeConfirmedConsumers.forEach(c -> c.accept(currentText));
 
         log.log(
             Level.INFO,
             "{0} typed into TextField with ComponentID {1}",
-            new Object[] {this.getText(), this.getComponentId()});
+            new Object[] {currentText, this.getComponentId()});
         break;
       default:
         this.handleNormalTyping(event);
@@ -137,27 +141,39 @@ public class TextFieldComponent extends ImageComponent {
   }
 
   private void handleBackSpace() {
-    if (Input.keyboard().isPressed(KeyEvent.VK_SHIFT)) {
-      while (this.getText().length() >= 1
-          && this.getText().charAt(this.getText().length() - 1) == ' ') {
-        this.setText(this.getText().substring(0, this.getText().length() - 1));
+    String text = this.getText();
+    if (text != null) {
+      if (Input.keyboard().isPressed(KeyEvent.VK_SHIFT)) {
+        while (Nullability.castToNonnull(this.getText(), "initially validated non-null").length()
+                >= 1
+            && text.charAt(text.length() - 1) == ' ') {
+          text = text.substring(0, text.length() - 1);
+          this.setText(text);
+        }
+
+        while (Nullability.castToNonnull(this.getText(), "initially validated non-null").length()
+                >= 1
+            && text.charAt(text.length() - 1) != ' ') {
+          text = text.substring(0, text.length() - 1);
+          this.setText(text);
+        }
+      } else if (text.length() >= 1) {
+        text = text.substring(0, text.length() - 1);
+        this.setText(text);
       }
 
-      while (this.getText().length() >= 1
-          && this.getText().charAt(this.getText().length() - 1) != ' ') {
-        this.setText(this.getText().substring(0, this.getText().length() - 1));
+      if (this.isKnownNumericFormat() && (text == null || text.isEmpty())) {
+        this.setText("0");
       }
-    } else if (this.getText().length() >= 1) {
-      this.setText(this.getText().substring(0, this.getText().length() - 1));
-    }
-
-    if (this.isKnownNumericFormat() && (this.getText() == null || this.getText().isEmpty())) {
-      this.setText("0");
     }
   }
 
   private void handleNormalTyping(KeyEvent event) {
-    if (this.getMaxLength() > 0 && this.getText().length() >= this.getMaxLength()) {
+    String currentText = this.getText();
+
+    if (currentText != null
+        && this.getMaxLength() > 0
+        && currentText.length() >= this.getMaxLength()) {
       return;
     }
 
@@ -166,20 +182,20 @@ public class TextFieldComponent extends ImageComponent {
       return;
     }
 
-    // regex check to ensure certain formats
     if (this.getFormat() != null && !this.getFormat().isEmpty()) {
       final Pattern pat = Pattern.compile(this.getFormat());
-      final Matcher mat = pat.matcher(this.getText() + text);
+      final Matcher mat = pat.matcher(currentText + text);
       if (!mat.matches()) {
         return;
       }
     }
 
-    if (this.isKnownNumericFormat() && this.getText().equals("0")) {
+    if (this.isKnownNumericFormat()
+        && "0".equals(Nullability.castToNonnull(this.getText(), "checked for null"))) {
       this.setText("");
     }
 
-    this.setText(this.getText() + text);
+    this.setText(currentText + text);
   }
 
   private boolean isKnownNumericFormat() {
