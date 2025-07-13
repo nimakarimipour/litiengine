@@ -93,7 +93,12 @@ public class Creature extends CombatEntity implements IMobileEntity {
   public float[] getTweenValues(TweenType tweenType) {
     switch (tweenType) {
       case VELOCITY:
-        return new float[] {this.getVelocity().get()};
+        Attribute<Float> velocity = this.getVelocity();
+        if (velocity != null && velocity.get() != null) {
+          return new float[] {velocity.get()};
+        } else {
+          throw new NullPointerException("Velocity attribute or its value is null");
+        }
       default:
         return super.getTweenValues(tweenType);
     }
@@ -103,7 +108,10 @@ public class Creature extends CombatEntity implements IMobileEntity {
   public void setTweenValues(TweenType tweenType, float[] newValues) {
     switch (tweenType) {
       case VELOCITY:
-        this.getVelocity().setBaseValue(newValues[0]);
+        Attribute<Float> velocity = this.getVelocity();
+        if (velocity != null) {
+          velocity.setBaseValue(newValues[0]);
+        }
         break;
       default:
         super.setTweenValues(tweenType, newValues);
@@ -149,12 +157,16 @@ public class Creature extends CombatEntity implements IMobileEntity {
   public float getTickVelocity() {
     // pixels per ms multiplied by the passed ms
     // ensure that entities don't travel too far in case of lag
-    return Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG)
-        * 0.001F
-        * this.getVelocity().get()
-        * Game.loop().getTimeScale();
+    Attribute<Float> velocity = this.getVelocity();
+    return velocity != null
+        ? Math.min(Game.loop().getDeltaTime(), GameLoop.TICK_DELTATIME_LAG)
+            * 0.001F
+            * velocity.get()
+            * Game.loop().getTimeScale()
+        : 0.0F;
   }
 
+  @Nullable
   @Override
   public Attribute<Float> getVelocity() {
     return this.velocity;
@@ -224,7 +236,10 @@ public class Creature extends CombatEntity implements IMobileEntity {
 
   @Override
   public void setVelocity(float velocity) {
-    this.getVelocity().setBaseValue(velocity);
+    Attribute<Float> velocityAttribute = this.getVelocity();
+    if (velocityAttribute != null) {
+      velocityAttribute.setBaseValue(velocity);
+    }
   }
 
   @Override
