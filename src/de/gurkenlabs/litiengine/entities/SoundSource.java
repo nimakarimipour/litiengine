@@ -40,7 +40,13 @@ public class SoundSource extends Entity {
    * @param sound The sound used for playback
    */
   public SoundSource(Sound sound) {
-    this.setSound(sound);
+    if (sound == null) {
+      throw new IllegalArgumentException("Sound cannot be null");
+    }
+    this.sound = sound;
+    this.playback = new SFXPlayback();
+    // Assume SFXPlayback is some class object that needs initializing
+    // Initialize any additional fields if necessary
   }
 
   /**
