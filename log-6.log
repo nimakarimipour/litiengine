@@ -1,0 +1,35 @@
+====================
+Type='WRONG_OVERRIDE_RETURN', message='method returns @Nullable, but superclass method de.gurkenlabs.litiengine.environment.tilemap.IMapOrientation.getBounds(java.awt.Point,de.gurkenlabs.litiengine.environment.tilemap.IMap) returns @NonNull'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/tilemap/MapOrientations.java:101
+    @Nullable
+Log:
+11:50:47.755 TRACE edu.ucr.cs.riple.core.checkers.nullaway.NullAway.lambda$resolveRemainingErrors$19
+==============================
+11:50:47.755 TRACE edu.ucr.cs.riple.core.checkers.nullaway.NullAway.lambda$resolveRemainingErrors$19
+CHATGPT.COUNT = 4
+11:50:47.756 TRACE edu.ucr.cs.riple.core.checkers.nullaway.NullAway.lambda$resolveRemainingErrors$19
+CHATGPT.PROMPTS SIZE = 4
+11:50:47.756 TRACE edu.ucr.cs.riple.core.checkers.nullaway.NullAway.lambda$resolveRemainingErrors$19
+Both set to 0 and cleared 0
+11:50:47.756 TRACE edu.ucr.cs.riple.core.checkers.nullaway.NullAway.lambda$resolveRemainingErrors$19
+6 : TOP LEVEL CALL TO FIX ERROR: Type='WRONG_OVERRIDE_RETURN', message='method returns @Nullable, but superclass method de.gurkenlabs.litiengine.environment.tilemap.IMapOrientation.getBounds(java.awt.Point,de.gurkenlabs.litiengine.environment.tilemap.IMap) returns @NonNull'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/tilemap/MapOrientations.java:101
+    @Nullable
+11:50:49.246 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.AdvancedNullAwayCodeFix.fix
+Fixing error: Type='WRONG_OVERRIDE_RETURN', message='method returns @Nullable, but superclass method de.gurkenlabs.litiengine.environment.tilemap.IMapOrientation.getBounds(java.awt.Point,de.gurkenlabs.litiengine.environment.tilemap.IMap) returns @NonNull'
+/home/nima/Developer/nullness-benchmarks/litiengine/src/de/gurkenlabs/litiengine/environment/tilemap/MapOrientations.java:101
+    @Nullable
+11:50:49.247 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.AdvancedNullAwayCodeFix.resolveWrongOverrideReturnError
+Fixing wrong override return error.
+11:50:49.247 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.AdvancedNullAwayCodeFix.resolveWrongOverrideReturnError
+Making the super method nullable.
+11:50:49.248 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.AdvancedNullAwayCodeFix.resolveWrongOverrideReturnError
+Resolving triggered errors for making super method nullable.
+11:50:49.248 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.AdvancedNullAwayCodeFix.fixTriggeredErrorsForLocation
+Fixing triggered errors for location: OnMethod{method='getBounds(java.awt.Point,de.gurkenlabs.litiengine.environment.tilemap.IMap)', clazz='de.gurkenlabs.litiengine.environment.tilemap.MapOrientations$Base'}
+11:50:49.248 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.AdvancedNullAwayCodeFix.getTriggeredErrorsFromLocation
+Impact not found, re-evaluating the location.
+11:50:50.797 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.AdvancedNullAwayCodeFix.fixTriggeredErrorsForLocation
+Triggered errors size: 0
+11:50:50.797 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.AdvancedNullAwayCodeFix.fixTriggeredErrorsForLocation
+Adding annotations for resolvable errors, size: 0
