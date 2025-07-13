@@ -1,7 +1,6 @@
 package de.gurkenlabs.litiengine.gui;
 
 import de.gurkenlabs.litiengine.graphics.TextRenderer;
-import edu.ucr.cs.riple.annotator.util.Nullability;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -36,7 +35,6 @@ public class FontIcon {
    *
    * @return the font
    */
-  @Nullable
   public Font getFont() {
     return this.font;
   }
@@ -70,16 +68,10 @@ public class FontIcon {
     final Color oldColor = g.getColor();
     final Font oldFont = g.getFont();
     g.setColor(color);
-    Font currentFont = this.getFont();
-    if (currentFont != null) {
-      if (bold) {
-        g.setFont(
-            Nullability.castToNonnull(this.getFont(), "checked for null")
-                .deriveFont(Font.BOLD, fontSize));
-      } else {
-        g.setFont(
-            Nullability.castToNonnull(this.getFont(), "checked for null").deriveFont(fontSize));
-      }
+    if (bold) {
+      g.setFont(this.getFont().deriveFont(Font.BOLD, fontSize));
+    } else {
+      g.setFont(this.getFont().deriveFont(fontSize));
     }
     TextRenderer.render(g, this.getText(), x, y);
     g.setColor(oldColor);
