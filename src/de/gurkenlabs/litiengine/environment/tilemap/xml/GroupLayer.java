@@ -11,10 +11,18 @@ import java.util.Collections;
 import java.util.List;
 import javax.annotation.Nullable;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElements;
 
 public class GroupLayer extends Layer implements IGroupLayer {
 
-  private List<ILayer> layers = new ArrayList<>();
+  @XmlElements({
+    @XmlElement(name = "imagelayer", type = ImageLayer.class),
+    @XmlElement(name = "layer", type = TileLayer.class),
+    @XmlElement(name = "objectgroup", type = MapObjectLayer.class),
+    @XmlElement(name = "group", type = GroupLayer.class)
+  })
+  private List<ILayer> layers;
 
   private transient List<ITileLayer> rawTileLayers = new ArrayList<>();
   private transient List<IMapObjectLayer> rawMapObjectLayers = new ArrayList<>();
