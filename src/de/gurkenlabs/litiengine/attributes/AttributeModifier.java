@@ -114,22 +114,21 @@ public class AttributeModifier<T extends Number> implements Comparable<Attribute
     this.active = active;
   }
 
-  @SuppressWarnings("unchecked")
   private T ensureType(final Double modValue, final T originalValue) {
-    if (originalValue instanceof Double) {
-      return (T) modValue;
-    } else if (originalValue instanceof Float) {
-      return (T) Float.valueOf(modValue.floatValue());
-    } else if (originalValue instanceof Long) {
-      return (T) Long.valueOf(modValue.longValue());
-    } else if (originalValue instanceof Byte) {
-      return (T) Byte.valueOf(modValue.byteValue());
-    } else if (originalValue instanceof Short) {
-      return (T) Short.valueOf(modValue.shortValue());
-    } else if (originalValue instanceof Integer) {
-      return (T) Integer.valueOf(modValue.intValue());
+      if (originalValue instanceof Double) {
+        return (T) modValue;
+      } else if (originalValue instanceof Float) {
+        return (T) Float.valueOf(modValue.floatValue());
+      } else if (originalValue instanceof Long) {
+        return (T) Long.valueOf(modValue.longValue());
+      } else if (originalValue instanceof Byte) {
+        return (T) Byte.valueOf(modValue.byteValue());
+      } else if (originalValue instanceof Short) {
+        return (T) Short.valueOf(modValue.shortValue());
+      } else if (originalValue instanceof Integer) {
+        return (T) Integer.valueOf(modValue.intValue());
+      } else {
+        throw new IllegalArgumentException("Unsupported type: " + originalValue.getClass().getName());
+      }
     }
-
-    return null;
-  }
 }
