@@ -447,47 +447,53 @@ public final class Environment implements IRenderable {
 
   /** Clears all loaded entities and renderable instances from this environment. */
   public void clear() {
-    Game.physics().clear();
-
-    this.combatEntities.clear();
-    this.mobileEntities.clear();
-    this.gravityForces.clear();
-    this.layerEntities.clear();
-    this.entitiesByTag.clear();
-    this.allEntities.clear();
-
-    for (RenderType renderType : RenderType.values()) {
-      this.miscEntities.get(renderType).clear();
-      this.renderListeners.get(renderType).clear();
-      this.renderables.get(renderType).clear();
+      Game.physics().clear();
+  
+      this.combatEntities.clear();
+      this.mobileEntities.clear();
+      this.gravityForces.clear();
+      this.layerEntities.clear();
+      this.entitiesByTag.clear();
+      this.allEntities.clear();
+  
+      for (RenderType renderType : RenderType.values()) {
+        if (this.miscEntities.get(renderType) != null) {
+          this.miscEntities.get(renderType).clear();
+        }
+        if (this.renderListeners.get(renderType) != null) {
+          this.renderListeners.get(renderType).clear();
+        }
+        if (this.renderables.get(renderType) != null) {
+          this.renderables.get(renderType).clear();
+        }
+      }
+  
+      dispose(this.allEntities.values());
+      dispose(this.triggers);
+      this.emitters.clear();
+      this.colliders.clear();
+      this.props.clear();
+      this.creatures.clear();
+      this.staticShadows.clear();
+      this.combatEntities.clear();
+      this.mobileEntities.clear();
+      this.lightSources.clear();
+      this.spawnPoints.clear();
+      this.soundSources.clear();
+      this.mapAreas.clear();
+      this.triggers.clear();
+  
+      this.ambientLight = null;
+      this.staticShadowLayer = null;
+  
+      for (Map<Integer, IEntity> type : this.miscEntities.values()) {
+        type.clear();
+      }
+  
+      this.initialized = false;
+  
+      this.fireEvent(l -> l.cleared(this));
     }
-
-    dispose(this.allEntities.values());
-    dispose(this.triggers);
-    this.emitters.clear();
-    this.colliders.clear();
-    this.props.clear();
-    this.creatures.clear();
-    this.staticShadows.clear();
-    this.combatEntities.clear();
-    this.mobileEntities.clear();
-    this.lightSources.clear();
-    this.spawnPoints.clear();
-    this.soundSources.clear();
-    this.mapAreas.clear();
-    this.triggers.clear();
-
-    this.ambientLight = null;
-    this.staticShadowLayer = null;
-
-    for (Map<Integer, IEntity> type : this.miscEntities.values()) {
-      type.clear();
-    }
-
-    this.initialized = false;
-
-    this.fireEvent(l -> l.cleared(this));
-  }
 
   /**
    * Determines whether the environment contains the specified entity.
