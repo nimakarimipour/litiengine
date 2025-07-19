@@ -213,33 +213,33 @@ public class Tileset extends CustomPropertyProvider implements ITileset {
   }
 
   @Override
-  public ITerrain[] getTerrain(int tileId) {
-    if (this.sourceTileset != null) {
-      return this.sourceTileset.getTerrain(tileId);
-    }
-
-    ITerrain[] terrains = new ITerrain[4];
-    if (!this.containsTile(tileId)) {
+    public ITerrain[] getTerrain(int tileId) {
+      if (this.sourceTileset != null) {
+        return this.sourceTileset.getTerrain(tileId);
+      }
+  
+      ITerrain[] terrains = new ITerrain[4];
+      if (this.allTiles == null || !this.containsTile(tileId)) {
+        return terrains;
+      }
+  
+      TilesetEntry tile = this.allTiles.get(tileId);
+      int[] tileTerrains = tile.getTerrainIds();
+      for (int i = 0; i < 4; i++) {
+        if (tileTerrains[i] < 0 || tileTerrains[i] >= this.getTerrainTypes().size()) {
+          continue;
+        }
+  
+        ITerrain terrain = this.getTerrainTypes().get(tileTerrains[i]);
+        if (terrain == null) {
+          continue;
+        }
+  
+        terrains[i] = terrain;
+      }
+  
       return terrains;
     }
-
-    TilesetEntry tile = this.allTiles.get(tileId);
-    int[] tileTerrains = tile.getTerrainIds();
-    for (int i = 0; i < 4; i++) {
-      if (tileTerrains[i] < 0 || tileTerrains[i] >= this.getTerrainTypes().size()) {
-        continue;
-      }
-
-      ITerrain terrain = this.getTerrainTypes().get(tileTerrains[i]);
-      if (terrain == null) {
-        continue;
-      }
-
-      terrains[i] = terrain;
-    }
-
-    return terrains;
-  }
 
   @Override
   public int getColumns() {
