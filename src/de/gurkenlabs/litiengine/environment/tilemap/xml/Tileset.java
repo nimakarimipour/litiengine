@@ -261,19 +261,18 @@ public class Tileset extends CustomPropertyProvider implements ITileset {
     return this.tilecount != null ? this.tilecount : 0;
   }
 
-  @Nullable
-  @Override
-  public ITilesetEntry getTile(int id) {
-    if (this.sourceTileset != null) {
-      return this.sourceTileset.getTile(id);
+  @Nullable @Override
+    public ITilesetEntry getTile(int id) {
+      if (this.sourceTileset != null) {
+        return this.sourceTileset.getTile(id);
+      }
+  
+      if (this.allTiles == null || id < 0 || id >= this.getTileCount()) {
+        return null;
+      }
+  
+      return this.allTiles.get(id);
     }
-
-    if (id < 0 || id >= this.getTileCount()) {
-      return null;
-    }
-
-    return this.allTiles.get(id);
-  }
 
   @Override
   public boolean containsTile(ITile tile) {
