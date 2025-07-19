@@ -154,9 +154,12 @@ public abstract class Layer extends CustomPropertyProvider implements ILayer {
   }
 
   @Override
-  public IMap getMap() {
-    return this.parentMap;
-  }
+    public IMap getMap() {
+      if (this.parentMap == null) {
+        throw new IllegalStateException("parentMap is null");
+      }
+      return this.parentMap;
+    }
 
   @Override
   public boolean isVisible() {
