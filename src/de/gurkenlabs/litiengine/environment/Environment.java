@@ -2387,14 +2387,14 @@ public final class Environment implements IRenderable {
   }
 
   private void addGravityForce(IMobileEntity entity) {
-    IMovementController mvmtControl = entity.movement();
-    if (mvmtControl != null) {
-      GravityForce force = new GravityForce(entity, this.getGravity(), Direction.DOWN);
-      force.setIdentifier(GRAVITY_IDENTIFIER);
-      entity.movement().apply(force);
-      this.gravityForces.put(entity.getMapId(), force);
+      IMovementController mvmtControl = entity.movement();
+      if (mvmtControl != null) {
+        GravityForce force = new GravityForce(entity, this.getGravity(), Direction.DOWN);
+        force.setIdentifier(GRAVITY_IDENTIFIER);
+        mvmtControl.apply(force);
+        this.gravityForces.put(entity.getMapId(), force);
+      }
     }
-  }
 
   private void removeGravity(IMobileEntity entity) {
     if (this.gravityForces.containsKey(entity.getMapId())) {
