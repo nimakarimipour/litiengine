@@ -38,25 +38,32 @@ public class MapImage extends CustomPropertyProvider implements IMapImage {
    * @param original the original we want to copy
    */
   public MapImage(MapImage original) {
-    super(original);
-
-    if (original == null) {
-      return;
+      super(original);
+  
+      if (original == null) {
+        this.transparentcolor = new Color(0, 0, 0, 0); // Default initialization
+        this.absolutePath = new URL("http://example.com"); // Default initialization
+        return;
+      }
+  
+      this.source = original.getSource();
+      if (original.getTransparentColor() != null) {
+        this.transparentcolor =
+            new Color(
+                original.getTransparentColor().getRed(),
+                original.getTransparentColor().getGreen(),
+                original.getTransparentColor().getBlue(),
+                original.getTransparentColor().getAlpha());
+      } else {
+        this.transparentcolor = new Color(0, 0, 0, 0); // Default initialization if null
+      }
+      
+      this.width = original.getWidth();
+      this.height = original.getHeight();
+      this.absolutePath = original.getAbsoluteSourcePath() != null ?
+                          original.getAbsoluteSourcePath() :
+                          new URL("http://example.com"); // Default initialization if null
     }
-
-    this.source = original.getSource();
-    if (original.getTransparentColor() != null) {
-      this.transparentcolor =
-          new Color(
-              original.getTransparentColor().getRed(),
-              original.getTransparentColor().getGreen(),
-              original.getTransparentColor().getBlue(),
-              original.getTransparentColor().getAlpha());
-    }
-    this.width = original.getWidth();
-    this.height = original.getHeight();
-    this.absolutePath = original.getAbsoluteSourcePath();
-  }
 
   @Override
   public URL getAbsoluteSourcePath() {
