@@ -2290,41 +2290,45 @@ public final class Environment implements IRenderable {
   }
 
   private void render(Graphics2D g, RenderType renderType) {
-    long renderStart = System.nanoTime();
-
-    // 1. Render map layers
-    if (this.getMap() != null) {
-      MapRenderer.render(g, this.getMap(), Game.world().camera().getViewport(), this, renderType);
+      long renderStart = System.nanoTime();
+  
+      // 1. Render map layers
+      if (this.getMap() != null) {
+        MapRenderer.render(g, this.getMap(), Game.world().camera().getViewport(), this, renderType);
+      }
+  
+      // 2. Render renderables
+      for (final IRenderable rend : this.getRenderables(renderType)) {
+        rend.render(g);
+      }
+  
+      // 3. Render entities if miscEntities.get(renderType) is not null
+      if (this.miscEntities.get(renderType) != null) {
+        Game.graphics()
+            .renderEntities(
+                g, this.miscEntities.get(renderType).values(), renderType == RenderType.NORMAL);
+      }
+  
+      // 4. fire event
+      this.fireRenderEvent(g, renderType);
+  
+      if (Game.config().debug().trackRenderTimes()) {
+        final double renderTime = TimeUtilities.nanoToMs(System.nanoTime() - renderStart);
+        Game.metrics()
+            .trackRenderTime(
+                renderType.toString().toLowerCase(),
+                renderTime,
+                new GameMetrics.RenderInfo(
+                    "layers",
+                    this.getMap().getRenderLayers().stream()
+                        .filter(m -> m.getRenderType() == renderType)
+                        .count()),
+                new GameMetrics.RenderInfo("renderables", this.getRenderables(renderType).size()),
+                new GameMetrics.RenderInfo(
+                    "entities",
+                    this.miscEntities.get(renderType) != null ? this.miscEntities.get(renderType).size() : 0));
+      }
     }
-
-    // 2. Render renderables
-    for (final IRenderable rend : this.getRenderables(renderType)) {
-      rend.render(g);
-    }
-
-    // 3. Render entities
-    Game.graphics()
-        .renderEntities(
-            g, this.miscEntities.get(renderType).values(), renderType == RenderType.NORMAL);
-
-    // 4. fire event
-    this.fireRenderEvent(g, renderType);
-
-    if (Game.config().debug().trackRenderTimes()) {
-      final double renderTime = TimeUtilities.nanoToMs(System.nanoTime() - renderStart);
-      Game.metrics()
-          .trackRenderTime(
-              renderType.toString().toLowerCase(),
-              renderTime,
-              new GameMetrics.RenderInfo(
-                  "layers",
-                  this.getMap().getRenderLayers().stream()
-                      .filter(m -> m.getRenderType() == renderType)
-                      .count()),
-              new GameMetrics.RenderInfo("renderables", this.getRenderables(renderType).size()),
-              new GameMetrics.RenderInfo("entities", this.miscEntities.get(renderType).size()));
-    }
-  }
 
   private void addAmbientLight() {
     final Color ambientColor =
