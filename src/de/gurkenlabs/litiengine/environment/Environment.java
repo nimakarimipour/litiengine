@@ -1258,8 +1258,11 @@ public final class Environment implements IRenderable {
    * @return The map of this environment.
    */
   public IMap getMap() {
-    return this.map;
-  }
+      if (this.map == null) {
+        throw new NullPointerException("Map is not initialized.");
+      }
+      return this.map;
+    }
 
   /**
    * Gets an immutable collection containing all {@link IMobileEntity} instances on this
