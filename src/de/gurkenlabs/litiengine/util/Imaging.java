@@ -366,18 +366,21 @@ public final class Imaging {
    * @return The flipped image.
    */
   public static BufferedImage horizontalFlip(final BufferedImage img) {
-    final int w = img.getWidth();
-    final int h = img.getHeight();
-    if (w == 0 || h == 0) {
-      return img;
+      final int w = img.getWidth();
+      final int h = img.getHeight();
+      if (w == 0 || h == 0) {
+        return img;
+      }
+  
+      final BufferedImage dimg = getCompatibleImage(w, h);
+      if (dimg == null) {
+        throw new NullPointerException("getCompatibleImage returned null");
+      }
+      final Graphics2D g = dimg.createGraphics();
+      g.drawImage(img, 0, 0, w, h, w, 0, 0, h, null);
+      g.dispose();
+      return dimg;
     }
-
-    final BufferedImage dimg = getCompatibleImage(w, h);
-    final Graphics2D g = dimg.createGraphics();
-    g.drawImage(img, 0, 0, w, h, w, 0, 0, h, null);
-    g.dispose();
-    return dimg;
-  }
 
   /**
    * Flips the specified image vertically.
