@@ -225,8 +225,12 @@ public abstract class GuiComponent
    * @return the GuiComponent's font
    */
   public Font getFont() {
-    return this.font;
-  }
+      if (this.font == null) {
+        // Handle the case where font is null, e.g., throw an exception or return a default font
+        throw new IllegalStateException("Font must not be null");
+      }
+      return this.font;
+    }
 
   /**
    * Gets the height of this GuiComponent.
