@@ -69,18 +69,18 @@ public class MapOrientations {
    * @return The {@code IMapOrientation} by the given name
    */
   public static IMapOrientation forName(String name) {
-    if ("orthogonal".equals(name)) {
-      return ORTHOGONAL;
-    } else if ("isometric".equals(name)) {
-      return ISOMETRIC;
-    } else if ("staggered".equals(name)) {
-      return ISOMETRIC_STAGGERED;
-    } else if ("hexagonal".equals(name)) {
-      return HEXAGONAL;
-    } else {
-      return null;
+      if ("orthogonal".equals(name)) {
+        return ORTHOGONAL;
+      } else if ("isometric".equals(name)) {
+        return ISOMETRIC;
+      } else if ("staggered".equals(name)) {
+        return ISOMETRIC_STAGGERED;
+      } else if ("hexagonal".equals(name)) {
+        return HEXAGONAL;
+      } else {
+        throw new IllegalArgumentException("Invalid map orientation: " + name);
+      }
     }
-  }
 
   private abstract static class Base implements IMapOrientation {
     @Override
