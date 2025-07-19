@@ -210,9 +210,9 @@ public class CustomPropertyProvider implements ICustomPropertyProvider {
   }
 
   @Override
-  public <T extends Enum<T>> T getEnumValue(String propertyName, Class<T> enumType) {
-    return this.getEnumValue(propertyName, enumType, null);
-  }
+    public <T extends Enum<T>> T getEnumValue(String propertyName, Class<T> enumType) {
+      return this.getEnumValue(propertyName, enumType, enumType.getEnumConstants()[0]);
+    }
 
   @Override
   public <T extends Enum<T>> T getEnumValue(
