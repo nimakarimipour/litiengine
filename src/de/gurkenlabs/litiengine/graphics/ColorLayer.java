@@ -34,8 +34,11 @@ public abstract class ColorLayer implements IRenderable {
   }
 
   public Color getColor() {
-    return this.color;
-  }
+      if (this.color == null) {
+        throw new IllegalStateException("Color is not initialized");
+      }
+      return this.color;
+    }
 
   public void setAlpha(int ambientAlpha) {
     this.setColor(
