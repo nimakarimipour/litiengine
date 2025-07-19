@@ -323,14 +323,14 @@ public class MapObject extends CustomPropertyProvider implements IMapObject {
   }
 
   @Override
-  public float getX() {
-    if (this.isInfiniteMap()) {
-      TmxMap map = (TmxMap) this.getLayer().getMap();
-      return this.x - map.getChunkOffsetX() * map.getTileWidth();
+    public float getX() {
+      if (this.isInfiniteMap()) {
+        TmxMap map = (TmxMap) this.getLayer().getMap();
+        return (this.x == null ? 0 : this.x) - map.getChunkOffsetX() * map.getTileWidth();
+      }
+  
+      return this.x == null ? 0 : this.x;
     }
-
-    return this.x == null ? 0 : this.x;
-  }
 
   @Override
   public float getY() {
