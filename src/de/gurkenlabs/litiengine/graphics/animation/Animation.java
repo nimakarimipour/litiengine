@@ -167,19 +167,23 @@ public class Animation implements IUpdateable, ILaunchable {
   }
 
   public Spritesheet getSpritesheet() {
-    // in case the previously sprite sheet was unloaded (removed from the loaded sprite sheets),
-    // try to find an updated one by the name of the previously used sprite
-    if (this.spritesheet != null && !this.spritesheet.isLoaded()) {
-      log.log(
-          Level.INFO,
-          "Reloading spritesheet {0} for animation {1}",
-          new Object[] {this.spritesheet.getName(), this.getName()});
-      this.spritesheet = Resources.spritesheets().get(this.spritesheet.getName());
-      this.initKeyFrames();
+      // in case the previously sprite sheet was unloaded (removed from the loaded sprite sheets),
+      // try to find an updated one by the name of the previously used sprite
+      if (this.spritesheet != null && !this.spritesheet.isLoaded()) {
+        log.log(
+            Level.INFO,
+            "Reloading spritesheet {0} for animation {1}",
+            new Object[] {this.spritesheet.getName(), this.getName()});
+        this.spritesheet = Resources.spritesheets().get(this.spritesheet.getName());
+        this.initKeyFrames();
+      }
+      
+      if (this.spritesheet == null) {
+        throw new IllegalStateException("Spritesheet is null");
+      }
+  
+      return this.spritesheet;
     }
-
-    return this.spritesheet;
-  }
 
   /**
    * Gets a value indicating whether this animation intended to loop.
