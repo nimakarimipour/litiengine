@@ -501,9 +501,12 @@ public abstract class Entity implements IEntity, EntityRenderListener, Tweenable
   }
 
   @Override
-  public Environment getEnvironment() {
-    return this.environment;
-  }
+    public Environment getEnvironment() {
+      if (this.environment == null) {
+        throw new IllegalStateException("Environment is not set");
+      }
+      return this.environment;
+    }
 
   @Override
   public void loaded(Environment environment) {
