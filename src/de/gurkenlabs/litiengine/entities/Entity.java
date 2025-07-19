@@ -295,21 +295,24 @@ public abstract class Entity implements IEntity, EntityRenderListener, Tweenable
   }
 
   @Override
-  public void perform(String actionName) {
-    if (actionName == null || actionName.isEmpty()) {
-      return;
+    public void perform(String actionName) {
+      if (actionName == null || actionName.isEmpty()) {
+        return;
+      }
+  
+      if (!this.actions.exists(actionName)) {
+        log.log(
+            Level.INFO,
+            "Entity \"{0}\" could not perform the action \"{1}\". \nMaybe you need to register the action or provide an appropriate Action annotation on the method you want to call.",
+            new Object[] {this, actionName});
+        return;
+      }
+  
+      EntityAction action = this.actions.get(actionName);
+      if (action != null) {
+        action.perform();
+      }
     }
-
-    if (!this.actions.exists(actionName)) {
-      log.log(
-          Level.INFO,
-          "Entity \"{0}\" could not perform the action \"{1}\". \nMaybe you need to register the action or provide an appropriate Action annotation on the method you want to call.",
-          new Object[] {this, actionName});
-      return;
-    }
-
-    this.actions.get(actionName).perform();
-  }
 
   @Nullable
   @Override
