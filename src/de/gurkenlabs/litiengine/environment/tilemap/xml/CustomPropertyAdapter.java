@@ -70,15 +70,14 @@ public class CustomPropertyAdapter
       }
     }
 
-    @SuppressWarnings("unused")
     private void beforeMarshal(Marshaller m) throws URISyntaxException {
-      if (this.type.equals(PropertyType.STRING)) {
-        this.type = null;
+          if (this.type != null && this.type.equals(PropertyType.STRING)) {
+              this.type = null;
+          }
+          if (this.location != null) {
+              this.value = m.getAdapter(URLAdapter.class).marshal(this.location);
+          }
       }
-      if (this.location != null) {
-        this.value = m.getAdapter(URLAdapter.class).marshal(this.location);
-      }
-    }
 
     @Override
     public int compareTo(Property o) {
