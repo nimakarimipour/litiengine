@@ -156,9 +156,12 @@ public class Creature extends CombatEntity implements IMobileEntity {
   }
 
   @Override
-  public Attribute<Float> getVelocity() {
-    return this.velocity;
-  }
+    public Attribute<Float> getVelocity() {
+      if (this.velocity == null) {
+        throw new NullPointerException("Velocity attribute is null");
+      }
+      return this.velocity;
+    }
 
   public boolean isScaling() {
     return this.scaling;
