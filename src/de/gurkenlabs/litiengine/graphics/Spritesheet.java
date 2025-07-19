@@ -105,8 +105,11 @@ public final class Spritesheet implements Comparable<Spritesheet> {
   }
 
   public BufferedImage getImage() {
-    return this.image;
-  }
+      if (this.image == null) {
+        throw new IllegalStateException("Image is not initialized");
+      }
+      return this.image;
+    }
 
   public ImageFormat getImageFormat() {
     return this.imageFormat;
